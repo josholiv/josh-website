@@ -1,8 +1,24 @@
 ---
-const platform = "github";
-const username = "withastro";
+const platform = {
+  firstName: "Josh",
+  country: "the United States",
+  occupation: "research assistant",
+  hobbies: ["traveling", "3D printing", "baseball"],
+};
+
+
+const githublink = {
+    site: "github",
+    username: "josholiv";
+}
+
+const bskylink = {
+    site: "bsky"
+    username: "josholivier"
+}
 ---
 
 <footer>
-  <p>Learn more about my projects on <a href={`https://www.${platform}.com/${username}`}>{platform}</a>!</p>
+  <p>Learn more about my projects on <a href={`https://www.${githublink.site}.com/${githublink.username}`}>{githublink}</a> and 
+    <a href={`https://${bskylink.username}.${bskylink.site}.app/`}>{bskylink}</a>!</p>
 </footer>
