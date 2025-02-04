@@ -63,6 +63,11 @@ const textCase = "uppercase";
 		{happy && <p>I am happy to be learning Astro!</p>}
 		{finished && <p>I finished this tutorial!</p>}
 		{goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+		<script>
+			document.querySelector('.hamburger')?.addEventListener('click', () => {
+			  document.querySelector('.nav-links')?.classList.toggle('expanded');
+			});
+		</script>
 		<Footer />
 	</body>
 </html>

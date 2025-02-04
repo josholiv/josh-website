@@ -23,6 +23,11 @@ const pageTitle = "Blog";
 		<li><a href="/posts/post-2/">Post 2</a></li>
     	<li><a href="/posts/post-3/">Post 3</a></li>
  		</ul>
+		 <script>
+			document.querySelector('.hamburger')?.addEventListener('click', () => {
+			  document.querySelector('.nav-links')?.classList.toggle('expanded');
+			});
+		</script>
 		<Footer />
 	</body>
 </html>
