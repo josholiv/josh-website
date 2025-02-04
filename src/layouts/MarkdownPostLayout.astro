@@ -1,4 +1,5 @@
 ---
+import Footer from '../components/Footer.astro'
 const { frontmatter } = Astro.props;
 ---
 <h1>{frontmatter.title}</h1>
@@ -7,3 +8,4 @@ const { frontmatter } = Astro.props;
 <p>Written by: {frontmatter.author}</p>
 <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
 <slot />
+<Footer />
