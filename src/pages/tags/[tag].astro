@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPost from '../../components/BlogPost.astro';
 
 export async function getStaticPaths() {
+    const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
   return [
     { params: { tag: "astro" } },
     { params: { tag: "successes" } },
@@ -13,7 +15,12 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.params;
+const { posts } = Astro.props;
+const filteredPosts = posts.filter((post: any) => post.frontmatter.tags?.includes(tag));
 ---
 <BaseLayout pageTitle={tag}>
   <p>Posts tagged with {tag}</p>
+  <ul>
+    {filteredPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+  </ul>
 </BaseLayout>
