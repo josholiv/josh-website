@@ -1,12 +1,25 @@
-/* colorblind safe color scheme generated at:
+/* colorblind safe color schemes generated at:
 
-https://colorbrewer2.org/?type=sequential&scheme=YlGn&n=5
-
-['#ffffcc','#c2e699','#78c679','#31a354','#006837'] */
+yellow/green
+  https://colorbrewer2.org/?type=sequential&scheme=YlGn&n=9
+  ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529'] 
+  
+greys
+  https://colorbrewer2.org/?type=sequential&scheme=Greys&n=9
+  ['#ffffff','#f0f0f0','#d9d9d9','#bdbdbd','#969696','#737373','#525252','#252525','#000000'] */
 
 html {
-  background-color: white;
+  background-color: #ffffff;
   font-family: monospace;
+}
+
+html.dark {
+  background-color: #252525;
+  color: #ffffff;
+}
+
+.dark .nav-links a {
+  color: #ffffe5;
 }
 
 body {
@@ -38,7 +51,7 @@ h1 {
   width: 40px;
   height: 5px;
   margin-bottom: 10px;
-  background-color: #31a354;
+  background-color: #006837; /* hamburger color */
 }
 
 .nav-links {
@@ -58,12 +71,12 @@ h1 {
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
-  color: #006837; /* nav link text color */
+  color: #525252; /* nav link text color */
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background-color: #c2e699; /* nav link hover color */
+  background-color: #78c679; /* nav link hover color */
 }
 
 .expanded {
@@ -87,13 +100,4 @@ h1 {
   .hamburger {
     display: none;
   }
-}
-
-html.dark {
-  background-color: black;
-  color: white;
-}
-
-.dark .nav-links a {
-  color: #ffffcc;
 }
