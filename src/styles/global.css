@@ -19,7 +19,7 @@ html.dark {
 }
 
 .dark .nav-links a {
-  color: #ffffe5;
+  color: #d9f0a3;
 }
 
 body {
@@ -71,12 +71,12 @@ h1 {
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
-  color: #525252; /* nav link text color */
+  color: #41ab5d; /* nav link text color */
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background-color: #78c679; /* nav link hover color */
+  background-color: #006837; /* nav link hover color */
 }
 
 .expanded {
