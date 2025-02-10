@@ -2,9 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Greeting from '../components/Greeting';
 const pageTitle = "Josh Olivier";
+const messages = ["Olá 🇧🇷", "Hej 🇸🇪", "Hallo 🇩🇪", "Hola 🇪🇸", "Habari 🇰🇪", "Hello 🇺🇸"];
 ---
 <BaseLayout pageTitle={pageTitle}>
-  <h2>Welcome to my site! Currently under construction&#x1F604</h2>
+  <h2>Welcome to my site! Currently under construction&#x1F477</h2>
   <img src="/photo.png" alt="Profile photo" class="profile-image" />
-  <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
+  <Greeting client:load messages={messages.sort(() => Math.random() - 0.5)} />
 </BaseLayout>
