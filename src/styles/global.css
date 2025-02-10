@@ -101,3 +101,8 @@ h1 {
     display: none;
   }
 }
+
+.profile-image {
+  width: 200px;
+  height: auto;
+}
