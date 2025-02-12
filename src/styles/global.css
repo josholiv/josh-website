@@ -43,7 +43,7 @@
   
 
 .dark .nav-links a {
-  color: #00AB4E;
+  color: #BD268F;
 }
 
 body {
@@ -80,7 +80,7 @@ h1 {
 
 /* Dark mode hamburger color */
 html.dark .hamburger .line {
-  background-color: #00AB4E; 
+  background-color: #BD268F; 
 }
 
 .nav-links {
