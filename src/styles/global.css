@@ -20,7 +20,7 @@
     position: fixed;
     inset: 0; /* Covers the whole viewport */
     pointer-events: none; /* Ensures it doesn’t interfere with interactions */
-    border-width: 10px;
+    border-width: 5px;
     border-style: solid;
     border-image: linear-gradient(60deg, #00AB4E, #BD268F, #F26921) 1;
     box-sizing: border-box;
@@ -43,7 +43,7 @@
   
 
 .dark .nav-links a {
-  color: #BD268F;
+  color: #00AB4E;
 }
 
 body {
@@ -80,7 +80,7 @@ h1 {
 
 /* Dark mode hamburger color */
 html.dark .hamburger .line {
-  background-color: #BD268F; 
+  background-color: #00AB4E; 
 }
 
 .nav-links {
