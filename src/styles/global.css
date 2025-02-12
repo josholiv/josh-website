@@ -8,17 +8,41 @@ greys
   https://colorbrewer2.org/?type=sequential&scheme=Greys&n=9
   ['#ffffff','#f0f0f0','#d9d9d9','#bdbdbd','#969696','#737373','#525252','#252525','#000000'] */
 
-html {
-  background-color: #ffffff;
-  font-family: monospace;
-  box-shadow: inset 0 0 0 10px #006837; /* Green border */
-}
-
-html.dark {
-  background-color: #000000;
-  color: #ffffff;
-  box-shadow: inset 0 0 0 10px #ffffe5; /* Yellow-green border in dark mode */
-}
+  html {
+    background-color: #ffffff;
+    font-family: monospace;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Ensure scrolling works */
+  }
+  
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0; /* Covers the whole viewport */
+    pointer-events: none; /* Ensures it doesn’t interfere with interactions */
+    border-width: 10px;
+    border-style: solid;
+    border-image: linear-gradient(60deg, #00AB4E, #BD268F, #F26921) 1;
+    box-sizing: border-box;
+  }
+  
+  html.dark {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  
+  html.dark body::after {
+    border-image: linear-gradient(150deg, #00AB4E, #BD268F, #F26921) 1;
+  }
+  
+  /* Ensure scrollbar doesn't overlap */
+  body {
+    margin: 0;
+    padding: 10px; /* Adds space so content doesn't touch the border */
+  }
+  
 
 .dark .nav-links a {
   color: #ffffe5;
