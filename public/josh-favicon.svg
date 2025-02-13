@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00ab4e;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: url(#Split_Complementary_4);
+      }
+    </style>
+    <linearGradient id="Split_Complementary_4" data-name="Split Complementary 4" x1="8.4" y1="29.16" x2="23.6" y2="2.84" gradientUnits="userSpaceOnUse">
+      <stop offset=".05" stop-color="#00ab4e"/>
+      <stop offset=".5" stop-color="#bd268f"/>
+      <stop offset="1" stop-color="#f26921"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-2" x="3" y="3" width="26" height="26" rx="7" ry="7"/>
+  <path class="cls-1" d="m22,6c2.21,0,4,1.79,4,4v12c0,2.21-1.79,4-4,4h-12c-2.21,0-4-1.79-4-4v-12c0-2.21,1.79-4,4-4h12m0-6h-12C4.48,0,0,4.48,0,10v12c0,5.52,4.48,10,10,10h12c5.52,0,10-4.48,10-10v-12c0-5.52-4.48-10-10-10h0Z"/>
+</svg>
