@@ -2,45 +2,60 @@ import type { FunctionalComponent } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 
 const fetchChessStats = async (username: string) => {
-  try {
-    const response = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching chess stats:', error);
-    return null;
-  }
+  const response = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
+  return await response.json();
 };
 
-const username = 'pichugang'; 
+const username = 'pichugang';
 
 const ChessStats: FunctionalComponent = () => {
-  const [bulletRating, setBulletRating] = useState(null);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
     const getStats = async () => {
       const data = await fetchChessStats(username);
-      if (data && data.chess_bullet && data.chess_bullet.last) {
-        setBulletRating(data.chess_bullet.last);
-      } else {
-        console.error('Bullet rating not found');
-      }
+      setStats(data);
     };
 
     getStats();
   }, []);
 
-  if (bulletRating === null) {
+  // Check if stats have been loaded before rendering
+  if (!stats) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      <h1>{username}'s Bullet Chess Rating</h1>
-      <p>{bulletRating}</p>
+      <h1>Josh's Chess.com Stats</h1>
+
+      <h2>Daily</h2>
+      <p>Last Rating: {stats.chess_daily?.last?.rating}</p>
+      <p>Best Rating: {stats.chess_daily?.best?.rating}</p>
+      <p>Record: {stats.chess_daily?.record?.win} wins, {stats.chess_daily?.record?.loss} losses</p>
+
+      <h2>Rapid</h2>
+      <p>Last Rating: {stats.chess_rapid?.last?.rating}</p>
+      <p>Best Rating: {stats.chess_rapid?.best?.rating}</p>
+      <p>Record: {stats.chess_rapid?.record?.win} wins, {stats.chess_rapid?.record?.loss} losses</p>
+
+      <h2>Bullet</h2>
+      <p>Last Rating: {stats.chess_bullet?.last?.rating}</p>
+      <p>Best Rating: {stats.chess_bullet?.best?.rating}</p>
+      <p>Record: {stats.chess_bullet?.record?.win} wins, {stats.chess_bullet?.record?.loss} losses</p>
+
+      <h2>Blitz</h2>
+      <p>Last Rating: {stats.chess_blitz?.last?.rating}</p>
+      <p>Best Rating: {stats.chess_blitz?.best?.rating}</p>
+      <p>Record: {stats.chess_blitz?.record?.win} wins, {stats.chess_blitz?.record?.loss} losses</p>
+
+      <h2>Tactics</h2>
+      <p>Highest Rating: {stats.tactics?.highest?.rating}</p>
+      <p>Lowest Rating: {stats.tactics?.lowest?.rating}</p>
+
+      <h2>Puzzle Rush</h2>
+      <p>Best Score: {stats.puzzle_rush?.best?.score}</p>
+      <p>Total Attempts: {stats.puzzle_rush?.best?.total_attempts}</p>
     </div>
   );
 };

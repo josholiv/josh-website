@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ChessStats from '../components/chesscom.tsx';
+const pageTitle = "My Stats";
+---
+<BaseLayout pageTitle={pageTitle}>
+  <h2>Check out my stats&#x1F60E</h2>
+
+    <body>
+      <!-- Use client:load or client:only to hydrate the Preact component -->
+  <ChessStats client:load />
+    </body>
+
+</BaseLayout>
