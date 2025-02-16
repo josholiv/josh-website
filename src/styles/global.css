@@ -12,30 +12,31 @@
 
     
     html {
-      background: linear-gradient(66deg, red, #ffffe5, #ffffe5);
-      background-size: 100%; /* Ensure the gradient spans the entire height */
-      background-attachment: fixed; /* This keeps the gradient in place while scrolling */
-      animation: gradientScroll 10s linear infinite; /* Animation for looping effect */
-      font-family: monospace;
+      background-color: #f7fcb9; /* Replace with your desired solid color */
+      color: #252525;
+      font-family: sans-serif;
       height: 100%;
       margin: 0;
       padding: 0;
     }
 
     header {
-      background-color: #f0f0f0; /* Solid off-white for light mode */
+      background-color: #addd8e; /* Solid off-white for light mode */
       padding: 0rem 0; /* Add some padding to the header for spacing */
       width: 100%;
       max-width: 100ch; /* Match body width */
       margin: 0 auto; /* Center align the header */
+      /* border: 1px solid red;  For visualizing the border; comment out when not needed */
     }
     
     html.dark header {
-      background-color: #333333; /* Solid dark gray for dark mode */
+      background-color: #006837; 
     }
 
     html, body {
       height: 100% 200%; /* Ensures they take full viewport height */
+      /* border: 1px solid red; For visualizing the border; comment out when not needed */
+
     }
     
     body {
@@ -45,21 +46,22 @@
       width: 100%;
       max-width: 100ch;
       padding: 1rem;
-      background: white; /* Light mode (default) body color) */
+      background: #ffffe5; /* Light mode (default) body color) */
       margin: 0 auto;
       line-height: 1.5;
     }
     
     html.dark {
-      color: #ffffff; /* Dark mode text color */
+      color: #ffffe5; /* Dark mode text color */
+      background-color: #004529;
     }
     
     html.dark body {
-      background: black; /* Dark mode body color */
+      background: #252525; /* Dark mode body color */
     }
 
 .dark .nav-links a {
-  color: #BD268F;
+  color: #ffffe5;
 }
 
 * {
@@ -87,14 +89,13 @@ h1 {
 
 /* Dark mode hamburger color */
 html.dark .hamburger .line {
-  background-color: #BD268F; 
+  background-color: #ffffe5; 
 }
 
 .nav-links {
   width: 100%;
   top: 5rem;
   left: 48px;
-  background-color: #006837;
   display: none;
   margin: 0;
 }
@@ -107,12 +108,12 @@ html.dark .hamburger .line {
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
-  color: #00AB4E; /* nav link text color */
+  color: #004529; /* nav link text color */
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background-color: #d9d9d9; /* nav link hover color */
+  background-color: #41ab5d; /* nav link hover color */
 }
 
 html.dark .nav-links a:hover,
@@ -148,3 +149,4 @@ html.dark .nav-links a:focus {
   height: auto;
   margin: 0 auto;
 }
+
