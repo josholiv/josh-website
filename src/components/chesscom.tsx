@@ -29,11 +29,6 @@ const ChessStats: FunctionalComponent = () => {
     <div>
       <h1>Josh's Chess.com Stats</h1>
 
-      <h2>Daily</h2>
-      <p>Last Rating: {stats.chess_daily?.last?.rating}</p>
-      <p>Best Rating: {stats.chess_daily?.best?.rating}</p>
-      <p>Record: {stats.chess_daily?.record?.win} wins, {stats.chess_daily?.record?.loss} losses</p>
-
       <h2>Rapid</h2>
       <p>Last Rating: {stats.chess_rapid?.last?.rating}</p>
       <p>Best Rating: {stats.chess_rapid?.best?.rating}</p>
@@ -48,10 +43,6 @@ const ChessStats: FunctionalComponent = () => {
       <p>Last Rating: {stats.chess_blitz?.last?.rating}</p>
       <p>Best Rating: {stats.chess_blitz?.best?.rating}</p>
       <p>Record: {stats.chess_blitz?.record?.win} wins, {stats.chess_blitz?.record?.loss} losses</p>
-
-      <h2>Tactics</h2>
-      <p>Highest Rating: {stats.tactics?.highest?.rating}</p>
-      <p>Lowest Rating: {stats.tactics?.lowest?.rating}</p>
 
       <h2>Puzzle Rush</h2>
       <p>Best Score: {stats.puzzle_rush?.best?.score}</p>

@@ -6,52 +6,57 @@
     https://colorbrewer2.org/?type=sequential&scheme=Greys&n=9
     #ffffff, #f0f0f0, #d9d9d9, #bdbdbd, #969696, #737373, #525252, #252525, #000000 */
 
-  html {
-    background-color: #ffffff;
-    font-family: monospace;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: auto; /* Ensure scrolling works */
-  }
-  
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0; /* Covers the whole viewport */
-    pointer-events: none; /* Ensures it doesn’t interfere with interactions */
-    border-width: 5px;
-    border-style: solid;
-    border-image: linear-gradient(60deg, #00AB4E, #BD268F, #F26921) 1;
-    box-sizing: border-box;
-  }
-  
-  html.dark {
-    background-color: #000000;
-    color: #ffffff;
-  }
-  
-  html.dark body::after {
-    border-image: linear-gradient(150deg, #00AB4E, #BD268F, #F26921) 1;
-  }
-  
-  /* Ensure scrollbar doesn't overlap */
-  body {
-    margin: 0;
-    padding: 10px; /* Adds space so content doesn't touch the border */
-  }
-  
+    
+    html {
+      background: linear-gradient(66deg, #00AB4E, #BD268F, #F26921);
+      background-size: 100% 200%; /* Ensure the gradient spans the entire height */
+      background-attachment: fixed; /* This keeps the gradient in place while scrolling */
+      animation: gradientScroll 10s linear infinite; /* Animation for looping effect */
+      font-family: monospace;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #f0f0f0; /* Solid off-white for light mode */
+      padding: 0rem 0; /* Add some padding to the header for spacing */
+      width: 100%;
+      max-width: 100ch; /* Match body width */
+      margin: 0 auto; /* Center align the header */
+    }
+    
+    html.dark header {
+      background-color: #333333; /* Solid dark gray for dark mode */
+    }
+
+    html, body {
+      height: 100% 200%; /* Ensures they take full viewport height */
+    }
+    
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensures body extends fully even with little content */
+      width: 100%;
+      max-width: 100ch;
+      padding: 1rem;
+      background: white; /* Light mode (default) body color) */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow to enhance separation */
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    
+    html.dark {
+      color: #ffffff; /* Dark mode text color */
+    }
+    
+    html.dark body {
+      background: black; /* Dark mode body color */
+    }
 
 .dark .nav-links a {
   color: #BD268F;
-}
-
-body {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 80ch;
-  padding: 1rem;
-  line-height: 1.5;
 }
 
 * {
@@ -64,7 +69,6 @@ h1 {
 }
 
 /* nav styles */
-
 .hamburger {
   padding-right: 20px;
   cursor: pointer;
@@ -108,7 +112,6 @@ html.dark .hamburger .line {
   background-color: #d9d9d9; /* nav link hover color */
 }
 
-
 html.dark .nav-links a:hover,
 html.dark .nav-links a:focus {
   background-color: #252525; /* dark mode link hover color */
@@ -120,7 +123,7 @@ html.dark .nav-links a:focus {
 
 @media screen and (min-width: 636px) {
   .nav-links {
-    margin-left: 5em;
+    margin-left: 8em;
     display: block;
     position: static;
     width: auto;
@@ -140,4 +143,5 @@ html.dark .nav-links a:focus {
 .profile-image {
   width: 200px;
   height: auto;
+  margin: 0 auto;
 }
