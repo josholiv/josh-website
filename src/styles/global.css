@@ -12,7 +12,7 @@
 
     
     html {
-      background: #ffffe5;
+      background: linear-gradient(to-right, #ffffe5, #ffffe5, #ffffe5);
       background-size: 100% 200%; /* Ensure the gradient spans the entire height */
       background-attachment: fixed; /* This keeps the gradient in place while scrolling */
       animation: gradientScroll 10s linear infinite; /* Animation for looping effect */
