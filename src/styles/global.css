@@ -42,7 +42,6 @@
       max-width: 100ch;
       padding: 1rem;
       background: white; /* Light mode (default) body color) */
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow to enhance separation */
       margin: 0 auto;
       line-height: 1.5;
     }
