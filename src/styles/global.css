@@ -1,14 +1,18 @@
-/* main color scheme: 
-    #00AB4E, #BD268F, #F26921
-
-  colorblind safe color scheme(s) generated at:
+/* colorblind safe color scheme(s) generated at:
+    
+    main (yellows/greens)
+    https://colorbrewer2.org/?type=sequential&scheme=YlGn&n=9
+        ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679',
+        '#41ab5d','#238443','#006837','#004529']
+    
     greys
     https://colorbrewer2.org/?type=sequential&scheme=Greys&n=9
-    #ffffff, #f0f0f0, #d9d9d9, #bdbdbd, #969696, #737373, #525252, #252525, #000000 */
+        #ffffff, #f0f0f0, #d9d9d9, #bdbdbd, #969696, #737373, 
+        #525252, #252525, #000000 */
 
     
     html {
-      background: linear-gradient(66deg, #00AB4E, #BD268F, #F26921);
+      background: #ffffe5
       background-size: 100% 200%; /* Ensure the gradient spans the entire height */
       background-attachment: fixed; /* This keeps the gradient in place while scrolling */
       animation: gradientScroll 10s linear infinite; /* Animation for looping effect */
