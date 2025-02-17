@@ -12,7 +12,7 @@
 
     
     html {
-      background-color: #f7fcb9; /* Replace with your desired solid color */
+      background-color: #ffffe5; /* Replace with your desired solid color */
       color: #252525;
       font-family: sans-serif;
       height: 100%;
@@ -21,7 +21,7 @@
     }
 
     header {
-      background-color: #addd8e; /* Solid off-white for light mode */
+      background-color: #ffffe5; /* Solid off-white for light mode */
       padding: 0rem 0; /* Add some padding to the header for spacing */
       width: 100%;
       max-width: 100ch; /* Match body width */
@@ -30,7 +30,7 @@
     }
     
     html.dark header {
-      background-color: #006837; 
+      background-color: #252525; 
     }
 
     html, body {
@@ -53,7 +53,7 @@
     
     html.dark {
       color: #ffffe5; /* Dark mode text color */
-      background-color: #004529;
+      background-color: #252525;
     }
     
     html.dark body {
@@ -147,6 +147,5 @@ html.dark .nav-links a:focus {
 .profile-image {
   width: 200px;
   height: auto;
-  margin: 0 auto;
 }
 
