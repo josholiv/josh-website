@@ -158,18 +158,6 @@ html.dark .nav-links a:focus {
   background-color: #addd8e;
 }
 
-/* Light mode active nav link */
-.nav-links a.active {
-  background-color: red; /* Red background for the active page */
-  color: white; /* White text for contrast */
-}
-
-/* Dark mode active nav link */
-html.dark .nav-links a.active {
-  background-color: red;
-  color: #ffffe5;
-}
-
 .expanded {
   display: unset;
 }
