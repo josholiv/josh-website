@@ -108,12 +108,12 @@ h1 {
   width: 40px;
   height: 5px;
   margin-bottom: 10px;
-  background-color: #252525; /* hamburger color */
+  background-color: #41ab5d; /* hamburger color */
 }
 
 /* Dark mode hamburger color */
 html.dark .hamburger .line {
-  background-color: #ffffe5; 
+  background-color: #41ab5d; 
 }
 
 .nav-links {
