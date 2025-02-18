@@ -22,11 +22,11 @@
 
     header {
       background-color: #ffffe5; /* Solid off-white for light mode */
-      padding: 0rem 0; /* Add some padding to the header for spacing */
+      padding-bottom: 2rem; /* Add some padding to the header for spacing */
       width: 100%;
       max-width: 100ch; /* Match body width */
       margin: 0 auto; /* Center align the header */
-      /* border: 1px solid red;  For visualizing the border; comment out when not needed */
+      border: 1px solid red;  /* For visualizing the border; comment out when not needed */
     }
     
     html.dark header {
@@ -90,17 +90,13 @@ html.dark .hamburger .line {
 }
 
 .nav-links {
-  width: 100%;
-  top: 5rem;
-  left: 48px;
   display: none;
-  margin: 0;
 }
 
 .nav-links a {
   display: block;
   text-align: center;
-  padding: 10px 0;
+  padding: 0.5rem 0;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
@@ -150,7 +146,7 @@ html.dark .nav-links a:focus {
 
   .nav-links a {
     display: inline-block;
-    padding: 15px 20px;
+    padding: 0.8rem 0.8rem;
   }
 
   .hamburger {
