@@ -14,7 +14,7 @@
     html {
       background-color: #ffffe5; /* Replace with your desired solid color */
       color: #252525;
-      font-family: monospace;
+      font-family: sans-serif;
       height: 100%;
       margin: 0;
       padding: 0;
@@ -22,7 +22,7 @@
 
     header {
       background-color: #ffffe5; /* Solid off-white for light mode */
-      padding-bottom: 2rem; /* Add some padding to the header for spacing */
+      padding-bottom: 0rem; /* Add some padding to the header for spacing */
       width: 100%;
       max-width: 80ch; /* Match body width */
       margin: 0 auto; /* Center align the header */
@@ -108,7 +108,7 @@ h1 {
   width: 40px;
   height: 5px;
   margin-bottom: 10px;
-  background-color: #00AB4E; /* hamburger color */
+  background-color: #252525; /* hamburger color */
 }
 
 /* Dark mode hamburger color */
