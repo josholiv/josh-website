@@ -24,7 +24,7 @@
       background-color: #ffffe5; /* Solid off-white for light mode */
       padding-bottom: 2rem; /* Add some padding to the header for spacing */
       width: 100%;
-      max-width: 100ch; /* Match body width */
+      max-width: 80ch; /* Match body width */
       margin: 0 auto; /* Center align the header */
       border: 1px solid red;  /* For visualizing the border; comment out when not needed */
     }
@@ -44,7 +44,7 @@
       flex-direction: column;
       min-height: 100vh; /* Ensures body extends fully even with little content */
       width: 100%;
-      max-width: 100ch;
+      max-width: 80ch;
       padding: 1rem;
       background: #ffffe5; /* Light mode (default) body color) */
       margin: 0 auto;
@@ -137,8 +137,10 @@ html.dark .nav-links a:focus {
 
 @media screen and (min-width: 636px) {
   .nav-links {
-    margin-left: 0em;
-    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
     position: static;
     width: auto;
     background: none;
@@ -158,4 +160,3 @@ html.dark .nav-links a:focus {
   width: 200px;
   height: auto;
 }
-
