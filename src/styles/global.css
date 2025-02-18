@@ -148,16 +148,6 @@ html.dark .nav-links a:focus {
   background-color: #737373; /* dark mode link hover color */
 }
 
-#special-link {
-  color: #ffffe5; /* Change text color */
-  font-weight: bold; /* Make it bold */
-  background-color: #41ab5d; /* Background color */
-}
-
-#special-link:hover {
-  background-color: #addd8e;
-}
-
 .expanded {
   display: unset;
 }
@@ -171,6 +161,7 @@ html.dark .nav-links a:focus {
     position: static;
     width: auto;
     background: none;
+    gap: 10px
   }
 
   .nav-links a {
@@ -189,3 +180,13 @@ html.dark .nav-links a:focus {
   border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular shape */
 }
+
+/* format page nav link of current page */
+    nav a.active, html.dark nav a.active {
+      color: #ffffe5; /* Change text color */
+      background-color: #41ab5d; /* Background color */
+    }
+
+    nav a.active:hover, html.dark nav a.active:hover {
+      background-color: #addd8e;
+    }
