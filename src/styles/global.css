@@ -123,7 +123,7 @@ html.dark .hamburger .line {
 .nav-links a {
   display: block;
   text-align: center;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
@@ -158,6 +158,18 @@ html.dark .nav-links a:focus {
   background-color: #addd8e;
 }
 
+/* Light mode active nav link */
+.nav-links a.active {
+  background-color: red; /* Red background for the active page */
+  color: white; /* White text for contrast */
+}
+
+/* Dark mode active nav link */
+html.dark .nav-links a.active {
+  background-color: red;
+  color: #ffffe5;
+}
+
 .expanded {
   display: unset;
 }
@@ -184,6 +196,8 @@ html.dark .nav-links a:focus {
 }
 
 .profile-image {
-  width: 200px;
-  height: auto;
+  width: 100px;
+  height: 100px; 
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circular shape */
 }
