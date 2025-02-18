@@ -153,7 +153,7 @@ html.dark .nav-links a:focus {
 }
 
 .expanded a {
-  margin-bottom: 5px; /* Adds spacing between stacked links */
+  margin-bottom: 0.8rem; /* Adds spacing between stacked links in hamburger menu */
 }
 
 @media screen and (min-width: 636px) {
@@ -165,7 +165,7 @@ html.dark .nav-links a:focus {
     position: static;
     width: auto;
     background: none;
-    gap: 10px
+    gap: 1rem;
   }
 
   .nav-links a {
