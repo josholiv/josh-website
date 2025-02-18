@@ -26,7 +26,7 @@
       width: 100%;
       max-width: 80ch; /* Match body width */
       margin: 0 auto; /* Center align the header */
-      border: 1px solid red;  /* For visualizing the border; comment out when not needed */
+      /* border: 1px solid red;   For visualizing the border; comment out when not needed */
     }
     
     html.dark header {
@@ -69,6 +69,33 @@ h1 {
   margin: 1rem 0;
   font-size: 2.5rem;
 }
+
+/* link colors (not including nav links */
+  /* light mode  */
+  a:not(.nav-links a) {
+    color: #41ab5d; /* Change to your desired color */
+  }
+
+  a:not(.nav-links a):hover {
+    color: #006837; /* Color when the link is hovered */
+  }
+
+  a:not(.nav-links a):visited {
+    color: #d9f0a3; /* Color for visited links */
+  }
+
+  /* dark mode */
+  html.dark a:not(.nav-links a) {
+    color: #bdbdbd; /* Change to your desired color */
+  }
+
+  html.dark a:not(.nav-links a):hover {
+    color: #ffffff; /* Color when the link is hovered */
+  }
+
+  html.dark a:not(.nav-links a):visited {
+    color: #737373; /* Color for visited links */
+  }
 
 /* nav styles */
 .hamburger {

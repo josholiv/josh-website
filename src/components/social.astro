@@ -1,13 +1,41 @@
 ---
 const { platform, username, displayName = platform } = Astro.props;
 ---
-<a href={`https://${platform}/${username}`}>{displayName}</a>
+<a href={`https://${platform}/${username}`} target="_blank" rel="noopener noreferrer" class="social-link">
+  {displayName}
+</a>
 
 <style>
-    a {
-      padding: 0.5rem 1rem;
-      color: #ffffe5;
-      background-color: #41ab5d;
-      text-decoration: none;
-    }
-  </style>
+  .social-link {
+    padding: 0.5rem 1rem;
+    color: #ffffe5; 
+    background-color: #41ab5d;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .social-link:hover {
+    background-color: #addd8e;
+  }
+
+  .social-link:visited {
+    color: #ffffe5; 
+  }
+
+  /* dark mode */
+  html.dark .social-link {
+    padding: 0.5rem 1rem;
+    color: #ffffe5; 
+    background-color: #41ab5d;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  html.dark .social-link:hover {
+    background-color: #addd8e;
+  }
+
+  html.dark .social-link:visited {
+    color: #ffffe5; 
+  }
+</style>
