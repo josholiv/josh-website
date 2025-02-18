@@ -81,7 +81,7 @@ h1 {
   }
 
   a:not(.nav-links a):visited {
-    color: #d9f0a3; /* Color for visited links */
+    color: #addd8e; /* Color for visited links */
   }
 
   /* dark mode */
