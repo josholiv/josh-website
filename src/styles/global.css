@@ -87,17 +87,14 @@ h1 {
     /* dark mode */
         html.dark a:not(.nav-links a) {
           color: #41ab5d; /* link color */
-          /* color: #bdbdbd;  link color */
         }
 
         html.dark a:not(.nav-links a):hover {
-          color: #addd8e; /* link hover color */
-          /* color: #ffffff;  link hover color */
+          color: #addd8e; /* link hover color, flipped for dark mode */
         }
 
         html.dark a:not(.nav-links a):visited {
-          color: #006837; /* link visited color */
-          /* color: #737373; link visited color */
+          color: #006837; /* link visited color, flipped for dark mode */
         }
 
 /* nav styles */
