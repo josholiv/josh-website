@@ -184,6 +184,8 @@ html.dark .nav-links a:focus {
   border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular shape */
   border: 3px solid #41ab5d;
+  display: block;
+  margin: 0 auto; /* center image */
 }
 
 html.dark .profile-pic {

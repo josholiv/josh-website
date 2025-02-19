@@ -7,11 +7,14 @@ const { platform, username, displayName = platform } = Astro.props;
 
 <style>
   .social-link {
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 0.3rem;
     color: #ffffe5; 
     background-color: #41ab5d;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: lowercase;
   }
 
   .social-link:hover {
@@ -23,18 +26,6 @@ const { platform, username, displayName = platform } = Astro.props;
   }
 
   /* dark mode */
-  html.dark .social-link {
-    padding: 0.5rem 1rem;
-    color: #ffffe5; 
-    background-color: #41ab5d;
-    text-decoration: none;
-    border-radius: 5px;
-  }
-
-  html.dark .social-link:hover {
-    background-color: #addd8e;
-  }
-
   html.dark .social-link:visited {
     color: #ffffe5; 
   }
