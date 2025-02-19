@@ -1,18 +1,47 @@
 ---
 import Social from './social.astro';
+import Greeting from '../components/Greeting';
+const messages = ["Olá 🇧🇷", "Hej 🇸🇪", "Hallo 🇩🇪", "Hola 🇪🇸", "Habari 🇰🇪", "Hello 🇺🇸", "Bonjour 🇫🇷"];
 ---
 <style>
   footer {
     display: flex;
+    flex-direction: column; /* Use column layout */
+    align-items: center; /* Center items horizontally */
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .profile-pic {
+    margin-bottom: 1rem; /* Space between the image and greeting */
+  }
+
+  .greeting-container {
+    margin-bottom: 1rem; /* Space between the greeting and social links */
+  }
+
+  p {
+    width: 100%; /* Forces text to take full width and move to a new line */
+  }
+
+  .social-container {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 2rem;
   }
 </style>
 
 <footer>
-  <Social platform="bsky.app" username="profile/josholivier.bsky.social" displayName="Bluesky"/>
-  <Social platform="github.com" username="josholiv" displayName="GitHub" />
-  <Social platform="thingiverse.com" username="josholiv" displayName="Thingiverse" />
-  <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" displayName="Google Scholar"/>
+  <img src="/photo.png" alt="Profile photo" class="profile-pic" />
+  <div class="greeting-container">
+    <Greeting client:load messages={messages.sort(() => Math.random() - 0.5)} />
+  </div>
+  <div class="social-container">
+    <Social platform="bsky.app" username="profile/josholivier.bsky.social" displayName="Bluesky"/>
+    <Social platform="github.com" username="josholiv" displayName="GitHub" />
+    <Social platform="thingiverse.com" username="josholiv" displayName="Thingiverse" />
+    <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" displayName="Google Scholar"/>
+  </div>
+  <p>Find me elsewhere on the web!</p>
 </footer>
