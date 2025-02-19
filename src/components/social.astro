@@ -26,6 +26,14 @@ const { platform, username, displayName = platform } = Astro.props;
   }
 
   /* dark mode */
+  html.dark .social-link {
+    color: #ffffe5; 
+  }
+
+  html.dark .social-link:hover {
+    background-color: #addd8e;
+  }
+
   html.dark .social-link:visited {
     color: #ffffe5; 
   }
