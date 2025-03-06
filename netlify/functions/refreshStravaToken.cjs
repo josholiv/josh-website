@@ -1,8 +1,10 @@
 // refreshStravaToken.cjs
-const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
   try {
+    // Dynamically import node-fetch
+    const { default: fetch } = await import('node-fetch');
+
     const STRAVA_CLIENT_ID = process.env.STRAVA_CLIENT_ID;
     const STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET;
     const STRAVA_REFRESH_TOKEN = process.env.STRAVA_REFRESH_TOKEN;
