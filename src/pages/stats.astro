@@ -28,7 +28,7 @@ const color = "#0000FF";
   <h2>Check out my stats&#x1F60E</h2>
   <ChessStats client:load />
 
-  <h3>Strava stats</h3>
+  <h3>Total distance I've swam, biked, and run this year</h3>
   {
     !error && (
       <html id="html" lang="en" class="no-mobile no-js">
@@ -43,18 +43,10 @@ const color = "#0000FF";
             class="widget flex items-start gap-2 w-80 overflow-hidden relative select-none py-2"
             style={`background: ${bgColor}`}
           >
+             <img class="w-[2rem] aspect-square object-cover" src={data.image} />
             <div class="flex flex-col">
               <span class="text-xs">{data.copy}</span>
               <h1 class="line-clamp-1 text-2xl">{data.title}</h1>
-            </div>
-            <div class="absolute right-0 bottom-0 z-10 opacity-35 h-4/6">
-              <svg
-                class="h-10"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="m15.387 17.944-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599 2.836 5.598h4.172L10.463 0l-7 13.828h4.169" />
-              </svg>
             </div>
           </a>
         </body>

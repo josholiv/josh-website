@@ -87,12 +87,12 @@ export default class Strava {
     // Format distances for each activity
     const formattedStats = Object.entries(data.stats)
       .map(([method, distance]) => `${methodsString[method]} ${formatDistance[this.unit](distance)}`)
-      .join(", ")
+      .join("\n")
 
     return {
       image: data.image,
       url: `https://www.strava.com/athletes/${data.id}`,
-      copy: `Distance ${formattedStats} ${this.period === "all" ? "" : `(${periodStrings[this.period]})`}`,
+      copy: `${formattedStats} ${this.period === "all" ? "" : `(${periodStrings[this.period]})`}`,
     }      
   }
 }
