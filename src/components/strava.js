@@ -83,16 +83,19 @@ export default class Strava {
 
   async fetch() {
     const data = await this.#getAthleteStats()
-
-    // Format distances for each activity
-    const formattedStats = Object.entries(data.stats)
-      .map(([method, distance]) => `${methodsString[method]} ${formatDistance[this.unit](distance)}`)
-      .join("<br />") // add line breaks between each stat
-
+  
+    // Format the distances for each activity separately
+    const swimDistance = formatDistance[this.unit](data.stats.swim)
+    const rideDistance = formatDistance[this.unit](data.stats.ride)
+    const runDistance = formatDistance[this.unit](data.stats.run)
+  
     return {
       image: data.image,
       url: `https://www.strava.com/athletes/${data.id}`,
-      copy: `${formattedStats} ${this.period === "all" ? "" : `(${periodStrings[this.period]})`}`,
-    }      
+      swimDistance,
+      rideDistance,
+      runDistance,
+      copy: `${swimDistance} ${rideDistance} ${runDistance} ${this.period === "all" ? "" : `(${periodStrings[this.period]})`}`,
+    }
   }
 }

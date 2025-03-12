@@ -197,14 +197,13 @@ html.dark .profile-pic {
 }
 
 .widget-pic {
-  width: 50px;
-  height: 50px; 
+  width: 80px;
+  height: 80px; 
   border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular shape */
   border: 2px solid #e95f29;
   display: block;
-  margin-left: 0; /* Aligns the image to the left */
-  padding: 0.8rem 0.8rem;
+  margin-left: 0.5rem; /* Aligns the image to the left */
 }
 
 html.dark .widget-pic {
