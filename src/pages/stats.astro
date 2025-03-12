@@ -20,15 +20,16 @@ try {
   }
 }
 
+// Get the current year
+const currentYear = new Date().getFullYear();
+
 const bgColor = "#41ab5d";
 const color = "#0000FF";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>Check out my stats&#x1F60E</h2>
-  <ChessStats client:load />
-
-  <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ this year</h3>
+  <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ so far in ({currentYear})</h3>
   <h4>(data from Strava)</h4>
   <h5>
     {
@@ -73,4 +74,6 @@ const color = "#0000FF";
       fill: var(--color);
     }
   </style>
+
+  <ChessStats client:load />
 </BaseLayout>
