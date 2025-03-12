@@ -18,9 +18,9 @@ const formatDistance = {
 const methods = ["ride", "run", "swim"]
 
 const methodsString = {
-  ride: "cycled",
-  run: "ran",
-  swim: "swam",
+  ride: "🚴",
+  run: "🏃‍♂️",
+  swim: "🏊",
 }
 
 const getCopyString = (method, period) =>
@@ -65,9 +65,9 @@ export default class Strava {
       id,
       image: profile,
       stats: {
+        swim: data[`${this.period}_swim_totals`]?.distance || 0,
         ride: data[`${this.period}_ride_totals`]?.distance || 0,
         run: data[`${this.period}_run_totals`]?.distance || 0,
-        swim: data[`${this.period}_swim_totals`]?.distance || 0,
       },
     }
   }
@@ -92,7 +92,7 @@ export default class Strava {
     return {
       image: data.image,
       url: `https://www.strava.com/athletes/${data.id}`,
-      copy: `Distance ${formattedStats} ${this.period === "all" ? "" : periodStrings[this.period]}`,
-    }
+      copy: `Distance ${formattedStats} ${this.period === "all" ? "" : `(${periodStrings[this.period]})`}`,
+    }      
   }
 }
