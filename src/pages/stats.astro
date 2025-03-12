@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ChessStats from '../components/chesscom.tsx';
-const pageTitle = "My Stats";
+const pageTitle = "Stats";
 
 import Strava from "../components/strava.js";
 import fontColorContrast from "font-color-contrast";
@@ -29,9 +29,8 @@ const color = "#0000FF";
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>Check out my stats&#x1F60E</h2>
-  <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ so far in ({currentYear})</h3>
-  <h4>(data from Strava)</h4>
-  <h5>
+  <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ so far in {currentYear} (data from Strava)</h3>
+  <p>
     {
       !error && (
         <>
@@ -41,39 +40,9 @@ const color = "#0000FF";
         </>
       )
     }    
-  </h5>
-  {
-    !error && (
-      <html id="html" lang="en" class="no-mobile no-js">
-        <head>
-          <meta charset="UTF-8" />
-        </head>
-        <body>
-          <a
-            href={data.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="widget flex items-start gap-2 w-80 overflow-hidden relative select-none py-2"
-            style={`background: ${bgColor}`}
-          >
-            <img class="widget-pic" src={data.image} />
-            <div class="flex flex-col">
-              <span class="widget-text">{data.copy}</span>
-              <h1 class="h1">{data.title}</h1>
-            </div>
-          </a>
-        </body>
-      </html>
-    )
-  }
+  </p>
+  
   <ErrorRenderer error={error} />
   
-  <style define:vars={{ color }}>
-    .widget {
-      //color: var(--color);
-      fill: var(--color);
-    }
-  </style>
-
   <ChessStats client:load />
 </BaseLayout>
