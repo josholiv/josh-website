@@ -92,7 +92,6 @@ export default class Strava {
     return {
       image: data.image,
       url: `https://www.strava.com/athletes/${data.id}`,
-      title: formattedStats, 
       copy: `Distance ${formattedStats} ${this.period === "all" ? "" : periodStrings[this.period]}`,
     }
   }
