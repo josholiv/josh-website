@@ -192,6 +192,10 @@ html.dark .profile-pic {
   border: 3px solid #ffffe5;
 }
 
+.widget {
+  border-radius: 5px; /* Adjust the value to control the roundness of the edges */
+}
+
 /* format page nav link of current page */
     nav a.active, html.dark nav a.active {
       color: #ffffe5; /* Change text color */
