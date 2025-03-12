@@ -204,6 +204,7 @@ html.dark .profile-pic {
   border: 2px solid #e95f29;
   display: block;
   margin-left: 0; /* Aligns the image to the left */
+  padding: 0.8rem 0.8rem;
 }
 
 html.dark .widget-pic {
@@ -214,8 +215,9 @@ html.dark .widget-pic {
       color: red;
       font-family: sans-serif;
       height: 100%;
-      margin: 0 auto; /* center text */
+      margin: 0;
       padding: 0;
+      text-align: center;
     }
 
 html.dark .widget-text {
