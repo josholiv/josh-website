@@ -29,14 +29,16 @@ const color = "#0000FF";
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>Check out my stats&#x1F60E</h2>
-  <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ so far in {currentYear} (data from Strava)</h3>
+  <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ so far in {currentYear}</h3>
+  <h5>Data from my <a href=`https://www.strava.com/athletes/${data.id}` target="_blank">Strava</a> profile</h5>
+
   <p>
     {
       !error && (
         <>
-          <strong>🏊</strong> {data.swimDistance} ({data.swimDistanceKm} km) <br />
-          <strong>🚴</strong> {data.rideDistance} ({data.rideDistanceKm} km) <br />
-          <strong>🏃‍♂️</strong> {data.runDistance} ({data.runDistanceKm} km)
+          🏊 <strong>{data.swimDistance}</strong> ({data.swimDistanceKm} km) <br />
+          🚴 <strong>{data.rideDistance}</strong> ({data.rideDistanceKm} km) <br />
+          🏃‍♂️ <strong>{data.runDistance}</strong> ({data.runDistanceKm} km)
         </>
       )
     }    

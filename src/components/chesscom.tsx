@@ -38,8 +38,8 @@ const ChessStats: FunctionalComponent = () => {
 
   return (
     <div>
-      <h3>Bullet chess♟️ (data from chess.com)</h3>
-        <h4>Bullet</h4>
+      <h3>Bullet chess♟️</h3>
+      <h3>(data from chess.com)</h3>
           <p>Rating: <strong>{stats.chess_bullet?.last?.rating}</strong>. Only {getEloDifference('chess_bullet')} behind Magnus Carlsen!</p>
           <p>Best Rating: {stats.chess_bullet?.best?.rating}</p>
           <p>Record: {stats.chess_bullet?.record?.win} wins, {stats.chess_bullet?.record?.loss} losses</p>
