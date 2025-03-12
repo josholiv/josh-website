@@ -84,10 +84,15 @@ export default class Strava {
   async fetch() {
     const data = await this.#getAthleteStats()
   
-    // Format the distances for each activity separately
-    const swimDistance = formatDistance[this.unit](data.stats.swim)
-    const rideDistance = formatDistance[this.unit](data.stats.ride)
-    const runDistance = formatDistance[this.unit](data.stats.run)
+    // Calculate the distances in kilometers
+    const swimDistanceKm = data.stats.swim / 1000;
+    const rideDistanceKm = data.stats.ride / 1000;
+    const runDistanceKm = data.stats.run / 1000;
+  
+    // Format the distances for each activity in the selected unit (miles or km)
+    const swimDistance = formatDistance[this.unit](data.stats.swim);
+    const rideDistance = formatDistance[this.unit](data.stats.ride);
+    const runDistance = formatDistance[this.unit](data.stats.run);
   
     return {
       image: data.image,
@@ -95,7 +100,11 @@ export default class Strava {
       swimDistance,
       rideDistance,
       runDistance,
+      swimDistanceKm,  // Distance in kilometers
+      rideDistanceKm,  // Distance in kilometers
+      runDistanceKm,   // Distance in kilometers
       copy: `${swimDistance} ${rideDistance} ${runDistance} ${this.period === "all" ? "" : `(${periodStrings[this.period]})`}`,
     }
   }
+  
 }

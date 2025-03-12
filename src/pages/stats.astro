@@ -32,14 +32,14 @@ const color = "#0000FF";
   <h4>(data from Strava)</h4>
   <h5>
     {
-    !error && (
-      <>
-        <strong>Swim🏊distance:</strong> {data.swimDistance} <br />
-        <strong>Bike🚴distance:</strong> {data.rideDistance} <br />
-        <strong>Run🏃‍♂️distance:</strong> {data.runDistance}
-      </>
+      !error && (
+        <>
+          <strong>🏊</strong> {data.swimDistance} ({data.swimDistanceKm} km) <br />
+          <strong>🚴</strong> {data.rideDistance} ({data.rideDistanceKm} km) <br />
+          <strong>🏃‍♂️</strong> {data.runDistance} ({data.runDistanceKm} km)
+        </>
       )
-    }
+    }    
   </h5>
   {
     !error && (
