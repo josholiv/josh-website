@@ -28,7 +28,8 @@ const color = "#0000FF";
   <h2>Check out my stats&#x1F60E</h2>
   <ChessStats client:load />
 
-  <h3>Total distance I've swam, biked, and run this year</h3>
+  <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ this year</h3>
+  <h4>(data from Strava)</h4>
   {
     !error && (
       <html id="html" lang="en" class="no-mobile no-js">
@@ -43,9 +44,9 @@ const color = "#0000FF";
             class="widget flex items-start gap-2 w-80 overflow-hidden relative select-none py-2"
             style={`background: ${bgColor}`}
           >
-            <img class="profile-pic" src={data.image} />
+            <img class="widget-pic" src={data.image} />
             <div class="flex flex-col">
-              <span class="body">{data.copy}</span>
+              <span class="widget-text">{data.copy}</span>
               <h1 class="h1">{data.title}</h1>
             </div>
           </a>

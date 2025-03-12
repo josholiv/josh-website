@@ -196,6 +196,34 @@ html.dark .profile-pic {
   border-radius: 10px; /* Adjust the value to control the roundness of the edges */
 }
 
+.widget-pic {
+  width: 50px;
+  height: 50px; 
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circular shape */
+  border: 2px solid #e95f29;
+  display: block;
+  margin-left: 0; /* Aligns the image to the left */
+}
+
+html.dark .widget-pic {
+  border: 2px solid orange;
+}
+
+.widget-text {
+      color: red;
+      font-family: sans-serif;
+      height: 100%;
+      margin: 0 auto; /* center text */
+      padding: 0;
+    }
+
+html.dark .widget-text {
+      color: blue; /* Dark mode widget text color */
+    }
+
+
+
 /* format page nav link of current page */
     nav a.active, html.dark nav a.active {
       color: #ffffe5; /* Change text color */

@@ -38,7 +38,8 @@ const ChessStats: FunctionalComponent = () => {
 
   return (
     <div>
-      <h3>My Chess.com Stats♟️</h3>
+      <h3>My chess stats♟️</h3>
+      <h4>data from chess.com</h4>
 
       <h4>Rapid</h4>
       <p>Rating: <strong>{stats.chess_rapid?.last?.rating}</strong>. Only {getEloDifference('chess_rapid')} behind Magnus Carlsen!</p>
