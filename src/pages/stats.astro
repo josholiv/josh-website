@@ -2,38 +2,71 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ChessStats from '../components/chesscom.tsx';
 const pageTitle = "My Stats";
+
+import Strava from "../components/strava.js";
+import fontColorContrast from "font-color-contrast";
+import ErrorRenderer from "../Error.astro";
+
+let data, error
+try {
+  const strava = new Strava()
+  data = await strava.fetch()
+} catch (e) {
+  error = e.message
+  if (error.includes("401")) {
+    throw Error(
+      "Something went wrong with the Strava API, try updating your refresh_token",
+    )
+  }
+}
+
+const bgColor = import.meta.env.PUBLIC_STRAVA_BGCOLOR || "#e95f29"
+const color = fontColorContrast.default(bgColor)
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>Check out my stats&#x1F60E</h2>
-
-  <div id="strava-stats">Loading...</div>
-
   <ChessStats client:load />
 
-  <script type="module">
-    async function fetchStravaStats() {
-      // Get the new access token from Netlify function
-      const tokenResponse = await fetch("/.netlify/functions/refreshStravaToken");
-      const { access_token } = await tokenResponse.json();
-    
-      // Use the token to get Strava athlete data
-      const stravaResponse = await fetch("https://www.strava.com/api/v3/athlete", {
-        headers: { Authorization: `Bearer ${access_token}` },
-      });
-    
-      const athleteData = await stravaResponse.json();
-      console.log(athleteData); // Check the response in the console
-    
-      // Display the data on your site (modify as needed)
-      document.getElementById("strava-stats").innerHTML = `
-        <h2>${athleteData.firstname} ${athleteData.lastname}</h2>
-        <p>Total Rides: ${athleteData.stats.all_ride_totals.count}</p>
-        <p>Total Distance: ${athleteData.stats.all_ride_totals.distance} meters</p>
-      `;
+  {
+    !error && (
+      <html id="html" lang="en" class="no-mobile no-js">
+        <head>
+          <meta charset="UTF-8" />
+        </head>
+        <body>
+          <a
+            href={data.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="widget flex items-center gap-2 h-20 w-80 overflow-hidden relative select-none"
+            style={`background: ${bgColor}`}
+          >
+            <img class="h-20 aspect-square object-cover" src={data.image} />
+            <div class="flex flex-col">
+              <span class="text-xs">{data.copy}</span>
+              <h1 class="line-clamp-1 text-4xl">{data.title}</h1>
+            </div>
+            <div class="absolute right-0 bottom-0 z-10 opacity-35 h-5/6">
+              <svg
+                class="h-full"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path d="m15.387 17.944-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599 2.836 5.598h4.172L10.463 0l-7 13.828h4.169" />
+              </svg>
+            </div>
+          </a>
+        </body>
+      </html>
+    )
+  }
+  <ErrorRenderer error={error} />
+  
+  <style define:vars={{ color }}>
+    .widget {
+      color: var(--color);
+      fill: var(--color);
     }
-
-    // Call the fetch function when the page loads
-    window.onload = fetchStravaStats;
-  </script>
+  </style>
 </BaseLayout>
