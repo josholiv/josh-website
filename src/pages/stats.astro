@@ -21,7 +21,7 @@ try {
 }
 
 const bgColor = "#ffffff";
-const color = "#0000FF"; 
+const color = "#0000FF";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -40,17 +40,17 @@ const color = "#0000FF";
             href={data.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="widget flex items-center gap-2 h-20 w-80 overflow-hidden relative select-none"
+            class="widget flex items-center gap-2 h-12 w-80 overflow-hidden relative select-none"
             style={`background: ${bgColor}`}
-          >
-            <img class="h-20 aspect-square object-cover" src={data.image} />
+            >
+            <img class="h-12 aspect-square object-cover" src={data.image} />
             <div class="flex flex-col">
               <span class="text-xs">{data.copy}</span>
-              <h1 class="line-clamp-1 text-4xl">{data.title}</h1>
+              <h1 class="line-clamp-1 text-2xl">{data.title}</h1>
             </div>
-            <div class="absolute right-0 bottom-0 z-10 opacity-35 h-5/6">
+            <div class="absolute right-0 bottom-0 z-10 opacity-35 h-4/6">
               <svg
-                class="h-full"
+                class="h-10"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >
@@ -58,6 +58,7 @@ const color = "#0000FF";
               </svg>
             </div>
           </a>
+
         </body>
       </html>
     )
