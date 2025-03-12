@@ -87,7 +87,7 @@ export default class Strava {
     // Format distances for each activity
     const formattedStats = Object.entries(data.stats)
       .map(([method, distance]) => `${methodsString[method]} ${formatDistance[this.unit](distance)}`)
-      .join("\n") // add line breaks between each stat
+      .join(",\n") // add line breaks between each stat
 
     return {
       image: data.image,
