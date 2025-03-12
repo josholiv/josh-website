@@ -1,6 +1,6 @@
 import axios from "axios"
 import cheerio from "cheerio"
-import { get } from "lodash-es"
+import { find, get } from "lodash-es"
 
 const env = import.meta.env
 
@@ -51,67 +51,49 @@ export default class Strava {
 
   async #getAthleteStats() {
     const token = await this.#refreshToken()
-    
-    const {
-      data: { id, username, firstname, profile },
-    } = await axios.get(`https://www.strava.com/api/v3/athlete`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const { data: { id, profile } } = await axios.get(
+      `https://www.strava.com/api/v3/athlete`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
 
     const { data } = await axios.get(
       `https://www.strava.com/api/v3/athletes/${id}/stats`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
+      { headers: { Authorization: `Bearer ${token}` } }
     )
-
-    // Fetch distances for all methods
-    const distances = {}
-    for (const method of methods) {
-      const key = `${this.period}_${method}_totals`
-      if (data[key]) {
-        distances[method] = {
-          distance: data[key].distance,
-          duration: data[key].moving_time,
-        }
-      }
-    }
 
     return {
       id,
-      username,
-      firstname,
       image: profile,
-      distances,
+      stats: {
+        ride: data[`${this.period}_ride_totals`]?.distance || 0,
+        run: data[`${this.period}_run_totals`]?.distance || 0,
+        swim: data[`${this.period}_swim_totals`]?.distance || 0,
+      },
     }
   }
 
   constructor() {
     if (!env.STRAVA_CLIENT_ID || !env.STRAVA_CLIENT_SECRET || !env.STRAVA_REFRESH_TOKEN) {
-      throw new Error(
-        "Strava API client ID, secret, and refresh token are needed for this widget",
-      )
+      throw new Error("Strava API credentials are missing.")
     }
 
-    this.period = validate("timeframe", periods, env.STRAVA_TIMEFRAME || "ytd")
+    this.period = validate("period", periods, env.STRAVA_TIMEFRAME || "ytd")
     this.unit = validate("unit", ["km", "miles"], env.STRAVA_UNIT || "km")
   }
 
   async fetch() {
     const data = await this.#getAthleteStats()
 
+    // Format distances for each activity
+    const formattedStats = Object.entries(data.stats)
+      .map(([method, distance]) => `${methodsString[method]} ${formatDistance[this.unit](distance)}`)
+      .join(", ")
+
     return {
       image: data.image,
       url: `https://www.strava.com/athletes/${data.id}`,
-      stats: methods.map((method) => ({
-        method,
-        title: formatDistance[this.unit](data.distances[method]?.distance || 0),
-        copy: getCopyString(method, this.period),
-      })),
+      title: formattedStats, 
+      copy: `Distance ${formattedStats} ${this.period === "all" ? "" : periodStrings[this.period]}`,
     }
   }
 }
