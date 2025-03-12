@@ -30,6 +30,17 @@ const color = "#0000FF";
 
   <h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ this year</h3>
   <h4>(data from Strava)</h4>
+  <h5>
+    {
+    !error && (
+      <>
+        <strong>Swim🏊distance:</strong> {data.swimDistance} <br />
+        <strong>Bike🚴distance:</strong> {data.rideDistance} <br />
+        <strong>Run🏃‍♂️distance:</strong> {data.runDistance}
+      </>
+      )
+    }
+  </h5>
   {
     !error && (
       <html id="html" lang="en" class="no-mobile no-js">
