@@ -11,8 +11,8 @@ const periodStrings = {
 }
 
 const formatDistance = {
-  km: (distance) => `${Math.round((distance / 1000) * 10) / 10}k`,
-  miles: (distance) => `${Math.round((distance / 1609.344) * 10) / 10}mi`,
+  km: (distance) => `${Math.round(distance / 1000)}k`,  // Rounded to the nearest whole number
+  miles: (distance) => `${Math.round(distance / 1609.344)}mi`,  // Rounded to the nearest whole number
 }
 
 const methods = ["ride", "run", "swim"]
@@ -84,10 +84,10 @@ export default class Strava {
   async fetch() {
     const data = await this.#getAthleteStats()
   
-    // Calculate the distances in kilometers
-    const swimDistanceKm = data.stats.swim / 1000;
-    const rideDistanceKm = data.stats.ride / 1000;
-    const runDistanceKm = data.stats.run / 1000;
+    // Calculate the distances in kilometers and round them
+    const swimDistanceKm = Math.round(data.stats.swim / 1000);
+    const rideDistanceKm = Math.round(data.stats.ride / 1000);
+    const runDistanceKm = Math.round(data.stats.run / 1000);
   
     // Format the distances for each activity in the selected unit (miles or km)
     const swimDistance = formatDistance[this.unit](data.stats.swim);
