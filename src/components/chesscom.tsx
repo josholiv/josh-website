@@ -38,24 +38,24 @@ const ChessStats: FunctionalComponent = () => {
 
   return (
     <div>
-      <h1>My Chess.com Stats♟️</h1>
+      <h3>My Chess.com Stats♟️</h3>
 
-      <h2>Rapid</h2>
+      <h4>Rapid</h4>
       <p>Rating: <strong>{stats.chess_rapid?.last?.rating}</strong>. Only {getEloDifference('chess_rapid')} behind Magnus Carlsen!</p>
       <p>Best Rating: {stats.chess_rapid?.best?.rating}</p>
       <p>Record: {stats.chess_rapid?.record?.win} wins, {stats.chess_rapid?.record?.loss} losses</p>
 
-      <h2>Bullet</h2>
+      <h4>Bullet</h4>
       <p>Rating: <strong>{stats.chess_bullet?.last?.rating}</strong>. Only {getEloDifference('chess_bullet')} behind Magnus Carlsen!</p>
       <p>Best Rating: {stats.chess_bullet?.best?.rating}</p>
       <p>Record: {stats.chess_bullet?.record?.win} wins, {stats.chess_bullet?.record?.loss} losses</p>
 
-      <h2>Blitz</h2>
+      <h4>Blitz</h4>
       <p>Rating: <strong>{stats.chess_blitz?.last?.rating}</strong>. Only {getEloDifference('chess_blitz')} behind Magnus Carlsen!</p>
       <p>Best Rating: {stats.chess_blitz?.best?.rating}</p>
       <p>Record: {stats.chess_blitz?.record?.win} wins, {stats.chess_blitz?.record?.loss} losses</p>
 
-      <h2>Puzzle Rush</h2>
+      <h4>Puzzle Rush</h4>
       <p>Best Score: {stats.puzzle_rush?.best?.score}</p>
     </div>
   );

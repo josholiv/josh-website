@@ -20,14 +20,15 @@ try {
   }
 }
 
-const bgColor = import.meta.env.PUBLIC_STRAVA_BGCOLOR || "#e95f29"
-const color = fontColorContrast.default(bgColor)
+//const bgColor = import.meta.env.PUBLIC_STRAVA_BGCOLOR || "#e95f29"
+//const color = fontColorContrast.default(bgColor)
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>Check out my stats&#x1F60E</h2>
   <ChessStats client:load />
 
+  <h3>Strava stats</h3>
   {
     !error && (
       <html id="html" lang="en" class="no-mobile no-js">
@@ -40,7 +41,7 @@ const color = fontColorContrast.default(bgColor)
             target="_blank"
             rel="noopener noreferrer"
             class="widget flex items-center gap-2 h-20 w-80 overflow-hidden relative select-none"
-            style={`background: ${bgColor}`}
+            //style={`background: ${bgColor}`}
           >
             <img class="h-20 aspect-square object-cover" src={data.image} />
             <div class="flex flex-col">
@@ -63,10 +64,10 @@ const color = fontColorContrast.default(bgColor)
   }
   <ErrorRenderer error={error} />
   
-  <style define:vars={{ color }}>
+  <!-- <style define:vars={{ color }}>
     .widget {
-      color: var(--color);
+      //color: var(--color);
       fill: var(--color);
     }
-  </style>
+  </style> -->
 </BaseLayout>
