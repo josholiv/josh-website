@@ -1,6 +1,6 @@
 import axios from "axios"
 import cheerio from "cheerio"
-import { find, get } from "lodash-es"
+import { get } from "lodash-es"
 
 const env = import.meta.env
 
@@ -48,8 +48,10 @@ export default class Strava {
     )
     return data.access_token
   }
+
   async #getAthleteStats() {
     const token = await this.#refreshToken()
+    
     const {
       data: { id, username, firstname, profile },
     } = await axios.get(`https://www.strava.com/api/v3/athlete`, {
@@ -59,7 +61,7 @@ export default class Strava {
     })
 
     const { data } = await axios.get(
-      `https://www.strava.com/api/v3//athletes/${id}/stats`,
+      `https://www.strava.com/api/v3/athletes/${id}/stats`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,28 +69,35 @@ export default class Strava {
       },
     )
 
-    const { moving_time, distance } =
-      data[`${this.period}_${this.activity}_totals`]
+    // Fetch distances for all methods
+    const distances = {}
+    for (const method of methods) {
+      const key = `${this.period}_${method}_totals`
+      if (data[key]) {
+        distances[method] = {
+          distance: data[key].distance,
+          duration: data[key].moving_time,
+        }
+      }
+    }
 
     return {
       id,
       username,
       firstname,
       image: profile,
-      duration: moving_time,
-      distance,
+      distances,
     }
   }
 
   constructor() {
     if (!env.STRAVA_CLIENT_ID || !env.STRAVA_CLIENT_SECRET || !env.STRAVA_REFRESH_TOKEN) {
       throw new Error(
-        "Strava api client id, secret and refresh token are needed for this widget",
+        "Strava API client ID, secret, and refresh token are needed for this widget",
       )
     }
 
-    this.activity = validate("method", methods, env.STRAVA_TYPE || "run")
-    this.period = validate("method", periods, env.STRAVA_TIMEFRAME || "ytd")
+    this.period = validate("timeframe", periods, env.STRAVA_TIMEFRAME || "ytd")
     this.unit = validate("unit", ["km", "miles"], env.STRAVA_UNIT || "km")
   }
 
@@ -98,8 +107,11 @@ export default class Strava {
     return {
       image: data.image,
       url: `https://www.strava.com/athletes/${data.id}`,
-      title: formatDistance[this.unit](data.distance),
-      copy: getCopyString(this.activity, this.period),
+      stats: methods.map((method) => ({
+        method,
+        title: formatDistance[this.unit](data.distances[method]?.distance || 0),
+        copy: getCopyString(method, this.period),
+      })),
     }
   }
 }
