@@ -193,7 +193,7 @@ html.dark .profile-pic {
 }
 
 .widget {
-  border-radius: 5px; /* Adjust the value to control the roundness of the edges */
+  border-radius: 10px; /* Adjust the value to control the roundness of the edges */
 }
 
 /* format page nav link of current page */
