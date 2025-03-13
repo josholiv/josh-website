@@ -1,6 +1,5 @@
+[build]
+  functions = "functions"
+
 [functions]
   node_bundler = "esbuild"
-
-[[scheduled_functions]]
-  function = "fetchStrava"
-  cron = "0 * * * *"  # Runs every hour
