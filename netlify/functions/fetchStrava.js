@@ -3,7 +3,6 @@ import fetch from 'node-fetch';
 
 export const handler = async function () {
     try {
-        // Replace with your Strava API credentials
         const CLIENT_ID = process.env.STRAVA_CLIENT_ID;
         const CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET;
         const REFRESH_TOKEN = process.env.STRAVA_REFRESH_TOKEN;
