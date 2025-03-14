@@ -14,9 +14,51 @@ const goal = 3;
 const skillColor = "red";
 const fontWeight = "bold";
 const textCase = "uppercase";
+
+
+import ChessStats from '../components/chesscom.tsx';
+import Strava from "../components/strava.js";
+import ErrorRenderer from "../Error.astro";
+
+// Display error message if Strava API messes up
+let data, error
+try {
+  const strava = new Strava()
+  data = await strava.fetch()
+} catch (e) {
+  error = e.message
+  if (error.includes("401")) {
+    throw Error(
+      "Something went wrong with the Strava API, try updating your refresh_token",
+    )
+  }
+}
+
+// Get the current year
+const currentYear = new Date().getFullYear();
 ---
 <BaseLayout pageTitle={pageTitle}>
-  <h2>My awesome blog subtitle</h2>
+	<h2>Check out my stats&#x1F60E</h2>
+	<h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ so far in {currentYear}</h3>
+	<h4>Data from my <a href=`https://www.strava.com/athletes/26573817` target="_blank">Strava</a> profile</h4>
+  
+	<p>
+	  {
+		!error && (
+		  <>
+			🏊 <strong>{data.swimDistance}</strong> ({data.swimDistanceKm} km) <br />
+			🚴 <strong>{data.rideDistance}</strong> ({data.rideDistanceKm} km) <br />
+			🏃‍♂️ <strong>{data.runDistance}</strong> ({data.runDistanceKm} km)
+		  </>
+		)
+	  }    
+	</p>
+	
+	<ErrorRenderer error={error} />
+	
+	<ChessStats client:load />
+	
+	<h2>My awesome blog subtitle</h2>
   <style  is:global define:vars={{skillColor, fontWeight, textCase}}>
 		h1 {
 		  color: #F26921;
