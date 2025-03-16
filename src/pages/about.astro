@@ -1,12 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ChessStats from '../components/chesscom.tsx';
+import Strava from "../components/strava.js";
+import ErrorRenderer from "../Error.astro";
+
 const pageTitle = "About Me";
 const identity = {
   firstName: "Josh",
   country: "the United States",
   occupation: "research assistant",
-  hobbies: ["traveling", "3D printing", "yoyo tricks", "baseball"],
+  hobbies: ["3D printing", "yoyo tricks🪀", "yerba mate🧉", "chess♟️", "triathlons"],
 	};
+const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
 const happy = true;
 const finished = true;
@@ -14,11 +19,7 @@ const goal = 3;
 const skillColor = "red";
 const fontWeight = "bold";
 const textCase = "uppercase";
-
-
-import ChessStats from '../components/chesscom.tsx';
-import Strava from "../components/strava.js";
-import ErrorRenderer from "../Error.astro";
+const currentYear = new Date().getFullYear();
 
 // Display error message if Strava API messes up
 let data, error
@@ -33,14 +34,12 @@ try {
     )
   }
 }
-
-// Get the current year
-const currentYear = new Date().getFullYear();
 ---
 <BaseLayout pageTitle={pageTitle}>
-	<h2>Check out my stats&#x1F60E</h2>
-	<h3>Total distance I've swam🏊, biked🚴, and run🏃‍♂️ so far in {currentYear}</h3>
-	<h4>Data from my <a href=`https://www.strava.com/athletes/26573817` target="_blank">Strava</a> profile</h4>
+	<h2>Hi, I'm {identity.firstName}!</h2>
+    <p>I live in {identity.country} and work as a {identity.ocupation}.</p>
+    <p>I love {hobbyText}.</p>
+    <p>In {currentYear}, I've gone the following distances swimming🏊, biking🚴, and running🏃‍♂️:</h3>
   
 	<p>
 	  {
@@ -55,38 +54,9 @@ const currentYear = new Date().getFullYear();
 	</p>
 	
 	<ErrorRenderer error={error} />
-	
-	<ChessStats client:load />
-	
-	<h2>My awesome blog subtitle</h2>
-  <style  is:global define:vars={{skillColor, fontWeight, textCase}}>
-		h1 {
-		  color: #F26921;
-		  font-size: 4rem;
-		}
-		.skill {
-		  color: var(--skillColor);
-		  font-weight: var(--fontWeight);
-		  text-transform: var(--textCase);
-		}
-	</style>
-	  <h2>... hello!</h2>
-	  <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
-	  <p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
-	<p>Here are a few facts about me:</p>
-	<ul>
-	  <li>My name is {identity.firstName}.</li>
-	  <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
-	  {identity.hobbies.length >= 2 &&
-	<li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-	  }
-	</ul>
-	<p>My skills are:</p>
-	<ul>
-	  {skills.map((skill) => <li class="skill">{skill}</li>)}
-	</ul>
-	{happy && <p>I am happy to be learning Astro!</p>}
-	{finished && <p>I finished this tutorial!</p>}
-	{goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
 
+	<p>(Data from my <a href=`https://www.strava.com/athletes/26573817` target="_blank">Strava</a> profile)</p>
+	
+  My current bullet chess rating is:
+	<ChessStats client:load />
 </BaseLayout>
