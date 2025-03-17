@@ -9,7 +9,7 @@ const identity = {
   firstName: "Josh",
   country: "the United States",
   occupation: "research assistant",
-  hobbies: ["3D printing⚙️", "yoyo tricks🪀", "yerba mate🧉", "chess♟️", "triathlons🏃‍♂️"],
+  hobbies: ["yerba mate🧉", "3D printing⚙️", "chess♟️", "yoyo tricks🪀", "triathlons🏃‍♂️"],
 	};
 const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
@@ -39,19 +39,23 @@ try {
 	<h2>Hi, I'm {identity.firstName}!</h2>
     <p>I live in {identity.country} and work as a {identity.occupation}.</p>
     <p>I love {hobbyText}.</p>
-    <p>In {currentYear}, I've gone the following distances swimming🏊, biking🚴, and running🏃‍♂️:</h3>
-  
 	<p>
-	  {
-		!error && (
-		  <>
-			🏊 <strong>{data.swimDistance}</strong> ({data.swimDistanceKm} km) <br />
-			🚴 <strong>{data.rideDistance}</strong> ({data.rideDistanceKm} km) <br />
-			🏃‍♂️ <strong>{data.runDistance}</strong> ({data.runDistanceKm} km)
-		  </>
-		)
-	  }    
-	</p>
+		During my triathlon training in <strong>{currentYear}</strong>, I've gone a total of
+		{
+		  !error && (
+			<>
+			  🏊 <strong style={{ fontSize: '1.5em', color: '#0077cc' }}>{data.swimDistance}</strong> 
+			  (<span style={{ fontSize: '1.2em', color: '#0077cc' }}>{data.swimDistanceKm} km</span>) swimming, 
+	  
+			  🚴 <strong style={{ fontSize: '1.5em', color: '#41ab5d' }}>{data.rideDistance}</strong> 
+			  (<span style={{ fontSize: '1.2em', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking, 
+	  
+			  🏃‍♂️ <strong style={{ fontSize: '1.5em', color: '#ffaa00' }}>{data.runDistance}</strong> 
+			  (<span style={{ fontSize: '1.2em', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running.
+			</>
+		  )
+		}
+	  </p>
 	
 	<ErrorRenderer error={error} />
 
