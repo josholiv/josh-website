@@ -192,6 +192,15 @@ html.dark .profile-pic {
   border: 3px solid #ffffe5;
 }
 
+.about-pic {
+  width: 250px;
+  height: 250px; 
+  border-radius: 5px;
+  object-fit: cover; /* Ensures the image fills the circular shape */
+  display: block;
+  margin-left: 0; /* Left justify the image */
+}
+
 .widget {
   border-radius: 10px; /* Adjust the value to control the roundness of the edges */
 }

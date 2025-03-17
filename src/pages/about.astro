@@ -37,14 +37,15 @@ try {
 ---
 <BaseLayout pageTitle={pageTitle}>
 	<h2>Hi, I'm {identity.firstName}!</h2>
+	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>
     <p>I live in {identity.country} and work as a {identity.occupation}.</p>
     <p>I love {hobbyText}.</p>
 	<p>During my triathlon training in <strong>{currentYear}</strong>, I've gone a total of</p>
 		{
 		  !error && (
 			<p>
-			  🏊 <strong style={{ fontSize: '1.5em', color: '#0077cc' }}>{data.swimDistance}*</strong> 
-			  (<span style={{ fontSize: '1.2em', color: '#0077cc' }}>{data.swimDistanceKm} km</span>) swimming, <br />
+			  🏊 <strong style={{ fontSize: '1.5em', color: '#00dbff' }}>{data.swimDistance}*</strong> 
+			  (<span style={{ fontSize: '1.2em', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming, <br />
 	  
 			  🚴 <strong style={{ fontSize: '1.5em', color: '#41ab5d' }}>{data.rideDistance}*</strong> 
 			  (<span style={{ fontSize: '1.2em', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking, and<br />
