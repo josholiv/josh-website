@@ -40,11 +40,14 @@ const ChessStats: FunctionalComponent = () => {
     <div>
       <p>
         My current bullet chess rating is{" "}  
-        <strong style={{ fontSize: "1.5rem", color: "#f200ff" }}>
-          {stats.chess_bullet?.last?.rating}
-          <sup>†</sup>
-        </strong>
-        . Only <strong>{getEloDifference("chess_bullet")}</strong> behind Magnus Carlsen!
+          <strong style={{ fontSize: "1.5rem", color: "#f200ff" }}>
+            {stats.chess_bullet?.last?.rating}
+            <sup>†</sup>
+          </strong>
+        . Only <strong>{getEloDifference("chess_bullet")}</strong> behind{" "}
+        <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
+          GM Magnus Carlsen
+        </a>!
       </p>
     </div>
   );
