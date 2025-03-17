@@ -1,6 +1,6 @@
 export async function fetchBooksRead() {
     const API_URL = "https://api.hardcover.app/graphql";
-    const API_KEY = import.meta.env.HARDOVER_API_KEY; // Store API key safely
+    const API_KEY = import.meta.env.HARDOVER_API_KEY;
   
     const query = `
       query {
@@ -22,12 +22,9 @@ export async function fetchBooksRead() {
         body: JSON.stringify({ query }),
       });
   
-      if (!response.ok) {
-        console.error("Failed to fetch book data");
-        return 0;
-      }
-  
       const json = await response.json();
+      console.log("Hardcover API Response:", json);
+  
       return json.data?.user?.stats?.totalBooks || 0;
     } catch (error) {
       console.error("Error fetching data:", error);
