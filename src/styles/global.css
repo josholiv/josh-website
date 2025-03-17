@@ -234,3 +234,10 @@ html.dark .widget-text {
     nav a.active:hover, html.dark nav a.active:hover {
       background-color: #addd8e;
     }
+
+
+.footnote {
+  color: #737373;           /* Make the footnotes gray */
+  line-height: 0;      /* Reduce line spacing */
+  font-style: italic;    /* Optional: keep the italics */
+}

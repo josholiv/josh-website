@@ -43,21 +43,22 @@ try {
 		{
 		  !error && (
 			<p>
-			  🏊 <strong style={{ fontSize: '1.5em', color: '#0077cc' }}>{data.swimDistance}</strong> 
+			  🏊 <strong style={{ fontSize: '1.5em', color: '#0077cc' }}>{data.swimDistance}*</strong> 
 			  (<span style={{ fontSize: '1.2em', color: '#0077cc' }}>{data.swimDistanceKm} km</span>) swimming, <br />
 	  
-			  🚴 <strong style={{ fontSize: '1.5em', color: '#41ab5d' }}>{data.rideDistance}</strong> 
+			  🚴 <strong style={{ fontSize: '1.5em', color: '#41ab5d' }}>{data.rideDistance}*</strong> 
 			  (<span style={{ fontSize: '1.2em', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking, and<br />
 	  
-			  🏃‍♂️ <strong style={{ fontSize: '1.5em', color: '#ffaa00' }}>{data.runDistance}</strong> 
-			  (<span style={{ fontSize: '1.2em', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running.
+			  🏃‍♂️ <strong style={{ fontSize: '1.5em', color: '#ffaa00' }}>{data.runDistance}*</strong> 
+			  (<span style={{ fontSize: '1.2em', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running*
 			</p>
 		  )
 		}
 	
 	<ErrorRenderer error={error} />
-
-	<p>(Data from my <a href=`https://www.strava.com/athletes/26573817` target="_blank">Strava</a> profile)</p>
 	
 	<ChessStats client:load />
+
+	<p class="footnote">*Data from my <a href="https://www.strava.com/athletes/26573817" target="_blank" rel="noopener noreferrer">Strava</a> profile</p>
+	<p class="footnote">**Data from my <a href="https://www.chess.com/member/pichugang" target="_blank" rel="noopener noreferrer">Chess.com</a> profile</p>
 </BaseLayout>
