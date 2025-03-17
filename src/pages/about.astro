@@ -42,15 +42,15 @@ try {
 	<p>During my triathlon training in <strong>{currentYear}</strong>, I've gone a total of</p>
 		{
 		  !error && (
-			<p>
-			  🏊 <strong style={{ fontSize: '1.5em', color: '#00dbff' }}>{data.swimDistance}*</strong> 
-			  (<span style={{ fontSize: '1.2em', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming, <br />
+		  <p style={{ textIndent: '3rem' }}>
+			  🏊 <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>{data.swimDistance}*</strong> 
+			  (<span style={{ fontSize: '1.2rem', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming, <br />
 	  
-			  🚴 <strong style={{ fontSize: '1.5em', color: '#41ab5d' }}>{data.rideDistance}*</strong> 
-			  (<span style={{ fontSize: '1.2em', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking, and<br />
+			  🚴 <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>{data.rideDistance}*</strong> 
+			  (<span style={{ fontSize: '1.2rem', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking, and<br />
 	  
-			  🏃‍♂️ <strong style={{ fontSize: '1.5em', color: '#ffaa00' }}>{data.runDistance}*</strong> 
-			  (<span style={{ fontSize: '1.2em', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running.
+			  🏃‍♂️ <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>{data.runDistance}*</strong> 
+			  (<span style={{ fontSize: '1.2rem', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running.
 			</p>
 		  )
 		}
