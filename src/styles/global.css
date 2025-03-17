@@ -195,7 +195,7 @@ html.dark .profile-pic {
 .about-pic {
   width: 250px;
   height: 250px; 
-  border-radius: 5px;
+  border-radius: 10px;
   object-fit: cover; /* Ensures the image fills the circular shape */
   display: block;
   margin-left: 0; /* Left justify the image */
