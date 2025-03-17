@@ -41,7 +41,7 @@ const ChessStats: FunctionalComponent = () => {
       <p>
         My current bullet chess rating is{" "}  
         <strong style={{ fontSize: "1.5rem", color: "#f200ff" }}>
-          {stats.chess_bullet?.last?.rating}**
+          {stats.chess_bullet?.last?.rating}†
         </strong>
         . Only <strong>{getEloDifference("chess_bullet")}</strong> behind Magnus Carlsen!
       </p>
