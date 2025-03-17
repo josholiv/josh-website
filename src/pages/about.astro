@@ -37,6 +37,8 @@ try {
 
 import { fetchBooksRead } from "../components/hardcover.js";
 let booksRead = await fetchBooksRead();
+
+console.log("API Key:", import.meta.env.HARDOVER_API_KEY);
 ---
 <BaseLayout pageTitle={pageTitle}>
 	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>
