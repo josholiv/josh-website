@@ -1,22 +1,34 @@
 export async function fetchBooksRead() {
-    const API_URL = "https://api.hardcover.app/v1/stats?year=2025";
-    const API_KEY = import.meta.env.HARDOVER_API_KEY;
+    const API_URL = "https://api.hardcover.app/graphql";
+    const API_KEY = import.meta.env.HARDOVER_API_KEY; // Store API key safely
+  
+    const query = `
+      query {
+        user {
+          stats(year: 2025) {
+            totalBooks
+          }
+        }
+      }
+    `;
   
     try {
       const response = await fetch(API_URL, {
+        method: "POST",
         headers: {
           "Authorization": `Bearer ${API_KEY}`,
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query }),
       });
   
       if (!response.ok) {
-        console.error("Failed to fetch Hardcover data");
+        console.error("Failed to fetch book data");
         return 0;
       }
   
-      const data = await response.json();
-      return data.total_books || 0;
+      const json = await response.json();
+      return json.data?.user?.stats?.totalBooks || 0;
     } catch (error) {
       console.error("Error fetching data:", error);
       return 0;
