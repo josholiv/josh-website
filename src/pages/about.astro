@@ -34,6 +34,9 @@ try {
     )
   }
 }
+
+import { fetchBooksRead } from "../components/hardcover.js";
+let booksRead = await fetchBooksRead();
 ---
 <BaseLayout pageTitle={pageTitle}>
 	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>
@@ -58,6 +61,8 @@ try {
 	<ErrorRenderer error={error} />
 	
 	<ChessStats client:load />
+
+	<p>This year, I've read <strong>{booksRead}</strong> books so far!</p>
 
 	<p class="footnote">*Data from my <a href="https://www.strava.com/athletes/26573817" target="_blank" rel="noopener noreferrer">Strava</a> profile</p>
 	<p class="footnote"><sup>†</sup>Data from my <a href="https://www.chess.com/member/pichugang" target="_blank" rel="noopener noreferrer">Chess.com</a> profile</p>
