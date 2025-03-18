@@ -7,7 +7,7 @@ import ErrorRenderer from "../Error.astro";
 const pageTitle = "Hi, I'm Josh!";
 const identity = {
   firstName: "Josh",
-  country: "the United States",
+  country: "United States",
   occupation: "research assistant",
   hobbies: ["yerba mate🧉", "3D printing⚙️", "chess♟️", "yoyo tricks🪀", "triathlons🏊🚴🏃‍♂️"],
 	};
@@ -37,18 +37,20 @@ try {
 ---
 <BaseLayout pageTitle={pageTitle}>
 	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>
-    <p>I live in {identity.country} and work as a {identity.occupation}.</p>
+    <p>I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in a cognitive neuroscience lab.</p>
     
-	<p>Some things I love are:</p>
+	<p style="padding-left: 3rem;">
+		Some things I love are:
+	</p>
 
-		<ul style="font-size: 1.2rem; color: orange;">
-		{identity.hobbies.map((hobby) => <li>{hobby}</li>)}
+		<ul style="font-size: 1.2rem; color: #41ab5d; padding-left: 6rem;">
+			{identity.hobbies.map((hobby) => <li>{hobby}</li>)}
 		</ul>
 	
-	<p>During my triathlon training in <strong>{currentYear}</strong>, I've gone a total of</p>
+	<p>I'm currently training for a triathlon! During my training in <strong>{currentYear}</strong>, I've gone a total of</p>
 		{
 			!error && (
-				<p style={{ paddingLeft: '2rem' }}>
+				<p style={{ paddingLeft: '3rem' }}>
 					<strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>🏊 {data.swimDistance}*</strong> 
 					(<span style={{ fontSize: '1.2rem', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming, <br />
 

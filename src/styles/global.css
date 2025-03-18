@@ -44,7 +44,7 @@
       flex-direction: column;
       min-height: 100vh; /* Ensures body extends fully even with little content */
       width: 100%;
-      max-width: 80ch;
+      max-width: 70ch;
       padding: 1rem;
       background: #ffffe5; /* Light mode (default) body color) */
       margin: 0 auto;
