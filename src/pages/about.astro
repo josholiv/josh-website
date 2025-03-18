@@ -39,11 +39,8 @@ try {
 	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>
     <p>I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in a cognitive neuroscience lab.</p>
     
-	<p style="padding-left: 3rem;">
-		Some things I love are:
-	</p>
-
-		<ul style="font-size: 1.2rem; color: #41ab5d; padding-left: 6rem;">
+	<p>Some things I love are:</p>
+		<ul style="font-size: 1.2rem; color: #41ab5d;">
 			{identity.hobbies.map((hobby) => <li>{hobby}</li>)}
 		</ul>
 	
