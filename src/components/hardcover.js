@@ -33,14 +33,9 @@ export async function fetchBooksRead() {
     });
 
     const result = await response.json();
+    console.log("API Response:", result);  // Log the entire response
 
-    // Check if the result structure matches what we expect
-    if (result?.data?.me?.user_books_aggregate?.aggregate?.count !== undefined) {
-      return result.data.me.user_books_aggregate.aggregate.count;
-    } else {
-      console.error("Unexpected response structure", result);
-      return null; // or you can return a default value or message like "Error fetching data"
-    }
+    return result?.data?.me?.user_books_aggregate?.aggregate?.count ?? null; // Explicitly return the count or null if undefined
   } catch (error) {
     console.error("Error fetching books:", error);
     return null; // Return null if the fetch fails

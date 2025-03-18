@@ -194,9 +194,9 @@ html.dark .profile-pic {
 }
 
 .about-pic {
-  width: 25rem;
-  height: 25rem; 
-  border-radius: 10px;
+  width: 15rem;
+  height: 15rem; 
+  border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular shape */
   display: block;
   margin: 0 auto;
