@@ -9,7 +9,7 @@ const identity = {
   firstName: "Josh",
   country: "United States",
   occupation: "research assistant",
-  hobbies: ["yerba mate🧉", "3D printing⚙️", "chess♟️", "yoyo tricks🪀", "triathlons🏊🚴🏃‍♂️"],
+  hobbies: ["🧉 yerba mate", "⚙️ 3D printing", "♟️ chess", "🪀 yoyo tricks", "🏃‍♂️ triathlons"],
 	};
 const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
@@ -39,10 +39,10 @@ try {
 	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>
     <p>I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in a cognitive neuroscience lab.</p>
     
-	<p>Some things I love are:</p>
-		<ul style="font-size: 1.2rem; color: #41ab5d;">
-			{identity.hobbies.map((hobby) => <li>{hobby}</li>)}
-		</ul>
+	<h3>Some things I love are:</h3>
+		<ul style={{ fontSize: "1.5rem", color: "#41ab5d", listStyle: "none"}}>
+			{identity.hobbies.map((hobby) => <li key={hobby}>{hobby}</li>)}
+	 	 </ul>
 	
 	<p>I'm currently training for a triathlon! During my training in <strong>{currentYear}</strong>, I've gone a total of</p>
 		{
