@@ -18,13 +18,6 @@ export async function fetchBooksRead() {
             count
           }
         }
-        user_books {
-          title
-          author {
-            name
-          }
-          last_read_date
-        }
       }
     }
   `;
@@ -39,20 +32,10 @@ export async function fetchBooksRead() {
       method: 'POST',
     });
 
-    const { data } = await response.json();
-
-    if (data && data.me && data.me.user_books) {
-      const books = data.me.user_books;
-      books.forEach(book => {
-        console.log("Book title:", book.title);
-        console.log("Author:", book.author.name);
-        console.log("Last read date:", book.last_read_date);
-      });
-    } else {
-      console.log("No books found in the specified range.");
-    }
-
+    const result = await response.json();
+    return result?.data; // Ensure we're returning the data object correctly
   } catch (error) {
     console.error("Error fetching books:", error);
+    return null; // Return null if the fetch fails
   }
 }
