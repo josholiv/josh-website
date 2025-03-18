@@ -36,8 +36,14 @@ try {
 }
 
 import { fetchBooksRead } from "../components/hardcover.js";
-let booksRead = await fetchBooksRead();
-let booksReadCount = booksRead?.data?.me?.user_books_aggregate?.aggregate?.count || 0;
+let booksReadData = await fetchBooksRead();
+
+// Check if data exists and has the expected structure
+let booksReadCount = booksReadData?.me?.user_books_aggregate?.aggregate?.count;
+
+if (booksReadCount === undefined) {
+  booksReadCount = "<error>";
+}
 ---
 <BaseLayout pageTitle={pageTitle}>
 	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>

@@ -33,7 +33,14 @@ export async function fetchBooksRead() {
     });
 
     const result = await response.json();
-    return result?.data; // Ensure we're returning the data object correctly
+
+    // Check if the result structure matches what we expect
+    if (result?.data?.me?.user_books_aggregate?.aggregate?.count !== undefined) {
+      return result.data.me.user_books_aggregate.aggregate.count;
+    } else {
+      console.error("Unexpected response structure", result);
+      return null; // or you can return a default value or message like "Error fetching data"
+    }
   } catch (error) {
     console.error("Error fetching books:", error);
     return null; // Return null if the fetch fails
