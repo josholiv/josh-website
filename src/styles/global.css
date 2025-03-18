@@ -194,17 +194,16 @@ html.dark .profile-pic {
 }
 
 .about-pic {
-  width: 12rem;
-  height: 12rem; 
-  border-radius: 50%;
+  width: 100%;
   object-fit: cover; /* Ensures the image fills the circular shape */
-  border: .25rem solid #41ab5d;
+  border: 0rem solid #252525;
+  border-radius: 0%;
   display: block;
   margin: 0 auto;
 }
 
 html.dark .about-pic {
-  border: 0.25rem solid #ffffe5;
+  border: 0rem solid #ffffe5;
 }
 
 .widget {

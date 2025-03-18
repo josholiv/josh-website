@@ -44,7 +44,7 @@ const ChessStats: FunctionalComponent = () => {
             {stats.chess_bullet?.last?.rating}
             <sup>†</sup>
           </strong>
-        . Only <strong>{getEloDifference("chess_bullet")}</strong> behind{" "}
+        —only <strong>{getEloDifference("chess_bullet")}</strong> behind{" "}
         <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
           GM Magnus Carlsen
         </a>!
