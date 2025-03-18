@@ -180,26 +180,31 @@ html.dark .nav-links a:focus {
 }
 
 .profile-pic {
-  width: 100px;
-  height: 100px; 
+  width: 6rem;
+  height: 6rem; 
   border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular shape */
-  border: 3px solid #41ab5d;
+  border: 0.25rem solid #41ab5d;
   display: block;
   margin: 0 auto; /* center image */
 }
 
 html.dark .profile-pic {
-  border: 3px solid #ffffe5;
+  border: 0.25rem solid #ffffe5;
 }
 
 .about-pic {
-  width: 15rem;
-  height: 15rem; 
+  width: 12rem;
+  height: 12rem; 
   border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular shape */
+  border: .25rem solid #41ab5d;
   display: block;
   margin: 0 auto;
+}
+
+html.dark .about-pic {
+  border: 0.25rem solid #ffffe5;
 }
 
 .widget {

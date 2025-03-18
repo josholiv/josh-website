@@ -38,18 +38,24 @@ try {
 <BaseLayout pageTitle={pageTitle}>
 	<img src="/about-me-photo.jpg" alt="About Me Photo" class="about-pic"/>
     <p>I live in {identity.country} and work as a {identity.occupation}.</p>
-    <p>I love {hobbyText}.</p>
+    
+	<p>Some things I love are:</p>
+
+		<ul style="font-size: 1.2rem; color: orange;">
+		{identity.hobbies.map((hobby) => <li>{hobby}</li>)}
+		</ul>
+	
 	<p>During my triathlon training in <strong>{currentYear}</strong>, I've gone a total of</p>
 		{
 			!error && (
 				<p style={{ paddingLeft: '2rem' }}>
-					🏊 <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>{data.swimDistance}*</strong> 
+					<strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>🏊 {data.swimDistance}*</strong> 
 					(<span style={{ fontSize: '1.2rem', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming, <br />
 
-					🚴 <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>{data.rideDistance}*</strong> 
+					<strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>🚴 {data.rideDistance}*</strong> 
 					(<span style={{ fontSize: '1.2rem', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking, and<br />
 
-					🏃‍♂️ <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>{data.runDistance}*</strong> 
+					<strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>🏃‍♂️ {data.runDistance}*</strong> 
 					(<span style={{ fontSize: '1.2rem', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running.
 				</p>
 					)
