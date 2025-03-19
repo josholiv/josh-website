@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
+import TriathlonStats from '../components/TriathlonStats.jsx';
 
 const pageTitle = "Hi, I'm Josh!";
 const identity = {
@@ -39,6 +40,8 @@ try {
 	<img src="/about-me-photo.jpg" alt="Josh at the beach" class="about-pic"/>
     <p>I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in a cognitive neuroscience lab.</p>
     
+	<TriathlonStats client:load data={data} error={error} />
+
 	<p>Some things I love are:</p>
 	<ul style={{ fontSize: "1.5rem", listStyle: "none" }}>
 		{identity.hobbies.map((hobby) => (
