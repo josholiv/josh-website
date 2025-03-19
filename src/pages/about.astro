@@ -50,23 +50,7 @@ try {
 		  </li>
 		))}
 	  </ul>
-	
-	<p>During my triathlon training in <strong>{currentYear}</strong>, I've gone a total of:</p>
-		{
-			!error && (
-				<p style={{ paddingLeft: '3rem' }}>
-					<strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>🏊 {data.swimDistance}*</strong> 
-					(<span style={{ fontSize: '1.2rem', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming <br />
-
-					<strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>🚴 {data.rideDistance}*</strong> 
-					(<span style={{ fontSize: '1.2rem', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking<br />
-
-					<strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>🏃‍♂️ {data.runDistance}*</strong> 
-					(<span style={{ fontSize: '1.2rem', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running
-				</p>
-					)
-		}
-	
+		
 	<ErrorRenderer error={error} />
 	
 	<ChessStats client:load />

@@ -11,6 +11,8 @@ const TriathlonStats = ({ data, error }) => {
     });
   };
 
+  const formatNumber = (num) => num.toLocaleString(); // Add commas for readability
+
   const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44); // Convert meters to football fields
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361); // Convert meters to yards
 
@@ -21,31 +23,31 @@ const TriathlonStats = ({ data, error }) => {
       {!error && (
         <p style={{ paddingLeft: '3rem' }}>
           <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
-            🏊 {unit === "miles" ? data.swimDistance : 
-                unit === "km" ? `${data.swimDistanceKm} km` : 
-                unit === "yards" ? `${convertToYards(data.swimDistanceKm * 1000)} yards` : 
-                `${convertToFields(data.swimDistanceKm * 1000)} fields`}
+            🏊 {unit === "miles" ? formatNumber(data.swimDistance) : 
+                unit === "km" ? `${formatNumber(data.swimDistanceKm)} km` : 
+                unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards` : 
+                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈`}
           </strong> swimming <br />
 
           <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
-            🚴 {unit === "miles" ? data.rideDistance : 
-                unit === "km" ? `${data.rideDistanceKm} km` : 
-                unit === "yards" ? `${convertToYards(data.rideDistanceKm * 1000)} yards` : 
-                `${convertToFields(data.rideDistanceKm * 1000)} fields`}
+            🚴 {unit === "miles" ? formatNumber(data.rideDistance) : 
+                unit === "km" ? `${formatNumber(data.rideDistanceKm)} km` : 
+                unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards` : 
+                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈`}
           </strong> biking<br />
 
           <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
-            🏃‍♂️ {unit === "miles" ? data.runDistance : 
-                unit === "km" ? `${data.runDistanceKm} km` : 
-                unit === "yards" ? `${convertToYards(data.runDistanceKm * 1000)} yards` : 
-                `${convertToFields(data.runDistanceKm * 1000)} fields`}
+            🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) : 
+                unit === "km" ? `${formatNumber(data.runDistanceKm)} km` : 
+                unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards` : 
+                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈`}
           </strong> running
         </p>
       )}
 
       <button 
         onClick={toggleUnit} 
-        style={{ marginTop: "1rem", padding: "0.5rem 1rem", fontSize: "1rem", cursor: "pointer" }}
+        style={{ marginTop: "1rem", padding: "0.5rem 1rem", fontSize: "1rem", cursor: "pointer", paddingLeft: '3rem' }}
       >
         Change Distance Unit
       </button>
