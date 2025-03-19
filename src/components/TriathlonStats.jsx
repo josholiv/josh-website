@@ -23,27 +23,30 @@ const TriathlonStats = ({ data, error }) => {
       {!error && (
         <p style={{ paddingLeft: '3rem' }}>
             <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
-            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
+              <span style={{ fontWeight: 'bold' }}>🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `} 
-            swimming
+                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `}
+              </span>
+              swimming
             </strong><br />
 
             <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
-            🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
+              <span style={{ fontWeight: 'bold' }}>🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `} 
-            biking
+                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `}
+              </span>
+              biking
             </strong><br />
 
             <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
-            🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
+              <span style={{ fontWeight: 'bold' }}>🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `} 
-            running
+                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `}
+              </span>
+              running
             </strong>
         </p>
       )}
