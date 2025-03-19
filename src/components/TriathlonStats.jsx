@@ -22,29 +22,29 @@ const TriathlonStats = ({ data, error }) => {
       
       {!error && (
         <p style={{ paddingLeft: '3rem' }}>
-            <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
-            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `} 
-            swimming
-            </strong><br />
+            <span style={{ fontSize: '1.5rem', color: '#00dbff' }}>
+              <strong>🏊</strong> {unit === "miles" ? <strong>{formatNumber(data.swimDistance)}</strong> + " " : 
+                unit === "km" ? <strong>{formatNumber(data.swimDistanceKm)}</strong> + " kilometers " : 
+                unit === "yards" ? <strong>{formatNumber(convertToYards(data.swimDistanceKm * 1000))}</strong> + " yards " : 
+                <strong>{formatNumber(convertToFields(data.swimDistanceKm * 1000))}</strong> + " football fields🏈 "} 
+              swimming
+            </span><br />
 
-            <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
-            🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `} 
-            biking
-            </strong><br />
+            <span style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
+              <strong>🚴</strong> {unit === "miles" ? <strong>{formatNumber(data.rideDistance)}</strong> + " " : 
+                unit === "km" ? <strong>{formatNumber(data.rideDistanceKm)}</strong> + " kilometers " : 
+                unit === "yards" ? <strong>{formatNumber(convertToYards(data.rideDistanceKm * 1000))}</strong> + " yards " : 
+                <strong>{formatNumber(convertToFields(data.rideDistanceKm * 1000))}</strong> + " football fields🏈 "} 
+              biking
+            </span><br />
 
-            <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
-            🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `} 
-            running
-            </strong>
+            <span style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
+              <strong>🏃‍♂️</strong> {unit === "miles" ? <strong>{formatNumber(data.runDistance)}</strong> + " " : 
+                unit === "km" ? <strong>{formatNumber(data.runDistanceKm)}</strong> + " kilometers " : 
+                unit === "yards" ? <strong>{formatNumber(convertToYards(data.runDistanceKm * 1000))}</strong> + " yards " : 
+                <strong>{formatNumber(convertToFields(data.runDistanceKm * 1000))}</strong> + " football fields🏈 "} 
+              running
+            </span>
         </p>
       )}
 
