@@ -11,7 +11,7 @@ export default function Greeting({ messages }) {
       <h3>{greeting}! Thank you for visiting!</h3>
       <button
         onClick={() => setGreeting(randomMessage())}
-        style={{ cursor: 'pointer' }} // Makes the cursor a pointer on hover
+        className="btn" 
       >
         New Greeting
       </button>

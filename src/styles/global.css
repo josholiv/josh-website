@@ -255,3 +255,22 @@ html.dark .widget-text {
   line-height: 0;      /* Reduce line spacing */
   font-style: italic;    /* Optional: keep the italics */
 }
+
+/* Universal button style class */
+.btn {
+  padding: 0.1rem 0.5rem;          /* Add padding */
+  font-size: 1rem;               /* Set font size */
+  font-family: monospace;
+  text-transform: uppercase;
+  cursor: pointer;              /* Change cursor on hover */
+  background-color: #f0f0f0;     /* Set background color */
+  color: #252525;                  /* Set text color */
+  border: none;                  /* Remove border */
+  border-radius: 1rem;            /* Add rounded corners */
+  transition: background-color 0.3s ease; /* Add hover transition */
+}
+
+/* Hover effect for buttons with .btn class */
+.btn:hover {
+  background-color: #bdbdbd;     /* Change background color on hover */
+}

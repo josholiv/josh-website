@@ -48,12 +48,12 @@ const TriathlonStats = ({ data, error }) => {
         </p>
       )}
 
-      <button 
+        <button 
         onClick={toggleUnit} 
-        style={{ marginTop: "1rem", padding: "0.5rem 1rem", fontSize: "1rem", cursor: "pointer" }}
-      >
+        className="btn" 
+        >
         Change Distance Unit
-      </button>
+        </button>
     </div>
   );
 };
