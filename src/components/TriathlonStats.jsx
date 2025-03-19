@@ -21,8 +21,8 @@ const TriathlonStats = ({ data, error }) => {
       <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:</p>
       
       {!error && (
-        <p style={{ paddingLeft: '3rem' }}>
-            <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
+        <p style={{ paddingLeft: '0rem' }}>
+            <strong style={{ fontSize: '1rem', color: '#00dbff' }}>
             🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
@@ -30,7 +30,7 @@ const TriathlonStats = ({ data, error }) => {
             swimming
             </strong><br />
 
-            <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
+            <strong style={{ fontSize: '1rem', color: '#41ab5d' }}>
             🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
@@ -38,7 +38,7 @@ const TriathlonStats = ({ data, error }) => {
             biking
             </strong><br />
 
-            <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
+            <strong style={{ fontSize: '1rem', color: '#ffaa00' }}>
             🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
