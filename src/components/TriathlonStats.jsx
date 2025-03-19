@@ -26,7 +26,7 @@ const TriathlonStats = ({ data, error }) => {
             🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields `} 
+                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `} 
             swimming
             </strong><br />
 
@@ -34,7 +34,7 @@ const TriathlonStats = ({ data, error }) => {
             🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields `} 
+                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `} 
             biking
             </strong><br />
 
@@ -42,7 +42,7 @@ const TriathlonStats = ({ data, error }) => {
             🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields `} 
+                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `} 
             running
             </strong>
         </p>
