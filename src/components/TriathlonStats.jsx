@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 
 const TriathlonStats = ({ data, error }) => {
-  const units = ["miles", "km", "yards", "fields"]; // Added yards and football fields
+  const units = ["miles", "km", "yards", "fields"]; 
   const [unit, setUnit] = useState("miles");
 
   const toggleUnit = () => {
@@ -28,8 +28,11 @@ const TriathlonStats = ({ data, error }) => {
                 unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
                 `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `}
               </span>
-              swimming
-            </strong><br />
+            </strong>
+            <span>{unit === "miles" ? "miles" : 
+                unit === "km" ? "km" : 
+                unit === "yards" ? "yards" : "football fields"}</span>
+            swimming<br />
 
             <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
               <span style={{ fontWeight: 'bold' }}>🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
@@ -37,8 +40,11 @@ const TriathlonStats = ({ data, error }) => {
                 unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
                 `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `}
               </span>
-              biking
-            </strong><br />
+            </strong>
+            <span>{unit === "miles" ? "miles" : 
+                unit === "km" ? "km" : 
+                unit === "yards" ? "yards" : "football fields"}</span>
+            biking<br />
 
             <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
               <span style={{ fontWeight: 'bold' }}>🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
@@ -46,8 +52,11 @@ const TriathlonStats = ({ data, error }) => {
                 unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
                 `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `}
               </span>
-              running
             </strong>
+            <span>{unit === "miles" ? "miles" : 
+                unit === "km" ? "km" : 
+                unit === "yards" ? "yards" : "football fields"}</span>
+            running
         </p>
       )}
 
