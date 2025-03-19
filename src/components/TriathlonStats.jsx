@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 
 const TriathlonStats = ({ data, error }) => {
-  const units = ["miles", "km", "yards", "fields"]; // Added yards and football fields
+  const units = ["miles", "km", "yards", "fields"];
   const [unit, setUnit] = useState("miles");
 
   const toggleUnit = () => {
@@ -11,17 +11,19 @@ const TriathlonStats = ({ data, error }) => {
     });
   };
 
-  const formatNumber = (num) => num.toLocaleString(); // Add commas for readability
+  const formatNumber = (num) => num.toLocaleString();
 
   const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44); // Convert meters to football fields
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361); // Convert meters to yards
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:</p>
-      
+    <div>
+      <p style={{ textAlign: 'center' }}>
+        During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:
+      </p>
+
       {!error && (
-        <p style={{ paddingLeft: '3rem' }}>
+        <p style={{ textAlign: 'center', paddingLeft: '3rem' }}>
           <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
             🏊 {unit === "miles" ? formatNumber(data.swimDistance) : 
                 unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers` : 
@@ -48,18 +50,19 @@ const TriathlonStats = ({ data, error }) => {
         </p>
       )}
 
-      <button 
-        onClick={toggleUnit} 
-        style={{ 
-          marginTop: "1rem", 
-          padding: "0.5rem 1rem", 
-          fontSize: "1rem", 
-          cursor: "pointer", 
-          textAlign: 'center' 
-        }}
-      >
-        Change Distance Unit
-      </button>
+      <div style={{ textAlign: 'center' }}>
+        <button 
+          onClick={toggleUnit} 
+          style={{ 
+            marginTop: "1rem", 
+            padding: "0.5rem 1rem", 
+            fontSize: "1rem", 
+            cursor: "pointer" 
+          }}
+        >
+          Change Distance Unit
+        </button>
+      </div>
     </div>
   );
 };
