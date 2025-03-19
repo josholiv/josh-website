@@ -39,8 +39,8 @@ try {
 	<img src="/about-me-photo.jpg" alt="Josh at the beach" class="about-pic"/>
     <p>I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in a cognitive neuroscience lab.</p>
     
-	<h3>Some things I love are:</h3>
-	<ul style={{ fontSize: "1.5rem", color: "#41ab5d", listStyle: "none" }}>
+	<p>Some things I love are:</p>
+	<ul style={{ fontSize: "1.5rem", listStyle: "none" }}>
 		{identity.hobbies.map((hobby) => (
 		  <li key={hobby}>
 			<strong>{hobby}</strong>
@@ -48,18 +48,18 @@ try {
 		))}
 	  </ul>
 	
-	<p>I'm currently training for a triathlon! During my training in <strong>{currentYear}</strong>, I've gone a total of:</p>
+	<p>During my triathlon training in <strong>{currentYear}</strong>, I've gone a total of:</p>
 		{
 			!error && (
 				<p style={{ paddingLeft: '3rem' }}>
 					<strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>🏊 {data.swimDistance}*</strong> 
-					(<span style={{ fontSize: '1.2rem', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming, <br />
+					(<span style={{ fontSize: '1.2rem', color: '#00dbff' }}>{data.swimDistanceKm} km</span>) swimming <br />
 
 					<strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>🚴 {data.rideDistance}*</strong> 
-					(<span style={{ fontSize: '1.2rem', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking, and<br />
+					(<span style={{ fontSize: '1.2rem', color: '#41ab5d' }}>{data.rideDistanceKm} km</span>) biking<br />
 
 					<strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>🏃‍♂️ {data.runDistance}*</strong> 
-					(<span style={{ fontSize: '1.2rem', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running.
+					(<span style={{ fontSize: '1.2rem', color: '#ffaa00' }}>{data.runDistanceKm} km</span>) running
 				</p>
 					)
 		}
