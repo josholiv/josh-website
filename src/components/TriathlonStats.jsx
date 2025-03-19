@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 
 const TriathlonStats = ({ data, error }) => {
-  const units = ["miles", "km", "yards", "fields"]; 
+  const units = ["miles", "km", "yards", "fields"]; // Added yards and football fields
   const [unit, setUnit] = useState("miles");
 
   const toggleUnit = () => {
@@ -23,40 +23,28 @@ const TriathlonStats = ({ data, error }) => {
       {!error && (
         <p style={{ paddingLeft: '3rem' }}>
             <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
-              <span style={{ fontWeight: 'bold' }}>🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
+            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `}
-              </span>
-            </strong>
-            <span>{unit === "miles" ? "miles" : 
-                unit === "km" ? "km" : 
-                unit === "yards" ? "yards" : "football fields"}</span>
-            swimming<br />
+                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `} 
+            swimming
+            </strong><br />
 
             <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
-              <span style={{ fontWeight: 'bold' }}>🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
+            🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `}
-              </span>
-            </strong>
-            <span>{unit === "miles" ? "miles" : 
-                unit === "km" ? "km" : 
-                unit === "yards" ? "yards" : "football fields"}</span>
-            biking<br />
+                `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `} 
+            biking
+            </strong><br />
 
             <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
-              <span style={{ fontWeight: 'bold' }}>🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
+            🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
-                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `}
-              </span>
-            </strong>
-            <span>{unit === "miles" ? "miles" : 
-                unit === "km" ? "km" : 
-                unit === "yards" ? "yards" : "football fields"}</span>
+                `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `} 
             running
+            </strong>
         </p>
       )}
 
