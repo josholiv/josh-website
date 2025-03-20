@@ -60,15 +60,15 @@ const TriathlonStats = ({ data, error }) => {
      {/* Relative Distance Bar */}
         <div style={{
           marginTop: '1rem',
-          height: '2.5rem',
+          height: '3rem',
           width: '100%',
           display: 'flex',
           overflow: 'hidden',
           backgroundColor: 'transparent',
           paddingLeft: '1rem',
           paddingRight: '1rem',
-          paddingTop: '0.5rem',  
-          paddingBottom: '0.5rem' 
+          paddingTop: '1.5rem',  
+          paddingBottom: '0rem' 
         }}>
           <div style={{
             width: `${swimPercent}%`,
