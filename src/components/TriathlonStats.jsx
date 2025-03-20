@@ -60,11 +60,11 @@ const TriathlonStats = ({ data, error }) => {
      {/* Relative Distance Bar */}
         <div style={{
           marginTop: '1rem',
-          height: '3rem',
+          height: '2.5rem',
           width: '100%',
           display: 'flex',
           overflow: 'hidden',
-          backgroundColor: 'gray',
+          backgroundColor: 'transparent',
           paddingLeft: '1rem',
           paddingRight: '1rem',
           paddingTop: '1.5rem',  
@@ -79,7 +79,7 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '-25%',
+              top: '-50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
@@ -93,7 +93,7 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '-25%',
+              top: '-50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
@@ -109,7 +109,7 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '-25%',
+              top: '-50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
