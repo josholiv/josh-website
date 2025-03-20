@@ -57,69 +57,65 @@ const TriathlonStats = ({ data, error }) => {
         </p>
       )}
       
-    {/* Relative Distance Bar */}
-<div style={{
-  marginTop: '1rem',
-  height: '2.5rem',
-  width: '100%',
-  display: 'flex',
-  overflow: 'hidden',
-  backgroundColor: 'transparent',
-  paddingLeft: '1rem',
-  paddingRight: '1rem'
-}}>
-  <div style={{
-    width: `${swimPercent}%`,
-    backgroundColor: '#00dbff',
-    position: 'relative',
-    borderTopLeftRadius: '1.25rem',  
-    borderBottomLeftRadius: '1.25rem'
-  }}>
-    <span style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      fontSize: '1.5rem',
-      zIndex: 1  
-    }}>🏊</span>
-  </div>
-  <div style={{
-    width: `${ridePercent}%`,
-    backgroundColor: '#41ab5d',
-    position: 'relative',
-    marginLeft: swimPercent < 10 ? '-0.75rem' : '0',  // Overlapping effect if swim is too small
-    borderTopLeftRadius: swimPercent < 10 ? '1.25rem' : '0',  
-    borderBottomLeftRadius: swimPercent < 10 ? '1.25rem' : '0'
-  }}>
-    <span style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      fontSize: '1.5rem',
-      zIndex: 1  
-    }}>🚴</span>
-  </div>
-  <div style={{
-    width: `${runPercent}%`,
-    backgroundColor: '#ffaa00',
-    position: 'relative',
-    borderTopRightRadius: '1.25rem',
-    borderBottomRightRadius: '1.25rem'
-  }}>
-    <span style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      fontSize: '1.5rem',
-      zIndex: 1  
-    }}>🏃‍♂️</span>
-  </div>
-</div>
-
-
+     {/* Relative Distance Bar */}
+        <div style={{
+          marginTop: '1rem',
+          height: '2.5rem',
+          width: '100%',
+          display: 'flex',
+          overflow: 'hidden',
+          backgroundColor: 'transparent',
+          paddingLeft: '1rem',
+          paddingRight: '1rem'
+        }}>
+          <div style={{
+            width: `${swimPercent}%`,
+            backgroundColor: '#00dbff',
+            position: 'relative',
+            borderTopLeftRadius: '0.5rem',  // Rounded left edge
+            borderBottomLeftRadius: '.5rem'
+          }}>
+            <span style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontSize: '1.5rem',
+              zIndex: 1  
+            }}>🏊</span>
+          </div>
+          <div style={{
+            width: `${ridePercent}%`,
+            backgroundColor: '#41ab5d',
+            position: 'relative'
+          }}>
+            <span style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontSize: '1.5rem',
+              zIndex: 1  
+            }}>🚴</span>
+          </div>
+          <div style={{
+            width: `${runPercent}%`,
+            backgroundColor: '#ffaa00',
+            position: 'relative',
+            borderTopRightRadius: '0.5rem',  // Rounded right edge
+            borderBottomRightRadius: '0.5rem'
+          }}>
+            <span style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontSize: '1.5rem',
+              zIndex: 1  
+            }}>🏃‍♂️</span>
+          </div>
+        </div>
+        
       {/* Change Unit Button */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: '1rem' }}>
         <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
