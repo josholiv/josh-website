@@ -16,41 +16,85 @@ const TriathlonStats = ({ data, error }) => {
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361);
   const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon
 
-  const getBarWidth = (distance) => distance; // Directly use distance as the bar width in pixels
+  // Calculate the maximum distance across all sports for relative scaling of the bars
+  const maxDistance = Math.max(
+    data.swimDistance,
+    data.rideDistance,
+    data.runDistance
+  );
+
+  const getDistance = (unit, distanceKm, distanceMeters) => {
+    switch (unit) {
+      case "km":
+        return distanceKm;
+      case "miles":
+        return distanceMeters / 1609.34;
+      case "yards":
+        return convertToYards(distanceKm * 1000);
+      case "fields":
+        return convertToFields(distanceKm * 1000);
+      case "moon%":
+        return convertToMoonPercentage(distanceKm);
+      default:
+        return distanceKm;
+    }
+  };
 
   return (
     <div>
       <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:</p>
       {!error && (
-        <div style={{ paddingLeft: '0rem' }}>
-          {["swim", "ride", "run"].map((sport, index) => {
-            const sportData = {
-              swim: { label: "🏊", color: "#00dbff", distance: data.swimDistance, km: data.swimDistanceKm },
-              ride: { label: "🚴", color: "#41ab5d", distance: data.rideDistance, km: data.rideDistanceKm },
-              run: { label: "🏃‍♂️", color: "#ffaa00", distance: data.runDistance, km: data.runDistanceKm }
-            }[sport];
+        <div>
+          {/* Swimming */}
+          <div>
+            <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
+              🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
+                  unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
+                  unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
+                  unit === "fields" ? `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 ` :
+                  `${convertToMoonPercentage(data.swimDistanceKm)}% of the way to the Moon 🌕`}
+            </strong>
+            <div style={{
+              backgroundColor: '#00dbff', 
+              height: '10px', 
+              width: `${(getDistance(unit, data.swimDistanceKm, data.swimDistance) / maxDistance) * 100}%`,
+              marginTop: '5px'
+            }}></div>
+          </div>
 
-            const displayDistance = unit === "miles" ? formatNumber(sportData.distance) + " " :
-                                    unit === "km" ? `${formatNumber(sportData.km)} kilometers ` :
-                                    unit === "yards" ? `${formatNumber(convertToYards(sportData.km * 1000))} yards ` :
-                                    unit === "fields" ? `${formatNumber(convertToFields(sportData.km * 1000))} football fields🏈 ` :
-                                    `${convertToMoonPercentage(sportData.km)}% of the distance from Earth🌎 to the Moon🌕`;
+          {/* Biking */}
+          <div>
+            <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
+              🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
+                  unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
+                  unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
+                  unit === "fields" ? `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 ` :
+                  `${convertToMoonPercentage(data.rideDistanceKm)}% of the way to the Moon 🌕`}
+            </strong>
+            <div style={{
+              backgroundColor: '#41ab5d', 
+              height: '10px', 
+              width: `${(getDistance(unit, data.rideDistanceKm, data.rideDistance) / maxDistance) * 100}%`,
+              marginTop: '5px'
+            }}></div>
+          </div>
 
-            return (
-              <div key={index} style={{ marginBottom: "1rem" }}>
-                <strong style={{ fontSize: '1.5rem', color: sportData.color }}>
-                  {sportData.label} {displayDistance}
-                </strong>
-                <div style={{
-                  height: "10px",
-                  width: `${getBarWidth(sportData.distance)}px`, // Bar width is now directly proportional to distance
-                  backgroundColor: sportData.color,
-                  borderRadius: "5px",
-                  marginTop: "5px"
-                }}></div>
-              </div>
-            );
-          })}
+          {/* Running */}
+          <div>
+            <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
+              🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
+                  unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
+                  unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
+                  unit === "fields" ? `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 ` :
+                  `${convertToMoonPercentage(data.runDistanceKm)}% of the way to the Moon 🌕`}
+            </strong>
+            <div style={{
+              backgroundColor: '#ffaa00', 
+              height: '10px', 
+              width: `${(getDistance(unit, data.runDistanceKm, data.runDistance) / maxDistance) * 100}%`,
+              marginTop: '5px'
+            }}></div>
+          </div>
         </div>
       )}
       <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
