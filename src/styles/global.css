@@ -201,7 +201,7 @@ html.dark .profile-pic {
   display: block;
   margin: 0 auto;
   opacity: 0; /* Start fully transparent */
-    animation: fadeIn 0.5s ease-in-out forwards;
+    animation: fadeIn 2s ease-in-out forwards;
 }
 
 html.dark .about-pic {
