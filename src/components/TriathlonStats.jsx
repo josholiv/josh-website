@@ -19,8 +19,14 @@ const TriathlonStats = ({ data, error }) => {
   // Get max distance for normalization
   const maxDistance = Math.max(data.swimDistance, data.rideDistance, data.runDistance);
   
+  console.log('Max Distance:', maxDistance); // Debugging
+
   // Function to normalize bar width (percentage of max distance)
-  const getBarWidth = (distance) => `${(distance / maxDistance) * 100}%`;
+  const getBarWidth = (distance) => {
+    const width = (distance / maxDistance) * 100;
+    console.log(`${distance} / ${maxDistance} = ${width}`); // Debugging
+    return `${width}%`;
+  };
 
   return (
     <div>
