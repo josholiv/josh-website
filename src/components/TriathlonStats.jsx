@@ -57,7 +57,7 @@ const TriathlonStats = ({ data, error }) => {
             <div style={{
               backgroundColor: '#00dbff', 
               height: '10px', 
-              width: `${(getDistance(unit, data.swimDistanceKm, data.swimDistance) / maxDistance) * 100}%`,
+              width: `${(getDistance(unit, data.swimDistanceKm, data.swimDistance) / maxDistance)}%`,
               marginTop: '5px'
             }}></div>
           </div>
