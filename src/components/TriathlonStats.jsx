@@ -66,7 +66,9 @@ const TriathlonStats = ({ data, error }) => {
         borderRadius: '2rem',
         overflow: 'hidden',
         border: '1px solid #f0f0f0',
-        backgroundColor: '#f0f0f0' // Light background for visibility
+        backgroundColor: '#f0f0f0', // Light background for visibility
+        paddingLeft: '1rem', // Add padding to the left
+        paddingRight: '1rem' // Add padding to the right
       }}>
         <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff', position: 'relative' }}>
           <span style={{
