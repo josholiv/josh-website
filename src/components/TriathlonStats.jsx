@@ -20,43 +20,31 @@ const TriathlonStats = ({ data, error }) => {
     <div>
       <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:</p>
       
-      {!error && (
+            {!error && (
         <p style={{ paddingLeft: '0rem' }}>
-                        🏊{" "}
-              {unit === "miles" ? (
-                <strong>{formatNumber(data.swimDistance)}</strong>
-              ) : unit === "km" ? (
-                <>
-                  <strong>{formatNumber(data.swimDistanceKm)}</strong> kilometers
-                </>
-              ) : unit === "yards" ? (
-                <>
-                  <strong>{formatNumber(convertToYards(data.swimDistanceKm * 1000))}</strong> yards
-                </>
-              ) : (
-                <>
-                  <strong>{formatNumber(convertToFields(data.swimDistanceKm * 1000))}</strong> football fields🏈
-                </>
-              )}{" "}
-              swimming<br />
+          <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
+            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
+                unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
+                unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
+                `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 `} 
+          </strong> swimming<br />
 
-            <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
+          <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
             🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
                 `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 `} 
-            biking
-            </strong><br />
+          </strong> biking<br />
 
-            <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
+          <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
             🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
                 unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
                 `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 `} 
-            running
-            </strong>
+          </strong> running
         </p>
       )}
+
 
         <button 
         onClick={toggleUnit} 
