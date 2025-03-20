@@ -46,8 +46,11 @@ const TriathlonStats = ({ data, error }) => {
           </strong> running
         </p>
       )}
-      <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
+      </div>
     </div>
+    
   );
 };
 
