@@ -14,16 +14,15 @@ const TriathlonStats = ({ data, error }) => {
   const formatNumber = (num) => num.toLocaleString();
   const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44);
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361);
-  const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon🌕
+  const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon
 
-  // Function to convert to 1000 miles scale (relative to 1000 miles)
-  const convertToScale = (distanceMiles) => (distanceMiles / 1000) * 100; // Returns percentage of 1000 miles
+  const getBarWidth = (distance) => distance; // Directly use distance as the bar width in pixels
 
   return (
     <div>
       <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:</p>
       {!error && (
-        <div style={{ paddingLeft: '0rem', maxWidth: "400px" }}> {/* Constrain total width */}
+        <div style={{ paddingLeft: '0rem' }}>
           {["swim", "ride", "run"].map((sport, index) => {
             const sportData = {
               swim: { label: "🏊", color: "#00dbff", distance: data.swimDistance, km: data.swimDistanceKm },
@@ -37,9 +36,6 @@ const TriathlonStats = ({ data, error }) => {
                                     unit === "fields" ? `${formatNumber(convertToFields(sportData.km * 1000))} football fields🏈 ` :
                                     `${convertToMoonPercentage(sportData.km)}% of the distance from Earth🌎 to the Moon🌕`;
 
-            // Get the percentage relative to 1000 miles
-            const barWidth = convertToScale(sportData.distance);
-
             return (
               <div key={index} style={{ marginBottom: "1rem" }}>
                 <strong style={{ fontSize: '1.5rem', color: sportData.color }}>
@@ -47,11 +43,10 @@ const TriathlonStats = ({ data, error }) => {
                 </strong>
                 <div style={{
                   height: "10px",
-                  width: `${barWidth}%`,
+                  width: `${getBarWidth(sportData.distance)}px`, // Bar width is now directly proportional to distance
                   backgroundColor: sportData.color,
                   borderRadius: "5px",
-                  marginTop: "5px",
-                  transition: "width 0.3s ease-in-out"
+                  marginTop: "5px"
                 }}></div>
               </div>
             );
