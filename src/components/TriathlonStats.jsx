@@ -64,7 +64,7 @@ const TriathlonStats = ({ data, error }) => {
           width: '100%',
           display: 'flex',
           overflow: 'hidden',
-          backgroundColor: 'transparent',
+          backgroundColor: 'gray',
           paddingLeft: '1rem',
           paddingRight: '1rem',
           paddingTop: '1.5rem',  
@@ -79,7 +79,7 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '50%',
+              top: '-25%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
@@ -93,11 +93,11 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '50%',
+              top: '-25%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
-              zIndex: 1  
+              zIndex: 1    
             }}>🚴</span>
           </div>
           <div style={{
@@ -109,11 +109,11 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '50%',
+              top: '-25%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
-              zIndex: 1  
+              zIndex: 1   
             }}>🏃‍♂️</span>
           </div>
         </div>
