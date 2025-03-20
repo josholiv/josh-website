@@ -16,10 +16,11 @@ const TriathlonStats = ({ data, error }) => {
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361);
   const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6);
 
-  const totalDistance = data.swimDistance + data.rideDistance + data.runDistance;
-  const swimPercent = totalDistance ? (data.swimDistance / totalDistance) * 100 : 0;
-  const ridePercent = totalDistance ? (data.rideDistance / totalDistance) * 100 : 0;
-  const runPercent = totalDistance ? (data.runDistance / totalDistance) * 100 : 0;
+  const totalDistance = data.swimDistanceKm + data.rideDistanceKm + data.runDistanceKm;
+  const swimPercent = totalDistance ? (data.swimDistanceKm / totalDistance) * 100 : 0;
+  const ridePercent = totalDistance ? (data.rideDistanceKm / totalDistance) * 100 : 0;
+  const runPercent = totalDistance ? (data.runDistanceKm / totalDistance) * 100 : 0;
+
 
   return (
     <div>
@@ -66,10 +67,10 @@ const TriathlonStats = ({ data, error }) => {
         overflow: 'hidden',
         border: '1px solid #ccc',
         backgroundColor: '#eee' // Light background for visibility
-      }}>
-        <div style={{ flex: swimPercent, backgroundColor: '#00dbff', minWidth: '5px' }}></div>
-        <div style={{ flex: ridePercent, backgroundColor: '#41ab5d', minWidth: '5px' }}></div>
-        <div style={{ flex: runPercent, backgroundColor: '#ffaa00', minWidth: '5px' }}></div>
+       }}>
+        <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff' }}></div>
+        <div style={{ width: `${ridePercent}%`, backgroundColor: '#41ab5d' }}></div>
+        <div style={{ width: `${runPercent}%`, backgroundColor: '#ffaa00' }}></div>
       </div>
     </div>
   );
