@@ -14,7 +14,12 @@ const TriathlonStats = ({ data, error }) => {
   const formatNumber = (num) => num.toLocaleString();
   const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44);
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361);
-  const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon
+  const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6);
+
+  const totalDistance = data.swimDistance + data.rideDistance + data.runDistance;
+  const swimPercent = (data.swimDistance / totalDistance) * 100;
+  const ridePercent = (data.rideDistance / totalDistance) * 100;
+  const runPercent = (data.runDistance / totalDistance) * 100;
 
   return (
     <div>
@@ -22,35 +27,50 @@ const TriathlonStats = ({ data, error }) => {
       {!error && (
         <p style={{ paddingLeft: '0rem' }}>
           <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
-            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
+            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " :
+                unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` :
+                unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` :
                 unit === "fields" ? `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 ` :
                 `${convertToMoonPercentage(data.swimDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
           </strong> swimming<br />
 
           <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
-            🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
+            🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " :
+                unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` :
+                unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` :
                 unit === "fields" ? `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 ` :
                 `${convertToMoonPercentage(data.rideDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
           </strong> biking<br />
 
           <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
-            🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
+            🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " :
+                unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` :
+                unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` :
                 unit === "fields" ? `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 ` :
                 `${convertToMoonPercentage(data.runDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
           </strong> running
         </p>
       )}
+      
       <div style={{ display: "flex", justifyContent: "center" }}>
         <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
       </div>
+      
+      {/* Relative Distance Bar */}
+      <div style={{
+        marginTop: '1rem',
+        height: '20px',
+        width: '100%',
+        display: 'flex',
+        borderRadius: '10px',
+        overflow: 'hidden',
+        border: '1px solid #ccc'
+      }}>
+        <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff' }}></div>
+        <div style={{ width: `${ridePercent}%`, backgroundColor: '#41ab5d' }}></div>
+        <div style={{ width: `${runPercent}%`, backgroundColor: '#ffaa00' }}></div>
+      </div>
     </div>
-    
   );
 };
 
