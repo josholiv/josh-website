@@ -48,7 +48,6 @@ const TriathlonStats = ({ data, error }) => {
                 <div style={{
                   height: "10px",
                   width: getBarWidth(sportData.distance),
-                  maxWidth: "100%",  // Prevent oversizing
                   backgroundColor: sportData.color,
                   borderRadius: "5px",
                   marginTop: "5px",
