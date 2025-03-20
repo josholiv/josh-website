@@ -64,7 +64,7 @@ const TriathlonStats = ({ data, error }) => {
       {/* Relative Distance Bar */}
       <div style={{
         marginTop: '1rem',
-        height: '0.5rem',
+        height: '2rem',
         width: '100%',
         display: 'flex',
         borderRadius: '10px',
@@ -72,9 +72,15 @@ const TriathlonStats = ({ data, error }) => {
         border: '1px solid #f0f0f0',
         backgroundColor: '#f0f0f0' // Light background for visibility
       }}>
-        <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff', textAlign: 'center' }}>🏊</div>
-        <div style={{ width: `${ridePercent}%`, backgroundColor: '#41ab5d', textAlign: 'center' }}>🚴</div>
-        <div style={{ width: `${runPercent}%`, backgroundColor: '#ffaa00', textAlign: 'center' }}>🏃‍♂️</div>
+        <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff', textAlign: 'center', position: 'relative' }}>
+          <span style={{ position: 'absolute', right: '10px', bottom: '0' }}>🏊</span>
+        </div>
+        <div style={{ width: `${ridePercent}%`, backgroundColor: '#41ab5d', textAlign: 'center', position: 'relative' }}>
+          <span style={{ position: 'absolute', right: '10px', bottom: '0' }}>🚴</span>
+        </div>
+        <div style={{ width: `${runPercent}%`, backgroundColor: '#ffaa00', textAlign: 'center', position: 'relative' }}>
+          <span style={{ position: 'absolute', right: '10px', bottom: '0' }}>🏃‍♂️</span>
+        </div>
       </div>
     </div>
   );
