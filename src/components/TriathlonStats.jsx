@@ -14,19 +14,10 @@ const TriathlonStats = ({ data, error }) => {
   const formatNumber = (num) => num.toLocaleString();
   const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44);
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361);
-  const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon
+  const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon🌕
 
-  // Get max distance for normalization
-  const maxDistance = Math.max(data.swimDistance, data.rideDistance, data.runDistance);
-  
-  console.log('Max Distance:', maxDistance); // Debugging
-
-  // Function to normalize bar width (percentage of max distance)
-  const getBarWidth = (distance) => {
-    const width = (distance / maxDistance) * 100;
-    console.log(`${distance} / ${maxDistance} = ${width}`); // Debugging
-    return `${width}%`;
-  };
+  // Function to convert to 1000 miles scale (relative to 1000 miles)
+  const convertToScale = (distanceMiles) => (distanceMiles / 1000) * 100; // Returns percentage of 1000 miles
 
   return (
     <div>
@@ -46,6 +37,9 @@ const TriathlonStats = ({ data, error }) => {
                                     unit === "fields" ? `${formatNumber(convertToFields(sportData.km * 1000))} football fields🏈 ` :
                                     `${convertToMoonPercentage(sportData.km)}% of the distance from Earth🌎 to the Moon🌕`;
 
+            // Get the percentage relative to 1000 miles
+            const barWidth = convertToScale(sportData.distance);
+
             return (
               <div key={index} style={{ marginBottom: "1rem" }}>
                 <strong style={{ fontSize: '1.5rem', color: sportData.color }}>
@@ -53,7 +47,7 @@ const TriathlonStats = ({ data, error }) => {
                 </strong>
                 <div style={{
                   height: "10px",
-                  width: getBarWidth(sportData.distance),
+                  width: `${barWidth}%`,
                   backgroundColor: sportData.color,
                   borderRadius: "5px",
                   marginTop: "5px",
