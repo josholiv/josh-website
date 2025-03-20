@@ -57,14 +57,10 @@ const TriathlonStats = ({ data, error }) => {
         </p>
       )}
       
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
-      </div>
-      
       {/* Relative Distance Bar */}
       <div style={{
         marginTop: '1rem',
-        height: '2rem',
+        height: '3rem',  // Adjusted height to make the bar a bit taller
         width: '100%',
         display: 'flex',
         borderRadius: '10px',
@@ -72,15 +68,41 @@ const TriathlonStats = ({ data, error }) => {
         border: '1px solid #f0f0f0',
         backgroundColor: '#f0f0f0' // Light background for visibility
       }}>
-        <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff', textAlign: 'center', position: 'relative' }}>
-          <span style={{ position: 'absolute', right: '10px', bottom: '0' }}>🏊</span>
+        <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff', position: 'relative' }}>
+          <span style={{
+            position: 'absolute',
+            top: '-2rem', // Moves emoji above the bar
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '3rem',  // Increased font size for the emojis
+            zIndex: 1          // Ensures the emoji is on top
+          }}>🏊</span>
         </div>
-        <div style={{ width: `${ridePercent}%`, backgroundColor: '#41ab5d', textAlign: 'center', position: 'relative' }}>
-          <span style={{ position: 'absolute', right: '10px', bottom: '0' }}>🚴</span>
+        <div style={{ width: `${ridePercent}%`, backgroundColor: '#41ab5d', position: 'relative' }}>
+          <span style={{
+            position: 'absolute',
+            top: '-2rem', // Moves emoji above the bar
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '3rem',  // Increased font size for the emojis
+            zIndex: 1          // Ensures the emoji is on top
+          }}>🚴</span>
         </div>
-        <div style={{ width: `${runPercent}%`, backgroundColor: '#ffaa00', textAlign: 'center', position: 'relative' }}>
-          <span style={{ position: 'absolute', right: '10px', bottom: '0' }}>🏃‍♂️</span>
+        <div style={{ width: `${runPercent}%`, backgroundColor: '#ffaa00', position: 'relative' }}>
+          <span style={{
+            position: 'absolute',
+            top: '-2rem', // Moves emoji above the bar
+            left: '50%',
+            transform: 'translateX(-50%)',
+            fontSize: '3rem',  // Increased font size for the emojis
+            zIndex: 1          // Ensures the emoji is on top
+          }}>🏃‍♂️</span>
         </div>
+      </div>
+      
+      {/* Change Unit Button */}
+      <div style={{ display: "flex", justifyContent: "center", marginTop: '1rem' }}>
+        <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
       </div>
     </div>
   );
