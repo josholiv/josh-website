@@ -60,7 +60,7 @@ const TriathlonStats = ({ data, error }) => {
      {/* Relative Distance Bar */}
         <div style={{
           marginTop: '1rem',
-          height: '2.5rem',
+          height: '3rem',
           width: '100%',
           display: 'flex',
           overflow: 'hidden',
@@ -72,6 +72,7 @@ const TriathlonStats = ({ data, error }) => {
         }}>
           <div style={{
             width: `${swimPercent}%`,
+            // width: '10%', // dummy data for testing
             backgroundColor: '#00dbff',
             position: 'relative',
             borderTopLeftRadius: '0.5rem',  // Rounded left edge
@@ -79,7 +80,7 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '-50%',
+              top: '0%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
@@ -88,12 +89,13 @@ const TriathlonStats = ({ data, error }) => {
           </div>
           <div style={{
             width: `${ridePercent}%`,
+            // width: '60%', // dummy data for testing
             backgroundColor: '#41ab5d',
             position: 'relative'
           }}>
             <span style={{
               position: 'absolute',
-              top: '-50%',
+              top: '0%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
@@ -102,6 +104,7 @@ const TriathlonStats = ({ data, error }) => {
           </div>
           <div style={{
             width: `${runPercent}%`,
+            // width: '30%', // dummy data for testing
             backgroundColor: '#ffaa00',
             position: 'relative',
             borderTopRightRadius: '0.5rem',  // Rounded right edge
@@ -109,7 +112,7 @@ const TriathlonStats = ({ data, error }) => {
           }}>
             <span style={{
               position: 'absolute',
-              top: '-50%',
+              top: '0%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               fontSize: '1.5rem',
