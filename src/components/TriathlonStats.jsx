@@ -66,7 +66,9 @@ const TriathlonStats = ({ data, error }) => {
           overflow: 'hidden',
           backgroundColor: 'transparent',
           paddingLeft: '1rem',
-          paddingRight: '1rem'
+          paddingRight: '1rem',
+          paddingTop: '0.5rem',  
+          paddingBottom: '0.5rem' 
         }}>
           <div style={{
             width: `${swimPercent}%`,
