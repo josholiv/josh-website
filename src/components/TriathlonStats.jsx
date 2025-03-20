@@ -16,35 +16,46 @@ const TriathlonStats = ({ data, error }) => {
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361);
   const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon
 
+  // Get max distance for normalization
+  const maxDistance = Math.max(data.swimDistance, data.rideDistance, data.runDistance);
+  
+  // Function to normalize bar width (percentage of max distance)
+  const getBarWidth = (distance) => (distance / maxDistance) * 100;
+
   return (
     <div>
       <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:</p>
       {!error && (
-        <p style={{ paddingLeft: '0rem' }}>
-          <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
-            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.swimDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.swimDistanceKm * 1000))} yards ` : 
-                unit === "fields" ? `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈 ` :
-                `${convertToMoonPercentage(data.swimDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
-          </strong> swimming<br />
+        <div style={{ paddingLeft: '0rem' }}>
+          {["swim", "ride", "run"].map((sport, index) => {
+            const sportData = {
+              swim: { label: "🏊", color: "#00dbff", distance: data.swimDistance, km: data.swimDistanceKm },
+              ride: { label: "🚴", color: "#41ab5d", distance: data.rideDistance, km: data.rideDistanceKm },
+              run: { label: "🏃‍♂️", color: "#ffaa00", distance: data.runDistance, km: data.runDistanceKm }
+            }[sport];
 
-          <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
-            🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.rideDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.rideDistanceKm * 1000))} yards ` : 
-                unit === "fields" ? `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈 ` :
-                `${convertToMoonPercentage(data.rideDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
-          </strong> biking<br />
+            const displayDistance = unit === "miles" ? formatNumber(sportData.distance) + " " :
+                                    unit === "km" ? `${formatNumber(sportData.km)} kilometers ` :
+                                    unit === "yards" ? `${formatNumber(convertToYards(sportData.km * 1000))} yards ` :
+                                    unit === "fields" ? `${formatNumber(convertToFields(sportData.km * 1000))} football fields🏈 ` :
+                                    `${convertToMoonPercentage(sportData.km)}% of the distance from Earth🌎 to the Moon🌕`;
 
-          <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
-            🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
-                unit === "km" ? `${formatNumber(data.runDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(data.runDistanceKm * 1000))} yards ` : 
-                unit === "fields" ? `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈 ` :
-                `${convertToMoonPercentage(data.runDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
-          </strong> running
-        </p>
+            return (
+              <div key={index} style={{ marginBottom: "1rem" }}>
+                <strong style={{ fontSize: '1.5rem', color: sportData.color }}>
+                  {sportData.label} {displayDistance}
+                </strong>
+                <div style={{
+                  height: "10px",
+                  width: `${getBarWidth(sportData.distance)}%`,
+                  backgroundColor: sportData.color,
+                  borderRadius: "5px",
+                  marginTop: "5px"
+                }}></div>
+              </div>
+            );
+          })}
+        </div>
       )}
       <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
     </div>
