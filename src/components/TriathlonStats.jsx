@@ -20,13 +20,13 @@ const TriathlonStats = ({ data, error }) => {
   const maxDistance = Math.max(data.swimDistance, data.rideDistance, data.runDistance);
   
   // Function to normalize bar width (percentage of max distance)
-  const getBarWidth = (distance) => (distance / maxDistance) * 100;
+  const getBarWidth = (distance) => `${(distance / maxDistance) * 100}%`;
 
   return (
     <div>
       <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of:</p>
       {!error && (
-        <div style={{ paddingLeft: '0rem' }}>
+        <div style={{ paddingLeft: '0rem', maxWidth: "400px" }}> {/* Constrain total width */}
           {["swim", "ride", "run"].map((sport, index) => {
             const sportData = {
               swim: { label: "🏊", color: "#00dbff", distance: data.swimDistance, km: data.swimDistanceKm },
@@ -47,10 +47,12 @@ const TriathlonStats = ({ data, error }) => {
                 </strong>
                 <div style={{
                   height: "10px",
-                  width: `${getBarWidth(sportData.distance)}%`,
+                  width: getBarWidth(sportData.distance),
+                  maxWidth: "100%",  // Prevent oversizing
                   backgroundColor: sportData.color,
                   borderRadius: "5px",
-                  marginTop: "5px"
+                  marginTop: "5px",
+                  transition: "width 0.3s ease-in-out"
                 }}></div>
               </div>
             );
