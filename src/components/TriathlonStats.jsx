@@ -16,8 +16,8 @@ const TriathlonStats = ({ data, error }) => {
   const convertToYards = (distanceMeters) => Math.round(distanceMeters * 1.09361);
   const convertToMoonPercentage = (distanceKm) => ((distanceKm / 384400) * 100).toFixed(6); // Percentage of the distance to the Moon
 
-  // Convert the distance from miles to pixels (we're assuming 10px per mile as an example)
-  const milesToPixels = (miles) => miles * 10; 
+  // Convert the distance from miles to number of dashes (assuming 10 dashes per mile as an example)
+  const milesToDashes = (miles) => '-'.repeat(Math.round(miles * 10)); // Each mile is represented by 10 dashes
 
   return (
     <div>
@@ -33,12 +33,9 @@ const TriathlonStats = ({ data, error }) => {
                   unit === "fields" ? `${formatNumber(convertToFields(data.swimDistanceKm * 1000))} football fields🏈` :
                   `${convertToMoonPercentage(data.swimDistanceKm)}% of the way to the Moon 🌕`}
             </strong>
-            <div style={{
-              backgroundColor: '#00dbff', 
-              height: '10px', 
-              width: `${milesToPixels(data.swimDistance)}px`, // Bar width in pixels based on swim distance
-              marginTop: '5px'
-            }}></div>
+            <div style={{ fontFamily: 'monospace', color: '#00dbff' }}>
+              {milesToDashes(data.swimDistance)} {/* Line of dashes based on swim distance */}
+            </div>
           </div>
 
           {/* Biking */}
@@ -50,12 +47,9 @@ const TriathlonStats = ({ data, error }) => {
                   unit === "fields" ? `${formatNumber(convertToFields(data.rideDistanceKm * 1000))} football fields🏈` :
                   `${convertToMoonPercentage(data.rideDistanceKm)}% of the way to the Moon 🌕`}
             </strong>
-            <div style={{
-              backgroundColor: '#41ab5d', 
-              height: '10px', 
-              width: `${milesToPixels(data.rideDistance)}px`, // Bar width in pixels based on ride distance
-              marginTop: '5px'
-            }}></div>
+            <div style={{ fontFamily: 'monospace', color: '#41ab5d' }}>
+              {milesToDashes(data.rideDistance)} {/* Line of dashes based on ride distance */}
+            </div>
           </div>
 
           {/* Running */}
@@ -67,12 +61,9 @@ const TriathlonStats = ({ data, error }) => {
                   unit === "fields" ? `${formatNumber(convertToFields(data.runDistanceKm * 1000))} football fields🏈` :
                   `${convertToMoonPercentage(data.runDistanceKm)}% of the way to the Moon 🌕`}
             </strong>
-            <div style={{
-              backgroundColor: '#ffaa00', 
-              height: '10px', 
-              width: `${milesToPixels(data.runDistance)}px`, // Bar width in pixels based on run distance
-              marginTop: '5px'
-            }}></div>
+            <div style={{ fontFamily: 'monospace', color: '#ffaa00' }}>
+              {milesToDashes(data.runDistance)} {/* Line of dashes based on run distance */}
+            </div>
           </div>
         </div>
       )}
