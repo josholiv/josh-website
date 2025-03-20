@@ -60,10 +60,10 @@ const TriathlonStats = ({ data, error }) => {
       {/* Relative Distance Bar */}
       <div style={{
         marginTop: '1rem',
-        height: '3rem',  // Adjusted height to make the bar a bit taller
+        height: '2.5rem',  // Adjusted height to make the bar a bit taller
         width: '100%',
         display: 'flex',
-        borderRadius: '10px',
+        borderRadius: '2rem',
         overflow: 'hidden',
         border: '1px solid #f0f0f0',
         backgroundColor: '#f0f0f0' // Light background for visibility
@@ -71,31 +71,31 @@ const TriathlonStats = ({ data, error }) => {
         <div style={{ width: `${swimPercent}%`, backgroundColor: '#00dbff', position: 'relative' }}>
           <span style={{
             position: 'absolute',
-            top: '-2rem', // Moves emoji above the bar
+            top: '50%',  // Centers vertically
             left: '50%',
-            transform: 'translateX(-50%)',
-            fontSize: '3rem',  // Increased font size for the emojis
-            zIndex: 1          // Ensures the emoji is on top
+            transform: 'translate(-50%, -50%)',  // Centers both horizontally and vertically
+            fontSize: '1.5rem',  
+            zIndex: 1  
           }}>🏊</span>
         </div>
         <div style={{ width: `${ridePercent}%`, backgroundColor: '#41ab5d', position: 'relative' }}>
           <span style={{
             position: 'absolute',
-            top: '-2rem', // Moves emoji above the bar
+            top: '50%',  // Centers vertically
             left: '50%',
-            transform: 'translateX(-50%)',
-            fontSize: '3rem',  // Increased font size for the emojis
-            zIndex: 1          // Ensures the emoji is on top
+            transform: 'translate(-50%, -50%)',  // Centers both horizontally and vertically
+            fontSize: '1.5rem',  
+            zIndex: 1  
           }}>🚴</span>
         </div>
         <div style={{ width: `${runPercent}%`, backgroundColor: '#ffaa00', position: 'relative' }}>
           <span style={{
             position: 'absolute',
-            top: '-2rem', // Moves emoji above the bar
+            top: '50%',  // Centers vertically
             left: '50%',
-            transform: 'translateX(-50%)',
-            fontSize: '3rem',  // Increased font size for the emojis
-            zIndex: 1          // Ensures the emoji is on top
+            transform: 'translate(-50%, -50%)',  // Centers both horizontally and vertically
+            fontSize: '1.5rem',  
+            zIndex: 1  
           }}>🏃‍♂️</span>
         </div>
       </div>
