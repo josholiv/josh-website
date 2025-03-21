@@ -1,8 +1,368 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Greeting from '../components/Greeting';
-const pageTitle = "Curriculum Vitae";
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Joshua M. Olivier";
 ---
+
 <BaseLayout pageTitle={pageTitle}>
-  <!-- <a href="/The.pdf" target="_blank" rel="noopener noreferrer">Download my CV</a> -->
+  <body>
+    <div style="display: flex; justify-content: space-between;">
+      <!-- Left column -->
+      <div style="width: 67%;">
+        <h4>Jump to:</h4>
+        <ul>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#publications">Scholarly Publications</a></li>
+          <li><a href="#presentations">Poster Presentations</a></li>
+          <li><a href="#experience">Research Experience</a></li>
+          <li><a href="#awards">Grants & Awards</a></li>
+          <li><a href="#service">Service & Activities</a></li>
+          <li><a href="#affiliations">Academic Affiliations</a></li>
+          <li><a href="#skills">Technical Skills</a></li>
+        </ul>
+      </div>
+    
+      <!-- Right column -->
+      <div style="width: 33%; display: flex; justify-content: center; align-items: center;">
+        <a href="The.pdf" target="_blank"
+        rel="noopener noreferrer">View PDF Version🗎</a>
+      </div>
+    </div>
+    
+    
+
+    <h2 id="education">Education🎓</h2>
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2021</span>
+      <span
+        ><strong>B.S., Psychology</strong><br /> Brigham Young University, Provo,
+        UT</span
+      >
+    </p>
+
+    <h2 id="publications">Scholarly Publications📝</h2>
+    <div style="line-height: 2; margin-left: 2em; text-indent:-2em;">
+      <div style="margin-bottom: 1em;">
+        <strong>Olivier, J. M.</strong>, Srokova, S., Hill, P. F., &amp; Rugg,
+        M. D. (<i>submitted; preprint under review</i>). Moderating effects of
+        cortical thickness, volume, and memory performance on age differences in
+        neural reinstatement of scene information (p. 2025.02.06.636759). <i
+          >bioRxiv</i
+        >. <a
+          href="https://doi.org/10.1101/2025.02.06.636759"
+          target="_blank"
+          rel="noopener noreferrer">https://doi.org/10.1101/2025.02.06.636759</a
+        >
+      </div>
+      <div style="margin-bottom: 1em;">
+        de Chastelaine, M., Srokova, S., Monier, S., <strong
+          >Olivier, J. M.</strong
+        >, &amp; Rugg, M. D. (<i>submitted; preprint under review</i>). Effects
+        of age in the strategic control of recollected content as reflected by
+        modulation of scene reinstatement (p. 2025.01.16.633416). <i>bioRxiv</i
+        >. <a
+          href="https://doi.org/10.1101/2025.01.16.633416"
+          target="_blank"
+          rel="noopener noreferrer">https://doi.org/10.1101/2025.01.16.633416</a
+        >
+      </div>
+      <div style="margin-bottom: 1em;">
+        Kamhout, S.<sup>†</sup>, <strong>Olivier, J. M.</strong><sup>†</sup>,
+        Morris, J., Brimhall, H. R., Black, B. L., Gabrielsen, T. P., South, M.,
+        Lundwall, R. A.<sup>‡</sup>, &amp; Nielsen, J. A.<sup>‡</sup> (2023). Binocular
+        rivalry in autistic and socially anxious adults. <i
+          >Frontiers in Psychiatry</i
+        >, <i>14</i>. <a
+          href="https://doi.org/10.3389/fpsyt.2023.1181797"
+          target="_blank"
+          rel="noopener noreferrer"
+          >https://doi.org/10.3389/fpsyt.2023.1181797</a
+        >
+      </div>
+    </div>
+
+    <p class="footnote">
+      <sup>†</sup>These authors have contributed equally to this work and share
+      first authorship
+    </p>
+    <p class="footnote">
+      <sup>‡</sup>These authors jointly supervised this work and share senior
+      authorship
+    </p>
+
+    <h2 id="presentations">Poster Presentations📊</h2>
+    <div style="line-height: 2; margin-left: 2em; text-indent:-2em;">
+      <div style="margin-bottom: 1em;">
+        <strong>Olivier, J. M.</strong>*, Srokova, S., & Rugg, M. D. (2025,
+        March 29–April 1, accepted for presentation). <i
+          >Moderating effects of cortical thickness, volume, and memory
+          performance on age differences in neural reinstatement of
+          scene-related information</i
+        >. Cognitive Neuroscience Society, Boston, MA, United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        <strong>Olivier, J. M.</strong>*, Srokova, S., & Rugg, M. D. (2025,
+        February 20–22). <i
+          >Moderating effects of cortical thickness, volume, and memory
+          performance on age differences in neural reinstatement of
+          scene-related information</i
+        >. Dallas Aging and Cognition Conference, Dallas, TX, United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        de Chastelaine, M.*, Monier, S., <strong>Olivier, J. M.</strong>,
+        Srokova, S., & Rugg, M. D. (2024, October 5–9). <i
+          >Goal-dependent attenuation of retrieval-related scene reinstatement
+          in young and older adults</i
+        >. Society for Neuroscience, Chicago, IL, United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        <strong>Olivier, J. M.</strong>*, Srokova, S., & Rugg, M. D. (2023,
+        November 11–15).
+        <i
+          >Moderating effects of cortical volume and thickness on
+          retrieval-related scene reinstatement</i
+        >. Society for Neuroscience, Washington, D.C., United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        <strong>Olivier, J. M.</strong>*, Srokova, S., & Rugg, M. D. (2022,
+        February 25–27). <i
+          >Age and retrieval-related scene reinstatement: moderating effects of
+          cortical thickness</i
+        >. Dallas Aging and Cognition Conference, Dallas, TX, United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        <strong>Olivier, J. M.</strong>*, Srokova, S., & Rugg, M. D. (2022,
+        November 12–16). <i
+          >Age and retrieval-related scene reinstatement: moderating effects of
+          cortical thickness</i
+        >. Society for Neuroscience, San Diego, CA, United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        <strong>Olivier, J. M.</strong>*, Morris, J., Kamhout, S., Black, B.,
+        Wood, H., Brimhall, H., & Nielsen, J. A. (2021, April 8). <i
+          >Autistic traits do not predict binocular rivalry switching rate</i
+        >. Mary Lou Fulton Conference, Provo, UT, United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        Morris, J.*, <strong>Olivier, J. M.</strong>, Kamhout, S., Brimhall, H.,
+        Wood, H., & Nielsen, J. A. (2021, April 8). <i
+          >Anxious traits in college students do not correlate with visual
+          perception</i
+        >. Mary Lou Fulton Conference, Provo, UT, United States.
+      </div>
+      <div style="margin-bottom: 1em;">
+        Brimhall, H.*, <strong>Olivier J. M.</strong>, Kamhout. S., Morris, J.,
+        Black, B., Wood, H., Nielsen, J. A. (2021, April 8). <i
+          >Autistic and socially anxious conditions: Changes to visual
+          perception</i
+        >. Mary Lou Fulton Conference, Provo, UT, United States.
+      </div>
+
+      <p class="footnote">*Presenter</p>
+    </div>
+
+    <h2 id="experience">Research Experience🔬</h2>
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>April 2024–<br />Present</span>
+      <span
+        ><strong>Functional Neuroimaging of Memory Lab🧠</strong><br />
+        University of Texas at Dallas<br />
+        Mentor: Dr. Michael Rugg, PhD<br />
+        Title: Lab Manager/Research Assistant II<br />
+      </span>
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>June 2021–<br />April 2024</span>
+      <span
+        ><strong>Functional Neuroimaging of Memory Lab🧠</strong><br />
+        University of Texas at Dallas<br />
+        Mentor: Dr. Michael Rugg, PhD<br />
+        Title: Lab Manager/Research Assistant II
+      </span>
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>August 2018–<br />April 2021</span>
+      <span
+        ><strong>Nielsen Brain & Behavior Lab🧠</strong><br />
+        Brigham Young University<br />
+        Mentor: Dr. Jared Nielsen, PhD<br />
+        Title: Research Assistant
+      </span>
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>May 2018–<br />July 2018</span>
+      <span
+        ><strong>Ladle Lab🐁</strong><br />
+        Johns Hopkins University School of Medicine<br />
+        Mentor: Dr. Brian Ladle, MD, PhD<br />
+        Title: Research Assistant/Oncology Staff
+      </span>
+    </p>
+
+    <h2 id="awards">Grants & Awards🏆</h2>
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2020 (Spring/Summer Terms)</span>
+      <span
+        ><strong>BYU Psychology Experiential Learning Grant</strong><br
+        />Project: Binocular Rivalry Switch Rate Across a Range of Autistic and
+        Anxious Traits<br />Status: Funded, $1,500</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2020 (Winter Semester)</span>
+      <span
+        ><strong>BYU Psychology Experiential Learning Grant</strong><br
+        />Project: Binocular Rivalry Switch Rate Across a Range of Autistic and
+        Anxious Traits<br />Status: Funded, $1,500</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2019 (Fall Semester)</span>
+      <span
+        ><strong>BYU Psychology Experiential Learning Grant</strong><br
+        />Project: Binocular Rivalry Switch Rate Across a Range of Autistic and
+        Anxious Traits<br />Status: Funded, $1,500</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2017–2019</span>
+      <span
+        ><strong>Academic Half-Tuition Scholarship</strong><br />Brigham Young
+        University</span
+      >
+    </p>
+
+    <h2 id="service">Service & Activities🤝</h2>
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2021–2024</span>
+      <span
+        ><strong>Volunteer Crisis Counselor</strong><br />Crisis Text Line</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2023</span>
+      <span
+        ><strong>Out of the Darkness Community Walk Volunteer </strong><br
+        />American Foundation for Suicide Prevention, Arlington, TX</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2023</span>
+      <span
+        ><strong
+          >Functional Neuroimaging of Memory Lab Community Outreach Presenter
+        </strong><br />Hope for the Caregiver Conference, Prestonwood Baptist
+        Church, Plano, TX</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2019–2021</span>
+      <span
+        ><strong>Part Time Student Secretary</strong><br />Brigham Young
+        University Neuroscience Center</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2020</span>
+      <span
+        ><strong>Undergraduate Journal Editor</strong><br />Chiasm: Brigham
+        Young University Undergraduate Journal of Neuroscience, Volume 12,
+        Provo, UT</span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>2017</span>
+      <span
+        ><strong>English as a Second Language Tutor</strong><br />Brigham Young
+        University International Network of Tutors of Languages, Provo, UT</span
+      >
+    </p>
+
+    <h2 id="affiliations">Academic Affiliations📚</h2>
+    <ul>
+      <li>Cognitive Neuroscience Society</li>
+      <li>Society for Neuroscience</li>
+      <li>Delta Alpha Pi Honor Society</li>
+    </ul>
+
+    <h2 id="skills">Technical Skills🛠️</h2>
+
+    <h3>Software💾</h3>
+    <ul>
+      <li>R Studio</li>
+      <li>SPSS</li>
+      <li>MATLAB</li>
+      <li>SPM12</li>
+      <li>FreeSurfer</li>
+      <li>PsychoPy</li>
+      <li>Microsoft Excel</li>
+      <li>REDcap</li>
+      <li>Qualtrics</li>
+      <li>Zotero</li>
+    </ul>
+
+    <h3>Programming Languages💻</h3>
+    <ul>
+      <li>Bash</li>
+      <li>R</li>
+      <li>MATLAB</li>
+      <li>Python</li>
+      <li>JavaScript</li>
+    </ul>
+
+    <h3>Web Development🌐</h3>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>React</li>
+      <li>Astro</li>
+    </ul>
+
+    <h3>Neuropsychological Tests Administered🧠</h3>
+    <ul>
+      <li>MMSE</li>
+      <li>CVLT II</li>
+      <li>SDMT</li>
+      <li>Digit Span</li>
+      <li>Trail Making Test</li>
+      <li>Letter Fluency</li>
+      <li>Category Fluency</li>
+      <li>TOPF</li>
+      <li>WMS Logical Memory</li>
+      <li>Raven’s APM</li>
+      <li>BVMT-R</li>
+      <li>HVLT-R</li>
+    </ul>
+
+    <h3>Languages🌍</h3>
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>English</span>
+      <span><strong>Native speaker</strong></span>
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>Portuguese</span>
+      <span
+        ><strong>Advanced</strong><br /><i
+          >(Awarded Brigham Young University Center for Language Studies
+          Portuguese Language Certificate, Advanced Level)</i
+        ></span
+      >
+    </p>
+
+    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+      <span>Spanish</span>
+      <span><strong>Beginner</strong></span>
+    </p>
+  </body>
 </BaseLayout>
