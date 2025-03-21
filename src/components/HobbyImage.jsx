@@ -16,14 +16,15 @@ const HobbyImage = ({ hobbies }) => {
   };
 
   return (
+    <div>
+    <h3>Some things I love are:</h3>
     <div style={{ display: "flex", alignItems: "center", gap: "2rem", width: "100%" }}>
-      <ul style={{ fontSize: "1.5rem", listStyle: "none", margin: 0, padding: 0, flexShrink: 0 }}>
+      <ul style={{ fontSize: "1.2rem", listStyle: "square", margin: 0, padding: "1rem", flexShrink: 0 }}>
         {hobbies.map((hobby) => (
           <li
             key={hobby}
             style={{
               cursor: "pointer",
-              fontWeight: selectedHobby === hobby ? "bold" : "normal",
               color: selectedHobby === hobby ? "#41ab5d" : "inherit",
             }}
             onClick={() => handleHobbyChange(hobby)}
@@ -47,6 +48,7 @@ const HobbyImage = ({ hobbies }) => {
           }}
         />
       )}
+    </div>
     </div>
   );
 };

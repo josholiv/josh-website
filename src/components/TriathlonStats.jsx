@@ -28,7 +28,7 @@ const TriathlonStats = ({ data, error }) => {
 
   return (
     <div>
-      <p>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone a total of</p>
+      <h3>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone:</h3>
       {!error && (
         <p style={{ paddingLeft: '0rem' }}>
           <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>

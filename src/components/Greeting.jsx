@@ -1,19 +1,17 @@
 import { useState } from 'preact/hooks';
 
 export default function Greeting({ messages }) {
+  const [index, setIndex] = useState(0);
 
-  const randomMessage = () => messages[(Math.floor(Math.random() * messages.length))];
+  const nextGreeting = () => {
+    setIndex((prevIndex) => (prevIndex + 1) % messages.length);
+  };
 
-  const [greeting, setGreeting] = useState(() => randomMessage());
-  
   return (
     <div>
-      <h3>{greeting}! Thank you for visiting!</h3>
-      <button
-        onClick={() => setGreeting(randomMessage())}
-        className="btn" 
-      >
-        New Greeting
+      <h3>{messages[index]}! Thank you for visiting!</h3>
+      <button onClick={nextGreeting} className="btn">
+        Change Greeting
       </button>
     </div>
   );

@@ -41,12 +41,10 @@ try {
 	<img src="/about-me-photo.jpg" alt="Josh at the beach" class="about-pic"/>
     <p>I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in a cognitive neuroscience research lab.</p>
     
-	<h3>Some things I love are:</h3>
-		<HobbyImage client:load hobbies={identity.hobbies} /> 
+	<HobbyImage client:load hobbies={identity.hobbies} /> 
 		
 	<TriathlonStats client:load data={data} error={error} />
-
-	<ErrorRenderer error={error} />
+	    <ErrorRenderer error={error} />
 	
 	<ChessStats client:load />
 

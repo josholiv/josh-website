@@ -7,7 +7,10 @@ const pageTitle = "My Astro Learning Blog";
 const allPosts = await getCollection("blog");
 ---
 <BaseLayout pageTitle={pageTitle}>
-  <p>This is where I will post about my journey learning Astro.</p>
+  <p>Welcome to my blog!</p>
+  <nav>
+    <a href="/tags">Tag Index</a>
+  </nav>
   <ul>
     {
       allPosts.map((post) => (

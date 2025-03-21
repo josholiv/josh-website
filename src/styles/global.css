@@ -44,7 +44,7 @@
       flex-direction: column;
       min-height: 100vh; /* Ensures body extends fully even with little content */
       width: 100%;
-      max-width: 70ch;
+      max-width: 60ch;
       padding: 1rem;
       background: #ffffe5; /* Light mode (default) body color) */
       margin: 0 auto;
@@ -71,32 +71,33 @@ h1 {
   font-size: 2.5rem;
 }
 
-/* link colors (not including nav links */
+/* Link colors (not including nav links and back links) */
     /* light mode  */
-        a:not(.nav-links a) {
-          color: #41ab5d; /* link color */
-        }
+    a:not(.nav-links a):not(.back-link) {
+      color: #41ab5d; /* Link color */
+    }
 
-        a:not(.nav-links a):hover {
-          color: #006837; /* link hover color */
-        }
+    a:not(.nav-links a):not(.back-link):hover {
+      color: #006837; /* Link hover color */
+    }
 
-        a:not(.nav-links a):visited {
-          color: #addd8e; /* link visited color */
-        }
+    a:not(.nav-links a):not(.back-link):visited {
+      color: #addd8e; /* Link visited color */
+    }
 
     /* dark mode */
-        html.dark a:not(.nav-links a) {
-          color: #41ab5d; /* link color */
-        }
+    html.dark a:not(.nav-links a):not(.back-link) {
+      color: #41ab5d; /* Link color */
+    }
 
-        html.dark a:not(.nav-links a):hover {
-          color: #addd8e; /* link hover color, flipped for dark mode */
-        }
+    html.dark a:not(.nav-links a):not(.back-link):hover {
+      color: #addd8e; /* Link hover color, flipped for dark mode */
+    }
 
-        html.dark a:not(.nav-links a):visited {
-          color: #006837; /* link visited color, flipped for dark mode */
-        }
+    html.dark a:not(.nav-links a):not(.back-link):visited {
+      color: #006837; /* Link visited color, flipped for dark mode */
+    }
+
 
 /* nav styles */
 .hamburger {
@@ -200,8 +201,8 @@ html.dark .profile-pic {
   border-radius: 0%;
   display: block;
   margin: 0 auto;
-  opacity: 0; /* Start fully transparent */
-    animation: fadeIn 2s ease-in-out forwards;
+  /* opacity: 0; /* Start fully transparent */
+  /*  animation: fadeIn 2s ease-in-out forwards; */
 }
 
 html.dark .about-pic {
@@ -217,39 +218,6 @@ html.dark .about-pic {
   }
 }
 
-.widget {
-  border-radius: 10px; /* Adjust the value to control the roundness of the edges */
-}
-
-.widget-pic {
-  width: 80px;
-  height: 80px; 
-  border-radius: 50%;
-  object-fit: cover; /* Ensures the image fills the circular shape */
-  border: 2px solid #e95f29;
-  display: block;
-  margin-left: 0.5rem; /* Aligns the image to the left */
-}
-
-html.dark .widget-pic {
-  border: 2px solid orange;
-}
-
-.widget-text {
-      color: red;
-      font-family: sans-serif;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-html.dark .widget-text {
-      color: blue; /* Dark mode widget text color */
-    }
-
-
-
 /* format page nav link of current page */
     nav a.active, html.dark nav a.active {
       color: #ffffe5; /* Change text color */
@@ -260,11 +228,11 @@ html.dark .widget-text {
       background-color: #addd8e;
     }
 
-
 .footnote {
   color: #737373;           /* Make the footnotes gray */
   line-height: 0;      /* Reduce line spacing */
   font-style: italic;    /* Optional: keep the italics */
+  font-size: 0.8rem;
 }
 
 /* Universal button style class */
@@ -287,3 +255,29 @@ html.dark .widget-text {
 .btn:hover {
   background-color: #bdbdbd;     /* Change background color on hover */
 }
+
+/* global class for back-links on blog posts, etc */
+.back-link {
+  display: inline-block;           /* Prevent it from spanning the entire width */
+  max-width: fit-content;          /* Allow the link to take up only as much width as necessary */
+  padding: 0.3rem 0.5rem;          /* Add padding */
+  font-size: 0.9rem;               /* Set font size */
+  font-family: monospace;
+  text-transform: uppercase;
+  cursor: pointer;                /* Change cursor on hover */
+  background-color: #f0f0f0;      /* Set background color */
+  color: #41ab5d !important;                 /* Set text color */
+  border: none;                   /* Remove border */
+  border-radius: 1rem;            /* Add rounded corners */
+  transition: background-color 0.3s ease; /* Add hover transition */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-decoration: none;          /* Remove underline */
+}
+
+/* Hover effect for back-link */
+.back-link:hover {
+  background-color: #bdbdbd;      /* Change background color on hover */
+}
+
+

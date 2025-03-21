@@ -39,7 +39,7 @@ const ChessStats: FunctionalComponent = () => {
   return (
     <div>
       <p>
-        My current bullet chess rating<sup>†</sup> is{" "}  
+        My bullet chess rating<sup>†</sup> is{" "}  
           <strong style={{ fontSize: "1.5rem", color: "#f200ff" }}>
             {stats.chess_bullet?.last?.rating}
           </strong>
