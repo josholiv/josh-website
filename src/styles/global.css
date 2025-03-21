@@ -265,8 +265,8 @@ html.dark .about-pic {
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;                /* Change cursor on hover */
-  background-color: #f0f0f0;      /* Set background color */
-  color: #41ab5d !important;                 /* Set text color */
+  background-color: #41ab5d;      /* Set background color */
+  color: #ffffe5 !important;                 /* Set text color */
   border: none;                   /* Remove border */
   border-radius: 1rem;            /* Add rounded corners */
   transition: background-color 0.3s ease; /* Add hover transition */
@@ -277,7 +277,5 @@ html.dark .about-pic {
 
 /* Hover effect for back-link */
 .back-link:hover {
-  background-color: #bdbdbd;      /* Change background color on hover */
+  background-color: #addd8e;      /* Change background color on hover */
 }
-
-
