@@ -228,12 +228,12 @@ html.dark .about-pic {
       background-color: #addd8e;
     }
 
-.footnote {
-  color: #737373;           /* Make the footnotes gray */
-  line-height: 0;      /* Reduce line spacing */
-  font-style: italic;    /* Optional: keep the italics */
-  font-size: 0.8rem;
-}
+    .footnote {
+      color: #737373;          /* Make the footnotes gray */
+      font-style: italic;      /* Keep the italics */
+      font-size: 0.8rem;
+    }
+    
 
 /* Universal button style class */
 .btn {

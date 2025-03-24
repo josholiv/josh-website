@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 
 const HobbyImage = ({ hobbies }) => {
-  const [selectedHobby, setSelectedHobby] = useState("Yerba mate 🧉");
+  const [selectedHobby, setSelectedHobby] = useState("3D printing ⚙️");
 
   const hobbyImages = {
     "Yerba mate 🧉": "/images/hobbies/yerba-mate.jpg",
