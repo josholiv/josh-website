@@ -4,7 +4,7 @@ const HobbyImage = ({ hobbies }) => {
   const [selectedHobby, setSelectedHobby] = useState("3D printing ⚙️");
 
   const hobbyImages = {
-    "Tereré 🧉": "/images/hobbies/yerba-mate.jpg",
+    "Tereré 🧉": "/images/hobbies/terere.jpg",
     "3D printing ⚙️": "/images/hobbies/3d-printing.jpg",
     "Neuroscience 🧠": "/images/hobbies/neuroscience.jpg",
     "Yoyo tricks 🪀": "/images/hobbies/yoyo-tricks.jpg",

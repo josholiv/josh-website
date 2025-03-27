@@ -31,7 +31,7 @@ const TriathlonStats = ({ data, error }) => {
       <h3>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone:</h3>
       {!error && (
         <p style={{ paddingLeft: '0rem' }}>
-          <strong style={{ fontSize: '1.5rem', color: '#00dbff' }}>
+          <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
             🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
                 unit === "km" ? `${formatNumber(swimDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(swimDistanceKm * 1000))} yards ` : 
@@ -39,7 +39,7 @@ const TriathlonStats = ({ data, error }) => {
                 `${convertToMoonPercentage(swimDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
           </strong> swimming<br />
 
-          <strong style={{ fontSize: '1.5rem', color: '#41ab5d' }}>
+          <strong style={{ fontSize: '2rem', color: '#41ab5d' }}>
             🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
                 unit === "km" ? `${formatNumber(rideDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(rideDistanceKm * 1000))} yards ` : 
@@ -47,7 +47,7 @@ const TriathlonStats = ({ data, error }) => {
                 `${convertToMoonPercentage(rideDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
           </strong> biking<br />
 
-          <strong style={{ fontSize: '1.5rem', color: '#ffaa00' }}>
+          <strong style={{ fontSize: '2rem', color: '#ffaa00' }}>
             🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
                 unit === "km" ? `${formatNumber(runDistanceKm)} kilometers ` : 
                 unit === "yards" ? `${formatNumber(convertToYards(runDistanceKm * 1000))} yards ` : 
@@ -73,7 +73,7 @@ const TriathlonStats = ({ data, error }) => {
           <div style={{
             width: `${swimPercent}%`,
             // width: '10%', // dummy data for testing
-            backgroundColor: '#00dbff',
+            backgroundColor: '#0099cc',
             position: 'relative',
             borderTopLeftRadius: '0.5rem',  // Rounded left edge
             borderBottomLeftRadius: '.5rem'

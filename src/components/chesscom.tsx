@@ -38,15 +38,47 @@ const ChessStats: FunctionalComponent = () => {
 
   return (
     <div>
-      <h3>I also love playing chess. My current bullet chess rating<sup>†</sup> is:</h3>
-      <p>
-      {" "}  
-          <strong style={{ fontSize: "1.5rem", color: "#f200ff" }}>
-            {stats.chess_bullet?.last?.rating}
-          </strong> <i>(only <strong>{getEloDifference("chess_bullet")}</strong> behind{" "}
-        <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
-          GM Magnus Carlsen
-        </a>!)</i></p>
+      <h3>I also love playing chess♟️. My current chess ratings on Chess.com<sup>†</sup> are:</h3>
+      
+      <p style={{ textAlign: "center" }}>
+  <strong style={{ fontSize: "2rem", color: "#f200ff" }}>
+    {stats.chess_bullet?.last?.rating}
+  </strong>
+  {" "}in <a href="https://www.chess.com/terms/bullet-chess" target="_blank" rel="noopener noreferrer">bullet chess</a>
+  <br />
+  <i>Only <strong style={{ color: "#f200ff" }}>{getEloDifference("chess_bullet")}</strong> behind{" "}
+    <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
+      GM Magnus Carlsen
+    </a>!</i>
+</p>
+
+<p style={{ textAlign: "center" }}>
+  <strong style={{ fontSize: "2rem", color: "#9b4dca" }}>
+    {stats.chess_blitz?.last?.rating}
+  </strong>
+  {" "}in <a href="https://www.chess.com/terms/blitz-chess" target="_blank" rel="noopener noreferrer">blitz chess</a>
+  <br />
+  <i>Only <strong style={{ color: "#9b4dca" }}>{getEloDifference("chess_blitz")}</strong> behind{" "}
+    <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
+      GM Magnus Carlsen
+    </a>!</i>
+</p>
+
+<p style={{ textAlign: "center" }}>
+  <strong style={{ fontSize: "2rem", color: "#5c6bc0" }}>
+    {stats.chess_rapid?.last?.rating}
+  </strong>
+  {" "}in <a href="https://www.chess.com/terms/rapid-chess" target="_blank" rel="noopener noreferrer">rapid chess</a>
+  <br />
+  <i>Only <strong style={{ color: "#5c6bc0" }}>{getEloDifference("chess_rapid")}</strong> behind{" "}
+    <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
+      GM Magnus Carlsen
+    </a>!</i>
+</p>
+
+
+      
+
     </div>
   );
 };

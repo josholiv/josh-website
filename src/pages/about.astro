@@ -11,7 +11,7 @@ const identity = {
   firstName: "Josh",
   country: "United States🇺🇸",
   occupation: "lab manager",
-  hobbies: ["3D printing ⚙️", "Neuroscience 🧠", "Yoyo tricks 🪀", "Triathlons 🏊🚴🏃‍♂️", "Yerba mate 🧉"],
+  hobbies: ["3D printing ⚙️", "Neuroscience 🧠", "Yoyo tricks 🪀", "Tereré 🧉", "Triathlons 🏊🚴🏃‍♂️"],
 	};
 const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const currentYear = new Date().getFullYear();
@@ -31,14 +31,20 @@ try {
 }
 ---
 <BaseLayout pageTitle={pageTitle}>
-	<img src="/about-me-photo.jpg" alt="Josh at the beach" class="about-pic"/>
-    <p>I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in the Functional Neuroimaging 
-      of Memory Lab at the University of Texas at Dallas. </p>
-      
-    <p>I'm interested in studying how brain function, brain structure, and memory 
-      are related and how these relationships change across the human lifespan.</p>
+  <img src="/about-me-photo.jpg" alt="Josh at the beach" class="about-pic"/>    
+  
+    <p>
+      I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in the Functional Neuroimaging 
+      of Memory Lab at the University of Texas at Dallas. 
+    </p>
+
+    <p>
+      I'm interested in studying how brain function, brain structure, and memory 
+      are related and how these relationships change across the human lifespan.
+    </p>
     
-    <p>In my free time, I love traveling, trying new foods, and learning new skills. I especially enjoy practicing and learning languages—
+    <p>
+      In my free time, I love traveling, trying new foods, and learning new skills. I especially enjoy practicing and learning languages—
       I learned Portuguese after spending two years living in northern Brazil🇧🇷, and I am currently working on learning Spanish.
     </p>
 

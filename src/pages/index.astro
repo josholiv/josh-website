@@ -1,9 +1,71 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Greeting from '../components/Greeting';
-const pageTitle = "Welcome to my site!";
-const messages = ["Olá 🇧🇷", "Hej 🇸🇪", "Hallo 🇩🇪", "Hola 🇪🇸", "Habari 🇰🇪", "Hello 🇺🇸", "Bonjour 🇫🇷"];
+const pageTitle = "";
 ---
 <BaseLayout pageTitle={pageTitle}>
-  
+
+<!-- Typewriter effect for front page of site -->
+    <div class="typewriter-container">
+        <span id="typewriter"></span>
+    </div>
+
+    <script>
+        if (typeof window !== "undefined") {
+            const phrases = [
+                "Hi! I'm Josh Olivier, a research assistant passionate about memory, aging, and brain research.",
+                "I use this site to showcase my past and current projects, as well as my hobbies. Feel free to explore!"
+            ];
+            let i = 0; // Index of current phrase
+            let j = 0; // Index within the phrase
+            let isTyping = true; // Flag for typing phase
+            let isDeleting = false; // Flag for deleting phase
+            let speed = 60; // Typing speed, in ms per character
+            let pauseDuration = 4000; // Pause for 4 seconds after fully typing each phrase
+            let postDeletePauseDuration = 2000; // Pause after deletion before starting next phrase
+            
+            function typeEffect() {
+                const element = document.querySelector("#typewriter");
+                if (!element) return;
+    
+                const currentPhrase = phrases[i];
+    
+                // Use innerHTML to render the HTML
+                if (isTyping) {
+                    element.innerHTML = currentPhrase.substring(0, j++);
+                } else if (isDeleting) {
+                    element.innerHTML = currentPhrase.substring(0, j--);
+                }
+    
+                // When typing is finished
+                if (isTyping && j === currentPhrase.length + 1) {
+                    // After typing is complete, wait for the pauseDuration before starting to delete
+                    setTimeout(() => {
+                        isTyping = false;
+                        isDeleting = true; // Start deleting after typing
+                        typeEffect(); // Start deleting after the pause
+                    }, pauseDuration);
+                    return;
+                }
+                // When deleting is finished (ensure j reaches -1 so it's fully deleted)
+                else if (isDeleting && j === -1) {
+                    // After deletion is complete, wait for the postDeletePauseDuration before starting next phrase
+                    setTimeout(() => {
+                        i = (i + 1) % phrases.length;
+                        isDeleting = false;
+                        isTyping = true; // Set the flag back to typing phase
+                        typeEffect(); // Start typing the next phrase after the pause
+                    }, postDeletePauseDuration);
+                    return;
+                }
+    
+                // Adjust timing for typing or deleting
+                setTimeout(typeEffect, isDeleting ? 50 : speed); // Consistent speed for typing or deleting
+            }
+    
+            document.addEventListener("DOMContentLoaded", () => {
+                setTimeout(typeEffect, 500);
+            });
+        }
+    </script>
+     
 </BaseLayout>
