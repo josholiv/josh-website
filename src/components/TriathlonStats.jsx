@@ -33,9 +33,9 @@ const TriathlonStats = ({ data, error }) => {
          <p style={{ paddingLeft: '2rem' }}>
          <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
             🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
-                unit === "km" ? `${formatNumber(swimDistanceKm)} kilometers`  : 
-                unit === "yards" ? `${formatNumber(convertToYards(swimDistanceKm * 1000))} yards`  : 
-                unit === "fields" ? `${formatNumber(convertToFields(swimDistanceKm * 1000))} football fields` :
+                unit === "km" ? `${formatNumber(swimDistanceKm)}  kilometers`  : 
+                unit === "yards" ? `${formatNumber(convertToYards(swimDistanceKm * 1000))}  yards`  : 
+                unit === "fields" ? `${formatNumber(convertToFields(swimDistanceKm * 1000))}  football fields` :
                 `${convertToMoonPercentage(swimDistanceKm)}%`}
           </strong>
           {unit === "fields" ? " 🏈" : ""}
@@ -44,9 +44,9 @@ const TriathlonStats = ({ data, error }) => {
       
           <strong style={{ fontSize: '2rem', color: '#41ab5d' }}>
             🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
-                unit === "km" ? `${formatNumber(rideDistanceKm)} kilometers` : 
-                unit === "yards" ? `${formatNumber(convertToYards(rideDistanceKm * 1000))} yards` : 
-                unit === "fields" ? `${formatNumber(convertToFields(rideDistanceKm * 1000))} football fields` :
+                unit === "km" ? `${formatNumber(rideDistanceKm)}  kilometers` : 
+                unit === "yards" ? `${formatNumber(convertToYards(rideDistanceKm * 1000))}  yards` : 
+                unit === "fields" ? `${formatNumber(convertToFields(rideDistanceKm * 1000))}  football fields` :
                 `${convertToMoonPercentage(rideDistanceKm)}%`}
           </strong>
           {unit === "fields" ? " 🏈" : ""}
@@ -55,9 +55,9 @@ const TriathlonStats = ({ data, error }) => {
 
           <strong style={{ fontSize: '2rem', color: '#ffaa00' }}>
             🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
-                unit === "km" ? `${formatNumber(runDistanceKm)} kilometers` : 
-                unit === "yards" ? `${formatNumber(convertToYards(runDistanceKm * 1000))} yards` : 
-                unit === "fields" ? `${formatNumber(convertToFields(runDistanceKm * 1000))} football fields` :
+                unit === "km" ? `${formatNumber(runDistanceKm)}  kilometers` : 
+                unit === "yards" ? `${formatNumber(convertToYards(runDistanceKm * 1000))}  yards` : 
+                unit === "fields" ? `${formatNumber(convertToFields(runDistanceKm * 1000))}  football fields` :
                 `${convertToMoonPercentage(runDistanceKm)}%`}
           </strong>
           {unit === "fields" ? " 🏈" : ""}
