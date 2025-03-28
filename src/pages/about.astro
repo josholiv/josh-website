@@ -9,9 +9,9 @@ import HobbyImage from '../components/HobbyImage.jsx';
 const pageTitle = "Hi, I'm Josh!";
 const identity = {
   firstName: "Josh",
-  country: "United States🇺🇸",
+  country: "United States 🇺🇸",
   occupation: "lab manager",
-  hobbies: ["3D printing ⚙️", "Neuroscience 🧠", "Yoyo tricks 🪀", "Tereré 🧉", "Triathlons 🏊🚴🏃‍♂️"],
+  hobbies: ["3D printing ⚙️", "Yoyo tricks 🪀", "Tereré 🧉", "Triathlons 🏊🚴🏃‍♂️"],
 	};
 const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const currentYear = new Date().getFullYear();
@@ -31,24 +31,37 @@ try {
 }
 ---
 <BaseLayout pageTitle={pageTitle}>
-  <img src="/about-me-photo.jpg" alt="Josh at the beach" class="about-pic"/>    
+  <img src="/about-me-photo.jpg" alt="Josh at Horseshoe Bend" class="about-pic"/>    
   
-    <p>
-      I live in the <strong>{identity.country}</strong> and work as a <strong>{identity.occupation}</strong> in the Functional Neuroimaging 
+  <h2>I live in the <strong style="color: #B31942;">{identity.country}</strong> and work as a <strong style="color: #ffaa00;">{identity.occupation}</strong></h2>
+
+    <h4>
+       in the Functional Neuroimaging 
       of Memory Lab at the University of Texas at Dallas. 
-    </p>
+    </h4>
 
     <p>
-      I'm interested in studying how brain function, brain structure, and memory 
+      I'm interested in studying how 
+      <span style="font-weight: bold; color: #f200ff; font-size: 1.5rem;">brain function</span>, 
+      <span style="font-weight: bold; color: #9b4dca; font-size: 1.5rem;">brain structure</span>, 
+      and 
+      <span style="font-weight: bold; color: #5c6bc0; font-size: 1.5rem;">memory</span> 
       are related and how these relationships change across the human lifespan.
     </p>
     
+    
     <p>
-      In my free time, I love traveling, trying new foods, and learning new skills. I especially enjoy practicing and learning languages—
-      I learned Portuguese after spending two years living in northern Brazil🇧🇷, and I am currently working on learning Spanish.
+      In my free time, I love traveling, trying new foods, 
+      and learning new skills. I especially enjoy practicing and learning 
+      <strong>languages</strong>. I learned <strong style="font-size: 1.5rem; color: #41ab5d;">Portuguese</strong> 
+      after spending two years living in <strong>northern Brazil</strong> 🇧🇷, where I enjoyed eating lots of 
+      <a href="https://en.wikipedia.org/wiki/A%C3%A7a%C3%AD_na_tigela" target="_blank"><strong>açaí</strong></a>, 
+      <a href="https://en.wikipedia.org/wiki/Tacac%C3%A1" target="_blank"><strong>tacacá</strong></a>, and 
+      <a href="https://en.wikipedia.org/wiki/Tambaqui" target="_blank"><strong>tambaqui</strong></a>. 
+      I'm currently working on learning <strong>Spanish</strong>.
     </p>
 
-<h2>Here's some more about me!</h2>
+<h2>Here's more about me!</h2>
 
 	<HobbyImage client:load hobbies={identity.hobbies} /> 
 		

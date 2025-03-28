@@ -30,37 +30,39 @@ const TriathlonStats = ({ data, error }) => {
     <div>
       <h3>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone:</h3>
       {!error && (
-        <p style={{ paddingLeft: '2rem' }}>
-        <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
-          🏊 {unit === "miles" ? formatNumber(data.swimDistance) : 
-              unit === "km" ? formatNumber(swimDistanceKm) : 
-              unit === "yards" ? formatNumber(convertToYards(swimDistanceKm * 1000)) : 
-              unit === "fields" ? formatNumber(convertToFields(swimDistanceKm * 1000)) : 
-              convertToMoonPercentage(swimDistanceKm)}
-        </strong> 
-        {unit === "miles" ? " miles" : 
-         unit === "km" ? " kilometers" : 
-         unit === "yards" ? " yards" : 
-         unit === "fields" ? " football fields🏈" : 
-         "% of the distance from Earth🌎 to the Moon🌕"} swimming
+         <p style={{ paddingLeft: '2rem' }}>
+         <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
+            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
+                unit === "km" ? `${formatNumber(swimDistanceKm)} kilometers`  : 
+                unit === "yards" ? `${formatNumber(convertToYards(swimDistanceKm * 1000))} yards`  : 
+                unit === "fields" ? `${formatNumber(convertToFields(swimDistanceKm * 1000))} football fields` :
+                `${convertToMoonPercentage(swimDistanceKm)}%`}
+          </strong>
+          {unit === "fields" ? " 🏈" : ""}
+          {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth🌎 to the Moon🌕" : ""}
+          swimming<br />
       
-      
-
           <strong style={{ fontSize: '2rem', color: '#41ab5d' }}>
             🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
-                unit === "km" ? `${formatNumber(rideDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(rideDistanceKm * 1000))} yards ` : 
-                unit === "fields" ? `${formatNumber(convertToFields(rideDistanceKm * 1000))} football fields🏈 ` :
-                `${convertToMoonPercentage(rideDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
-          </strong> biking<br />
+                unit === "km" ? `${formatNumber(rideDistanceKm)} kilometers` : 
+                unit === "yards" ? `${formatNumber(convertToYards(rideDistanceKm * 1000))} yards` : 
+                unit === "fields" ? `${formatNumber(convertToFields(rideDistanceKm * 1000))} football fields` :
+                `${convertToMoonPercentage(rideDistanceKm)}%`}
+          </strong>
+          {unit === "fields" ? " 🏈" : ""}
+          {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth🌎 to the Moon🌕" : ""}
+          biking<br />
 
           <strong style={{ fontSize: '2rem', color: '#ffaa00' }}>
             🏃‍♂️ {unit === "miles" ? formatNumber(data.runDistance) + " " : 
-                unit === "km" ? `${formatNumber(runDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(runDistanceKm * 1000))} yards ` : 
-                unit === "fields" ? `${formatNumber(convertToFields(runDistanceKm * 1000))} football fields🏈 ` :
-                `${convertToMoonPercentage(runDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
-          </strong> running
+                unit === "km" ? `${formatNumber(runDistanceKm)} kilometers` : 
+                unit === "yards" ? `${formatNumber(convertToYards(runDistanceKm * 1000))} yards` : 
+                unit === "fields" ? `${formatNumber(convertToFields(runDistanceKm * 1000))} football fields` :
+                `${convertToMoonPercentage(runDistanceKm)}%`}
+          </strong>
+          {unit === "fields" ? " 🏈" : ""}
+          {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth🌎 to the Moon🌕" : ""}
+          running
         </p>
       )}
       
