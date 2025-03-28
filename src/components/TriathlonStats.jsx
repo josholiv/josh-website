@@ -30,14 +30,21 @@ const TriathlonStats = ({ data, error }) => {
     <div>
       <h3>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone:</h3>
       {!error && (
-        <p style={{ paddingLeft: '0rem' }}>
-          <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
-            🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
-                unit === "km" ? `${formatNumber(swimDistanceKm)} kilometers ` : 
-                unit === "yards" ? `${formatNumber(convertToYards(swimDistanceKm * 1000))} yards ` : 
-                unit === "fields" ? `${formatNumber(convertToFields(swimDistanceKm * 1000))} football fields🏈 ` :
-                `${convertToMoonPercentage(swimDistanceKm)}% of the distance from Earth🌎 to the Moon🌕`} 
-          </strong> swimming<br />
+        <p style={{ paddingLeft: '2rem' }}>
+        <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
+          🏊 {unit === "miles" ? formatNumber(data.swimDistance) : 
+              unit === "km" ? formatNumber(swimDistanceKm) : 
+              unit === "yards" ? formatNumber(convertToYards(swimDistanceKm * 1000)) : 
+              unit === "fields" ? formatNumber(convertToFields(swimDistanceKm * 1000)) : 
+              convertToMoonPercentage(swimDistanceKm)}
+        </strong> 
+        {unit === "miles" ? " miles" : 
+         unit === "km" ? " kilometers" : 
+         unit === "yards" ? " yards" : 
+         unit === "fields" ? " football fields🏈" : 
+         "% of the distance from Earth🌎 to the Moon🌕"} swimming
+      
+      
 
           <strong style={{ fontSize: '2rem', color: '#41ab5d' }}>
             🚴 {unit === "miles" ? formatNumber(data.rideDistance) + " " : 
