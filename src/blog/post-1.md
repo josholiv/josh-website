@@ -1,23 +1,39 @@
 ---
-title: 'My First Blog Post'
-pubDate: 2025-02-01
+title: 'Intro—Welcome to my blog!'
+pubDate: 2025-04-01
 description: 'This is the first post of my new Astro blog.'
-author: 'Josh'
+author: 'Josh Olivier'
 image:
-    url: 'https://docs.astro.build/assets/rose.webp'
-    alt: 'The Astro logo on a dark background with a pink glow.'
-tags: ["astro", "blogging", "learning in public"]
+    url: '/photo.png'
+    alt: 'Josh Olivier'
+tags: ["me", "blogging", "astro", "chicken"]
 ---
-Welcome to my _new blog_ about learning Astro! Here, I will share my learning journey as I build a new website.
+## Hello, my name is Josh! But I'd be surprised 
+if you didn't know that already, given the site you're on (though if you somehow, inexplicably, got super lost while surfing the righteous and gnarly waves of the world wide web 🤙 and unwittingly washed up on my site before knowing my name, check out my ==About== page). 
 
-## What I've accomplished
+First and foremost, I hope you enjoy this photo of me holding a chicken:
 
-1. **Installing Astro**: First, I created a new Astro project and set up my online accounts.
+<img src="/images/blog/me-with-chicken.jpg" alt="Me holding a chicken" style="width: 100%; height: auto;">
 
-2. **Making Pages**: I then learned how to make pages by creating new `.astro` files and placing them in the `src/pages/` folder.
+## Now that that's out of the way, welcome to my blog! 
 
-3. **Making Blog Posts**: This is my first blog post! I now have Astro pages and Markdown posts!
+This is where I plan to post things like the thoughts and ideas that come to my mind and wake me up in cold sweats in the middle of the night. You know, things like code snippets, 3D printing ideas, and my horrible, intrusive, and nightmarish recurring memory of losing the middle school spelling bee on the word Pompeii (I will never forgive them for giving me a proper noun 😡). Who knows, maybe I’ll even share a cooking recipe or two. 
 
-## What's next
+Due to the nature of my current job—a lab manager in a human neuroimaging research lab—and many of my hobbies, I spend a lot of my time learning new things. My hope is that I can share some of these things here in way that's at least slightly better than a chaotic, stream-of-consciousnesses mess. Some of the topics I may touch on in future posts are: 
 
-I will finish the Astro tutorial, and then keep adding more posts. Watch this space for more to come.
+- 3D-printing stuff
+- Web development with Astro and stuff
+- Triathlon training stuff
+- Yoyo stuff
+- Psychology and neuroscience stuff
+
+I may also make posts about other topics, and I may not end up posting about all of the topics listed above. The general idea, at least for now, is to post about specific things I've learned how to do after struggling for hours—banging my head against the keyboard—to find answers and resources elsewhere on the internet. 
+
+## My primary goal, as I add content 
+to this blog, is to follow the wise words of one of the greatest leaders in history: 
+
+> “The most important part of making a blog is having fun along the way.”
+>
+> > -Abraham Lincoln
+
+Though I'm not an expert on any of these topics by any means, I hope my perspective can be helpful, or at the very least, entertaining—whether you're laughing with me or at me. So without further ado, let’s kick back, grab one of those fancy brewed craft root beers that comes in a vintage glass bottle🍻, and get this party started, baby. 

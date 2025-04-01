@@ -222,6 +222,14 @@ html.dark .about-pic {
   }
 }
 
+.blog-pic {
+  width: 3rem;
+  height: 3rem; 
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circular shape */
+  display: block;
+}
+
 /* format page nav link of current page */
     nav a.active, html.dark nav a.active {
       color: #ffffe5; /* Change text color */
