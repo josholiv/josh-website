@@ -1,7 +1,7 @@
 ---
 title: 'Intro—Welcome to my blog!'
 pubDate: 2025-04-01
-description: 'This is the first post of my new Astro blog.'
+description: ''
 author: 'Josh Olivier'
 image:
     url: '/photo.png'

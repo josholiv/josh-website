@@ -4,12 +4,13 @@ const { frontmatter } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
   <a href="/blog" class="back-link">← Back to Blog Home</a>
-  <p>{frontmatter.pubDate.toLocaleDateString()}</p>
+  <p>Last updated: <strong>{frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong></p>
   <p><em>{frontmatter.description}</em></p>
-  <p>Written by: {frontmatter.author}</p>
-  <img src="/photo.png" class="blog-pic" width="100" alt={frontmatter.image.alt} />
-
-
+  <div class="author-container">
+    <p>Written by: <strong>{frontmatter.author}</strong></p>
+    <img src="/photo.png" class="blog-pic" width="100" alt={frontmatter.image.alt} />
+  </div>
+  
   <div class="tags">
     {frontmatter.tags.map((tag: string) => (
       <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>  
@@ -19,27 +20,3 @@ const { frontmatter } = Astro.props;
   <slot />
   <a href="/blog" class="back-link">← Back to Blog Home</a>
 </BaseLayout>
-
-<style>
-  .back-link {
-    display: inline-block;
-    margin-bottom: 1em;
-    font-size: 1.1em;
-    text-decoration: none;
-    color: #00539F;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    margin: 0.25em;
-    border: dotted 1px #a1a1a1;
-    border-radius: .5em;
-    padding: .5em 1em;
-    font-size: 1.15em;
-    background-color: #F8FCFD;
-  }
-</style>

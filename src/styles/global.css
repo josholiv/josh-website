@@ -73,6 +73,15 @@ h1 {
 
 h2 {
   font-size: 1.5em;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem; 
+  line-height: 1.5rem; /* spacing between lines */
+  margin-top: 0rem;
+  margin-bottom: 1rem; /* spacing between paragraphs */
 }
 
 /* Link colors (not including nav links and back links) */
@@ -223,11 +232,43 @@ html.dark .about-pic {
 }
 
 .blog-pic {
-  width: 3rem;
-  height: 3rem; 
+  width: 2rem;
+  height: 2rem; 
   border-radius: 50%;
-  object-fit: cover; /* Ensures the image fills the circular shape */
+  object-fit: cover; 
   display: block;
+}
+
+.author-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  margin: 0.25em;
+  border-radius: 1rem;
+  padding: .5rem 1rem;
+  padding-left: 1.5rem;
+  font-size: 1.15rem;
+  background-color: #525252;
+  position: relative;
+}
+
+html.dark .tag {
+  background-color: #737373;
+}
+
+.tag::before {
+  content: "#";
+  position: absolute;
+  color: #bdbdbd;
+  left: 0.75rem;
 }
 
 /* format page nav link of current page */
@@ -272,8 +313,8 @@ html.dark .about-pic {
 .back-link {
   display: inline-block;           /* Prevent it from spanning the entire width */
   max-width: fit-content;          /* Allow the link to take up only as much width as necessary */
-  padding: 0.3rem 0.5rem;          /* Add padding */
-  font-size: 0.9rem;               /* Set font size */
+  padding: 0.5rem 1rem;          /* Add padding */
+  font-size: 1rem;               /* Set font size */
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;                /* Change cursor on hover */
@@ -282,8 +323,8 @@ html.dark .about-pic {
   border: none;                   /* Remove border */
   border-radius: 1rem;            /* Add rounded corners */
   transition: background-color 0.3s ease; /* Add hover transition */
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
   text-decoration: none;          /* Remove underline */
 }
 
@@ -327,3 +368,4 @@ html.dark .about-pic {
 .fade-out {
   opacity: 0;
 }
+
