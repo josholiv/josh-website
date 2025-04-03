@@ -251,12 +251,12 @@ html.dark .about-pic {
   padding-left: 2.25rem;
   font-size: 1.25rem;
   border: dotted;
-  border-color: #bdbdbd;
+  border-color: #d9d9d9;
   position: relative;
 }
 
 html.dark .tag {
-  border-color: #ffffe5;
+  border-color: #525252;
 }
 
 .tag::before {
@@ -340,6 +340,11 @@ html.dark .tag-count {
 /* Hover effect for back-link */
 .back-link:hover {
   background-color: #addd8e;      /* Change background color on hover */
+}
+
+.back-links-container { /* for when there are multiple back links on a page */
+  display: flex;
+  gap: 1rem; 
 }
 
 /* global class for links to the tag index page */
