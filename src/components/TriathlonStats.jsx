@@ -39,7 +39,7 @@ const TriathlonStats = ({ data, error }) => {
                 `${convertToMoonPercentage(swimDistanceKm)}%`}
         </strong>
         {unit === "fields" ? " 🏈 " : ""}
-        {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth 🌎 to the Moon 🌕" : ""}
+        {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth 🌎 to the Moon 🌕 " : ""}
         <strong style={{color: '#0099cc'}}>swimming</strong><br />
     
         <strong style={{ fontSize: '2rem', color: '#41ab5d' }}>
@@ -50,7 +50,7 @@ const TriathlonStats = ({ data, error }) => {
                 `${convertToMoonPercentage(rideDistanceKm)}%`}
         </strong>
         {unit === "fields" ? " 🏈 " : ""}
-        {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth 🌎 to the Moon 🌕" : ""}
+        {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth 🌎 to the Moon 🌕 " : ""}
         <strong style={{color: '#41ab5d'}}>biking</strong><br />
     
         <strong style={{ fontSize: '2rem', color: '#ffaa00' }}>
@@ -61,7 +61,7 @@ const TriathlonStats = ({ data, error }) => {
                 `${convertToMoonPercentage(runDistanceKm)}%`}
         </strong>
         {unit === "fields" ? " 🏈 " : ""}
-        {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth 🌎 to the Moon 🌕" : ""}
+        {unit !== "fields" && unit !== "miles" && unit !== "km" && unit !== "yards" ? " of the distance from Earth 🌎 to the Moon 🌕 " : ""}
         <strong style={{color: '#ffaa00'}}>running</strong>
     </p>
     
