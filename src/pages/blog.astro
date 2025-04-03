@@ -13,12 +13,17 @@ const allPosts = await getCollection("blog");
   
   <p>Welcome to my blog!</p>
   <nav>
-    <a href="/tags">Tag Index</a>
+    <a href="/tags" class="tag-index-link">#Tag Index</a>
   </nav>
   <ul>
     {
       allPosts.map((post) => (
-        <BlogPost url={`/posts/${post.id}/`} title={post.data.title} />
+        <BlogPost 
+          url={`/posts/${post.id}/`} 
+          title={post.data.title} 
+          image={post.data.image} 
+          pubDate={post.data.pubDate}
+        />
       ))
     }
   </ul>

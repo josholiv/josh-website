@@ -3,14 +3,11 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
-  <a href="/blog" class="back-link">← Back to Blog Home</a>
-  <p>Last updated: <strong>{frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</strong></p>
-  <p><em>{frontmatter.description}</em></p>
-  <div class="author-container">
-    <p>Written by: <strong>{frontmatter.author}</strong></p>
-    <img src="/photo.png" class="blog-pic" width="100" alt={frontmatter.image.alt} />
-  </div>
-  
+  <a href="/blog" class="back-link">← Blog Home</a>
+  <p><i>{frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</i></p>
+  <p>Written by: <strong>{frontmatter.author}</strong></p>
+  <img src={frontmatter.image.url} class="blog-pic" width="100" alt={frontmatter.image.alt} />
+    
   <div class="tags">
     {frontmatter.tags.map((tag: string) => (
       <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>  
@@ -18,5 +15,5 @@ const { frontmatter } = Astro.props;
   </div>
 
   <slot />
-  <a href="/blog" class="back-link">← Back to Blog Home</a>
+  <a href="/blog" class="back-link">← Blog Home</a>
 </BaseLayout>

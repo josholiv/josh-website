@@ -4,8 +4,8 @@ pubDate: 2025-04-01
 description: ''
 author: 'Josh Olivier'
 image:
-    url: '/photo.png'
-    alt: 'Josh Olivier'
+    url: '/images/blog/black-sand-beach.jpg'
+    alt: 'Me at Punaluʻu Black Sand Beach, Hawaii'
 tags: ["me", "blogging", "astro", "chicken"]
 ---
 ## Hello, my name is Josh! But I'd be surprised 

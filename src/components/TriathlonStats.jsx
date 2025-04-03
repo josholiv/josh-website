@@ -30,7 +30,7 @@ const TriathlonStats = ({ data, error }) => {
     <div>
       <h3>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone:</h3>
       {!error && (
-        <p style={{ paddingLeft: '2rem' }}>
+        <p style={{ paddingLeft: '2rem', paddingBottom: "2rem" }}>
         <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
             🏊 {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
                 unit === "km" ? `${formatNumber(swimDistanceKm)} kilometers `  : 

@@ -1,4 +1,26 @@
 ---
-const { title, url } = Astro.props;
+const { url, title, image, pubDate } = Astro.props;
+const formattedPubDate = new Date(pubDate).toLocaleDateString('en-US', { 
+  day: 'numeric', 
+  month: 'long', 
+  year: 'numeric' 
+});
 ---
-<li><a href={url}>{title}</a></li>
+<li class="blog-post">
+  <a href={url}>
+    <div class="post-wrapper">
+      {/* Thumbnail Image */}
+      {image?.url && (
+        <img 
+          src={image.url} 
+          alt={image.alt || title} 
+          class="blog-thumbnail" 
+        />
+      )}
+      {/* Title */}
+      <p class="post-title">{title}</p>
+      {/* Publication Date */}
+      <span class="pub-date"><i>{formattedPubDate}</i></span>
+    </div>
+  </a>
+</li>

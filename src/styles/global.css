@@ -87,28 +87,28 @@ p {
 /* Link colors (not including nav links and back links) */
     /* light mode  */
     a:not(.nav-links a):not(.back-link) {
-      color: #41ab5d; /* Link color */
+      color: #0077cc; /* Link color */
     }
 
     a:not(.nav-links a):not(.back-link):hover {
-      color: #006837; /* Link hover color */
+      color: #005fa3; /* Link hover color */
     }
 
     a:not(.nav-links a):not(.back-link):visited {
-      color: #addd8e; /* Link visited color */
+      color: #551A8B; /* Link visited color */
     }
 
     /* dark mode */
     html.dark a:not(.nav-links a):not(.back-link) {
-      color: #41ab5d; /* Link color */
+      color: #addd8e; /* Link color */
     }
 
     html.dark a:not(.nav-links a):not(.back-link):hover {
-      color: #addd8e; /* Link hover color, flipped for dark mode */
+      color: #d9f0a3; /* Link hover color, flipped for dark mode */
     }
 
     html.dark a:not(.nav-links a):not(.back-link):visited {
-      color: #006837; /* Link visited color, flipped for dark mode */
+      color: #78c679; /* Link visited color, flipped for dark mode */
     }
 
 
@@ -145,7 +145,7 @@ html.dark .hamburger .line {
   text-transform: uppercase;
   color: #004529; /* nav link text color */
   background-color: #ffffe5; /* Background color */
-  border-radius: 5px; /* Rounded corners */
+  border-radius: 1rem; /* Rounded corners */
 }
 
 .nav-links a:hover,
@@ -232,17 +232,11 @@ html.dark .about-pic {
 }
 
 .blog-pic {
-  width: 2rem;
-  height: 2rem; 
-  border-radius: 50%;
+  width: 320px;
+  height: 180px; /* 320px by 180px for 16x9 aspect ratio */
   object-fit: cover; 
   display: block;
-}
-
-.author-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .tags {
@@ -251,25 +245,40 @@ html.dark .about-pic {
 }
 
 .tag {
-  margin: 0.25em;
+  margin: 0.25rem;
   border-radius: 1rem;
   padding: .5rem 1rem;
-  padding-left: 1.5rem;
-  font-size: 1.15rem;
-  background-color: #525252;
+  padding-left: 2.25rem;
+  font-size: 1.25rem;
+  border: dotted;
+  border-color: #bdbdbd;
   position: relative;
 }
 
 html.dark .tag {
-  background-color: #737373;
+  border-color: #ffffe5;
 }
 
 .tag::before {
   content: "#";
+  font-size: 1.75rem;
   position: absolute;
-  color: #bdbdbd;
-  left: 0.75rem;
+  color: #969696;
+  left: 1rem;
 }
+
+html.dark .tag::before {
+  color: #bdbdbd;
+}
+
+.tag-count {
+  color: #969696;
+}
+
+html.dark .tag-count {
+  color: #bdbdbd;
+}
+
 
 /* format page nav link of current page */
     nav a.active, html.dark nav a.active {
@@ -290,8 +299,8 @@ html.dark .tag {
 
 /* Universal button style class */
 .btn {
-  padding: 0.3rem 0.5rem;          /* Add padding */
-  font-size: 0.9rem;               /* Set font size */
+  padding: 0.5rem 1rem;          /* Add padding */
+  font-size: 1rem;               /* Set font size */
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;              /* Change cursor on hover */
@@ -333,6 +342,30 @@ html.dark .tag {
   background-color: #addd8e;      /* Change background color on hover */
 }
 
+/* global class for links to the tag index page */
+.tag-index-link {
+  display: inline-block;           /* Prevent it from spanning the entire width */
+  max-width: fit-content;          /* Allow the link to take up only as much width as necessary */
+  padding: 0.5rem 1rem;          /* Add padding */
+  font-size: 1rem;               /* Set font size */
+  font-family: monospace;
+  text-transform: uppercase;
+  cursor: pointer;                /* Change cursor on hover */
+  background-color: #41ab5d;      /* Set background color */
+  color: #ffffe5 !important;                 /* Set text color */
+  border: none;                   /* Remove border */
+  border-radius: 1rem;            /* Add rounded corners */
+  transition: background-color 0.3s ease; /* Add hover transition */
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+  text-decoration: none;          /* Remove underline */
+}
+
+/* Hover effect for back-link */
+.tag-index-link:hover {
+  background-color: #addd8e;      /* Change background color on hover */
+}
+
 .typewriter-container {
   font-size: 2rem;
   font-family: monospace;
@@ -367,5 +400,63 @@ html.dark .tag {
 
 .fade-out {
   opacity: 0;
+}
+
+
+/* blog post button styles on the main blog page */
+/* List Item Styles */
+li.blog-post {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0 1rem 0;
+}
+
+/* Anchor Styles */
+.blog-post a {
+  display: block;
+  text-decoration: none;
+  border-radius: 1rem;
+  border: 2px dotted gray;
+  margin-left: -2.5rem;
+  transition: background-color 0.3s ease; /* Add hover transition */
+}
+
+/* Hover Effect */
+.blog-post a:hover {
+  background-color: #f7fcb9; 
+}
+
+html.dark .blog-post a:hover {
+  background-color: #525252; 
+}
+
+/* Wrapper Div */
+.blog-post .post-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 1rem;
+}
+
+/* Thumbnail Image */
+.blog-thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 1rem;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+/* Title Styles */
+.blog-post .post-title {
+  flex: 1;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Publication Date */
+.blog-post .pub-date {
+  font-size: 1rem;
 }
 
