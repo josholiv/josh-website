@@ -82,7 +82,6 @@
   flex-direction: column;   /* Stacks elements vertically */
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -149,19 +148,15 @@ p {
   background-color: #41ab5d; /* hamburger color */
 }
 
-/* Dark mode hamburger color */
-html.dark .hamburger .line {
-  background-color: #41ab5d; 
-}
-
 .nav-links {
   display: none;
+  align-items: center;
 }
 
 .nav-links a {
   display: block;
   text-align: center;
-  padding: 1.5rem 0;
+  padding: 0.6rem 1.5rem;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
@@ -169,6 +164,7 @@ html.dark .hamburger .line {
   color: #004529; /* nav link text color */
   background-color: #ffffe5; /* Background color */
   border-radius: 1rem; /* Rounded corners */
+  transition: background-color 0.3s ease;
 }
 
 .nav-links a:hover,
@@ -202,14 +198,62 @@ html.dark .nav-links a:focus {
     justify-content: center;
     position: static;
     width: auto;
-    background: none;
     gap: 1rem;
   }
 
-  .nav-links a {
-    display: inline-block;
-    padding: 0.8rem 0.8rem;
+/* Rainbow gradient for the "Josh Olivier" link */
+.nav-links a.home-link {
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff9900,
+    #33cc33,
+    #3399ff,
+    #9933ff,
+    #ff3399
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback */
+  animation: rainbowShift 8s ease infinite;
+  border: 3px solid transparent;
+  border-radius: 1rem;
+  transition: border-color 0.3s ease;
+  background-color: transparent !important; /* override background from .nav-links a */
+}
+
+/* Active green border for light mode */
+.nav-links a.home-link.active {
+  border-color: #addd8e;
+}
+
+/* Active off-white border for dark mode */
+html.dark .nav-links a.home-link.active {
+  border-color: #ffffe5;
+}
+
+/* Rainbow animation */
+@keyframes rainbowShift {
+  0% {
+    background-position: 0% 50%;
   }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+  
+.nav-links a.home-link:hover,
+.nav-links a.home-link:focus {
+  border-color: rgba(255, 255, 255, 0.3);} /* home link hover color */
+
+html.dark .nav-links a.home-link:hover,
+html.dark .nav-links a.home-link:focus {
+  border-color: rgba(255, 255, 255, 0.3);} /* home link hover color */
+
 
   .hamburger {
     display: none;
