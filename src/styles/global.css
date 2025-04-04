@@ -164,7 +164,6 @@ p {
   color: #004529; /* nav link text color */
   background-color: #ffffe5; /* Background color */
   border-radius: 1rem; /* Rounded corners */
-  transition: background-color 0.3s ease;
 }
 
 .nav-links a:hover,
@@ -339,12 +338,14 @@ html.dark .tag-count {
 
 
 /* format page nav link of current page */
-    nav a.active, html.dark nav a.active {
+    nav a.active, html.dark nav a.active, 
+    html.midnight nav a.active, html.lightest nav a.active {
       color: #ffffe5; /* Change text color */
       background-color: #41ab5d; /* Background color */
     }
 
-    nav a.active:hover, html.dark nav a.active:hover {
+    nav a.active:hover, html.dark nav a.active:hover,
+    html.midnight nav a.active:hover, html.lightest nav a.active:hover {
       background-color: #addd8e;
     }
 
@@ -522,5 +523,89 @@ html.dark .blog-post a:hover {
 /* Publication Date */
 .blog-post .pub-date {
   font-size: 1rem;
+}
+
+/* midnight mode styles */
+html.midnight {
+  color: #d9f0a3;
+  background-color: #000000;
+}
+
+html.midnight body {
+  background-color: #000000;
+}
+
+html.midnight header,
+html.midnight .nav-links a {
+  background-color: #000000;
+  color: #d9f0a3;
+}
+
+html.midnight .nav-links a:hover,
+html.midnight .nav-links a:focus {
+  background-color: #238443;
+}
+
+html.midnight a:not(.nav-links a):not(.back-link) {
+  color: #78c679;
+}
+html.midnight a:not(.nav-links a):not(.back-link):hover {
+  color: #addd8e;
+}
+html.midnight a:not(.nav-links a):not(.back-link):visited {
+  color: #41ab5d;
+}
+
+html.midnight .profile-pic {
+  border: 0.25rem solid #d9f0a3;
+}
+
+html.midnight .tag {
+  border-color: #737373;
+}
+html.midnight .tag::before {
+  color: #969696;
+}
+
+/* lightest mode styles */
+html.lightest {
+  color: #252525;
+  background-color: #ffffff;
+}
+
+html.lightest body {
+  background-color: #ffffff;
+}
+
+html.lightest header,
+html.lightest .nav-links a {
+  background-color: #ffffff;
+  color: #004529;
+}
+
+html.lightest .nav-links a:hover,
+html.lightest .nav-links a:focus {
+  background-color: #f0f0f0;
+}
+
+html.lightest a:not(.nav-links a):not(.back-link) {
+  color: #005fa3;
+}
+html.lightest a:not(.nav-links a):not(.back-link):hover {
+  color: #003366;
+}
+html.lightest a:not(.nav-links a):not(.back-link):visited {
+  color: #9900cc;
+}
+
+html.lightest .profile-pic {
+  border: 0.25rem solid #41ab5d;
+}
+
+html.lightest .tag {
+  border-color: #d9d9d9;
+}
+html.lightest .tag::before {
+  color: #737373;
 }
 
