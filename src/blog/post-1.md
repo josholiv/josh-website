@@ -9,11 +9,11 @@ image:
 tags: ["me", "blogging", "astro", "chicken"]
 ---
 ## Hello, my name is Josh! But I'd be surprised 
-if you didn't know that already, given the site you're on (though if you somehow, inexplicably, got super lost while surfing the righteous and gnarly waves of the world wide web 🤙 and unwittingly washed up on my site before knowing my name, check out my ==About== page). 
+if you didn't know that already, given the site you're on (though if you somehow, inexplicably, got super lost while surfing the righteous and gnarly waves of the world wide web 🤙 and unwittingly washed up on my site before knowing my name, check out my [About](https://josholivier.com/about) page). 
 
 First and foremost, I hope you enjoy this photo of me holding a chicken:
 
-<img src="/images/blog/me-with-chicken.jpg" alt="Me holding a chicken" style="width: 100%; height: auto;">
+<img src="/images/blog/me-with-chicken.jpg" alt="Me holding a chicken" class="blog-body-pic">
 
 ## Now that that's out of the way, welcome to my blog! 
 

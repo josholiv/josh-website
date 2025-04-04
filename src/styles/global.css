@@ -22,7 +22,7 @@
 
     header {
       background-color: #ffffe5; /* Solid off-white for light mode */
-      padding-bottom: 0rem; /* Add some padding to the header for spacing */
+      padding: 1rem;
       width: 100%;
       max-width: 80ch; /* Match body width */
       margin: 0 auto; /* Center align the header */
@@ -34,18 +34,16 @@
     }
 
     html, body {
-      height: 100% 200%; /* Ensures they take full viewport height */
+      height: 100%; /* Ensures they take full viewport height */
+      margin: 0;
       /* border: 1px solid red; For visualizing the border; comment out when not needed */
-
     }
     
     body {
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* Ensures body extends fully even with little content */
       width: 100%;
       max-width: 80ch;
-      padding: 1rem;
       background: #ffffe5; /* Light mode (default) body color) */
       margin: 0 auto;
       line-height: 1.5;
@@ -59,6 +57,30 @@
     html.dark body {
       background: #252525; /* Dark mode body color */
     }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .main-content {
+      flex: 1; /* This is what makes the footer stick to the bottom when content is short */
+      padding: 1rem;
+    }
+
+    footer {
+      padding: 2rem 0;  /* Padding inside the footer */
+    }
+
+    /* Container that wraps everything */
+.main-container {
+  display: flex;
+  justify-content: center;  /* Horizontally centers content */
+  align-items: center;      /* Vertically centers content */
+  height: 100%;             /* Makes the container take full height */
+  flex-direction: column;   /* Stacks elements vertically */
+}
 
 
 * {
@@ -116,6 +138,7 @@ p {
 .hamburger {
   padding-right: 20px;
   cursor: pointer;
+  position: relative;  /* Position the hamburger relative to its container */
 }
 
 .hamburger .line {
@@ -208,27 +231,10 @@ html.dark .profile-pic {
 }
 
 .about-pic {
-  width: 100%;
-  object-fit: cover; /* Ensures the image fills the circular shape */
-  border: 0rem solid #252525;
-  border-radius: 0%;
+  width: 50%;
   display: block;
   margin: 0 auto;
-  /* opacity: 0; /* Start fully transparent */
-  /*  animation: fadeIn 2s ease-in-out forwards; */
-}
-
-html.dark .about-pic {
-  border: 0rem solid #ffffe5;
-}
-
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-  }
-  to {
-      opacity: 1;
-  }
+  padding: 1rem;
 }
 
 .blog-pic {
@@ -237,6 +243,14 @@ html.dark .about-pic {
   object-fit: cover; 
   display: block;
   margin-bottom: 1rem;
+}
+
+.blog-body-pic {
+  display: block;
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 .tags {
@@ -371,6 +385,7 @@ html.dark .tag-count {
   background-color: #addd8e;      /* Change background color on hover */
 }
 
+/* Typewriter styling */
 .typewriter-container {
   font-size: 2rem;
   font-family: monospace;

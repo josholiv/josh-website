@@ -4,15 +4,16 @@ const pageTitle = "";
 ---
 <BaseLayout pageTitle={pageTitle}>
 
-<!-- Typewriter effect for front page of site -->
-    <div class="typewriter-container">
-        <span id="typewriter"></span>
+    <div class="main-container">
+        <div class="typewriter-container">
+            <span id="typewriter"></span>
+        </div>
     </div>
 
     <script>
         if (typeof window !== "undefined") {
             const phrases = [
-                "Hi! I'm Josh, a research assistant passionate about memory, aging, and brain research.",
+                "Hi! I'm Josh. I'm a neuroscience research assistant passionate about memory, aging, and brain imaging.",
                 "I use this site to showcase my current and past projects, as well as my hobbies. Feel free to explore!"
             ];
             let i = 0; // Index of current phrase

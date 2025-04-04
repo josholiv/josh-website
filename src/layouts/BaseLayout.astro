@@ -21,14 +21,17 @@ const { pageTitle } = Astro.props;
   gtag('js', new Date());
 
   gtag('config', 'G-LZBBDCSVZC');
-  
 </script>
 
   <body>
-    <Header />
-    <h1>{pageTitle}</h1>
-    <slot />
-    <Footer />
+    <div class="page-wrapper">
+      <Header />
+      <main class="main-content">
+        <h1>{pageTitle}</h1>
+        <slot />
+      </main>
+      <Footer />
+    </div>
     <script>
       import "../scripts/menu.js";
     </script>

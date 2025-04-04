@@ -7,14 +7,16 @@ const { platform, username, displayName = platform } = Astro.props;
 
 <style>
   .social-link {
-    padding: 0.3rem 0.3rem;
+    padding: 0.5rem 1rem;
     color: #ffffe5 !important; 
     background-color: #41ab5d;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 1rem;
+    font-family: monospace;
     font-size: 1rem;
     font-weight: normal;
-    text-transform: lowercase;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease; /* Add hover transition */
   }
 
   .social-link:hover {
