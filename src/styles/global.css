@@ -76,8 +76,8 @@
     /* Container that wraps everything */
 .main-container {
   display: flex;
-  justify-content: center;  /* Horizontally centers content */
-  align-items: center;      /* Vertically centers content */
+  justify-content: center;  /* Vertically centers content */
+  align-items: left;      /* Horizontally centers content */
   height: 100%;             /* Makes the container take full height */
   flex-direction: column;   /* Stacks elements vertically */
 }
@@ -390,7 +390,7 @@ html.dark .tag-count {
   font-size: 2rem;
   font-family: monospace;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   margin-top: 2rem;
 }
 

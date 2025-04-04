@@ -20,7 +20,6 @@ const pageTitle = "";
             let j = 0; // Index within the phrase
             let isTyping = true; // Flag for typing phase
             let isDeleting = false; // Flag for deleting phase
-            let speed = 50; // Typing speed, in ms per character
             let pauseDuration = 5000; // Pause for 5 seconds after fully typing each phrase
             let postDeletePauseDuration = 2000; // Pause after deletion before starting next phrase
             
@@ -59,9 +58,10 @@ const pageTitle = "";
                     return;
                 }
     
-                // Adjust timing for typing or deleting
-                setTimeout(typeEffect, isDeleting ? 50 : speed); // Consistent speed for typing or deleting
-            }
+                // Set random typing speed between 60ms and 20ms for each character, with constant speed of 20ms for deleting
+                const randomSpeed = isDeleting ? 20 : Math.floor(Math.random() * (60 - 20 + 1)) + 20;
+                setTimeout(typeEffect, randomSpeed);
+                        }
     
             document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(typeEffect, 500);
