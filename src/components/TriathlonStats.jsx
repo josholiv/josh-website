@@ -132,7 +132,7 @@ const TriathlonStats = ({ data, error }) => {
         </div>
         
       {/* Change Unit Button */}
-      <div style={{ display: "flex", justifyContent: "center", marginTop: '1rem' }}>
+      <div style={{ display: "flex", justifyContent: "left", marginTop: '1rem' }}>
         <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
       </div>
     </div>
