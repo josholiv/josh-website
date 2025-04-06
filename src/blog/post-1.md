@@ -4,16 +4,16 @@ pubDate: 2025-04-01
 description: ''
 author: 'Josh Olivier'
 image:
-    url: '/images/blog/black-sand-beach.jpg'
+    url: '/images/blog/post-1/black-sand-beach.jpg'
     alt: 'Me at Punaluʻu Black Sand Beach, Hawaii'
-tags: ["me", "blogging", "astro", "chicken"]
+tags: ["me", "blog", "astro", "chicken"]
 ---
 ## Hello, my name is Josh! But I'd be surprised 
 if you didn't know that already, given the site you're on (though if you somehow, inexplicably, got super lost while surfing the righteous and gnarly waves of the world wide web 🤙 and unwittingly washed up on my site before knowing my name, check out my [About](https://josholivier.com/about) page). 
 
 First and foremost, I hope you enjoy this photo of me holding a chicken:
 
-<img src="/images/blog/me-with-chicken.jpg" alt="Me holding a chicken" class="blog-body-pic">
+<img src="/images/blog/post-1/me-with-chicken.jpg" alt="Me holding a chicken" class="blog-body-pic">
 
 ## Now that that's out of the way, welcome to my blog! 
 
