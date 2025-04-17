@@ -4,7 +4,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 
 const pageTitle = "Blog";
-const allPosts = await getCollection("blog");
+const allPosts = (await getCollection("blog")).sort(
+  (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)
+);
 ---
 <BaseLayout pageTitle={pageTitle}>
   <div 

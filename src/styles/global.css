@@ -24,7 +24,7 @@
       background-color: #ffffe5; /* Solid off-white for light mode */
       padding: 1rem;
       width: 100%;
-      max-width: 80ch; /* Match body width */
+      max-width: 80ch; 
       margin: 0 auto; /* Center align the header */
       /* border: 1px solid red;   For visualizing the border; comment out when not needed */
     }
@@ -43,7 +43,7 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 80ch;
+      max-width: 70ch;
       background: #ffffe5; /* Light mode (default) body color) */
       margin: 0 auto;
       line-height: 1.5;
@@ -205,7 +205,6 @@ html.dark .nav-links a:focus {
   animation: rainbowShift 8s ease infinite;
   border: 3px solid transparent;
   border-radius: 1rem;
-  transition: border-color 0.3s ease;
   background-color: transparent !important; /* override background from .nav-links a */
 }
 
@@ -277,10 +276,10 @@ html.dark .profile-pic {
 
 .blog-body-pic {
   display: block;
-  width: 50%;
+  width: 100%;
   height: auto;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0rem;
 }
 
 .tags {
@@ -345,22 +344,22 @@ html.dark .tag-count {
 
 /* Universal button style class */
 .btn {
-  padding: 1rem 0.75rem;          /* Add padding */
+  padding: 0.6rem 1.5rem;
   font-size: 0.67rem;               /* Set font size */
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;              /* Change cursor on hover */
   background-color: #d9d9d9;     /* Set background color */
   color: #000000;                  /* Set text color */
-  border: none;                 
-  border-radius: 0.75rem;            /* Add rounded corners */
-  transition: background-color 0.3s ease; /* Add hover transition */
+  border: none;                
+  border-radius: 1rem;            /* Add rounded corners */
+  transition: background-color 0.2s ease; /* Add hover transition */
   margin: 0 auto;
 }
 
 /* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: #addd8e;     /* Change background color on hover */
+  background-color: #bdbdbd;     /* Change background color on hover */
 }
 
 /* global class for back-links on blog posts, etc */
@@ -376,7 +375,6 @@ html.dark .tag-count {
   color: #ffffe5 !important;                 /* Set text color */
   border: none;                   /* Remove border */
   border-radius: 1rem;            /* Add rounded corners */
-  transition: background-color 0.3s ease; /* Add hover transition */
   margin-top: 0rem;
   margin-bottom: 1rem;
   text-decoration: none;          /* Remove underline */
@@ -405,7 +403,6 @@ html.dark .tag-count {
   color: #ffffe5 !important;                 /* Set text color */
   border: none;                   /* Remove border */
   border-radius: 1rem;            /* Add rounded corners */
-  transition: background-color 0.3s ease; /* Add hover transition */
   margin-top: 0rem;
   margin-bottom: 1rem;
   text-decoration: none;          /* Remove underline */
@@ -467,17 +464,24 @@ li.blog-post {
   display: block;
   text-decoration: none;
   border-radius: 1rem;
-  border: 2px dotted gray;
+  border: 1px dashed;
   margin-left: -2.5rem;
-  transition: background-color 0.3s ease; /* Add hover transition */
 }
 
-/* Hover Effect */
+/* blog post hover effect */
 .blog-post a:hover {
-  background-color: #f7fcb9; 
+  background-color: #d9f0a3; 
+}
+
+html.lightest .blog-post a:hover {
+  background-color: #f0f0f0; 
 }
 
 html.dark .blog-post a:hover {
+  background-color: #525252; 
+}
+
+html.midnight .blog-post a:hover {
   background-color: #525252; 
 }
 

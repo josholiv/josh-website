@@ -28,9 +28,9 @@ const TriathlonStats = ({ data, error }) => {
 
   return (
     <div>
-    <h3>During my triathlon training* in <strong>{new Date().getFullYear()}</strong>, I've gone:</h3>
+    <p>During my triathlon training* in {new Date().getFullYear()}, I've gone:</p>
     {!error && (
-      <p style={{ paddingLeft: '2rem'}}>
+      <p>
         <strong style={{ fontSize: '2rem', color: '#0099cc' }}>
           {unit === "miles" ? formatNumber(data.swimDistance) + " " : 
            unit === "km" ? `${formatNumber(swimDistanceKm)} kilometers `  : 

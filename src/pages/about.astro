@@ -4,14 +4,14 @@ import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
 import TriathlonStats from '../components/TriathlonStats.jsx';
-import HobbyImage from '../components/HobbyImage.jsx';
+import HobbyButton from '../components/HobbyButton.jsx';
 
 const pageTitle = "Hi, I'm Josh!";
 const identity = {
   firstName: "Josh",
   country: "United States 🇺🇸",
   occupation: "lab manager",
-  hobbies: ["3D printing ⚙️", "Learning yoyo tricks 🪀", "Drinking tereré 🧉", "Doing triathlons 🏊🚴🏃‍♂️"],
+  hobbies: ["doing triathlons 🏊🚴🏃‍♂️", "3D printing ⚙️", "learning yoyo tricks 🪀", "playing chess ♟️", "drinking tereré 🧉"],
 	};
 const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const currentYear = new Date().getFullYear();
@@ -33,9 +33,9 @@ try {
 <BaseLayout pageTitle={pageTitle}>
 
   <img src="/about-me-photo.jpg" alt="Me at Horseshoe Bend, Arizona" class="about-pic"/>
-  
+
     <p>
-      I live in the <strong>{identity.country}</strong> and work as <strong>{identity.occupation}</strong> of the Functional Neuroimaging 
+      I live in the {identity.country} and work as {identity.occupation} of the Functional Neuroimaging 
       of Memory Lab at the University of Texas at Dallas. 
     </p>
 
@@ -56,7 +56,7 @@ try {
 
 <h2>Here's more about me!</h2>
 
-	<HobbyImage client:load hobbies={identity.hobbies} /> 
+	<HobbyButton client:load hobbies={identity.hobbies} /> 
 		
 	<TriathlonStats client:load data={data} error={error} />
 	    <ErrorRenderer error={error} />

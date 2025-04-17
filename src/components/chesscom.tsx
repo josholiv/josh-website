@@ -38,9 +38,9 @@ const ChessStats: FunctionalComponent = () => {
 
   return (
 <div>
-  <h3>I also love playing chess ♟️. My current chess ratings on Chess.com<sup>†</sup> are:</h3>
+  <p>My current Chess.com<sup>†</sup> ratings are:</p>
 
-  <p style={{ textIndent: "2rem" }}>
+  <p>
     <strong style={{ fontSize: "2rem", color: "#f200ff" }}>
       {stats.chess_bullet?.last?.rating}
     </strong>{" "}
@@ -53,7 +53,7 @@ const ChessStats: FunctionalComponent = () => {
     </i>
   </p>
 
-  <p style={{ textIndent: "2rem" }}>
+  <p>
     <strong style={{ fontSize: "2rem", color: "#9b4dca" }}>
       {stats.chess_blitz?.last?.rating}
     </strong>{" "}
@@ -66,7 +66,7 @@ const ChessStats: FunctionalComponent = () => {
     </i>
   </p>
 
-  <p style={{ textIndent: "2rem" }}>
+  <p>
     <strong style={{ fontSize: "2rem", color: "#5c6bc0" }}>
       {stats.chess_rapid?.last?.rating}
     </strong>{" "}
