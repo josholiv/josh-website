@@ -26,7 +26,7 @@ const HobbyImage = ({ hobbies }) => {
             onClick={handleNextHobby}
             class="btn"
           >
-            Next Hobby
+            Change Hobby
           </button>
         </div>
 
@@ -39,7 +39,7 @@ const HobbyImage = ({ hobbies }) => {
               maxWidth: "50rem",
               minWidth: "8rem",
               height: "auto",
-              borderRadius: "50%",
+              borderRadius: "0",
               objectFit: "contain",
             }}
           />

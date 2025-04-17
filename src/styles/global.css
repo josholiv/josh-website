@@ -87,23 +87,10 @@
 }
 
 h1 {
-  margin: 1rem 0;
   text-align: center;
-  font-size: 2.5rem;
 }
 
-h2 {
-  font-size: 1.5em;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
 
-p {
-  font-size: 1rem; 
-  line-height: 1.5rem; /* spacing between lines */
-  margin-top: 0rem;
-  margin-bottom: 1rem; /* spacing between paragraphs */
-}
 
 /* Link colors (not including nav links and back links) */
     /* light mode  */
@@ -274,10 +261,10 @@ html.dark .profile-pic {
 }
 
 .about-pic {
-  width: 50%;
+  width: 100%;
   display: block;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0rem;
 }
 
 .blog-pic {
@@ -358,18 +345,17 @@ html.dark .tag-count {
 
 /* Universal button style class */
 .btn {
-  padding: 0.5rem 1rem;          /* Add padding */
-  font-size: 1rem;               /* Set font size */
+  padding: 1rem 0.75rem;          /* Add padding */
+  font-size: 0.67rem;               /* Set font size */
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;              /* Change cursor on hover */
-  background-color: #41ab5d;     /* Set background color */
-  color: #ffffe5;                  /* Set text color */
-  border: none;                  /* Remove border */
-  border-radius: 1rem;            /* Add rounded corners */
+  background-color: #d9d9d9;     /* Set background color */
+  color: #000000;                  /* Set text color */
+  border: none;                 
+  border-radius: 0.75rem;            /* Add rounded corners */
   transition: background-color 0.3s ease; /* Add hover transition */
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin: 0 auto;
 }
 
 /* Hover effect for buttons with .btn class */
@@ -527,7 +513,7 @@ html.dark .blog-post a:hover {
 
 /* midnight mode styles */
 html.midnight {
-  color: #d9f0a3;
+  color: #ffffff;
   background-color: #000000;
 }
 
@@ -538,12 +524,12 @@ html.midnight body {
 html.midnight header,
 html.midnight .nav-links a {
   background-color: #000000;
-  color: #d9f0a3;
+  color: #ffffff;
 }
 
 html.midnight .nav-links a:hover,
 html.midnight .nav-links a:focus {
-  background-color: #238443;
+  background-color: #737373;
 }
 
 html.midnight a:not(.nav-links a):not(.back-link) {
@@ -569,7 +555,7 @@ html.midnight .tag::before {
 
 /* lightest mode styles */
 html.lightest {
-  color: #252525;
+  color: #000000;
   background-color: #ffffff;
 }
 
@@ -580,7 +566,7 @@ html.lightest body {
 html.lightest header,
 html.lightest .nav-links a {
   background-color: #ffffff;
-  color: #004529;
+  color: #000000;
 }
 
 html.lightest .nav-links a:hover,
