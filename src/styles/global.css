@@ -73,6 +73,14 @@
       padding: 2rem 0;  /* Padding inside the footer */
     }
 
+    /* styles for summaries (in <summary> tags within <details> tags like on cv.astro */
+    summary {
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 1em 0;
+    }
+
     /* Container that wraps everything */
 .main-container {
   display: flex;

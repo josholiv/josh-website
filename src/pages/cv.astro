@@ -1,48 +1,27 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const pageTitle = "Curriculum Vitae";
+const pageTitle = "Joshua M. Olivier";
 ---
 <a id="top"></a> <!--- "back to top" button takes user to this location -->
 
 <BaseLayout pageTitle={pageTitle}>
-  <body>
-    <div style="display: flex; justify-content: space-between;">
-      <!-- Left column -->
-      <div style="width: 60%;">
-        <h4>Jump to:</h4>
-        <ul style="list-style-type: square;">
-          <li><a href="#education">Education</a></li>
-          <li><a href="#publications">Scholarly Publications</a></li>
-          <li><a href="#presentations">Poster Presentations</a></li>
-          <li><a href="#experience">Research Experience</a></li>
-          <li><a href="#awards">Grants & Awards</a></li>
-          <li><a href="#service">Service & Activities</a></li>
-          <li><a href="#affiliations">Academic Affiliations</a></li>
-          <li><a href="#skills">Technical Skills</a></li>
-        </ul>
-      </div>
+    
+    <a href="/250403_CV_OLIVIER.pdf" target="_blank" rel="noopener noreferrer" class="back-link"
+    >PDF Version</a>
 
-      <!-- Right column -->
-      <div
-        style="width: 40%; display: flex; justify-content: center; align-items: center;"
-      >
-        <a href="/250403_CV_OLIVIER.pdf" target="_blank" rel="noopener noreferrer" class="back-link"
-          >PDF Version</a
-        >
-      </div>
-    </div>
+    <details>
+      <summary>Education 🎓</summary>
+      <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
+        <span>2021</span>
+        <span>
+          <strong>B.S., Psychology</strong><br />
+          Brigham Young University, Provo, UT
+        </span>
+      </p>
+    </details>
 
-    <h1>Joshua M. Olivier</h1>
-    <h2 id="education">Education🎓 <a href="#top" style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Back to Top</a></h2>
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2021</span>
-      <span
-        ><strong>B.S., Psychology</strong><br /> Brigham Young University, Provo,
-        UT</span
-      >
-    </p>
-
-    <h2 id="publications">Scholarly Publications📝 <a href="#top" style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Back to Top</a></h2>
+    <details>
+    <summary>Publications 📝</summary>
     <div style="line-height: 2; margin-left: 2em; text-indent:-2em;">
       <div style="margin-bottom: 1em;">
         <strong>Olivier, J. M.</strong>, Srokova, S., Hill, P. F., &amp; Rugg,
@@ -91,8 +70,10 @@ const pageTitle = "Curriculum Vitae";
       <sup>‡</sup>These authors jointly supervised this work and share senior
       authorship
     </p>
+  </details>
 
-    <h2 id="presentations">Poster Presentations📊 <a href="#top" style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Back to Top</a></h2>
+  <details>
+    <summary>Poster Presentations 📊</summary>
     <div style="line-height: 2; margin-left: 2em; text-indent:-2em;">
       <div style="margin-bottom: 1em;">
         <strong>Olivier, J. M.</strong>*, Srokova, S., & Rugg, M. D. (2025,
@@ -162,12 +143,14 @@ const pageTitle = "Curriculum Vitae";
 
       <p class="footnote">*Presenter</p>
     </div>
+  </details>
 
-    <h2 id="experience">Research Experience🔬 <a href="#top" style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Back to Top</a></h2>
+  <details>
+    <summary>Research Experience 🔬</summary>
     <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
       <span>April 2024–<br />Present</span>
       <span
-        ><strong>Functional Neuroimaging of Memory Lab🧠</strong><br />
+        ><strong>Functional Neuroimaging of Memory Lab</strong><br />
         University of Texas at Dallas<br />
         Mentor: Dr. Michael Rugg, PhD<br />
         Title: Lab Manager/Research Assistant II<br />
@@ -177,7 +160,7 @@ const pageTitle = "Curriculum Vitae";
     <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
       <span>June 2021–<br />April 2024</span>
       <span
-        ><strong>Functional Neuroimaging of Memory Lab🧠</strong><br />
+        ><strong>Functional Neuroimaging of Memory Lab</strong><br />
         University of Texas at Dallas<br />
         Mentor: Dr. Michael Rugg, PhD<br />
         Title: Lab Manager/Research Assistant II
@@ -187,7 +170,7 @@ const pageTitle = "Curriculum Vitae";
     <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
       <span>August 2018–<br />April 2021</span>
       <span
-        ><strong>Nielsen Brain & Behavior Lab🧠</strong><br />
+        ><strong>Nielsen Brain & Behavior Lab</strong><br />
         Brigham Young University<br />
         Mentor: Dr. Jared Nielsen, PhD<br />
         Title: Research Assistant
@@ -197,14 +180,16 @@ const pageTitle = "Curriculum Vitae";
     <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
       <span>May 2018–<br />July 2018</span>
       <span
-        ><strong>Ladle Lab🐁</strong><br />
+        ><strong>Ladle Lab</strong><br />
         Johns Hopkins University School of Medicine<br />
         Mentor: Dr. Brian Ladle, MD, PhD<br />
         Title: Research Assistant/Oncology Staff
       </span>
     </p>
+  </details>
 
-    <h2 id="awards">Grants & Awards🏆</h2>
+  <details>
+    <summary>Grants & Awards 🏆</summary>
     <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
       <span>2020 (Spring/Summer Terms)</span>
       <span
@@ -239,8 +224,10 @@ const pageTitle = "Curriculum Vitae";
         University</span
       >
     </p>
+  </details>
 
-    <h2 id="service">Service & Activities🤝 <a href="#top" style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Back to Top</a></h2>
+  <details>
+    <summary>Service & Activities 🤝 </summary>
     <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
       <span>2021–2024</span>
       <span
@@ -290,16 +277,19 @@ const pageTitle = "Curriculum Vitae";
         University International Network of Tutors of Languages, Provo, UT</span
       >
     </p>
+  </details>
 
-    <h2 id="affiliations">Academic Affiliations📚 <a href="#top" style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Back to Top</a></h2>
+  <details>
+    <summary>Academic Affiliations 📚 </summary>
     <ul>
       <li>Cognitive Neuroscience Society</li>
       <li>Society for Neuroscience</li>
       <li>Delta Alpha Pi Honor Society</li>
     </ul>
+  </details>
 
-    <h2 id="skills">Technical Skills🛠️ <a href="#top" style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">Back to Top</a></h2>
-
+  <details>
+    <summary>Technical Skills 🛠️ </summary>
     <h3>Software</h3>
     <ul>
       <li>R Studio</li>
@@ -367,5 +357,5 @@ const pageTitle = "Curriculum Vitae";
       <span>Spanish</span>
       <span><strong>Beginner</strong></span>
     </p>
-  </body>
+  </details>
 </BaseLayout>
