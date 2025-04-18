@@ -511,33 +511,47 @@ html.midnight .blog-post a:hover {
 
 /* Wrapper Div */
 .blog-post .post-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 10px;
   border-radius: 1rem;
+  display: block; /* Keep as block for stacking elements vertically */
 }
 
 /* Thumbnail Image */
 .blog-thumbnail {
-  width: 50px;
-  height: 50px;
-  border-radius: 1rem;
-  object-fit: cover;
-  margin-right: 1rem;
+  width: 100%; /* Make the image span the full width */
+  height: 80px; /* Shorter height for the image */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+  object-position: middle;
+  border-radius: 1rem 1rem 0 0; /* Rounded corners only at the top */
+  margin-bottom: 1rem; /* Space between image and title */
 }
 
-/* Title Styles */
+/* Title and Date Styles */
 .blog-post .post-title {
-  flex: 1;
   font-weight: bold;
   margin: 0;
+  display: inline-block; /* Make the title inline with the date */
+  margin-right: 10px; /* Space between title and date */
 }
 
-/* Publication Date */
 .blog-post .pub-date {
-  font-size: 1rem;
+  color: #aaa;
+  font-size: 0.9rem;
+  display: inline-block; /* Align the date on the same line as the title */
+  text-align: right; /* Right-align the date */
+  margin-top: 0; /* Remove top margin to align with title */
 }
+
+/* Tags */
+.blog-post .post-tags {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: left; /* Left-align the tags */
+  margin-bottom: 0.5rem; /* Space between tags and date */
+}
+
+
 
 /* midnight mode styles */
 html.midnight {
