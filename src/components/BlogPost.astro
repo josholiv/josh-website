@@ -1,5 +1,6 @@
 ---
-const { url, title, image, pubDate } = Astro.props;
+const { url, title, image, pubDate, readTime } = Astro.props;
+
 const formattedPubDate = new Date(pubDate).toLocaleDateString('en-US', { 
   day: 'numeric', 
   month: 'long', 
@@ -19,8 +20,12 @@ const formattedPubDate = new Date(pubDate).toLocaleDateString('en-US', {
       )}
       {/* Title */}
       <p class="post-title">{title}</p>
-      {/* Publication Date */}
-      <span class="pub-date"><i>{formattedPubDate}</i></span>
+
+      {/* Publication Date + Read Time */}
+      <span class="pub-date">
+        <i>{formattedPubDate}</i>
+        {readTime && ` · ${readTime} min read`}
+      </span>
     </div>
   </a>
 </li>

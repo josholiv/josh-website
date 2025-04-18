@@ -13,14 +13,15 @@ const pageTitle = "";
     <script>
         if (typeof window !== "undefined") {
             const phrases = [
-                "Hi! I'm Josh. I'm a neuroscience research assistant passionate about memory, aging, and brain imaging.",
-                "I use this site to showcase my current and past projects, as well as my hobbies. Feel free to explore!"
+                "Hi! I'm Josh. I'm a research assistant in a cognitive neuroscience lab.",
+                "I'm passionate about memory, aging, and brain imaging research.",
+                "I use this site to showcase my projects and hobbies. Feel free to explore!"
             ];
             let i = 0; // Index of current phrase
             let j = 0; // Index within the phrase
             let isTyping = true; // Flag for typing phase
             let isDeleting = false; // Flag for deleting phase
-            let pauseDuration = 5000; // Pause for 5 seconds after fully typing each phrase
+            let pauseDuration = 10000; // Pause for 10 seconds after fully typing each phrase
             let postDeletePauseDuration = 2000; // Pause after deletion before starting next phrase
             
             function typeEffect() {

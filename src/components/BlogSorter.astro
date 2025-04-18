@@ -1,0 +1,12 @@
+---
+// BlogSorter.astro
+const { onChange } = Astro.props;
+---
+
+<div class="sorter">
+  <label for="sort-select"></label>
+  <select id="sort-select" on:change={(e) => onChange?.(e.target.value)}>
+    <option value="newest">Newest</option>
+    <option value="oldest">Oldest</option>
+  </select>
+</div>

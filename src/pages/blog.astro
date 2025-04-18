@@ -2,22 +2,27 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
+import BlogSorter from "../components/BlogSorter.astro";
 
 const pageTitle = "Blog";
-const allPosts = (await getCollection("blog")).sort(
-  (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)
+const allPosts = await getCollection("blog");
+
+const sortedPosts = allPosts.sort(
+  (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate) // default: newest first
 );
 ---
+
 <BaseLayout pageTitle={pageTitle}>
-  <div 
-    style="text-align: center; font-style: italic;">
-  </div>
-  <nav>
+ <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
     <a href="/tags" class="tag-index-link">#Tag Index</a>
-  </nav>
+    <BlogSorter client:load />
+  </div>
+
+  <hr style="margin-bottom: 1rem;" />
+
   <ul>
     {
-      allPosts.map((post) => (
+      sortedPosts.map((post) => (
         <BlogPost 
           url={`/posts/${post.id}/`} 
           title={post.data.title} 
