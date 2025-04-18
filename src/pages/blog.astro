@@ -7,6 +7,6 @@ const pageTitle = "Blog";
 const allPosts = await getCollection("blog");
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} shouldCenterTitle={true}>
    <BlogSorter posts={allPosts} client:load /> {/* Pass all posts to BlogSorter.jsx */}
 </BaseLayout>

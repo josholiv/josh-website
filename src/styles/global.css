@@ -296,38 +296,33 @@ html.dark .profile-pic {
 
 .tag {
   margin: 0.25rem;
+  font-family: monospace;
   border-radius: 1rem;
   padding: .5rem 1rem;
   padding-left: 2.25rem;
   font-size: 1.25rem;
   border: dotted;
-  border-color: #d9d9d9;
+  border-width: 2px;
+  border-color: #969696;
   position: relative;
 }
 
 html.dark .tag {
-  border-color: #525252;
+  border-color: #969696;
 }
 
 .tag::before {
   content: "#";
-  font-size: 1.75rem;
+  font-size: 2rem;
+  font-family: monospace;
   position: absolute;
   color: #969696;
   left: 1rem;
   bottom: 0rem;
 }
 
-html.dark .tag::before {
-  color: #bdbdbd;
-}
-
 .tag-count {
   color: #969696;
-}
-
-html.dark .tag-count {
-  color: #bdbdbd;
 }
 
 .sorter select {
@@ -585,12 +580,6 @@ html.midnight .profile-pic {
   border: 0.25rem solid #d9f0a3;
 }
 
-html.midnight .tag {
-  border-color: #737373;
-}
-html.midnight .tag::before {
-  color: #969696;
-}
 
 /* lightest mode styles */
 html.lightest {
@@ -625,12 +614,5 @@ html.lightest a:not(.nav-links a):not(.back-link):visited {
 
 html.lightest .profile-pic {
   border: 0.25rem solid #41ab5d;
-}
-
-html.lightest .tag {
-  border-color: #d9d9d9;
-}
-html.lightest .tag::before {
-  color: #737373;
 }
 

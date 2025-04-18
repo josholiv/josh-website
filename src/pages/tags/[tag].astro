@@ -27,7 +27,6 @@ const { posts } = Astro.props;
     <a href="/blog" class="back-link">← Blog Home</a>
     <a href="/tags" class="back-link">← #Tag Index</a>
   </div>
-  <p>Posts tagged with #{tag}</p>
   <ul>
     { posts.map((post) => (
         <BlogPost 

@@ -2,8 +2,10 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-const { pageTitle } = Astro.props;
+
+const { pageTitle, shouldCenterTitle } = Astro.props;  
 ---
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -13,27 +15,28 @@ const { pageTitle } = Astro.props;
     <title>{pageTitle}</title>
   </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LZBBDCSVZC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LZBBDCSVZC');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LZBBDCSVZC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LZBBDCSVZC');
+  </script>
 
   <body>
     <div class="page-wrapper">
       <Header />
       <main class="main-content">
-        <h1 class="center-title">{pageTitle}</h1>
+        <h1 class={shouldCenterTitle ? 'center-title' : ''}>{pageTitle}</h1>  <!-- Conditionally center title -->
         <slot />
       </main>
       <Footer />
     </div>
+
     <script>
       import "../scripts/menu.js";
     </script>
   </body>
 </html>
+

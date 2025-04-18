@@ -60,6 +60,11 @@ const TriathlonStats = ({ data, error }) => {
       </p>
       )}
       
+{/* Change Unit Button */}
+<div style={{ display: "flex", justifyContent: "left", marginTop: '1rem' }}>
+        <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
+      </div>
+
      {/* Relative Distance Bar */}
         <div style={{
           marginTop: '1rem',
@@ -71,7 +76,7 @@ const TriathlonStats = ({ data, error }) => {
           paddingLeft: '1rem',
           paddingRight: '1rem',
           paddingTop: '1.5rem',  
-          paddingBottom: '1.5rem' 
+          paddingBottom: '0rem' 
         }}>
           <div style={{
             width: `${swimPercent}%`,
@@ -123,11 +128,6 @@ const TriathlonStats = ({ data, error }) => {
             }}>🏃‍♂️</span>
           </div>
         </div>
-        
-      {/* Change Unit Button */}
-      <div style={{ display: "flex", justifyContent: "left", marginTop: '1rem' }}>
-        <button onClick={toggleUnit} className="btn">Change Distance Unit</button>
-      </div>
     </div>
   );
 };

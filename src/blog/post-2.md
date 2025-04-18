@@ -34,8 +34,6 @@ To keep the base from sliding around on smooth surfaces, I added four small inde
 
 <img src="/images/blog/post-2/charger-stand-5.jpg" alt="Bumper pads under the base of the charger stand" class="blog-body-pic">
 
-<img src="/images/blog/post-2/charger-stand-6.jpg" alt="Charger stand with charger inserted" class="blog-body-pic">
-
 If you're using a knockoff MagSafe charger like mine, or one with a similar size (6 cm diameter), feel free to [download my design from Thingiverse](https://www.thingiverse.com/thing:6955377).
 
 ## Print Settings
@@ -44,3 +42,5 @@ If you're using a knockoff MagSafe charger like mine, or one with a similar size
 - Filament: PLA (Creality brand, white)
 - Supports: Yes
 - Rafts: No
+
+<img src="/images/blog/post-2/charger-stand-6.jpg" alt="Charger stand with charger inserted" class="blog-body-pic">
