@@ -14,7 +14,7 @@
     html {
       background-color: #ffffe5; /* Replace with your desired solid color */
       color: #252525;
-      font-family: sans-serif;
+      font-family: Verdana, sans-serif;
       height: 100%;
       margin: 0;
       padding: 0;
@@ -301,8 +301,7 @@ html.dark .profile-pic {
   padding: .5rem 1rem;
   padding-left: 2.25rem;
   font-size: 1.25rem;
-  border: dotted;
-  border-width: 2px;
+  border: 1px dashed;
   border-color: #969696;
   position: relative;
 }
