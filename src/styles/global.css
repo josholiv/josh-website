@@ -509,49 +509,46 @@ html.midnight .blog-post a:hover {
   background-color: #525252; 
 }
 
-/* Wrapper Div */
+/* Wrapper Div on BlogSorter component */
 .blog-post .post-wrapper {
   padding: 10px;
   border-radius: 1rem;
-  display: block; /* Keep as block for stacking elements vertically */
+  display: block;
 }
 
-/* Thumbnail Image */
+/* Thumbnail Image on BlogSorter component */
 .blog-thumbnail {
-  width: 100%; /* Make the image span the full width */
-  height: 80px; /* Shorter height for the image */
-  object-fit: cover; /* Ensure the image covers the area without distortion */
-  object-position: middle;
-  border-radius: 1rem 1rem 0 0; /* Rounded corners only at the top */
-  margin-bottom: 1rem; /* Space between image and title */
+  width: 100%;
+  height: 240px; 
+  object-fit: cover; 
+  object-position: center; 
+  border-radius: 1rem 1rem 0 0;
+  margin-bottom: 1rem;
 }
 
-/* Title and Date Styles */
-.blog-post .post-title {
+/* Title on BlogSorter component */
+.post-title {
   font-weight: bold;
+  font-size: 1.2rem;
   margin: 0;
-  display: inline-block; /* Make the title inline with the date */
-  margin-right: 10px; /* Space between title and date */
 }
 
-.blog-post .pub-date {
-  color: #aaa;
-  font-size: 0.9rem;
-  display: inline-block; /* Align the date on the same line as the title */
-  text-align: right; /* Right-align the date */
-  margin-top: 0; /* Remove top margin to align with title */
+/* Date on BlogSorter component */
+.pub-date {
+  font-size: 1rem;
+  font-style: italic;
+  color: #969696;
+  margin: 0;
 }
 
-/* Tags */
-.blog-post .post-tags {
-  color: #aaa;
-  font-size: 0.9rem;
+/* Tags on BlogSorter component */
+.post-tags {
+  color: #969696;
+  font-size: 1rem;
+  font-family: monospace;
   margin-top: 0.5rem;
-  text-align: left; /* Left-align the tags */
-  margin-bottom: 0.5rem; /* Space between tags and date */
+  margin-bottom: 0.5rem;
 }
-
-
 
 /* midnight mode styles */
 html.midnight {
