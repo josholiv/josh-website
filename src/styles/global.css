@@ -524,6 +524,7 @@ li.blog-post {
   text-decoration: none;
   border-radius: 1rem;
   border: 1px dashed;
+  border-color: #41ab5d;
   margin-left: -2.5rem;
 }
 
