@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-2/charger-stand-model.jpg'
     alt: '3D model of my wireless phone charger stand'
-tags: ["3Dprinting", "iPhone", "functionalprint"]
+tags: ["3Dprinting", "blog", "iPhone", "functionalprint"]
 ---
 ## 3D printed stand for my off-brand charger
 

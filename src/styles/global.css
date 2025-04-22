@@ -291,14 +291,19 @@ html.dark .profile-pic {
   padding: 0rem;
 }
 
+/* Tag container */
 .tags {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
+/* Individual tag styling */
 .tag {
   margin: 0.25rem;
   font-family: monospace;
+  color: #41ab5d;
   border-radius: 1rem;
   padding: .5rem 1rem;
   padding-left: 2.25rem;
@@ -306,12 +311,35 @@ html.dark .profile-pic {
   border: 1px dashed;
   border-color: #969696;
   position: relative;
+  cursor: pointer;
+}
+
+a.tag {
+  text-decoration: none;
+  display: inline-block;
+  color: #41ab5d; /* default color */
+}
+
+a.tag, a.tag:visited {
+  text-decoration: none;
+  display: inline-block;
+  color: #41ab5d !important; /* Force the color to stay green */
+}
+
+.tag:hover {
+  background-color: #d9d9d9;     
 }
 
 html.dark .tag {
   border-color: #969696;
 }
 
+/* Styling for when the tag is active */
+.tag.active {
+  background-color: #f7fcb9;
+}
+
+/* The '#' symbol before the tag */
 .tag::before {
   content: "#";
   font-size: 2rem;
@@ -322,9 +350,13 @@ html.dark .tag {
   bottom: 0rem;
 }
 
+/* Count next to the tag */
 .tag-count {
   color: #969696;
+  font-size: 1rem;
+  margin-left: 0.5rem;
 }
+
 
 .sorter select {
   font-size: 0.75rem;               /* Set font size */
@@ -346,7 +378,7 @@ html.dark .tag {
 /* format page nav link of current page */
     nav a.active, html.dark nav a.active, 
     html.midnight nav a.active, html.lightest nav a.active {
-      color: #ffffe5; /* Change text color */
+      color: var(--text-color); /* Change text color */
       background-color: #41ab5d; /* Background color */
     }
 
@@ -620,7 +652,7 @@ html.lightest .nav-links a {
 
 html.lightest .nav-links a:hover,
 html.lightest .nav-links a:focus {
-  background-color: #f0f0f0;
+  background-color: #d9d9d9;
 }
 
 html.lightest a:not(.nav-links a):not(.back-link) {
