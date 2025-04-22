@@ -9,7 +9,7 @@ const BlogSorter = ({ posts }) => {
   const [hoveredHideTags, setHoveredHideTags] = useState(false); 
   const [hoveredClearTags, setHoveredClearTags] = useState(false); 
   const [selectedTags, setSelectedTags] = useState([]);
-  const [showTags, setShowTags] = useState(true);
+  const [showTags, setShowTags] = useState(false); // Tags hidden by default
 
   const baseButtonStyle = {
     padding: '0.6rem 1rem',
@@ -98,40 +98,9 @@ const BlogSorter = ({ posts }) => {
           >
             {showTags ? 'Hide Tags ▲' : 'Show Tags ▼'}
           </button>
-
-          {selectedTags.length > 0 && (
-            <button
-              onClick={() => setSelectedTags([])}
-              className="btn"
-              style={getButtonStyle(hoveredClearTags)}
-              onMouseEnter={() => setHoveredClearTags(true)}
-              onMouseLeave={() => setHoveredClearTags(false)}
-            >
-              ✖ Clear Tags
-            </button>
-          )}
         </div>
-      </div>
 
-      {showTags && (
-        <div class="tags" style="margin-bottom: 0.75rem;">
-          {sortedTags.map((tag) => (
-            <div
-              key={tag}
-              onClick={() => handleTagClick(tag)}
-              className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
-            >
-              {tag}
-              <span className="tag-count">
-                ({posts.filter(post => post.data.tags?.includes(tag)).length})
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; margin-bottom: 1rem;">
-        <div style="display: flex; align-items: center; gap: 0.75rem; margin-left: auto;">
+        <div style="display: flex; gap: 0.75rem; margin-left: auto;">
           <button
             onClick={toggleThumbnails}
             className="btn"
@@ -142,7 +111,7 @@ const BlogSorter = ({ posts }) => {
             {showThumbnails ? 'Compact View' : 'Expanded View'}
           </button>
 
-          <div class="sort-container">
+          <div className="sort-container">
             <label for="sort-select" style="margin-right: 0.5rem;"></label>
             <select
               id="sort-select"
@@ -161,6 +130,37 @@ const BlogSorter = ({ posts }) => {
       </div>
 
       <hr style="margin-bottom: 1rem;" />
+
+      {selectedTags.length > 0 && (
+        <p>
+          <button
+            onClick={() => setSelectedTags([])}
+            className="btn"
+            style={getButtonStyle(hoveredClearTags)}
+            onMouseEnter={() => setHoveredClearTags(true)}
+            onMouseLeave={() => setHoveredClearTags(false)}
+          >
+            ✖ Clear Tags
+          </button>
+        </p>
+      )}
+
+      {showTags && (
+        <div class="tags" style="margin-bottom: 0.75rem;">
+          {sortedTags.map((tag) => (
+            <div
+              key={tag}
+              onClick={() => handleTagClick(tag)}
+              className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+            >
+              {tag}
+              <span className="tag-count">
+                ({posts.filter(post => post.data.tags?.includes(tag)).length})
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
 
       {sortedPosts.length === 0 && selectedTags.length > 0 && (
         <div>
