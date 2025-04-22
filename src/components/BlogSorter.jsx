@@ -6,10 +6,14 @@ const BlogSorter = ({ posts }) => {
   const [showThumbnails, setShowThumbnails] = useState(true);
   const [hoveredBtn, setHoveredBtn] = useState(false);
   const [hoveredSelect, setHoveredSelect] = useState(false);
+  const [hoveredHideTags, setHoveredHideTags] = useState(false); 
+  const [hoveredClearTags, setHoveredClearTags] = useState(false); 
   const [selectedTags, setSelectedTags] = useState([]);
+  const [showTags, setShowTags] = useState(true);
 
   const baseButtonStyle = {
     padding: '0.6rem 1rem',
+    height: '2.25rem',
     fontSize: '0.75rem',
     fontFamily: 'monospace',
     textTransform: 'uppercase',
@@ -18,7 +22,6 @@ const BlogSorter = ({ posts }) => {
     color: '#000000',
     border: 'none',
     borderRadius: '1rem',
-    transition: 'background-color 0.2s ease',
     marginTop: '0rem',
   };
 
@@ -58,24 +61,20 @@ const BlogSorter = ({ posts }) => {
     setShowThumbnails((prev) => !prev);
   };
 
-  // Create a count for each tag
   const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
 
-  // Create a count for each tag
   const tagCounts = tags.map(tag => ({
     tag,
     count: posts.filter(post => post.data.tags?.includes(tag)).length,
   }));
 
-  // Sort tags: first by count (desc), then alphabetically (asc)
   tagCounts.sort((a, b) => {
     if (b.count === a.count) {
-      return a.tag.localeCompare(b.tag); // If counts are equal, sort alphabetically
+      return a.tag.localeCompare(b.tag);
     }
-    return b.count - a.count; // Otherwise, sort by count in descending order
+    return b.count - a.count;
   });
 
-  // Extract sorted tags
   const sortedTags = tagCounts.map(tagCount => tagCount.tag);
 
   const handleTagClick = (tag) => {
@@ -88,8 +87,34 @@ const BlogSorter = ({ posts }) => {
 
   return (
     <div>
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-        <div class="tags">
+      <div style="margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <button
+            onClick={() => setShowTags(prev => !prev)}
+            className="btn"
+            style={getButtonStyle(hoveredHideTags)}
+            onMouseEnter={() => setHoveredHideTags(true)}
+            onMouseLeave={() => setHoveredHideTags(false)}
+          >
+            {showTags ? 'Hide Tags ▲' : 'Show Tags ▼'}
+          </button>
+
+          {selectedTags.length > 0 && (
+            <button
+              onClick={() => setSelectedTags([])}
+              className="btn"
+              style={getButtonStyle(hoveredClearTags)}
+              onMouseEnter={() => setHoveredClearTags(true)}
+              onMouseLeave={() => setHoveredClearTags(false)}
+            >
+              ✖ Clear Tags
+            </button>
+          )}
+        </div>
+      </div>
+
+      {showTags && (
+        <div class="tags" style="margin-bottom: 0.75rem;">
           {sortedTags.map((tag) => (
             <div
               key={tag}
@@ -103,43 +128,34 @@ const BlogSorter = ({ posts }) => {
             </div>
           ))}
         </div>
+      )}
 
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            {selectedTags.length > 0 && (
-             <button
-             onClick={() => setSelectedTags([])}
-             className="btn"
-           >
-             ✖ Clear Tags
-           </button>
-            )}
-          </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; margin-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-left: auto;">
+          <button
+            onClick={toggleThumbnails}
+            className="btn"
+            style={getButtonStyle(hoveredBtn)}
+            onMouseEnter={() => setHoveredBtn(true)}
+            onMouseLeave={() => setHoveredBtn(false)}
+          >
+            {showThumbnails ? 'Compact View' : 'Expanded View'}
+          </button>
 
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-left: auto;">
-            <button
-              onClick={toggleThumbnails}
-              style={getButtonStyle(hoveredBtn)}
-              onMouseEnter={() => setHoveredBtn(true)}
-              onMouseLeave={() => setHoveredBtn(false)}
+          <div class="sort-container">
+            <label for="sort-select" style="margin-right: 0.5rem;"></label>
+            <select
+              id="sort-select"
+              value={sortOrder}
+              onChange={handleSortChange}
+              className="btn"
+              style={getButtonStyle(hoveredSelect)}
+              onMouseEnter={() => setHoveredSelect(true)}
+              onMouseLeave={() => setHoveredSelect(false)}
             >
-              {showThumbnails ? 'Compact View' : 'Expanded View'}
-            </button>
-
-            <div class="sort-container">
-              <label for="sort-select" style="margin-right: 0.5rem;"></label>
-              <select
-                id="sort-select"
-                value={sortOrder}
-                onChange={handleSortChange}
-                style={getButtonStyle(hoveredSelect)}
-                onMouseEnter={() => setHoveredSelect(true)}
-                onMouseLeave={() => setHoveredSelect(false)}
-              >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-              </select>
-            </div>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
           </div>
         </div>
       </div>
@@ -149,7 +165,7 @@ const BlogSorter = ({ posts }) => {
       {sortedPosts.length === 0 && selectedTags.length > 0 && (
         <div>
           <h3>No posts found with the selected combination of tags.</h3>
-        <p>Try clearing or changing your selection!</p>
+          <p>Try clearing or changing your selection!</p>
         </div>
       )}
 

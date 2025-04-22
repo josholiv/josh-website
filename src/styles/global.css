@@ -404,6 +404,7 @@ html.dark .tag {
 /* Universal button style class */
 .btn {
   padding: 0.6rem 1.5rem;
+  height: '2.25rem';
   font-size: 0.75rem;               /* Set font size */
   font-family: monospace;
   text-transform: uppercase;
@@ -412,7 +413,6 @@ html.dark .tag {
   color: #000000;                  /* Set text color */
   border: none;                
   border-radius: 1rem;            /* Add rounded corners */
-  transition: background-color 0.2s ease; /* Add hover transition */
   margin: 0 auto;
 }
 
