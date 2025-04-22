@@ -264,10 +264,6 @@ html.dark .nav-links a.home-link:focus {
   margin: 0 auto; /* center image */
 }
 
-html.dark .profile-pic {
-  border: 0.25rem solid #ffffe5;
-}
-
 .about-pic {
   width: 100%;
   display: block;
@@ -639,10 +635,6 @@ html.midnight a:not(.nav-links a):not(.back-link):visited {
   color: #41ab5d;
 }
 
-html.midnight .profile-pic {
-  border: 0.25rem solid #d9f0a3;
-}
-
 
 /* lightest mode styles */
 html.lightest {
@@ -675,8 +667,3 @@ html.lightest a:not(.nav-links a):not(.back-link):hover {
 html.lightest a:not(.nav-links a):not(.back-link):visited {
   color: #9900cc;
 }
-
-html.lightest .profile-pic {
-  border: 0.25rem solid #41ab5d;
-}
-
