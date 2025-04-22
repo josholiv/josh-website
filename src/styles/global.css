@@ -566,6 +566,7 @@ html.midnight .blog-post a:hover {
   .post-title {
     font-weight: bold;
     font-size: 1.5rem;
+    color: #41ab5d;
     margin: 0;
   }
 
