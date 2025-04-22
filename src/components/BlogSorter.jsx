@@ -4,6 +4,7 @@ const BlogSorter = ({ posts }) => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [sortedPosts, setSortedPosts] = useState(posts);
   const [showThumbnails, setShowThumbnails] = useState(true);
+  const [showCompactView, setShowCompactView] = useState(false); // Track compact view state
   const [hoveredBtn, setHoveredBtn] = useState(false);
   const [hoveredSelect, setHoveredSelect] = useState(false);
   const [hoveredHideTags, setHoveredHideTags] = useState(false); 
@@ -61,6 +62,10 @@ const BlogSorter = ({ posts }) => {
     setShowThumbnails((prev) => !prev);
   };
 
+  const toggleCompactView = () => {
+    setShowCompactView((prev) => !prev); // Toggle the compact view
+  };
+
   const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
 
   const tagCounts = tags.map(tag => ({
@@ -85,6 +90,23 @@ const BlogSorter = ({ posts }) => {
     );
   };
 
+  const truncateDescription = (description) => {
+    if (description.length > 85) {
+      let truncated = description.slice(0, 85);
+      const lastSpaceIndex = truncated.lastIndexOf(' ');
+  
+      // Ensure it doesn't cut off in the middle of a word
+      truncated = description.slice(0, lastSpaceIndex);
+  
+      // Remove punctuation at the end
+      truncated = truncated.replace(/[.,!?;]$/, '');
+      
+      return truncated + '...';
+    }
+    return description;
+  };
+  
+
   return (
     <div>
       <div style="margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
@@ -102,13 +124,13 @@ const BlogSorter = ({ posts }) => {
 
         <div style="display: flex; gap: 0.75rem; margin-left: auto;">
           <button
-            onClick={toggleThumbnails}
+            onClick={toggleCompactView} // Updated to toggle compact view
             className="btn"
             style={getButtonStyle(hoveredBtn)}
             onMouseEnter={() => setHoveredBtn(true)}
             onMouseLeave={() => setHoveredBtn(false)}
           >
-            {showThumbnails ? 'Compact View' : 'Expanded View'}
+            {showCompactView ? 'Expanded View' : 'Compact View'}
           </button>
 
           <div className="sort-container">
@@ -174,7 +196,7 @@ const BlogSorter = ({ posts }) => {
           <li key={post.id} class="blog-post">
             <a href={`/posts/${post.id}/`}>
               <div class="post-wrapper">
-                {showThumbnails && post.data.image?.url && (
+                {!showCompactView && showThumbnails && post.data.image?.url && (
                   <img
                     src={post.data.image.url}
                     alt={post.data.image.alt || post.data.title}
@@ -182,10 +204,21 @@ const BlogSorter = ({ posts }) => {
                   />
                 )}
                 <p class="post-title">{post.data.title}</p>
-                <div class="post-tags">
-                  {post.data.tags?.length > 0 && post.data.tags.map(tag => `#${tag}`).join(' ')}
+                
+                {!showCompactView && post.data.tags?.length > 0 && (
+                  <div className="post-tags">
+                    {post.data.tags.map(tag => `#${tag}`).join(' ')}
+                  </div>
+                )}
+
+                {/* Truncate description in compact view */}
+                <div className="post-description">
+                  <p>
+                    {showCompactView ? truncateDescription(post.data.description) : post.data.description}
+                  </p>
                 </div>
-                <div class="pub-date">
+                
+                <div className="pub-date">
                   {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                     day: 'numeric',
                     month: 'long',
@@ -193,11 +226,8 @@ const BlogSorter = ({ posts }) => {
                     timeZone: 'UTC'
                   })}
                 </div>
-                <div class="post-author">
+                <div className="post-author">
                   by {post.data.author}
-                </div>
-                <div class="post-description">
-                  <p>{post.data.description}</p>
                 </div>
               </div>
             </a>

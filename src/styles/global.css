@@ -555,9 +555,9 @@ html.midnight .blog-post a:hover {
   /* Thumbnail Image on BlogSorter component */
   .blog-thumbnail {
     width: 100%;
-    height: 240px; 
+    height: 160px; 
     object-fit: cover; 
-    object-position: top; 
+    object-position: 50% 20%;
     border-radius: 1rem 1rem 0 0;
     margin-bottom: 1rem;
   }
@@ -565,8 +565,8 @@ html.midnight .blog-post a:hover {
   /* Title on BlogSorter component */
   .post-title {
     font-weight: bold;
-    font-size: 1.5rem;
-    color: #41ab5d;
+    font-size: 2rem;
+    color: var(--text-color);;
     margin: 0;
   }
 
