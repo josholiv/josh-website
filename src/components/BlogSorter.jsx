@@ -102,6 +102,12 @@ const BlogSorter = ({ posts }) => {
                     timeZone: 'UTC'
                   })}
                 </div>
+                <div class="post-author">
+                  by {post.data.author}
+                </div>
+                <div class="post-description">
+                  <p>{post.data.description}</p>
+                </div>
               </div>
             </a>
           </li>

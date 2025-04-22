@@ -12,8 +12,9 @@
 
     
     html {
-      background-color: #ffffe5; /* Replace with your desired solid color */
+      background-color: #ffffe5; 
       color: #252525;
+      --text-color: #252525; /* variable for other things to match this colorl; keep same value as color */
       font-family: Verdana, sans-serif;
       height: 100%;
       margin: 0;
@@ -56,6 +57,7 @@
     
     html.dark {
       color: #ffffe5; /* Dark mode text color */
+      --text-color: #ffffe5; /* variable for other things to match this colorl; keep same value as color */
       background-color: #252525;
     }
     
@@ -503,50 +505,69 @@ html.midnight .blog-post a:hover {
   background-color: #525252; 
 }
 
-/* Wrapper Div on BlogSorter component */
-.blog-post .post-wrapper {
-  padding: 10px;
-  border-radius: 1rem;
-  display: block;
-}
+/* BlogSorter component styles, used on blog.astro */
+  /* Wrapper Div on BlogSorter component */
+  .blog-post .post-wrapper {
+    padding: 10px;
+    border-radius: 1rem;
+    display: block;
+  }
 
-/* Thumbnail Image on BlogSorter component */
-.blog-thumbnail {
-  width: 100%;
-  height: 240px; 
-  object-fit: cover; 
-  object-position: center; 
-  border-radius: 1rem 1rem 0 0;
-  margin-bottom: 1rem;
-}
+  /* Thumbnail Image on BlogSorter component */
+  .blog-thumbnail {
+    width: 100%;
+    height: 240px; 
+    object-fit: cover; 
+    object-position: top; 
+    border-radius: 1rem 1rem 0 0;
+    margin-bottom: 1rem;
+  }
 
-/* Title on BlogSorter component */
-.post-title {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin: 0;
-}
+  /* Title on BlogSorter component */
+  .post-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0;
+  }
 
-/* Date on BlogSorter component */
-.pub-date {
-  font-size: 1rem;
-  font-style: italic;
-  color: #969696;
-  margin: 0;
-}
+  /* Tags on BlogSorter component */
+  .post-tags {
+    color: #969696;
+    font-size: 1rem;
+    font-family: monospace;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 
-/* Tags on BlogSorter component */
-.post-tags {
-  color: #969696;
-  font-size: 1rem;
-  font-family: monospace;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
+  /* Date on BlogSorter component */
+  .pub-date {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+  }
+
+  /* Author on BlogSorter component */
+  .post-author {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  /* Description on BlogSorter component */
+  .post-description {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--text-color);
+  }
+
 
 /* midnight mode styles */
 html.midnight {
   color: #ffffff;
+  --text-color: #ffffff; /* variable for other things to match this colorl; keep same value as color */
   background-color: #000000;
 }
 
@@ -583,6 +604,7 @@ html.midnight .profile-pic {
 /* lightest mode styles */
 html.lightest {
   color: #000000;
+  --text-color: #000000; /* variable for other things to match this colorl; keep same value as color */
   background-color: #ffffff;
 }
 

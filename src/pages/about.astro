@@ -11,7 +11,7 @@ const identity = {
   firstName: "Josh",
   country: "United States 🇺🇸",
   occupation: "lab manager",
-  hobbies: ["doing triathlons 🏊🚴🏃‍♂️", "3D printing ⚙️", "learning yoyo tricks 🪀", "playing chess ♟️", "drinking tereré 🧉"],
+  hobbies: ["doing triathlons 🏊🚴🏃‍♂️", "playing chess ♟️", "3D printing ⚙️", "learning yoyo tricks 🪀", "drinking tereré 🧉"],
 	};
 const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const currentYear = new Date().getFullYear();
@@ -34,6 +34,7 @@ try {
 
   <img src="/about-me-photo.jpg" alt="Me at Horseshoe Bend, Arizona" class="about-pic"/>
 
+  <h1>About me</h1>
     <p>
       I live in the {identity.country} and work as {identity.occupation} of the Functional Neuroimaging 
       of Memory Lab at the University of Texas at Dallas. 
@@ -54,7 +55,7 @@ try {
       I'm currently working on learning Spanish.
     </p>
 
-<h2>Here's more about me!</h2>
+<h1>My hobbies</h1>
 
 	<HobbyButton client:load hobbies={identity.hobbies} /> 
 		

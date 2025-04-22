@@ -1,7 +1,7 @@
 ---
-title: 'Intro—Welcome to my blog!'
+title: 'Intro: Welcome to my blog!'
 pubDate: 2025-04-01
-description: ''
+description: 'A brief introduction to my blog and the topics I plan to explore—from neuroscience and coding to hobbies like triathlon and 3D printing.'
 author: 'Josh Olivier'
 image:
     url: '/images/blog/post-1/black-sand-beach.jpg'

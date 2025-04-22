@@ -45,12 +45,10 @@ const ChessStats: FunctionalComponent = () => {
       {stats.chess_bullet?.last?.rating}
     </strong>{" "}
     in <a href="https://www.chess.com/terms/bullet-chess" target="_blank" rel="noopener noreferrer">bullet chess</a>.{" "}
-    <i>
-      Only <strong style={{ color: "#f200ff" }}>{getEloDifference("chess_bullet")}</strong> behind{" "}
+      Only {getEloDifference("chess_bullet")} behind{" "}
       <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
         GM Magnus Carlsen
       </a>!
-    </i>
   </p>
 
   <p>
@@ -58,12 +56,10 @@ const ChessStats: FunctionalComponent = () => {
       {stats.chess_blitz?.last?.rating}
     </strong>{" "}
     in <a href="https://www.chess.com/terms/blitz-chess" target="_blank" rel="noopener noreferrer">blitz chess</a>.{" "}
-    <i>
-      Only <strong style={{ color: "#9b4dca" }}>{getEloDifference("chess_blitz")}</strong> behind{" "}
+      Only {getEloDifference("chess_blitz")} behind{" "}
       <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
         GM Magnus Carlsen
       </a>!
-    </i>
   </p>
 
   <p>
@@ -71,12 +67,10 @@ const ChessStats: FunctionalComponent = () => {
       {stats.chess_rapid?.last?.rating}
     </strong>{" "}
     in <a href="https://www.chess.com/terms/rapid-chess" target="_blank" rel="noopener noreferrer">rapid chess</a>.{" "}
-    <i>
-      Only <strong style={{ color: "#5c6bc0" }}>{getEloDifference("chess_rapid")}</strong> behind{" "}
+      Only {getEloDifference("chess_rapid")} behind{" "}
       <a href="https://www.chess.com/member/magnuscarlsen" target="_blank" rel="noopener noreferrer">
         GM Magnus Carlsen
       </a>!
-    </i>
   </p>
 </div>
   );
