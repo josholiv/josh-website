@@ -211,14 +211,8 @@ const BlogSorter = ({ posts }) => {
                   </div>
                 )}
 
-                {/* Truncate description in compact view */}
-                <div className="post-description">
-                  <p>
-                    {showCompactView ? truncateDescription(post.data.description) : post.data.description}
-                  </p>
-                </div>
-                
-                <div className="pub-date">
+
+              <div className="pub-date">
                   {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                     day: 'numeric',
                     month: 'long',
@@ -230,6 +224,13 @@ const BlogSorter = ({ posts }) => {
                   by {post.data.author}
                 </div>
               </div>
+
+                {/* Truncate description in compact view */}
+                <div className="post-description">
+                  <p>
+                    {showCompactView ? truncateDescription(post.data.description) : post.data.description}
+                  </p>
+                </div>
             </a>
           </li>
         ))}
