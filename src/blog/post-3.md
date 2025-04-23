@@ -1,7 +1,7 @@
 ---
 title: '3D printing a yoyo display stand'
 pubDate: 2025-04-22
-description: ''
+description: 'I used to have tons of yoyos everywhere on my desk, cluttering up all my workspace. I designed this stand to organize and display them better.'
 author: 'Josh Olivier'
 image:
     url: '/images/blog/post-3/yoyo-stand-2.jpg'
