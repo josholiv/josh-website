@@ -34,7 +34,7 @@ Once it was printed, I stuck on the 8 mm bumper pads, popped in a few of my favo
 While not entirely necessary, the bumper pads make a huge difference in stability and work perfectly for protecting my desk from potential scratches. They really elevate the design and give the display stand a much more premium feel. Overall, I'm really happy with how it turned out.
 
 ## Grab the file
-Feel free to [download my design from Thingiverse](https://www.thingiverse.com/thing:6955377) and print your own! 
+Feel free to [download my design from Thingiverse](https://www.thingiverse.com/thing:6955401) and print your own! 
 
 Let me know if you make one—I’d love to see how others use or remix the design!
 
