@@ -30,11 +30,30 @@ const ChessStats: FunctionalComponent = () => {
     return <div>Loading...</div>;
   }
 
-  const getEloDifference = (category: string) => {
-    const myElo = stats[category]?.last?.rating || 0;
-    const magnusElo = magnusStats[category]?.last?.rating || 0;
-    return magnusElo - myElo;
-  };
+  const totalGames = Object.values(stats)
+    .filter((mode: any) => mode && mode.record)
+    .reduce((acc: number, mode: any) => {
+      return acc + (mode.record.win || 0) + (mode.record.loss || 0) + (mode.record.draw || 0);
+    }, 0);
+
+  const formatCard = (label: string, value: string | number | undefined, href?: string, color?: string) => (
+    <p>
+      <span style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        padding: '0.5rem 1rem',
+        borderRadius: '1rem',
+        display: 'inline-block',
+        color: color || '#fff',
+      }}>
+        <strong style={{ fontSize: '2rem' }}>{value ?? '–'}</strong><br />
+        {href ? (
+          <a href={href} target="_blank" rel="noopener noreferrer" style={{ color, textDecoration: 'underline' }}>
+            {label}
+          </a>
+        ) : label}
+      </span>
+    </p>
+  );
 
   return (
     <>
@@ -53,7 +72,7 @@ const ChessStats: FunctionalComponent = () => {
           style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '480px',
+            maxWidth: '60ch',
             aspectRatio: '1 / 1',
             background: 'repeating-conic-gradient(#eeeed2 0% 25%, #769656 0% 50%) 0 / 25% 25%',
             borderRadius: '1rem',
@@ -75,71 +94,19 @@ const ChessStats: FunctionalComponent = () => {
               overflowY: 'auto',
             }}
           >
-            <p>
-              <span style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                padding: '0.5rem 1rem',
-                borderRadius: '1rem',
-                display: 'inline-block',
-              }}>
-                <strong style={{ fontSize: '2rem', color: '#f200ff' }}>
-                  {stats.chess_bullet?.last?.rating}
-                </strong>{" "}
-                in{" "}
-                <a
-                  href="https://www.chess.com/terms/bullet-chess"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: '#fff', textDecoration: 'underline' }}
-                >
-                  bullet chess
-                </a>
-              </span>
-            </p>
+            {/* First row */}
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+              {formatCard('Games', totalGames, undefined, '#c2185b')}
+              {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'https://www.chess.com/terms/bullet-chess', '#f200ff')}
+              {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'https://www.chess.com/terms/blitz-chess', '#9b4dca')}
+            </div>
 
-            <p>
-              <span style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                padding: '0.5rem 1rem',
-                borderRadius: '1rem',
-                display: 'inline-block',
-              }}>
-                <strong style={{ fontSize: '2rem', color: '#9b4dca' }}>
-                  {stats.chess_blitz?.last?.rating}
-                </strong>{" "}
-                in{" "}
-                <a
-                  href="https://www.chess.com/terms/blitz-chess"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: '#fff', textDecoration: 'underline' }}
-                >
-                  blitz chess
-                </a>
-              </span>
-            </p>
-
-            <p>
-              <span style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                padding: '0.5rem 1rem',
-                borderRadius: '1rem',
-                display: 'inline-block',
-              }}>
-                <strong style={{ fontSize: '2rem', color: '#5c6bc0' }}>
-                  {stats.chess_rapid?.last?.rating}
-                </strong>{" "}
-                in{" "}
-                <a
-                  href="https://www.chess.com/terms/rapid-chess"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: '#fff', textDecoration: 'underline' }}
-                >
-                  rapid chess
-                </a>
-              </span>
-            </p>
+            {/* Second row */}
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1rem' }}>
+              {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'https://www.chess.com/terms/rapid-chess', '#5c6bc0')}
+              {formatCard('Daily', stats.chess_daily?.last?.rating, '', '#00acc1')}
+              {formatCard('Puzzles', stats.tactics?.highest?.rating, '', '#ff9800')}
+            </div>
 
             <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
               <a
@@ -147,14 +114,14 @@ const ChessStats: FunctionalComponent = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  backgroundColor: 'rgb(65,171,93, 0.85)',
-                  borderRadius: '1rem',
+                  backgroundColor: '#d9d9d9',
+                  borderRadius: '2rem',
                   fontFamily: 'monospace',
-                  color: '#ffffe5',
+                  color: '#000000',
                   fontSize: '1rem',
                   fontWeight: 'normal',
                   textTransform: 'uppercase',
-                  padding: '0.5rem 1rem',
+                  padding: '1rem 1rem',
                   textDecoration: 'none',
                   display: 'inline-block',
                 }}

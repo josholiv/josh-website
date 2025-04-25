@@ -484,9 +484,9 @@ html.dark .tag {
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  margin-left: 0rem;
+  margin-left: -3px;
   color: #ffaa00;
-  animation: blink 0.8s infinite;
+  animation: blink 1.2s infinite;
 }
 
 @keyframes blink {
