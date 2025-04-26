@@ -19,13 +19,13 @@ const TriathlonStats = ({ data, error }) => {
     return `${((distanceKm / 384400) * 100).toFixed(2)}%`;
   };
 
-  const swimDistanceKm = data?.swimDistanceKm || 10;
-  const rideDistanceKm = data?.rideDistanceKm || 10;
-  const runDistanceKm = data?.runDistanceKm || 10;
+  const swimDistanceKm = data?.swimDistanceKm || 9999;
+  const rideDistanceKm = data?.rideDistanceKm || 9999;
+  const runDistanceKm = data?.runDistanceKm || 9999;
 
-  const swimDistanceMi = data?.swimDistance || 10;
-  const rideDistanceMi = data?.rideDistance || 10;
-  const runDistanceMi = data?.runDistance || 10;
+  const swimDistanceMi = data?.swimDistance || 9999;
+  const rideDistanceMi = data?.rideDistance || 9999;
+  const runDistanceMi = data?.runDistance || 9999;
 
   const totalDistance = swimDistanceKm + rideDistanceKm + runDistanceKm;
   const swimPercent = totalDistance ? (swimDistanceKm / totalDistance) * 100 : 0;
@@ -42,11 +42,10 @@ const TriathlonStats = ({ data, error }) => {
       justifyContent: 'center',
       alignItems: 'center',
       color: '#fff',
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
+      fontSize: '1rem',
       textAlign: 'center',
     }}>
-      <div style={{ fontSize: '2rem' }}>
+      <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
         {value ?? '–'}
       </div>
       <div>{label}</div>
@@ -55,60 +54,32 @@ const TriathlonStats = ({ data, error }) => {
 
   return (
     <div style={{ padding: '0rem', borderRadius: '1rem', position: 'relative' }}>
-      {/* Normal Text Area */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <p>
-          In {new Date().getFullYear()}, I’ve covered the following distances swimming, biking, and running in<br />
-          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-            <span style={{
-              fontFamily: "monospace",
-              backgroundColor: "rgba(255, 112, 50, 1)",
-              color: "black",
-              fontSize: '1.2rem',
-              fontWeight: 'bold',
-              padding: "0.2rem 0.4rem",
-              borderRadius: "0.3rem",
-              display: 'inline-block'
-            }}>
-              {unit === "miles" ? "miles" :
-               unit === "km" ? "kilometers" :
-               unit === "fields" ? "American football fields 🏈" :
-               "% of the distance to the Moon 🚀"}
-            </span>
-          </div>
-        </p>
+      {/* Orange Background */}
+      <div style={{
+        backgroundColor: '#ff7032', 
+        padding: '2rem',
+        borderRadius: '1rem',
+        position: 'relative',
+      }}>
 
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          gap: '0.5rem',
-          marginTop: '1rem'
-        }}>
-          <button onClick={toggleUnit} className="btn">Change Unit</button>
+        <div style={{ marginBottom: '2rem', textAlign: 'left', color: "#ffffff" }}>
+          
+          <p>
+            In <strong>{new Date().getFullYear()}</strong>, I’ve covered the following distances* swimming, biking, and running:
+          </p>
+
+          
         </div>
-      </div>
-
-{/* Orange Background */}
-<div style={{
-  backgroundColor: '#ff7032', 
-  padding: '2rem',
-  borderRadius: '1rem',
-  position: 'relative',
-}}>
-
 
         {/* Stats Cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
           gap: '1rem',
-          marginTop: '1.5rem'
         }}>
           {formatCard(
             'swimming 🏊',
-            unit === "miles" ? formatNumber(swimDistanceMi) :
+            unit === "miles" ? formatNumber(swimDistanceMi) + " mi" :
             unit === "km" ? formatNumber(swimDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(swimDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(swimDistanceKm) + " 🚀",
@@ -117,7 +88,7 @@ const TriathlonStats = ({ data, error }) => {
 
           {formatCard(
             'biking 🚴',
-            unit === "miles" ? formatNumber(rideDistanceMi) :
+            unit === "miles" ? formatNumber(rideDistanceMi) + " mi" :
             unit === "km" ? formatNumber(rideDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(rideDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(rideDistanceKm) + " 🚀",
@@ -126,7 +97,7 @@ const TriathlonStats = ({ data, error }) => {
 
           {formatCard(
             'running 🏃‍♂️',
-            unit === "miles" ? formatNumber(runDistanceMi) :
+            unit === "miles" ? formatNumber(runDistanceMi) + " mi" :
             unit === "km" ? formatNumber(runDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(runDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(runDistanceKm) + " 🚀",
@@ -134,7 +105,30 @@ const TriathlonStats = ({ data, error }) => {
           )}
         </div>
 
-        {/* Relative Bar */}
+        <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <span style={{
+              fontFamily: "monospace",
+              border: 'dotted',
+              borderColor: '#ffffff',
+              color: "#ffffff",
+              fontSize: '1.2rem',
+              fontWeight: 'bold',
+              padding: "0.2rem 0.4rem",
+              borderRadius: "1rem",
+              display: 'inline-block'
+            }}>
+              {unit === "miles" ? "miles" :
+              unit === "km" ? "kilometers" :
+              unit === "fields" ? "American football fields 🏈" :
+              "% distance to the Moon 🚀"}
+            </span>
+          </div>
+
+          <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <button onClick={toggleUnit} className="btn">Change Unit of Measure</button>
+          </div>
+
+        {/* Relative Distance Bar */}
         <div style={{
           marginTop: '2rem',
           height: '2rem',
@@ -144,10 +138,18 @@ const TriathlonStats = ({ data, error }) => {
           backgroundColor: 'transparent',
           borderRadius: '0.5rem'
         }}>
+            <div style={{
+            width: `${swimPercent}%`,
+            backgroundColor: '#0099cc',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            🏊
+          </div>
           <div style={{
             width: `${runPercent}%`,
             backgroundColor: '#ffaa00',
-            position: 'relative',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
@@ -162,15 +164,6 @@ const TriathlonStats = ({ data, error }) => {
             justifyContent: 'center'
           }}>
             🚴
-          </div>
-          <div style={{
-            width: `${swimPercent}%`,
-            backgroundColor: '#0099cc',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            🏊
           </div>
         </div>
       </div>

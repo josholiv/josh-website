@@ -39,11 +39,12 @@ const ChessStats: FunctionalComponent = () => {
   const formatCard = (label: string, value: string | number | undefined, href?: string, color?: string) => (
     <p>
       <span style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: '0.5rem 1rem',
+        backgroundColor: '#252525',
+        border: 'solid',
+        padding: '0.5rem 0.8rem',
         borderRadius: '1rem',
         display: 'inline-block',
-        color: color || '#fff',
+        color: color || '#ffffff',
       }}>
         <strong style={{ fontSize: '2rem' }}>{value ?? '–'}</strong><br />
         {href ? (
@@ -57,8 +58,6 @@ const ChessStats: FunctionalComponent = () => {
 
   return (
     <>
-      <p>My current Chess.com<sup>†</sup> ratings are:</p>
-
       <div
         style={{
           display: 'flex',
@@ -72,9 +71,10 @@ const ChessStats: FunctionalComponent = () => {
           style={{
             position: 'relative',
             width: '100%',
+            height: '100%',
             maxWidth: '60ch',
             aspectRatio: '1 / 1',
-            background: 'repeating-conic-gradient(#eeeed2 0% 25%, #769656 0% 50%) 0 / 25% 25%',
+            background: 'repeating-conic-gradient(#eeeed2 0% 25%, #769656 0% 50%) -.4% -.4% / 25.2% 25.2%', // slightly larger than 25% and slightly offset to fix "subpixel" rendering glitch on edges
             borderRadius: '1rem',
             overflow: 'hidden',
           }}
@@ -87,41 +87,58 @@ const ChessStats: FunctionalComponent = () => {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              color: '#fff',
-              fontFamily: 'sans-serif',
-              padding: '1rem',
+              color: '#ffffff',
+              padding: '0rem',
               textAlign: 'center',
               overflowY: 'auto',
             }}
           >
+
+          <p>
+            <span style={{
+              backgroundColor: '#769656',
+              padding: '0.5rem 1rem',
+              border: 'solid',
+              borderRadius: '1rem',
+              display: 'inline-block',
+              color: '#ffffff',
+              fontSize: '1rem',
+              marginTop: '-1rem',
+            }}>
+              My current Chess.com<sup>†</sup> ratings are:
+            </span>
+          </p>
+
+
             {/* First row */}
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '-0.5rem'}}>
               {formatCard('Games', totalGames, undefined, '#c2185b')}
               {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'https://www.chess.com/terms/bullet-chess', '#f200ff')}
               {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'https://www.chess.com/terms/blitz-chess', '#9b4dca')}
             </div>
 
             {/* Second row */}
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '-1rem' }}>
               {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'https://www.chess.com/terms/rapid-chess', '#5c6bc0')}
               {formatCard('Daily', stats.chess_daily?.last?.rating, '', '#00acc1')}
               {formatCard('Puzzles', stats.tactics?.highest?.rating, '', '#ff9800')}
             </div>
 
-            <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+            <div style={{ marginTop: '0.5rem', textAlign: 'center' }}>
               <a
                 href="https://link.chess.com/friend/Py1tup"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  backgroundColor: '#d9d9d9',
+                  backgroundColor: '#41ab5d',
                   borderRadius: '2rem',
+                  border: 'solid',
                   fontFamily: 'monospace',
-                  color: '#000000',
+                  color: '#ffffff',
                   fontSize: '1rem',
                   fontWeight: 'normal',
                   textTransform: 'uppercase',
-                  padding: '1rem 1rem',
+                  padding: '.5rem 1rem',
                   textDecoration: 'none',
                   display: 'inline-block',
                 }}

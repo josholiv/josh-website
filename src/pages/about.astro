@@ -57,8 +57,14 @@ try {
 
 <h1>My hobbies</h1>
 
-	<HobbyButton client:load hobbies={identity.hobbies} /> 
-		
+<p>Some of my favorite hobbies are:</p>
+
+<ul>
+  {identity.hobbies.map(hobby => (
+    <li>{hobby}</li>
+  ))}
+</ul>
+
 	<TriathlonStats client:load data={data} error={error} />
 	    <ErrorRenderer error={error} />
 	    
