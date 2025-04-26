@@ -124,23 +124,14 @@ const ChessStats: FunctionalComponent = () => {
               {formatCard('Puzzles', stats.tactics?.highest?.rating, '', '#ff9800')}
             </div>
 
-            <div style={{ marginTop: '0.5rem', textAlign: 'center' }}>
+            <div className = 'btn' style={{ marginTop: '0.5rem', textAlign: 'center' }}>
               <a
                 href="https://link.chess.com/friend/Py1tup"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  backgroundColor: '#41ab5d',
-                  borderRadius: '2rem',
-                  border: 'solid',
-                  fontFamily: 'monospace',
-                  color: '#ffffff',
-                  fontSize: '1rem',
-                  fontWeight: 'normal',
-                  textTransform: 'uppercase',
-                  padding: '.5rem 1rem',
+                  color: '#000000',
                   textDecoration: 'none',
-                  display: 'inline-block',
                 }}
               >
                 ♟️ Play me in chess!

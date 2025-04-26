@@ -100,9 +100,10 @@ const TriathlonStats = ({ data, error }) => {
         <div style={{ marginTop: '1rem', textAlign: 'center' }}>
           <span style={{
             fontFamily: "monospace",
-            border: 'dotted',
+            border: 'solid',
+            backgroundColor: '#ffffff',
             borderColor: '#ffffff',
-            color: "#ffffff",
+            color: "#ff7032",
             fontSize: '1.2rem',
             fontWeight: 'bold',
             padding: "0.2rem 0.4rem",
@@ -130,7 +131,7 @@ const TriathlonStats = ({ data, error }) => {
           display: 'flex',
           overflow: 'hidden',
           backgroundColor: 'transparent',
-          borderRadius: '0.5rem',
+          borderRadius: '1rem',
         }}>
           <div style={{
             width: `${swimPercent}%`,

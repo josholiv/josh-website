@@ -403,16 +403,16 @@ html.dark .tag {
 
 /* Universal button style class */
 .btn {
-  padding: 0.6rem 1.5rem;
-  height: '2.25rem';
-  font-size: 0.75rem;               /* Set font size */
+  padding: 1rem 1rem;
+  font-size: 1.2rem;               /* Set font size */
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;              /* Change cursor on hover */
   background-color: #d9d9d9;     /* Set background color */
   color: #000000;                  /* Set text color */
-  border: none;                
-  border-radius: 1rem;            /* Add rounded corners */
+  border: solid;                
+  border-color: #969696;
+  border-radius: 2rem;            /* Add rounded corners */
   margin: 0 auto;
 }
 
