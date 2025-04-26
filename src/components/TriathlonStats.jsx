@@ -35,22 +35,26 @@ const TriathlonStats = ({ data, error }) => {
   const formatCard = (label, value, color) => (
     <div style={{
       background: color,
-      padding: '1rem',
-      borderRadius: '1rem',
-      display: 'flex',
+      padding: '0.5rem 0.8rem',
+      borderRadius: '1rem', 
+      border: 'solid',
+      display: 'inline-flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      color: '#fff',
-      fontSize: '1rem',
+      color: '#ffffff',
+      fontSize: '1.5rem',
       textAlign: 'center',
+      minWidth: '8rem', 
+      minHeight: '4rem', 
     }}>
-      <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+      <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
         {value ?? '–'}
       </div>
       <div>{label}</div>
     </div>
   );
+  
 
   // Helper to format the number + unit nicely
   const getFormattedValue = (distanceMi, distanceKm) => {
@@ -82,13 +86,15 @@ const TriathlonStats = ({ data, error }) => {
 
         {/* Stats Cards */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-          gap: '1rem',
-        }}>
-          {formatCard('swimming 🏊', getFormattedValue(swimDistanceMi, swimDistanceKm), '#0099cc')}
-          {formatCard('biking 🚴', getFormattedValue(rideDistanceMi, rideDistanceKm), '#41ab5d')}
-          {formatCard('running 🏃‍♂️', getFormattedValue(runDistanceMi, runDistanceKm), '#ffaa00')}
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          gap: '0.5rem',
+          marginTop: '-0.5rem',
+          }}>
+          {formatCard('🏊', getFormattedValue(swimDistanceMi, swimDistanceKm), '#0099cc')}
+          {formatCard('🚴', getFormattedValue(rideDistanceMi, rideDistanceKm), '#41ab5d')}
+          {formatCard('🏃‍♂️', getFormattedValue(runDistanceMi, runDistanceKm), '#ffaa00')}
         </div>
 
         <div style={{ marginTop: '1rem', textAlign: 'center' }}>
@@ -119,10 +125,12 @@ const TriathlonStats = ({ data, error }) => {
           marginTop: '2rem',
           height: '2rem',
           width: '100%',
+          border: 'solid',
+          borderColor: '#ffffff',
           display: 'flex',
           overflow: 'hidden',
           backgroundColor: 'transparent',
-          borderRadius: '0.5rem'
+          borderRadius: '0.5rem',
         }}>
           <div style={{
             width: `${swimPercent}%`,
