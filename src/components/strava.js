@@ -12,7 +12,7 @@ const periodStrings = {
 
 const formatDistance = {
   km: (distance) => `${Math.round(distance / 1000)} km`,  // Rounded to the nearest whole number
-  miles: (distance) => `${Math.round(distance / 1609.344)}\nmi`,  // Rounded to the nearest whole number with line break
+  miles: (distance) => (<>{Math.round(distance / 1609.344)}<br />mi</>),  // Rounded to the nearest whole number with line break
 }
 
 const methods = ["ride", "run", "swim"]
