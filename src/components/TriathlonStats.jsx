@@ -58,7 +58,7 @@ const TriathlonStats = ({ data, error }) => {
       {/* Normal Text Area */}
       <div style={{ marginBottom: '1.5rem' }}>
         <p>
-          As of {new Date().getFullYear()}, I’ve covered the following distances swimming, biking, and running in<br />
+          In {new Date().getFullYear()}, I’ve covered the following distances swimming, biking, and running in<br />
           <div style={{ textAlign: 'center', marginTop: '1rem' }}>
             <span style={{
               fontFamily: "monospace",
