@@ -70,8 +70,8 @@ const TriathlonStats = ({ data, error }) => {
               borderRadius: "0.3rem",
               display: 'inline-block'
             }}>
-              {unit === "miles" ? "miles" :
-               unit === "km" ? "kilometers" :
+              {unit === "miles" ? "mi" :
+               unit === "km" ? "km" :
                unit === "fields" ? "American football fields 🏈" :
                "% of the distance to the Moon 🚀"}
             </span>
@@ -90,20 +90,14 @@ const TriathlonStats = ({ data, error }) => {
         </div>
       </div>
 
-{/* Striped Background */}
+{/* Orange Background */}
 <div style={{
-  background: `repeating-linear-gradient(
-    45deg,
-rgb(255, 140, 91) 0px,
-rgb(255, 140, 91) 20px,
-    rgb(255, 112, 50) 20px,
-    rgba(255, 112, 50, 1) 40px
-  )`,
+  backgroundColor: '#ff7032', 
   padding: '2rem',
   borderRadius: '1rem',
   position: 'relative',
-  backgroundSize: '40px 40px',  // Adjust size of stripes
 }}>
+
 
         {/* Stats Cards */}
         <div style={{
@@ -114,7 +108,7 @@ rgb(255, 140, 91) 20px,
         }}>
           {formatCard(
             'swimming 🏊',
-            unit === "miles" ? formatNumber(swimDistanceMi) + " mi" :
+            unit === "miles" ? formatNumber(swimDistanceMi) :
             unit === "km" ? formatNumber(swimDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(swimDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(swimDistanceKm) + " 🚀",
@@ -123,7 +117,7 @@ rgb(255, 140, 91) 20px,
 
           {formatCard(
             'biking 🚴',
-            unit === "miles" ? formatNumber(rideDistanceMi) + " mi" :
+            unit === "miles" ? formatNumber(rideDistanceMi) :
             unit === "km" ? formatNumber(rideDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(rideDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(rideDistanceKm) + " 🚀",
@@ -132,7 +126,7 @@ rgb(255, 140, 91) 20px,
 
           {formatCard(
             'running 🏃‍♂️',
-            unit === "miles" ? formatNumber(runDistanceMi) + " mi" :
+            unit === "miles" ? formatNumber(runDistanceMi) :
             unit === "km" ? formatNumber(runDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(runDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(runDistanceKm) + " 🚀",
