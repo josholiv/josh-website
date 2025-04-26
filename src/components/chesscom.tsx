@@ -96,12 +96,12 @@ const ChessStats: FunctionalComponent = () => {
 
           <p>
             <span style={{
-              backgroundColor: '#769656',
+              backgroundColor: '#ffffff',
               padding: '0.5rem 1rem',
               border: 'solid',
               borderRadius: '1rem',
               display: 'inline-block',
-              color: '#ffffff',
+              color: '#252525',
               fontSize: '1rem',
               marginTop: '-1rem',
             }}>
