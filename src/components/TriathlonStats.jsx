@@ -55,7 +55,7 @@ const TriathlonStats = ({ data, error }) => {
   // Helper to format the number + unit nicely
   const getFormattedValue = (distanceMi, distanceKm) => {
     if (unit === "miles") {
-      return formatNumber(distanceMi);
+      return (<>{formatNumber(distanceMi)}<br />mi</>);
     } else if (unit === "km") {
       return (<>{formatNumber(distanceKm)}<br />km</>);
     } else if (unit === "fields") {
