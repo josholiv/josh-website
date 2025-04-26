@@ -79,7 +79,7 @@ const TriathlonStats = ({ data, error }) => {
         }}>
           {formatCard(
             'swimming 🏊',
-            unit === "miles" ? formatNumber(swimDistanceMi) + " mi" :
+            unit === "miles" ? formatNumber(swimDistanceMi) : // "mi" won't appear when testing in dev server but will when fetching live data
             unit === "km" ? formatNumber(swimDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(swimDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(swimDistanceKm) + " 🚀",
@@ -88,7 +88,7 @@ const TriathlonStats = ({ data, error }) => {
 
           {formatCard(
             'biking 🚴',
-            unit === "miles" ? formatNumber(rideDistanceMi) + " mi" :
+            unit === "miles" ? formatNumber(rideDistanceMi) : // "mi" won't appear when testing in dev server but will when fetching live data
             unit === "km" ? formatNumber(rideDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(rideDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(rideDistanceKm) + " 🚀",
@@ -97,7 +97,7 @@ const TriathlonStats = ({ data, error }) => {
 
           {formatCard(
             'running 🏃‍♂️',
-            unit === "miles" ? formatNumber(runDistanceMi) + " mi" :
+            unit === "miles" ? formatNumber(runDistanceMi) : // "mi" won't appear when testing in dev server but will when fetching live data
             unit === "km" ? formatNumber(runDistanceKm) + " km" :
             unit === "fields" ? formatNumber(convertToFields(runDistanceKm * 1000)) + " 🏈" :
             convertToMoonPercentage(runDistanceKm) + " 🚀",
@@ -148,15 +148,6 @@ const TriathlonStats = ({ data, error }) => {
             🏊
           </div>
           <div style={{
-            width: `${runPercent}%`,
-            backgroundColor: '#ffaa00',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            🏃‍♂️
-          </div>
-          <div style={{
             width: `${ridePercent}%`,
             backgroundColor: '#41ab5d',
             display: 'flex',
@@ -164,6 +155,15 @@ const TriathlonStats = ({ data, error }) => {
             justifyContent: 'center'
           }}>
             🚴
+          </div>
+          <div style={{
+            width: `${runPercent}%`,
+            backgroundColor: '#ffaa00',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            🏃‍♂️
           </div>
         </div>
       </div>

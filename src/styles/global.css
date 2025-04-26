@@ -157,7 +157,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
-  color: #004529; /* nav link text color */
+  color: #252525; /* nav link text color */
   background-color: #ffffe5; /* Background color */
   border-radius: 1rem; /* Rounded corners */
 }
@@ -385,7 +385,7 @@ html.dark .tag {
 /* format page nav link of current page */
     nav a.active, html.dark nav a.active, 
     html.midnight nav a.active, html.lightest nav a.active {
-      color: var(--text-color); /* Change text color */
+      color: #ffffe5; /* Change text color */
       background-color: #41ab5d; /* Background color */
     }
 
@@ -629,7 +629,7 @@ html.midnight body {
 html.midnight header,
 html.midnight .nav-links a {
   background-color: #000000;
-  color: #ffffff;
+  color: #ffffe5;
 }
 
 html.midnight .nav-links a:hover,
