@@ -70,8 +70,8 @@ const TriathlonStats = ({ data, error }) => {
               borderRadius: "0.3rem",
               display: 'inline-block'
             }}>
-              {unit === "miles" ? "mi" :
-               unit === "km" ? "km" :
+              {unit === "miles" ? "miles" :
+               unit === "km" ? "kilometers" :
                unit === "fields" ? "American football fields 🏈" :
                "% of the distance to the Moon 🚀"}
             </span>
