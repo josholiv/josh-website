@@ -85,17 +85,17 @@ const TriathlonStats = ({ data, error }) => {
       backgroundColor: "#0099cc",
       padding: "0.2rem 0.4rem",
       borderRadius: "0.5rem"
-    }}>swimming</span>,{" "}
+    }}>swimming 🏊</span>,{" "}
     <span style={{
       backgroundColor: "#41ab5d",
       padding: "0.2rem 0.4rem",
       borderRadius: "0.5rem"
-    }}>biking</span>, and{" "}
+    }}>biking 🚴‍♂️</span>, and{" "}
     <span style={{
       backgroundColor: "#ffaa00",
       padding: "0.2rem 0.4rem",
       borderRadius: "0.5rem"
-    }}>running</span>:
+    }}>running 🏃‍♂️</span>:
   </p>
 </div>
 
@@ -108,7 +108,7 @@ const TriathlonStats = ({ data, error }) => {
           marginTop: '-0.5rem',
           }}>
           {formatCard('🏊', getFormattedValue(swimDistanceMi, swimDistanceKm), '#0099cc')}
-          {formatCard('🚴', getFormattedValue(rideDistanceMi, rideDistanceKm), '#41ab5d')}
+          {formatCard('🚴‍♂️', getFormattedValue(rideDistanceMi, rideDistanceKm), '#41ab5d')}
           {formatCard('🏃‍♂️', getFormattedValue(runDistanceMi, runDistanceKm), '#ffaa00')}
         </div>
 
@@ -147,15 +147,15 @@ const TriathlonStats = ({ data, error }) => {
           overflow: 'hidden',
           backgroundColor: 'transparent',
           borderRadius: '1rem',
-        }}>
-          <div style={{
-            width: `${swimPercent}%`,
-            backgroundColor: '#0099cc',
+        }}> 
+           <div style={{
+            width: `${runPercent}%`,
+            backgroundColor: '#ffaa00',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            🏊
+            🏃‍♂️
           </div>
           <div style={{
             width: `${ridePercent}%`,
@@ -164,16 +164,16 @@ const TriathlonStats = ({ data, error }) => {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            🚴
+            🚴‍♂️
           </div>
-          <div style={{
-            width: `${runPercent}%`,
-            backgroundColor: '#ffaa00',
+            <div style={{
+            width: `${swimPercent}%`,
+            backgroundColor: '#0099cc',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            🏃‍♂️
+            🏊
           </div>
         </div>
       </div>
