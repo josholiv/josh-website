@@ -78,11 +78,26 @@ const TriathlonStats = ({ data, error }) => {
         borderRadius: '1rem',
         position: 'relative',
       }}>
-        <div style={{ marginBottom: '2rem', textAlign: 'left', color: "#ffffff" }}>
-          <p>
-            In <strong>{new Date().getFullYear()}</strong>, I’ve covered the following distances* swimming, biking, and running:
-          </p>
-        </div>
+      <div style={{ marginBottom: '2rem', textAlign: 'left', color: "#ffffff" }}>
+  <p>
+    In <strong>{new Date().getFullYear()}</strong>, I’ve covered the following distances*{" "}
+    <span style={{
+      backgroundColor: "#0099cc",
+      padding: "0.2rem 0.4rem",
+      borderRadius: "0.5rem"
+    }}>swimming</span>,{" "}
+    <span style={{
+      backgroundColor: "#41ab5d",
+      padding: "0.2rem 0.4rem",
+      borderRadius: "0.5rem"
+    }}>biking</span>, and{" "}
+    <span style={{
+      backgroundColor: "#ffaa00",
+      padding: "0.2rem 0.4rem",
+      borderRadius: "0.5rem"
+    }}>running</span>:
+  </p>
+</div>
 
         {/* Stats Cards */}
         <div style={{
