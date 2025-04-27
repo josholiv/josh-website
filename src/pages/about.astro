@@ -4,14 +4,13 @@ import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
 import TriathlonStats from '../components/TriathlonStats.jsx';
-import HobbyButton from '../components/HobbyButton.jsx';
 
 const pageTitle = "Hi, I'm Josh!";
 const identity = {
   firstName: "Josh",
   country: "United States 🇺🇸",
   occupation: "lab manager",
-  hobbies: ["doing triathlons 🏊🚴🏃‍♂️", "playing chess ♟️", "3D printing ⚙️", "learning yoyo tricks 🪀", "drinking tereré 🧉"],
+  hobbies: ["Triathlons 🏊🚴🏃‍♂️", "Chess ♟️", "3D printing ⚙️", "Yoyos 🪀", "Tereré 🧉"],
 	};
 const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
 const currentYear = new Date().getFullYear();
@@ -57,7 +56,7 @@ try {
 
 <h1>My hobbies</h1>
 
-<p>Some of my favorite hobbies are:</p>
+<p>Some things I love are:</p>
 
 <ul>
   {identity.hobbies.map(hobby => (
