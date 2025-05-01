@@ -217,16 +217,6 @@ html.dark .nav-links a:focus {
   background-color: transparent !important; /* override background from .nav-links a */
 }
 
-/* Active green border for light mode */
-.nav-links a.home-link.active {
-  border-color: #addd8e;
-}
-
-/* Active off-white border for dark mode */
-html.dark .nav-links a.home-link.active {
-  border-color: #ffffe5;
-}
-
 /* Rainbow animation */
 @keyframes rainbowShift {
   0% {
