@@ -1,6 +1,6 @@
 # My porfolio website and blog
 
-I created this site by following the [Build your first Astro Blog tutorial](https://docs.astro.build/en/tutorial/0-introduction/). 
+I created this site (josholivier.com) by following the [Build your first Astro Blog tutorial](https://docs.astro.build/en/tutorial/0-introduction/). 
 
 Originally, I just meant for this site to be a basic landing page for my CV, but as I worked through the tutorial I warmed up to the idea of making it into a blog as well, where I can post things related to my work projects and hobbies. 
 
