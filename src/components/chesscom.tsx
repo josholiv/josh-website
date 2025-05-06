@@ -71,69 +71,47 @@ const ChessStats: FunctionalComponent = () => {
           style={{
             position: 'relative',
             width: '100%',
-            aspectRatio: '1 / 1',
-            background: 'repeating-conic-gradient(#eeeed2 0% 25%, #769656 0% 50%) -.4% -.4% / 25.2% 25.2%', // slightly larger than 25% and slightly offset to fix "subpixel" rendering glitch on edges
+            padding: '2rem',
+            backgroundColor: '#006837', 
             borderRadius: '1rem',
+            color: '#ffffff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            overflow: 'hidden',
+            textAlign: 'center',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: '#ffffff',
-              padding: '0rem',
-              textAlign: 'center',
-              overflowY: 'auto',
-            }}
-          >
-
-          <p>
-            <span style={{
-              backgroundColor: '#ffffff',
-              padding: '0.5rem 1rem',
-              border: 'solid',
-              borderRadius: '1rem',
-              display: 'inline-block',
-              color: '#252525',
-              fontSize: '1rem',
-              marginTop: '-1rem',
-            }}>
-              My current Chess.com<sup>†</sup> ratings are:
-            </span>
+          <p style={{ textAlign: 'left', alignSelf: 'flex-start', marginLeft: '1rem' }}>
+            My current Chess.com<sup>†</sup> ratings are:
           </p>
 
+          {/* First row */}
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0rem'}}>
+            {formatCard('Games', totalGames, undefined, '#c2185b')}
+            {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'https://www.chess.com/terms/bullet-chess', '#f200ff')}
+            {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'https://www.chess.com/terms/blitz-chess', '#9b4dca')}
+          </div>
 
-            {/* First row */}
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '-0.5rem'}}>
-              {formatCard('Games', totalGames, undefined, '#c2185b')}
-              {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'https://www.chess.com/terms/bullet-chess', '#f200ff')}
-              {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'https://www.chess.com/terms/blitz-chess', '#9b4dca')}
-            </div>
+          {/* Second row */}
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0rem' }}>
+            {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'https://www.chess.com/terms/rapid-chess', '#5c6bc0')}
+            {formatCard('Daily', stats.chess_daily?.last?.rating, '', '#00acc1')}
+            {formatCard('Puzzles', stats.tactics?.highest?.rating, '', '#ff9800')}
+          </div>
 
-            {/* Second row */}
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '-1rem' }}>
-              {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'https://www.chess.com/terms/rapid-chess', '#5c6bc0')}
-              {formatCard('Daily', stats.chess_daily?.last?.rating, '', '#00acc1')}
-              {formatCard('Puzzles', stats.tactics?.highest?.rating, '', '#ff9800')}
-            </div>
-
-            <div className = 'btn' style={{ marginTop: '0.5rem', textAlign: 'center' }}>
-              <a
-                href="https://link.chess.com/friend/Py1tup"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  color: '#000000',
-                  textDecoration: 'none',
-                }}
-              >
-                ♟️ Play me in chess!
-              </a>
-            </div>
+          <div className='btn' style={{ marginTop: '0.5rem', textAlign: 'center' }}>
+            <a
+              href="https://link.chess.com/friend/Py1tup"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: '#000000',
+                textDecoration: 'none',
+              }}
+            >
+              ♟️ Play me in chess!
+            </a>
           </div>
         </div>
       </div>
