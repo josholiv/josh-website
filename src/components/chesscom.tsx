@@ -71,12 +71,9 @@ const ChessStats: FunctionalComponent = () => {
           style={{
             position: 'relative',
             width: '100%',
-            height: '100%',
-            maxWidth: '60ch',
             aspectRatio: '1 / 1',
             background: 'repeating-conic-gradient(#eeeed2 0% 25%, #769656 0% 50%) -.4% -.4% / 25.2% 25.2%', // slightly larger than 25% and slightly offset to fix "subpixel" rendering glitch on edges
             borderRadius: '1rem',
-            overflow: 'hidden',
           }}
         >
           <div

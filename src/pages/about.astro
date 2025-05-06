@@ -4,6 +4,8 @@ import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
 import TriathlonStats from '../components/TriathlonStats.jsx';
+import { Image } from 'astro:assets';
+import aboutMePhoto from '../assets/about-me-photo.jpg';
 
 const pageTitle = "Hi, I'm Josh!";
 const identity = {
@@ -31,7 +33,7 @@ try {
 ---
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={true}>
 
-  <img src="/about-me-photo.jpg" alt="Me at Horseshoe Bend, Arizona" class="about-pic"/>
+  <Image src={aboutMePhoto} alt="Me at Horseshoe Bend, Arizona" class="about-pic" />
 
   <h1>About me</h1>
     <p>

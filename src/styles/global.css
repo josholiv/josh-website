@@ -256,6 +256,7 @@ html.dark .nav-links a.home-link:focus {
 
 .about-pic {
   width: 100%;
+  height: auto;
   display: block;
   margin: 0 auto;
   padding: 0rem;
