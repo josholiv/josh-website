@@ -38,7 +38,7 @@ const ChessStats: FunctionalComponent = () => {
     }, 0);
 
   const formatCard = (label: string, value: string | number | undefined, href?: string, color?: string) => (
-    <div style={{ flex: '1 1 calc(50% - 0.5rem)', minWidth: '120px', maxWidth: '180px' }}>
+    <div style={{ flex: '1 1 calc(50% - 0.5rem)', minWidth: '8rem', maxWidth: '9rem' }}>
       <div style={{
         backgroundColor: '#252525',
         border: 'solid',
@@ -47,7 +47,7 @@ const ChessStats: FunctionalComponent = () => {
         color: color || '#ffffff',
         textAlign: 'center',
       }}>
-        <strong style={{ fontSize: '2rem' }}>{value ?? '–'}</strong><br />
+        <strong style={{ fontSize: '1.5rem' }}>{value ?? '–'}</strong><br />
         {href ? (
           <a href={href} target="_blank" rel="noopener noreferrer" style={{ color, textDecoration: 'underline' }}>
             {label}
@@ -92,17 +92,19 @@ const ChessStats: FunctionalComponent = () => {
           borderRadius: '0.5rem', 
           color: '#ffffff', 
         }}>
-          My current chess stats and ratings<sup>†</sup> are:
+          My <strong>current</strong> chess stats and ratings<sup>†</sup> are:
         </p>
 
         {/* Card rows */}
         <div style={{
           display: 'flex',
-          gap: '0.5rem',
+          gap: '1rem',
           flexWrap: 'wrap',
           justifyContent: 'center',
           marginTop: '0rem',
-          maxWidth: '500px',  
+          maxWidth: '500px',
+          fontSize: '1.2rem',  
+          fontWeight: 'bold',
         }}>
           {formatCard('Games', totalGames, undefined, '#c2185b')}
           {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'https://www.chess.com/terms/bullet-chess', '#f200ff')}
