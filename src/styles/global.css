@@ -278,6 +278,34 @@ html.dark .nav-links a.home-link:focus {
   padding: 0rem;
 }
 
+/* To crop blog images with different aspect ratios use these wrappers */
+.blog-body-pic-wrapper-16-9 { 
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 aspect ratio = 9 / 16 = 0.5625 = 56.25% */
+  overflow: hidden;
+}
+
+.blog-body-pic-wrapper-1-1 { 
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 16:9 aspect ratio = 9 / 16 = 0.5625 = 56.25% */
+  overflow: hidden;
+}
+
+
+.blog-body-pic-cropped {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+
 /* Tag container */
 .tags {
   display: flex;

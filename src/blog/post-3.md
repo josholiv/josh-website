@@ -36,7 +36,7 @@ While not entirely necessary, the bumper pads make a huge difference in stabilit
 ## Grab the file
 Feel free to [download my design from Thingiverse](https://www.thingiverse.com/thing:6955401) and print your own! 
 
-Let me know if you make one—I’d love to see how others use or remix the design!
+Let me know if you print one—I’d love to see how others use or remix the design!
 
 ## Print Settings
 - Printer: Creality Ender-3 V2 Neo

@@ -48,7 +48,7 @@ To keep the base from sliding around on smooth surfaces, I added four small inde
 
 If you're using a knockoff MagSafe charger like mine, or one with a similar size (6 cm diameter), feel free to [download my design from Thingiverse](https://www.thingiverse.com/thing:6955377).
 
-Let me know if you make one—I’d love to see how others use or remix the design!
+Let me know if you print one—I’d love to see how others use or remix the design!
 
 ## Print Settings
 
