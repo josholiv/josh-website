@@ -37,34 +37,34 @@ const ChessStats: FunctionalComponent = () => {
       return acc + (mode.record.win || 0) + (mode.record.loss || 0) + (mode.record.draw || 0);
     }, 0);
 
-    const formatCard = (
-      label: string,
-      value: string | number | undefined,
-      href?: string,
-      color?: string,
-      emoji?: string
-    ) => (
-      <div style={{ flex: '1 1 calc(50% - 0.5rem)', minWidth: '8rem', maxWidth: '9rem' }}>
-        <div style={{
-          backgroundColor: '#252525',
-          border: 'solid',
-          padding: '0.5rem 0.8rem',
-          borderRadius: '1rem',
-          color: color || '#ffffff',
-          textAlign: 'center',
-        }}>
-          <strong style={{ fontSize: '1.5rem' }}>{value ?? '–'}</strong><br />
-          <div style={{ marginBottom: '0.1rem' }}>
-            {href ? (
-              <a href={href} target="_blank" rel="noopener noreferrer" style={{ color, textDecoration: 'underline' }}>
-                {label}
-              </a>
-            ) : label}
-          </div>
-          <div style={{ fontSize: '1.2rem' }}>{emoji}</div>
+  const formatCard = (
+    label: string,
+    value: string | number | undefined,
+    href?: string,
+    color?: string,
+    emoji?: string
+  ) => (
+    <div style={{ flex: '1 1 calc(50% - 0.5rem)', minWidth: '6rem', maxWidth: '8rem' }}>
+      <div style={{
+        backgroundColor: color || '#252525',
+        border: '2px solid white',
+        padding: '0.5rem 0.8rem',
+        borderRadius: '1rem',
+        color: '#ffffff',
+        textAlign: 'center',
+      }}>
+        <strong style={{ fontSize: '1.5rem' }}>{value ?? '–'}</strong><br />
+        <div style={{ marginBottom: '0.1rem' }}>
+          {href ? (
+            <a href={href} target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', textDecoration: 'underline' }}>
+              {label}
+            </a>
+          ) : label}
         </div>
+        <div style={{ fontSize: '1.2rem' }}>{emoji}</div>
       </div>
-    );
+    </div>
+  );
 
   return (
     <div
@@ -94,12 +94,12 @@ const ChessStats: FunctionalComponent = () => {
         }}
       >
         <p style={{
-          textAlign: 'left', 
-          alignSelf: 'flex-start', 
-          backgroundColor: '#4E7837', 
-          padding: '0.2rem 0.5rem', 
-          borderRadius: '0.5rem', 
-          color: '#ffffff', 
+          textAlign: 'left',
+          alignSelf: 'flex-start',
+          backgroundColor: '#4E7837',
+          padding: '0.2rem 0.5rem',
+          borderRadius: '0.5rem',
+          color: '#ffffff',
         }}>
           My <strong>current</strong> chess stats and ratings<sup>†</sup> are:
         </p>
@@ -112,12 +112,12 @@ const ChessStats: FunctionalComponent = () => {
           justifyContent: 'center',
           marginTop: '0rem',
           maxWidth: '500px',
-          fontSize: '1.2rem',  
+          fontSize: '1.2rem',
           fontWeight: 'bold',
         }}>
           {formatCard('Games', totalGames, undefined, '#c2185b', '♟️')}
           {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'https://www.chess.com/terms/bullet-chess', '#f200ff', '♟️💨')}
-          {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'https://www.chess.com/terms/blitz-chess', '#9b4dca' , '⚡')}
+          {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'https://www.chess.com/terms/blitz-chess', '#9b4dca', '⚡')}
           {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'https://www.chess.com/terms/rapid-chess', '#5c6bc0', '⏱️')}
           {formatCard('Daily', stats.chess_daily?.last?.rating, '', '#00acc1', '☀️')}
           {formatCard('Puzzles', stats.tactics?.highest?.rating, '', '#ff9800', '🧩')}

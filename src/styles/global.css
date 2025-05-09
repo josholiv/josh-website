@@ -255,11 +255,13 @@ html.dark .nav-links a.home-link:focus {
 }
 
 .about-pic {
-  width: 100%;
-  height: auto;
+  width: 12rem;
+  height: 12rem; 
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fills the circular shape */
+  border: 0.25rem solid #41ab5d;
   display: block;
-  margin: 0 auto;
-  padding: 0rem;
+  margin: 0 auto; /* center image */
 }
 
 .blog-pic {
