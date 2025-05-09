@@ -47,7 +47,8 @@ const ChessStats: FunctionalComponent = () => {
     <div style={{ flex: '1 1 calc(50% - 0.5rem)', minWidth: '6rem', maxWidth: '8rem' }}>
       <div style={{
         backgroundColor: color || '#252525',
-        border: '2px solid white',
+        border: 'solid',
+        borderColor: '#ffffff',
         padding: '0.5rem 0.8rem',
         borderRadius: '1rem',
         color: '#ffffff',

@@ -112,7 +112,7 @@ const TriathlonStats = ({ data, error }) => {
           {formatCard('🏃‍♂️', getFormattedValue(runDistanceMi, runDistanceKm), '#ffaa00')}
         </div>
 
-        <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+        <div style={{ marginTop: '1rem', textAlign: 'center' }}> 
           <span style={{
             fontFamily: "monospace",
             border: 'solid',
