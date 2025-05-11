@@ -7,27 +7,21 @@ const fetchChessStats = async (username: string) => {
 };
 
 const username = 'pichugang';
-const magnusUsername = 'MagnusCarlsen';
 const chessboard = '/chessboard.svg';
 
 const ChessStats: FunctionalComponent = () => {
   const [stats, setStats] = useState<any>(null);
-  const [magnusStats, setMagnusStats] = useState<any>(null);
 
   useEffect(() => {
     const getStats = async () => {
-      const [userStats, magnusStats] = await Promise.all([
-        fetchChessStats(username),
-        fetchChessStats(magnusUsername),
-      ]);
+      const userStats = await fetchChessStats(username);
       setStats(userStats);
-      setMagnusStats(magnusStats);
     };
 
     getStats();
   }, []);
 
-  if (!stats || !magnusStats) {
+  if (!stats) {
     return <div>Loading...</div>;
   }
 

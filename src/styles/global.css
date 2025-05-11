@@ -446,8 +446,8 @@ html.dark .tag {
 .back-link {
   display: inline-block;           /* Prevent it from spanning the entire width */
   max-width: fit-content;          /* Allow the link to take up only as much width as necessary */
-  padding: 0.5rem 1rem;          /* Add padding */
-  font-size: 1rem;               /* Set font size */
+  padding: 0.25rem 1rem;          /* Add padding */
+  font-size: 1.5rem;               /* Set font size */
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;                /* Change cursor on hover */
@@ -592,29 +592,32 @@ html.midnight .blog-post a:hover {
     margin: 0;
   }
 
+  /* Title on BlogSorter component when user selects "compact view" */
+    .post-title.compact {
+    font-size: 1.25rem;
+  }
+
   /* Tags on BlogSorter component */
   .post-tags {
     color: #969696;
     font-size: 1rem;
     font-family: monospace;
     margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
   }
 
   /* Date on BlogSorter component */
   .pub-date {
     font-size: 1rem;
+    margin-top: 0.5rem;
     font-weight: bold;
-    color: var(--text-color);
-    margin-top: 1rem;
-    margin-bottom: 0rem;
+    color: #969696;
   }
 
   /* Author on BlogSorter component */
   .post-author {
     font-size: 1rem;
     font-style: italic;
-    color: var(--text-color);
+    color: #969696;
     margin: 0;
   }
 
@@ -623,6 +626,7 @@ html.midnight .blog-post a:hover {
     font-size: 1rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
     color: var(--text-color);
   }
 
@@ -700,3 +704,4 @@ html.lightest a:not(.nav-links a):not(.back-link):hover {
 html.lightest a:not(.nav-links a):not(.back-link):visited {
   color: #9900cc;
 }
+

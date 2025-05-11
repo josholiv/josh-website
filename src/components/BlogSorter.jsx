@@ -92,7 +92,7 @@ const BlogSorter = ({ posts }) => {
 
   const truncateDescription = (description) => {
     if (description.length > 85) {
-      let truncated = description.slice(0, 85);
+      let truncated = description.slice(0, 65);
       const lastSpaceIndex = truncated.lastIndexOf(' ');
   
       // Ensure it doesn't cut off in the middle of a word
@@ -203,7 +203,9 @@ const BlogSorter = ({ posts }) => {
                     class="blog-thumbnail"
                   />
                 )}
-                <p class="post-title">{post.data.title}</p>
+                <p class={`post-title${showCompactView ? ' compact' : ''}`}>
+                  {post.data.title}
+                </p>
                 
                 {!showCompactView && post.data.tags?.length > 0 && (
                   <div className="post-tags">
@@ -217,19 +219,14 @@ const BlogSorter = ({ posts }) => {
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric',
-                    timeZone: 'UTC'
+                    timeZone: 'UTC',
                   })}
-                </div>
-                <div className="post-author">
-                  by {post.data.author}
-                </div>
+                </div> 
               </div>
 
                 {/* Truncate description in compact view */}
                 <div className="post-description">
-                  <p>
                     {showCompactView ? truncateDescription(post.data.description) : post.data.description}
-                  </p>
                 </div>
             </a>
           </li>
