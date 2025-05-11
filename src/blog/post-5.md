@@ -14,10 +14,10 @@ When building the [About](https://josholivier.com/about) page of this site, I ha
 
 After some digging, I discovered that, thanks to the [Chess.com Public API](https://www.chess.com/news/view/published-data-api), displaying live stats for any Chess.com user on a webpage is delightfully easy. I decided to make it into a full-on widget that anyone can use. 
 
-You can [check out my code on Github](https://github.com/josholiv/chess-stats-widget), and in this post I'll walk you through how to plug the widget in to your own site or portfolio.
+You can [check out my code on GitHub](https://github.com/josholiv/chess-stats-widget), and in this post I'll walk you through how to plug the widget in to your own site or portfolio.
 
 ## Overview
-The Chess Stats Widget is a responsive, card-style component built with [Preact](https://preactjs.com/), a lightweight React alternative. It pulls your Chess.com stats in real-time and displays:
+The chess stats widget is a responsive, card-style component built with [Preact](https://preactjs.com/), a lightweight React alternative. It pulls your Chess.com stats in real-time and displays:
 
 - Ratings for Bullet, Blitz, Rapid, and Daily games
 - Your Puzzle rating
