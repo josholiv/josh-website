@@ -6,8 +6,23 @@ const pageTitle = "Joshua M. Olivier";
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={true}>
 
-  <a href="/250617_CV_OLIVIER.pdf" target="_blank" rel="noopener noreferrer" class="back-link"
-    >PDF Version</a>
+<!-- Buttons row -->
+  <!-- Collapse/expand button -->
+<div style="display: flex; justify-content: space-between; margin: 1rem 0; align-items: center;">
+  <button id="toggle-details" class="btncv">
+    Collapse All
+  </button>
+  <!-- PDF version button -->
+  <a
+    href="/250620_CV_OLIVIER.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btncv"
+    style="color: black"
+  >
+    PDF Version
+  </a>
+</div>
 
     <details open>
       <summary>Education 🎓<hr style="margin-bottom: 1rem;" /></summary>
@@ -23,10 +38,10 @@ const pageTitle = "Joshua M. Olivier";
 
     <details open>
     <summary>Publications 📝<hr style="margin-bottom: 1rem;" /></summary>
-    <div style="line-height: 2; margin-left: 2em; text-indent:-2em;">
+    <div style="line-height: 2; margin-left: 4em; text-indent:-4em;">
       <div style="margin-bottom: 1em;">
         <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>, Srokova, S., Hill, P. F., &amp; Rugg,
-        M. D. (<i>submitted; preprint under review</i>). Effects of cortical thickness, volume, and memory performance 
+        M. D. (preprint under review). Effects of cortical thickness, volume, and memory performance 
         on age differences in neural reinstatement of scene information (p. 2025.02.06.636759). <i
           >bioRxiv</i
         >. <a
@@ -37,13 +52,12 @@ const pageTitle = "Joshua M. Olivier";
       </div>
       <div style="margin-bottom: 1em;">
         de Chastelaine, M., Srokova, S., Monier, S., <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>,
-           &amp; Rugg, M. D. (<i>submitted; preprint under review</i>). Effects
-        of age in the strategic control of recollected content as reflected by
-        modulation of scene reinstatement (p. 2025.01.16.633416). <i>bioRxiv</i
+           &amp; Rugg, M. D. (in press). Effects of age on the strategic control of recollected content as reflected by 
+           modulation of neural correlates of scene retrieval. <i>Neurobiology of Aging</i
         >. <a
-          href="https://doi.org/10.1101/2025.01.16.633416"
+          href="https://doi.org/10.1016/j.neurobiolaging.2025.06.005"
           target="_blank"
-          rel="noopener noreferrer">https://doi.org/10.1101/2025.01.16.633416</a
+          rel="noopener noreferrer">https://doi.org/10.1016/j.neurobiolaging.2025.06.005</a
         >
       </div>
       <div style="margin-bottom: 1em;">
@@ -73,7 +87,7 @@ const pageTitle = "Joshua M. Olivier";
 
   <details open>
     <summary>Poster Presentations 📊<hr style="margin-bottom: 1rem;" /></summary>
-    <div style="line-height: 2; margin-left: 2em; text-indent:-2em;">
+    <div style="line-height: 2; margin-left: 4em; text-indent:-4em;">
       <div style="margin-bottom: 1em;">
         <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>*, Srokova, S., & Rugg, M. D. (2025,
         March 29–April 1). <i
@@ -360,5 +374,43 @@ const pageTitle = "Joshua M. Olivier";
       <span><strong>Beginner</strong></span>
     </p>
   </details>
+
+<script is:inline>
+  const btn   = document.getElementById('toggle-details');
+  const panes = Array.from(document.querySelectorAll('details'));
+
+  function setLabel() {
+    btn.textContent = panes.every(p => !p.open) ? 'Expand All' : 'Collapse All';
+  }
+
+  panes.forEach(p => p.addEventListener('toggle', setLabel));
+  setLabel();
+
+  btn.addEventListener('click', () => {
+    const shouldExpand = panes.every(p => !p.open);
+    panes.forEach(p => (p.open = shouldExpand));
+    setLabel();
+  });
+</script>
+
+<!-- ▼ one‑time styles copied from BlogSorter -->
+<style is:inline>
+  .btncv {
+    padding: 0.6rem 1rem;
+    height: 2.25rem;
+    font-size: 0.75rem;
+    font-family: monospace;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #d9d9d9;
+    color: #000;
+    border: none;
+    border-radius: 1rem;
+    margin-top: 0rem;
+    transition: background-color 0.15s ease-in-out;
+  }
+  .btncv:hover { background-color: #bdbdbd; }
+</style>
+
 
 </BaseLayout>
