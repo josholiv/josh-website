@@ -39,11 +39,9 @@ const messages = ["Olá 🇧🇷!", "Hej 🇸🇪!", "Hallo 🇩🇪!", "Hola �
 
 <footer>
   <Image src={joshHeadshot} alt="Josh Olivier" class="profile-pic" />
-  <div class="greeting-container">
-    <Greeting client:load messages={messages.sort(() => Math.random() - 0.5)} />
-  </div>
   <div class="social-container">
     <Social platform="bsky.app" username="profile/josholivier.bsky.social" displayName="Bluesky"/>
+    <Social platform="www.linkedin.com" username="in/joshua-olivier/" displayName="LinkedIn"/>
     <Social platform="github.com" username="josholiv" displayName="GitHub" />
     <Social platform="thingiverse.com" username="josholiv" displayName="Thingiverse" />
     <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" displayName="Google Scholar"/>

@@ -85,17 +85,17 @@ const TriathlonStats = ({ data, error }) => {
       backgroundColor: "#0099cc",
       padding: "0.2rem 0.4rem",
       borderRadius: "0.5rem"
-    }}>swimming 🏊</span>,{" "}
+    }}>swimming</span>,{" "}
     <span style={{
       backgroundColor: "#41ab5d",
       padding: "0.2rem 0.4rem",
       borderRadius: "0.5rem"
-    }}>biking 🚴‍♂️</span>, and{" "}
+    }}>biking</span>, and{" "}
     <span style={{
       backgroundColor: "#ffaa00",
       padding: "0.2rem 0.4rem",
       borderRadius: "0.5rem"
-    }}>running 🏃‍♂️</span>:
+    }}>running</span>:
   </p>
 </div>
 

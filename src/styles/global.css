@@ -50,9 +50,10 @@
       flex-direction: column;
       width: 100%;
       max-width: 60ch;
-      background: #ffffe5; /* Light mode (default) body color) */
       margin: 0 auto;
       line-height: 1.5;
+      word-break: break-word; /* for text that is too long (e.g., long urls), enable word wrapping */
+      overflow-wrap: anywhere; /* for text that is too long (e.g., long urls), enable word wrapping */
     }
     
     html.dark {
@@ -255,8 +256,8 @@ html.dark .nav-links a.home-link:focus {
 }
 
 .about-pic {
-  width: 12rem;
-  height: 12rem; 
+  width: 9rem;
+  height: 9rem; 
   border-radius: 50%;
   object-fit: cover; /* Ensures the image fills the circular shape */
   border: 0.25rem solid #41ab5d;
@@ -577,7 +578,7 @@ html.midnight .blog-post a:hover {
   /* Thumbnail Image on BlogSorter component */
   .blog-thumbnail {
     width: 100%;
-    height: 300px; 
+    height: 90px; 
     object-fit: cover; 
     object-position: center;
     border-radius: 1rem 1rem 0 0;
@@ -587,14 +588,14 @@ html.midnight .blog-post a:hover {
   /* Title on BlogSorter component */
   .post-title {
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: var(--text-color);;
     margin: 0;
   }
 
   /* Title on BlogSorter component when user selects "compact view" */
     .post-title.compact {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
   /* Tags on BlogSorter component */
