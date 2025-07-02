@@ -17,17 +17,17 @@
     cursor: pointer;
   }
 
-  .sun { fill: #252525; }
-  .moon { fill: transparent; }
+  .sun { fill: #000000; }
+  .moon { fill: #ffffff; }
 
   html.light .sun,
   html.lightest .sun {
-    fill: #252525;
+    fill: #000000;
   }
 
   html.dark .moon,
   html.midnight .moon {
-    fill: #ffffe5;
+    fill: #ffffff;
   }
 
   html.dark .sun,
@@ -47,10 +47,7 @@
 
 function getInitialTheme() {
   const saved = localStorage.getItem("theme");
-  if (themes.includes(saved)) return saved;
-
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  return prefersDark ? 'dark' : 'light';
+  return saved && themes.includes(saved) ? saved : 'lightest';
 }
 
 function applyTheme(theme) {

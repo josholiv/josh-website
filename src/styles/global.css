@@ -12,9 +12,9 @@
 
     
     html {
-      background-color: #ffffe5; 
-      color: #252525;
-      --text-color: #252525; /* variable for other things to match this colorl; keep same value as color */
+      background-color: #ffffff; 
+      color: #000000;
+      --text-color: #000000; /* variable for other things to match this colorl; keep same value as color */
       font-family: Verdana, sans-serif;
       height: 100%;
       margin: 0;
@@ -22,7 +22,7 @@
     }
 
     header {
-      background-color: #ffffe5; /* Solid off-white for light mode */
+      /* background-color: #ffffe5; Solid off-white for light mode */
       padding: 1rem;
       width: 100%;
       max-width: 80ch; 
@@ -30,9 +30,9 @@
       /* border: 1px solid red;   For visualizing the border; comment out when not needed */
     }
     
-    html.dark header {
+    /* html.dark header {
       background-color: #252525; 
-    }
+    } */
 
     /* for centering page titles, etc */
     .center-title {
@@ -49,22 +49,13 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 60ch;
+      max-width: 80ch;
       margin: 0 auto;
       line-height: 1.5;
       word-break: break-word; /* for text that is too long (e.g., long urls), enable word wrapping */
       overflow-wrap: anywhere; /* for text that is too long (e.g., long urls), enable word wrapping */
     }
     
-    html.dark {
-      color: #ffffe5; /* Dark mode text color */
-      --text-color: #ffffe5; /* variable for other things to match this colorl; keep same value as color */
-      background-color: #252525;
-    }
-    
-    html.dark body {
-      background: #252525; /* Dark mode body color */
-    }
 
     .page-wrapper {
       display: flex;

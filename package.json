@@ -22,7 +22,8 @@
     "mdast-util-to-string": "^4.0.0",
     "node-fetch": "^2.6.7",
     "preact": "^10.25.4",
-    "reading-time": "^1.5.0"
+    "reading-time": "^1.5.0",
+    "three": "^0.178.0"
   },
   "devDependencies": {
     "shiki": "^3.4.0"

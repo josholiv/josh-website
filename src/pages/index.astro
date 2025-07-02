@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import STLViewer from '../components/STLViewer.jsx';
 const pageTitle = "";
 ---
 <BaseLayout pageTitle={pageTitle}>
@@ -8,13 +9,15 @@ const pageTitle = "";
         <div class="typewriter-container">
             <span id="typewriter"></span>
         </div>
+        <STLViewer client:load />
     </div>
 
     <script>
         if (typeof window !== "undefined") {
             const phrases = [
                 "Hi! I'm Josh. I'm a research assistant interested in memory, aging, and brain imaging.",
-                "I use this site to showcase my projects and hobbies. Feel free to explore!"
+                "I use this site to showcase my projects and hobbies.",
+                "Find me elsewhere on the web at the links below!",
             ];
             let i = 0; // Index of current phrase
             let j = 0; // Index within the phrase
