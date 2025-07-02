@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import * as THREE from 'three';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
+import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 
 export default function STLViewer({ src = '/models/brain.stl' }) {
   const containerRef = useRef(null);
