@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import STLViewer from '../components/STLViewer.jsx';
 const pageTitle = "";
 ---
 <BaseLayout pageTitle={pageTitle}>
@@ -9,10 +8,9 @@ const pageTitle = "";
         <div class="typewriter-container">
             <span id="typewriter"></span>
         </div>
-        <STLViewer client:load />
     </div>
 
-    <script>
+    <script> 
         if (typeof window !== "undefined") {
             const phrases = [
                 "Hi! I'm Josh. I'm a research assistant interested in memory, aging, and brain imaging.",

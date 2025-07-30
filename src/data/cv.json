@@ -1,0 +1,111 @@
+{
+ "basics": {
+    "name": "Joshua M. Olivier",
+    "label": "",
+    "image": "",
+    "email": "joshuamolivier@gmail.com",
+    "phone": "",
+    "url": "josholivier.com",
+    "summary": "",
+    "location": 
+      {
+        "address": "",
+        "postalCode": "",
+        "city": "",
+        "countryCode": "",
+        "region": ""
+      },
+    "profiles": [
+      {
+        "network": "", 
+        "username": "",
+        "url": ""
+      }
+    ]
+  },
+
+  "education": [
+    {
+      "institution": "Brigham Young University",
+      "url": "",
+      "area": "Psychology",
+      "studyType": "BS",
+      "startDate": "2019-09-05",
+      "endDate": "2021-04-22",
+      "score": "",
+      "advisor": "",
+      "courses": [
+        
+      ]
+    }
+  ],
+
+  "publications": [
+    {
+      "name": "",
+      "authors": "",
+      "publisher": "",
+      "year": "",
+      "url": "",
+      "summary": ""
+    }
+  ],
+
+"presentations": [
+    {
+      "name": "",
+      "authors": "",
+      "type": "",
+      "conference": "",
+      "location": "",
+      "year": "",
+      "dateRange": "",
+      "url": "",
+      "summary": ""
+    }
+  ],
+
+  "researchExperience": [
+    {
+      "lab": "",
+      "institution": "",
+      "mentor": "",
+      "title": "",
+      "startDate": "",
+      "endDate": "",
+      "duties": [
+      ]
+    }
+  ],
+
+  "grants": [
+    {
+      "title": "",
+      "date": "",
+      "awarder": "",
+      "award": "",
+      "summary": ""
+    }
+  ],
+
+  "awards": [
+    {
+      "title": "",
+      "date": "",
+      "awarder": "",
+      "summary": ""
+    }
+  ],
+
+  "affiliations": [
+    {
+      "organization": ""
+    }
+  ],
+
+  "skills": [
+    {
+      "name": ""
+    }
+  ]
+}
