@@ -1,416 +1,158 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const pageTitle = "Joshua M. Olivier";
+import cv from '../data/cv.json';
+import '../styles/cv.css'
+
+const pageTitle = "";
+const { basics, education, publications, presentations, researchExperience, grants, awards, affiliations, skills } = cv;
+
+function formatDate(str) {
+  if (!str) return '';
+  const d = new Date(str);
+  return `${d.toLocaleString('default', { month: 'short' })} ${d.getFullYear()}`;
+}
+
+function formatDateFull(str) {
+  if (!str) return '';
+  const d = new Date(str);
+  return d.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' });
+}
 ---
-<a id="top"></a> <!--- "back to top" button takes user to this location -->
-
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={true}>
+<main class="cv-page">
+ <div class="cv-container">
+      <h1>{basics.name}</h1>
+      <h2>Personal Information</h2>
+      <hr />
+      <div class="section-item">{basics.location.address} <br />
+      {basics.location.city}, {basics.location.postalCode}</div>
+      <div>{basics.phone}</div>
+      <div>{basics.email}</div>
+      <div>{basics.url}</div>
 
-<!-- Buttons row -->
-  <!-- Collapse/expand button -->
-<div style="display: flex; justify-content: space-between; margin: 1rem 0; align-items: center;">
-  <button id="toggle-details" class="btncv">
-    Collapse All
-  </button>
-  <!-- PDF version button -->
-  <a
-    href="/250620_CV_OLIVIER.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="btncv"
-    style="color: black"
-  >
-    PDF Version
-  </a>
-</div>
+      <section>
+        <h2>Education</h2>
+        <hr />
+        {education.map(ed => (
+          <div key={ed.institution} class="section-item item-entry">
+            <div class="item-header">
+              <div><strong>{ed.studyType}, {ed.area}</strong>, {ed.institution}</div>
+              <span class="date-range">{formatDate(ed.startDate)} – {formatDate(ed.endDate)}</span>
+            </div>
+            {ed.advisor && <div>Advisor: {ed.advisor}</div>} {/* show advisor only if listed in cv.json */}
+            {ed.courses && ed.courses.length > 0 && ( /* show coursework only if listed in cv.json */
+                <div class="indent-item"><i>Relevant coursework:</i></div> 
+                <ul class="two-column-list">
+                  {ed.courses.map((course, index) => (
+                    <li key={index}>{course}</li>
+                  ))}
+                </ul>
+            )}
+          </div>
+        ))}
+      </section>
 
-    <details open>
-      <summary>Education</summary>
-      
-      <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-        <span>2021</span>
-        <span>
-          <strong>B.S., Psychology</strong><br />
-          Brigham Young University, Provo, UT 
-        </span>
-      </p>
-    </details>
+      <section>
+        <h2>Publications</h2>
+        <hr />
+        <div>
+          {publications.map(pub => (
+            <div class="reference-entry">
+              <Fragment set:html={pub.authors.replace(/Doe, J\./g, "<strong>Doe, J.</strong>")} />
+              ({pub.year}). {pub.name}. <em>{pub.publisher}</em>. <a href={pub.url} target="_blank">{pub.url}</a>
+            </div>
+          ))}
+        </div>
+      </section>
 
-    <details open>
-    <summary>Publications</summary>
-    <div style="line-height: 2; margin-left: 4em; text-indent:-4em;">
-      <div style="margin-bottom: 1em;">
-        <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>, Srokova, S., Hill, P. F., &amp; Rugg,
-        M. D. (preprint under review). Effects of cortical thickness, volume, and memory performance 
-        on age differences in neural reinstatement of scene information (p. 2025.02.06.636759). <i
-          >bioRxiv</i
-        >. <a
-          href="https://doi.org/10.1101/2025.02.06.636759"
-          target="_blank"
-          rel="noopener noreferrer">https://doi.org/10.1101/2025.02.06.636759</a
-        >
-      </div>
-      <div style="margin-bottom: 1em;">
-        de Chastelaine, M., Srokova, S., Monier, S., <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>,
-           &amp; Rugg, M. D. (in press). Effects of age on the strategic control of recollected content as reflected by 
-           modulation of neural correlates of scene retrieval. <i>Neurobiology of Aging</i
-        >. <a
-          href="https://doi.org/10.1016/j.neurobiolaging.2025.06.005"
-          target="_blank"
-          rel="noopener noreferrer">https://doi.org/10.1016/j.neurobiolaging.2025.06.005</a
-        >
-      </div>
-      <div style="margin-bottom: 1em;">
-        Kamhout, S.<sup>†</sup>, <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong><sup>†</sup>,
-        Morris, J., Brimhall, H. R., Black, B. L., Gabrielsen, T. P., South, M.,
-        Lundwall, R. A.<sup>‡</sup>, &amp; Nielsen, J. A.<sup>‡</sup> (2023). Binocular
-        rivalry in autistic and socially anxious adults. <i
-          >Frontiers in Psychiatry</i
-        >, <i>14</i>. <a
-          href="https://doi.org/10.3389/fpsyt.2023.1181797"
-          target="_blank"
-          rel="noopener noreferrer"
-          >https://doi.org/10.3389/fpsyt.2023.1181797</a
-        >
-      </div>
+      <section>
+        <h2>Presentations</h2>
+        <hr />
+        <div>
+          {presentations.map(pres => (
+            <div class="reference-entry">
+              <Fragment set:html={pres.authors.replace(/Doe, J\./g, "<strong>Doe, J.</strong>")} />
+              ({pres.year}, {pres.dateRange}). <i>{pres.name}</i> [{pres.type}]. {pres.conference}, {pres.location}. <a href={pres.url} target="_blank">{pres.url}</a>
+            </div>
+          ))}
+        </div>
+        <div>
+          *Presenter
+        </div>
+      </section>
+
+     <section>
+        <h2>Research Experience</h2>
+        <hr />
+        {researchExperience.map(res => (
+          <div class="section-item item-entry">
+            <div class="item-header">
+              <div><strong>{res.lab}</strong>, {res.institution}</div>
+              <span class="date-range">{formatDate(res.startDate)} – {formatDate(res.endDate)}</span>
+            </div>
+            <div>Mentor: {res.mentor}</div>
+            <div>Title: {res.title}</div>
+            
+            {res.duties && res.duties.length > 0 && ( /* show duties only if listed in cv.json */
+                <div class="indent-item"><i>Duties:</i></div> 
+                <ul class="two-column-list">
+                  {res.duties.map((duty, index) => (
+                    <li key={index}>{duty}</li>
+                  ))}
+                </ul>
+            )}
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Grants &amp; Fellowships</h2>
+        <hr />
+        {grants.map(g => (
+          <div class="section-item item-entry">
+            <div class="item-header">
+              <div><strong>{g.title}</strong>, {g.awarder}</div>
+              <span>{formatDate(g.date)}</span>
+            </div>
+            <div>{g.summary}</div>
+            <div>Award: {g.award}</div>
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Honors &amp; Awards</h2>
+        <hr />
+        {awards.map(a => (
+          <div class="section-item item-entry">
+            <div class="item-header">
+              <div><strong>{a.title}</strong>, {a.awarder}</div>
+              <span>{formatDate(a.date)}</span>
+            </div>
+            <div>{a.summary}</div>
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Professional Affiliations</h2>
+        <hr />
+        {affiliations.map(aff => (
+              <div>{aff.organization}</div>
+        ))}
+      </section>
+
+      <section>
+        <h2>Skills</h2>
+        <hr />
+        <ul>
+          {skills.map(s => (
+            <li key={s.name}>{s.name}</li>
+          ))}
+        </ul>
+      </section>
     </div>
-
-    <p class="footnote">
-      <sup>†</sup>These authors have contributed equally to this work and share
-      first authorship
-    </p>
-    <p class="footnote">
-      <sup>‡</sup>These authors jointly supervised this work and share senior
-      authorship
-    </p>
-  </details>
-
-  <details open>
-    <summary>Poster Presentations</summary>
-    <div style="line-height: 2; margin-left: 4em; text-indent:-4em;">
-      <div style="margin-bottom: 1em;">
-        <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>*, Srokova, S., & Rugg, M. D. (2025,
-        March 29–April 1). <i
-          >Moderating effects of cortical thickness, volume, and memory
-          performance on age differences in neural reinstatement of
-          scene-related information</i
-        >. Cognitive Neuroscience Society, Boston, MA, United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>*, Srokova, S., & Rugg, M. D. (2025,
-        February 20–22). <i
-          >Moderating effects of cortical thickness, volume, and memory
-          performance on age differences in neural reinstatement of
-          scene-related information</i
-        >. Dallas Aging and Cognition Conference, Dallas, TX, United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        de Chastelaine, M.*, Monier, S., <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>,
-        Srokova, S., & Rugg, M. D. (2024, October 5–9). <i
-          >Goal-dependent attenuation of retrieval-related scene reinstatement
-          in young and older adults</i
-        >. Society for Neuroscience, Chicago, IL, United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>*, Srokova, S., & Rugg, M. D. (2023,
-        November 11–15).
-        <i
-          >Moderating effects of cortical volume and thickness on
-          retrieval-related scene reinstatement</i
-        >. Society for Neuroscience, Washington, D.C., United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>*, Srokova, S., & Rugg, M. D. (2022,
-        February 25–27). <i
-          >Age and retrieval-related scene reinstatement: moderating effects of
-          cortical thickness</i
-        >. Dallas Aging and Cognition Conference, Dallas, TX, United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>*, Srokova, S., & Rugg, M. D. (2022,
-        November 12–16). <i
-          >Age and retrieval-related scene reinstatement: moderating effects of
-          cortical thickness</i
-        >. Society for Neuroscience, San Diego, CA, United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>*, Morris, J., Kamhout, S., Black, B.,
-        Wood, H., Brimhall, H., & Nielsen, J. A. (2021, April 8). <i
-          >Autistic traits do not predict binocular rivalry switching rate</i
-        >. Mary Lou Fulton Conference, Provo, UT, United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        Morris, J.*, <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>, Kamhout, S., Brimhall, H.,
-        Wood, H., & Nielsen, J. A. (2021, April 8). <i
-          >Anxious traits in college students do not correlate with visual
-          perception</i
-        >. Mary Lou Fulton Conference, Provo, UT, United States.
-      </div>
-      <div style="margin-bottom: 1em;">
-        Brimhall, H.*, <strong><span style="color: #41ab5d;">Olivier, J. M.</span></strong>, Kamhout. S., Morris, J.,
-        Black, B., Wood, H., Nielsen, J. A. (2021, April 8). <i
-          >Autistic and socially anxious conditions: Changes to visual
-          perception</i
-        >. Mary Lou Fulton Conference, Provo, UT, United States.
-      </div>
-
-      <p class="footnote">*Presenter</p>
-    </div>
-  </details>
-
-  <details open>
-    <summary>Research Experience</summary>
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>April 2024–<br />Present</span>
-      <span
-        ><strong>Functional Neuroimaging of Memory Lab</strong><br />
-        University of Texas at Dallas<br />
-        Mentor: Dr. Michael Rugg, PhD<br />
-        Title: Lab Manager/Research Assistant II<br />
-      </span>
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>June 2021–<br />April 2024</span>
-      <span
-        ><strong>Functional Neuroimaging of Memory Lab</strong><br />
-        University of Texas at Dallas<br />
-        Mentor: Dr. Michael Rugg, PhD<br />
-        Title: Lab Manager/Research Assistant II
-      </span>
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>August 2018–<br />April 2021</span>
-      <span
-        ><strong>Nielsen Brain & Behavior Lab</strong><br />
-        Brigham Young University<br />
-        Mentor: Dr. Jared Nielsen, PhD<br />
-        Title: Research Assistant
-      </span>
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>May 2018–<br />July 2018</span>
-      <span
-        ><strong>Ladle Lab</strong><br />
-        Johns Hopkins University School of Medicine<br />
-        Mentor: Dr. Brian Ladle, MD, PhD<br />
-        Title: Research Assistant/Oncology Staff
-      </span>
-    </p>
-  </details>
-
-  <details open>
-    <summary>Grants & Awards</summary>
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2020 (Spring/Summer Terms)</span>
-      <span
-        ><strong>BYU Psychology Experiential Learning Grant</strong><br
-        />Project: Binocular Rivalry Switch Rate Across a Range of Autistic and
-        Anxious Traits<br />Status: Funded, $1,500</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2020 (Winter Semester)</span>
-      <span
-        ><strong>BYU Psychology Experiential Learning Grant</strong><br
-        />Project: Binocular Rivalry Switch Rate Across a Range of Autistic and
-        Anxious Traits<br />Status: Funded, $1,500</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2019 (Fall Semester)</span>
-      <span
-        ><strong>BYU Psychology Experiential Learning Grant</strong><br
-        />Project: Binocular Rivalry Switch Rate Across a Range of Autistic and
-        Anxious Traits<br />Status: Funded, $1,500</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2017–2019</span>
-      <span
-        ><strong>Academic Half-Tuition Scholarship</strong><br />Brigham Young
-        University</span
-      >
-    </p>
-  </details>
-
-  <details open>
-    <summary>Service & Activities</summary>
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2021–2024</span>
-      <span
-        ><strong>Volunteer Crisis Counselor</strong><br />Crisis Text Line</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2023</span>
-      <span
-        ><strong>Out of the Darkness Community Walk Volunteer </strong><br
-        />American Foundation for Suicide Prevention, Arlington, TX</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2023</span>
-      <span
-        ><strong
-          >Functional Neuroimaging of Memory Lab Community Outreach Presenter
-        </strong><br />Hope for the Caregiver Conference, Prestonwood Baptist
-        Church, Plano, TX</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2019–2021</span>
-      <span
-        ><strong>Part Time Student Secretary</strong><br />Brigham Young
-        University Neuroscience Center</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2020</span>
-      <span
-        ><strong>Undergraduate Journal Editor</strong><br />Chiasm: Brigham
-        Young University Undergraduate Journal of Neuroscience, Volume 12,
-        Provo, UT</span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>2017</span>
-      <span
-        ><strong>English as a Second Language Tutor</strong><br />Brigham Young
-        University International Network of Tutors of Languages, Provo, UT</span
-      >
-    </p>
-  </details>
-
-  <details open>
-    <summary>Academic Affiliations</summary>
-    <ul>
-      <li>Cognitive Neuroscience Society</li>
-      <li>Society for Neuroscience</li>
-      <li>Delta Alpha Pi Honor Society</li>
-    </ul>
-  </details>
-
-  <details open>
-    <summary>Technical Skills</summary>
-    <h3>Software</h3>
-    <ul>
-      <li>R Studio</li>
-      <li>SPSS</li>
-      <li>MATLAB</li>
-      <li>SPM12</li>
-      <li>FreeSurfer</li>
-      <li>PsychoPy</li>
-      <li>Microsoft Excel</li>
-      <li>REDcap</li>
-      <li>Qualtrics</li>
-      <li>Zotero</li>
-    </ul>
-
-    <h3>Programming Languages</h3>
-    <ul>
-      <li>Bash</li>
-      <li>R</li>
-      <li>MATLAB</li>
-      <li>Python</li>
-      <li>JavaScript</li>
-    </ul>
-
-    <h3>Web Development</h3>
-    <ul>
-      <li>HTML</li>
-      <li>CSS</li>
-      <li>React</li>
-      <li>Astro</li>
-    </ul>
-
-    <h3>Neuropsychological Tests Administered</h3>
-    <ul>
-      <li>MMSE</li>
-      <li>CVLT II</li>
-      <li>SDMT</li>
-      <li>Digit Span</li>
-      <li>Trail Making Test</li>
-      <li>Letter Fluency</li>
-      <li>Category Fluency</li>
-      <li>TOPF</li>
-      <li>WMS Logical Memory</li>
-      <li>Raven’s APM</li>
-      <li>BVMT-R</li>
-      <li>HVLT-R</li>
-    </ul>
-  </details>
-
-  <details open>
-    <summary>Languages</summary>
-    
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>English</span>
-      <span><strong>Native speaker</strong></span>
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>Portuguese</span>
-      <span
-        ><strong>Advanced</strong><br /><i
-          >(Awarded Brigham Young University Center for Language Studies
-          Portuguese Language Certificate, Advanced Level)</i
-        ></span
-      >
-    </p>
-
-    <p style="display: grid; grid-template-columns: 1fr 3fr; gap: 0rem;">
-      <span>Spanish</span>
-      <span><strong>Beginner</strong></span>
-    </p>
-  </details>
-
-<script is:inline>
-  const btn   = document.getElementById('toggle-details');
-  const panes = Array.from(document.querySelectorAll('details'));
-
-  function setLabel() {
-    btn.textContent = panes.every(p => !p.open) ? 'Expand All' : 'Collapse All';
-  }
-
-  panes.forEach(p => p.addEventListener('toggle', setLabel));
-  setLabel();
-
-  btn.addEventListener('click', () => {
-    const shouldExpand = panes.every(p => !p.open);
-    panes.forEach(p => (p.open = shouldExpand));
-    setLabel();
-  });
-</script>
-
-<!-- ▼ one‑time styles copied from BlogSorter -->
-<style is:inline>
-  .btncv {
-    padding: 0.6rem 1rem;
-    height: 2.25rem;
-    font-size: 0.75rem;
-    font-family: monospace;
-    text-transform: uppercase;
-    cursor: pointer;
-    background-color: #d9d9d9;
-    color: #000;
-    border: none;
-    border-radius: 1rem;
-    margin-top: 0rem;
-    transition: background-color 0.15s ease-in-out;
-  }
-  .btncv:hover { background-color: #bdbdbd; }
-</style>
-
-
+  </body>
+</html>
+</main>
 </BaseLayout>

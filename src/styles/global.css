@@ -10,56 +10,73 @@
         #ffffff, #f0f0f0, #d9d9d9, #bdbdbd, #969696, #737373, 
         #525252, #252525, #000000 */
 
-    
     html {
-      background-color: #ffffff; 
+      background-color: gray; 
       color: #000000;
-      --text-color: #000000; /* variable for other things to match this colorl; keep same value as color */
-      font-family: Verdana, sans-serif;
-      height: 100%;
+      --text-color: #000000; /* variable for other things to match this color; keep same value as color */
+      font-family: Helvetica, sans-serif;
       margin: 0;
-      padding: 0;
     }
 
     header {
       /* background-color: #ffffe5; Solid off-white for light mode */
       padding: 1rem;
       width: 100%;
-      max-width: 80ch; 
-      margin: 0 auto; /* Center align the header */
-      /* border: 1px solid red;   For visualizing the border; comment out when not needed */
+      max-width: 90ch; 
+      margin: 0 auto; 
     }
-    
-    /* html.dark header {
-      background-color: #252525; 
-    } */
 
     /* for centering page titles, etc */
     .center-title {
       text-align: center;
     }
  
-    html, body {
-      height: 100%; /* Ensures they take full viewport height */
-      margin: 0;
-      /* border: 1px solid red; For visualizing the border; comment out when not needed */
-    }
-    
     body {
+      margin: 0;
+      color: #000000;
       display: flex;
-      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 100vh;
+      background: #d8d7ce;
+    }
+
+    .cv-container {
       width: 100%;
-      max-width: 80ch;
-      margin: 0 auto;
-      line-height: 1.5;
-      word-break: break-word; /* for text that is too long (e.g., long urls), enable word wrapping */
-      overflow-wrap: anywhere; /* for text that is too long (e.g., long urls), enable word wrapping */
+      max-width: 8.5in;
+      padding-top: 1in;
+      padding-left: 1in;
+      padding-right: 1in;
+      padding-bottom: 1in;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .cv-page {
+      font-family: 'Garamond', serif;
+    }
+
+    .cv-page h1, .cv-page h2 {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .cv-page h1 {
+      text-align: center;
+    }
+
+    .cv-page h2 {
+      margin-top: 1.2em;
+      text-transform: uppercase;
     }
     
-
     .page-wrapper {
       display: flex;
       flex-direction: column;
+      width: 90ch;
       min-height: 100vh;
     }
     
@@ -71,23 +88,6 @@
     footer {
       padding: 2rem 0;  /* Padding inside the footer */
     }
-
-    /* styles for summaries (in <summary> tags within <details> tags like on cv.astro */
-    summary {
-      font-size: 1.5rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin: 1em 0;
-    }
-
-    /* Container that wraps everything */
-.main-container {
-  display: flex;
-  justify-content: center;  /* Vertically centers content */
-  align-items: left;      /* Horizontally centers content */
-  height: 100%;             /* Makes the container take full height */
-  flex-direction: column;   /* Stacks elements vertically */
-}
 
 * {
   box-sizing: border-box;
@@ -146,7 +146,7 @@
   text-align: center;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
   color: #252525; /* nav link text color */
@@ -316,7 +316,7 @@ html.dark .nav-links a.home-link:focus {
   border-radius: 1rem;
   padding: .5rem 1rem;
   padding-left: 2.25rem;
-  font-size: 1.25rem;
+  font-size: 1rem;
   border: 1px dashed;
   border-color: #969696;
   position: relative;
@@ -346,7 +346,7 @@ html.dark .tag {
 /* The '#' symbol before the tag */
 .tag::before {
   content: "#";
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-family: monospace;
   position: absolute;
   color: #969696;
@@ -697,3 +697,28 @@ html.lightest a:not(.nav-links a):not(.back-link):visited {
   color: #9900cc;
 }
 
+@media print {
+
+  header {
+    display: none;
+  }
+
+  footer {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 6.5in) {
+  .cv-container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem; /* instead of 1in when screen size is small */
+    padding-right: 1rem; /* instead of 1in when screen size is small */
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+
+  .two-column-list {
+    grid-template-columns: 1fr; /* collapse to single column */
+  }
+}

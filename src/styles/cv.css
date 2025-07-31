@@ -1,0 +1,101 @@
+h1, h2 {
+  margin: 0;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 16pt;
+  text-align: center;
+}
+
+h2 {
+  font-size: 12pt;
+  margin-top: 1.2em;
+  text-transform: uppercase;
+}
+
+.section-item {
+  margin-bottom: 0.6em;
+}
+
+.subhead {
+  font-style: italic;
+}
+
+hr {
+  border: none;
+  border-top: 1pt solid #000;
+  margin: 0em 0 0.6em 0;
+}
+
+.reference-entry {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  text-indent: -1.5rem;
+}
+
+.item-entry {
+  margin-bottom: 1rem;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.date-range {
+  white-space: nowrap;
+  font-weight: normal;
+}
+
+.two-column-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0;
+  list-style: none; /* Remove default bullets */
+}
+
+.two-column-list li::before {
+  content: "•"; /* Add bullet manually */
+  position: absolute;
+  left: 0;
+}
+
+.two-column-list li {
+  position: relative;
+  padding-left: 1em;  /* space for the bullet */
+  margin-left: 1.5em;   /* indent whole block */
+  margin-bottom: 0em;
+}
+
+.indent-item {
+  margin-left: 1.5em; /* indent item */
+  margin-top: 0.5em; /* also increase top margin */
+  margin-bottom: -0.5em; /* also reduce bottom margin */
+}
+
+@media print {
+
+  @page {
+    margin-top: 1in;
+    margin-left: 1in;
+    margin-right: 1in;
+    margin-bottom: 1in;
+  }
+
+  body {
+    background: white;
+  }
+
+  .cv-container {
+    padding: 0in !important;
+    box-shadow: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  a[href]:after {
+    content: '';
+  }
+}
