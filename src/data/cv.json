@@ -4,6 +4,7 @@
     "label": "",
     "image": "",
     "email": "joshuamolivier@gmail.com",
+    "altEmail": "",
     "phone": "",
     "url": "josholivier.com",
     "summary": "",
@@ -30,36 +31,147 @@
       "url": "",
       "area": "Psychology",
       "studyType": "BS",
-      "startDate": "2019-09-05",
+      "startDate": "2017-09-05",
       "endDate": "2021-04-22",
       "score": "",
       "advisor": "",
       "courses": [
-        
+        "Abnormal Psychology",
+        "Psychological Statistics",
+        "Behavioral Neurobiology",
+        "Psychometrics",
+        "Clinical Psychology",
+        "Stress Psychobiology",  
+        "Cognition",
+        "Writing Within Psychology"
       ]
     }
   ],
 
   "publications": [
     {
-      "name": "",
-      "authors": "",
-      "publisher": "",
-      "year": "",
-      "url": "",
+      "name": "Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information",
+      "authors": "Olivier, J. M., Srokova, S., Hill, P. F., & Rugg, M. D.",
+      "publisher": "Cerebral Cortex",
+      "year": "accepted for publication",
+      "url": "https://doi.org/10.1093/cercor/bhaf213",
+      "summary": ""
+    },
+    {
+      "name": "Effects of age on the strategic control of recollected content as reflected by modulation of neural correlates of scene retrieval",
+      "authors": "de Chastelaine, M., Srokova, S., Monier, S., Olivier, J. M., & Rugg, M. D.",
+      "publisher": "Neurobiology of Aging",
+      "year": "in press",
+      "url": "https://doi.org/10.1016/j.neurobiolaging.2025.06.005",
+      "summary": ""
+    },
+    {
+      "name": "Binocular rivalry in autistic and socially anxious adults",
+      "authors": "Kamhout, S.*, Olivier, J. M.*, Morris, J., Brimhall, H. R., Black, B. L., Gabrielsen, T. P., South, M., Lundwall, R. A.**, & Nielsen, J. A.**",
+      "publisher": "Neurobiology of Aging",
+      "year": "2023",
+      "url": "https://doi.org/10.3389/fpsyt.2023.1181797",
       "summary": ""
     }
   ],
 
 "presentations": [
     {
-      "name": "",
-      "authors": "",
-      "type": "",
-      "conference": "",
-      "location": "",
-      "year": "",
-      "dateRange": "",
+      "name": "Moderating effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene-related information",
+      "authors": "Olivier, J. M.*, Srokova, S., & Rugg, M. D.",
+      "type": "Poster presentation",
+      "conference": "Cognitive Neuroscience Society",
+      "location": "Boston, MA, United States",
+      "year": "2025",
+      "dateRange": "March 29–April 1",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Moderating effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene-related information",
+      "authors": "Olivier, J. M.*, Srokova, S., & Rugg, M. D.",
+      "type": "Poster presentation",
+      "conference": "Dallas Aging and Cognition Conference",
+      "location": "Dallas, TX, United States",
+      "year": "2025",
+      "dateRange": "February 20–22",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Goal-dependent attenuation of retrieval-related scene reinstatement in young and older adults",
+      "authors": "de Chastelaine, M.*, Monier, S., Olivier, J. M., Srokova, S., & Rugg, M. D.",
+      "type": "Poster presentation",
+      "conference": "Society for Neuroscience",
+      "location": "Chicago, IL, United States",
+      "year": "2024",
+      "dateRange": "October 5–9",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Moderating effects of cortical volume and thickness on retrieval-related scene reinstatement",
+      "authors": "Olivier, J. M.*, Srokova, S., & Rugg, M. D.",
+      "type": "Poster presentation",
+      "conference": "Society for Neuroscience",
+      "location": "Washington, D.C., United States",
+      "year": "2023",
+      "dateRange": "November 11–15",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Age and retrieval-related scene reinstatement: moderating effects of cortical thickness",
+      "authors": "Olivier, J. M.*, Srokova, S., & Rugg, M. D.",
+      "type": "Poster presentation",
+      "conference": "Dallas Aging and Cognition Conference",
+      "location": "Dallas, TX, United States",
+      "year": "2023",
+      "dateRange": "February 25–27",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Age and retrieval-related scene reinstatement: moderating effects of cortical thickness",
+      "authors": "Olivier, J. M.*, Srokova, S., & Rugg, M. D.",
+      "type": "Poster presentation",
+      "conference": "Society for Neuroscience",
+      "location": "San Diego, CA, United States",
+      "year": "2022",
+      "dateRange": "November 12–16",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Autistic traits do not predict binocular rivalry switching rate",
+      "authors": "Olivier, J. M.*, Morris, J., Kamhout, S., Black, B., Wood, H., Brimhall, H., & Nielsen, J. A.",
+      "type": "Poster presentation",
+      "conference": "Mary Lou Fulton Conference",
+      "location": "Provo, UT, United States",
+      "year": "2021",
+      "dateRange": "April 8",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Anxious traits in college students do not correlate with visual perception",
+      "authors": "Morris, J.*, Olivier, J. M., Kamhout, S., Brimhall, H., Wood, H., & Nielsen, J. A.",
+      "type": "Poster presentation",
+      "conference": "Mary Lou Fulton Conference",
+      "location": "Provo, UT, United States",
+      "year": "2021",
+      "dateRange": "April 8",
+      "url": "",
+      "summary": ""
+    },
+    {
+      "name": "Autistic and socially anxious conditions: Changes to visual perception",
+      "authors": "Brimhall, H.*, Olivier J. M., Kamhout. S., Morris, J., Black, B., Wood, H., Nielsen, J. A.",
+      "type": "Poster presentation",
+      "conference": "Mary Lou Fulton Conference",
+      "location": "Provo, UT, United States",
+      "year": "2021",
+      "dateRange": "April 8",
       "url": "",
       "summary": ""
     }

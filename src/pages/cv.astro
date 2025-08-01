@@ -24,11 +24,16 @@ function formatDateFull(str) {
       <h1>{basics.name}</h1>
       <h2>Personal Information</h2>
       <hr />
-      <div class="section-item">{basics.location.address} <br />
-      {basics.location.city}, {basics.location.postalCode}</div>
+      {basics.location.address && ( /* show address only if listed in cv.json */
+        <div class="section-item">
+          {basics.location.address} <br />
+          {basics.location.city}, {basics.location.postalCode}
+        </div>
+      )}
       <div>{basics.phone}</div>
-      <div>{basics.email}</div>
-      <div>{basics.url}</div>
+      <div>Email: {basics.email}</div>
+      <div>{basics.altEmail}</div>
+      <div>Website: <a href={basics.url} target="_blank">{basics.url}</a></div>
 
       <section>
         <h2>Education</h2>
@@ -36,7 +41,7 @@ function formatDateFull(str) {
         {education.map(ed => (
           <div key={ed.institution} class="section-item item-entry">
             <div class="item-header">
-              <div><strong>{ed.studyType}, {ed.area}</strong>, {ed.institution}</div>
+              <div><strong>{ed.studyType}, {ed.area},</strong> {ed.institution}</div>
               <span class="date-range">{formatDate(ed.startDate)} – {formatDate(ed.endDate)}</span>
             </div>
             {ed.advisor && <div>Advisor: {ed.advisor}</div>} {/* show advisor only if listed in cv.json */}
@@ -58,11 +63,14 @@ function formatDateFull(str) {
         <div>
           {publications.map(pub => (
             <div class="reference-entry">
-              <Fragment set:html={pub.authors.replace(/Doe, J\./g, "<strong>Doe, J.</strong>")} />
-              ({pub.year}). {pub.name}. <em>{pub.publisher}</em>. <a href={pub.url} target="_blank">{pub.url}</a>
+              <Fragment set:html={`${pub.authors.replace(/Olivier, J. M\./g, "<strong>Olivier, J. M.</strong>")}`} />
+              &nbsp;({pub.year}). {pub.name}. <em>{pub.publisher}</em>. 
+              <a href={pub.url} target="_blank">{pub.url}</a>
             </div>
           ))}
         </div>
+        <div>*These authors have contributed equally to this work and share first authorship</div>
+        <div>**These authors jointly supervised this work and share senior authorship</div>
       </section>
 
       <section>
@@ -71,8 +79,13 @@ function formatDateFull(str) {
         <div>
           {presentations.map(pres => (
             <div class="reference-entry">
-              <Fragment set:html={pres.authors.replace(/Doe, J\./g, "<strong>Doe, J.</strong>")} />
-              ({pres.year}, {pres.dateRange}). <i>{pres.name}</i> [{pres.type}]. {pres.conference}, {pres.location}. <a href={pres.url} target="_blank">{pres.url}</a>
+              <Fragment set:html={`
+                ${pres.authors.replace(/Olivier, J. M\./g, "<strong>Olivier, J. M.</strong>")} 
+                (${pres.year}, ${pres.dateRange}). 
+                <i>${pres.name}</i> [${pres.type}]. 
+                ${pres.conference}, ${pres.location}. 
+                <a href="${pres.url}" target="_blank">${pres.url}</a>
+              `} />
             </div>
           ))}
         </div>
