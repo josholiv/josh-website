@@ -3,7 +3,6 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter, readTime } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
-  <a href="/blog" class="back-link">←</a>
   
   <div class="pub-date">
     {frontmatter.pubDate.toLocaleDateString('en-US', { 
@@ -11,10 +10,6 @@ const { frontmatter, readTime } = Astro.props;
       month: 'long', 
       day: 'numeric', 
       timeZone: 'UTC'})}
-  </div>
-
-  <div class="post-author">
-    by {frontmatter.author}
   </div>
 
   <div class="post-read-time">
@@ -33,5 +28,4 @@ const { frontmatter, readTime } = Astro.props;
   </div>
 
   <slot />
-  <a href="/blog" class="back-link">←</a>
 </BaseLayout>

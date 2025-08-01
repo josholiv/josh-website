@@ -11,7 +11,6 @@
         #525252, #252525, #000000 */
 
     html {
-      background-color: gray; 
       color: #000000;
       --text-color: #000000; /* variable for other things to match this color; keep same value as color */
       font-family: Helvetica, sans-serif;
@@ -19,7 +18,6 @@
     }
 
     header {
-      /* background-color: #ffffe5; Solid off-white for light mode */
       padding: 1rem;
       width: 100%;
       max-width: 90ch; 
@@ -38,7 +36,7 @@
       align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
-      background: #d8d7ce;
+      background: #ffffff;
     }
 
     .cv-container {
@@ -94,7 +92,6 @@
 }
 
 /* Link colors (not including nav links and back links) */
-    /* light mode  */
     a:not(.nav-links a):not(.back-link) {
       color: #0077cc; /* Link color */
     }
@@ -105,19 +102,6 @@
 
     a:not(.nav-links a):not(.back-link):visited {
       color: #551A8B; /* Link visited color */
-    }
-
-    /* dark mode */
-    html.dark a:not(.nav-links a):not(.back-link) {
-      color: #addd8e; /* Link color */
-    }
-
-    html.dark a:not(.nav-links a):not(.back-link):hover {
-      color: #d9f0a3; /* Link hover color, flipped for dark mode */
-    }
-
-    html.dark a:not(.nav-links a):not(.back-link):visited {
-      color: #78c679; /* Link visited color, flipped for dark mode */
     }
 
 
@@ -150,24 +134,9 @@
   font-weight: bold;
   text-transform: uppercase;
   color: #252525; /* nav link text color */
-  background-color: #ffffe5; /* Background color */
   border-radius: 1rem; /* Rounded corners */
 }
 
-.nav-links a:hover,
-.nav-links a:focus {
-  background-color: #addd8e; /* nav link hover color */
-}
-
-.dark .nav-links a {
-  color: #ffffe5;
-  background-color: #252525;
-}
-
-html.dark .nav-links a:hover,
-html.dark .nav-links a:focus {
-  background-color: #737373; /* dark mode link hover color */
-}
 
 .expanded {
   display: unset;
@@ -222,14 +191,6 @@ html.dark .nav-links a:focus {
   }
 }
   
-.nav-links a.home-link:hover,
-.nav-links a.home-link:focus {
-  border-color: rgba(255, 255, 255, 0.3);} /* home link hover color */
-
-html.dark .nav-links a.home-link:hover,
-html.dark .nav-links a.home-link:focus {
-  border-color: rgba(255, 255, 255, 0.3);} /* home link hover color */
-
 
   .hamburger {
     display: none;
@@ -339,10 +300,6 @@ a.tag, a.tag:visited {
   background-color: #f0f0f0;     
 }
 
-html.dark .tag {
-  border-color: #969696;
-}
-
 /* The '#' symbol before the tag */
 .tag::before {
   content: "#";
@@ -396,16 +353,11 @@ html.dark .tag {
 }
 
 /* format page nav link of current page */
-    nav a.active, html.dark nav a.active, 
-    html.midnight nav a.active, html.lightest nav a.active {
-      color: #ffffe5; /* Change text color */
+    nav a.active {
+      color: #ffffff; /* Change text color */
       background-color: #41ab5d; /* Background color */
     }
 
-    nav a.active:hover, html.dark nav a.active:hover,
-    html.midnight nav a.active:hover, html.lightest nav a.active:hover {
-      background-color: #addd8e;
-    }
 
     .footnote {
       color: #737373;          /* Make the footnotes gray */
@@ -546,18 +498,6 @@ li.blog-post {
   background-color: #d9f0a3; 
 }
 
-html.lightest .blog-post a:hover {
-  background-color: #f0f0f0; 
-}
-
-html.dark .blog-post a:hover {
-  background-color: #525252; 
-}
-
-html.midnight .blog-post a:hover {
-  background-color: #525252; 
-}
-
 /* BlogSorter component styles, used on blog.astro */
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
@@ -630,72 +570,6 @@ html.midnight .blog-post a:hover {
     font-style: italic;
     color: #969696;
   }
-
-
-/* midnight mode styles */
-html.midnight {
-  color: #ffffff;
-  --text-color: #ffffff; /* variable for other things to match this colorl; keep same value as color */
-  background-color: #000000;
-}
-
-html.midnight body {
-  background-color: #000000;
-}
-
-html.midnight header,
-html.midnight .nav-links a {
-  background-color: #000000;
-  color: #ffffe5;
-}
-
-html.midnight .nav-links a:hover,
-html.midnight .nav-links a:focus {
-  background-color: #737373;
-}
-
-html.midnight a:not(.nav-links a):not(.back-link) {
-  color: #78c679;
-}
-html.midnight a:not(.nav-links a):not(.back-link):hover {
-  color: #addd8e;
-}
-html.midnight a:not(.nav-links a):not(.back-link):visited {
-  color: #41ab5d;
-}
-
-
-/* lightest mode styles */
-html.lightest {
-  color: #000000;
-  --text-color: #000000; /* variable for other things to match this colorl; keep same value as color */
-  background-color: #ffffff;
-}
-
-html.lightest body {
-  background-color: #ffffff;
-}
-
-html.lightest header,
-html.lightest .nav-links a {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-html.lightest .nav-links a:hover,
-html.lightest .nav-links a:focus {
-  background-color: #d9d9d9;
-}
-
-html.lightest a:not(.nav-links a):not(.back-link) {
-  color: #005fa3;
-}
-html.lightest a:not(.nav-links a):not(.back-link):hover {
-  color: #003366;
-}
-html.lightest a:not(.nav-links a):not(.back-link):visited {
-  color: #9900cc;
-}
 
 @media print {
 

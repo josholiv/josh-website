@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [
     preact(),
     expressiveCode({
-      themes: ['kanagawa-dragon'],
+      themes: ['github-light'],
     }),
     mdx()
   ],

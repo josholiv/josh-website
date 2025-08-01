@@ -35,7 +35,7 @@ Here’s a quick preview (showing Magnus Carlsen's stats, not mine 😅):
 
 This function uses ```fetch``` API to get a user's stats from Chess.com. The response includes ratings and game records for various game types like Blitz, Bullet, Rapid, and more.
 
-```tsx title="ChessStats.tsx"
+```tsx wrap title="ChessStats.tsx"
 const fetchChessStats = async (username: string) => {
   const response = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
   return await response.json();
@@ -46,7 +46,7 @@ const fetchChessStats = async (username: string) => {
 
 Here we’re using ```useState``` to store the fetched stats and ```useEffect``` to load them when the component mounts. It’s a pretty standard Preact pattern for loading data on the client side.
 
-```tsx title="ChessStats.tsx"
+```tsx wrap title="ChessStats.tsx"
 const ChessStats: FunctionalComponent = () => {
   const [stats, setStats] = useState<any>(null);
 
@@ -63,7 +63,7 @@ const ChessStats: FunctionalComponent = () => {
 
 The Chess.com API doesn’t directly give you a “total games played” count, so we compute it by summing all wins, losses, and draws across game modes that report a record:
 
-```tsx title="ChessStats.tsx"
+```tsx wrap title="ChessStats.tsx"
 const totalGames = Object.values(stats)
   .filter((mode: any) => mode && mode.record)   
   .reduce((acc: number, mode: any) => {
@@ -82,7 +82,7 @@ Each stat is rendered using this function. It outputs a styled card with:
 
 You can change the card styling and colors easily here.
 
-```tsx title="ChessStats.tsx"
+```tsx wrap title="ChessStats.tsx"
 const formatCard = (
   label: string,
   value: string | number | undefined,
@@ -104,7 +104,7 @@ const formatCard = (
 
 This final section builds the UI. It wraps the stats cards in a flex container with a themed background (a chessboard SVG). Each stat is rendered as a card, and the layout adjusts responsively for different screen sizes:
 
-```tsx title="ChessStats.tsx"
+```tsx wrap title="ChessStats.tsx"
 return (
   <div style={{ display: 'flex', justifyContent: 'center', ... }}>
     <div style={{
@@ -127,14 +127,14 @@ return (
 
 ### 1. Clone the Github repo
 
-```bash title="bash"
+```bash wrap title="bash"
 git clone https://github.com/josholiv/chess-stats-widget.git
 cd chess-stats-widget
 ```
 
 ### 2. Install dependencies and start the dev server
 
-```bash title="bash"
+```bash wrap title="bash"
 npm install
 npm run dev
 ```
@@ -142,7 +142,7 @@ npm run dev
 ### 3. Set your Chess.com username
 Open src/components/ChessStats.tsx and update Magnus Carlsen's username to your own (or any other Chess.com user's username):
 
-```tsx title="ChessStats.tsx"
+```tsx wrap title="ChessStats.tsx"
 const username = 'YourUsernameHere';
 ```
 
