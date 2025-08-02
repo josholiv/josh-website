@@ -101,7 +101,11 @@ function formatDateFull(str) {
           <div class="section-item item-entry">
             <div class="item-header">
               <div><strong>{res.lab}</strong>, {res.institution}</div>
-              <span class="date-range">{formatDate(res.startDate)} – {formatDate(res.endDate)}</span>
+              <span class="date-range">
+                {res.startDate
+                  ? `${formatDate(res.startDate)} – ${res.endDate ? formatDate(res.endDate) : 'Present'}` 
+                  : ''} {/* if startDate contains a date and endDate is blank, show Present as the endDate */}
+              </span>
             </div>
             <div>Mentor: {res.mentor}</div>
             <div>Title: {res.title}</div>
@@ -134,7 +138,7 @@ function formatDateFull(str) {
       </section>
 
       <section>
-        <h2>Honors &amp; Awards</h2>
+        <h2>Honors, Awards &amp; Certificates</h2>
         <hr />
         {awards.map(a => (
           <div class="section-item item-entry">
@@ -151,19 +155,51 @@ function formatDateFull(str) {
         <h2>Professional Affiliations</h2>
         <hr />
         {affiliations.map(aff => (
-              <div>{aff.organization}</div>
+          aff.organization.map(org => (
+            <div>{org}</div>
+          ))
         ))}
       </section>
 
-      <section>
-        <h2>Skills</h2>
-        <hr />
-        <ul>
-          {skills.map(s => (
-            <li key={s.name}>{s.name}</li>
+   <section>
+  <h2>Skills</h2>
+  <hr />
+  {skills.map(skillCategory => {
+    let introText = "";
+
+    switch (skillCategory.category) {
+      case "Software":
+        introText = "Extensive experience with the following software:";
+        break;
+      case "Programming Languages":
+        introText = "Programming experience with the following languages:";
+        break;
+      case "Web Development":
+        introText = "Web development experience with:";
+        break;
+      case "Neuropsychological Tests":
+        introText = "Experience administering the following neuropsychological tests:";
+        break;
+      case "Languages":
+        introText = "Languages spoken:";
+        break;
+      default:
+        introText = "";
+    }
+
+    return (
+      <div class="skill-category">
+        <p>{introText}</p>
+        <ul class="two-column-list">
+          {skillCategory.items.map(item => (
+            <li key={item}>{item}</li>
           ))}
         </ul>
-      </section>
+      </div>
+    );
+  })}
+</section>
+
     </div>
   </body>
 </html>

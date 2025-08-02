@@ -6,7 +6,7 @@
     "email": "joshuamolivier@gmail.com",
     "altEmail": "",
     "phone": "",
-    "url": "josholivier.com",
+    "url": "https://josholivier.com",
     "summary": "",
     "location": 
       {
@@ -179,45 +179,145 @@
 
   "researchExperience": [
     {
-      "lab": "",
-      "institution": "",
-      "mentor": "",
-      "title": "",
-      "startDate": "",
+      "lab": "Functional Neuroimaging of Memory Lab",
+      "institution": "University of Texas at Dallas",
+      "mentor": "Michael Rugg, PhD",
+      "title": "Lab Manager/Research Assistant II",
+      "startDate": "2024-04-15",
       "endDate": "",
       "duties": [
+        "Supervised daily lab operations",
+        "Coordinated research subject recruitment and scheduling",
+        "Managed research data storage, organization, and compliance with security and privacy protocols",
+        "Trained and coordinated with all lab personnel, including postdoc researchers, graduate students, research assistants, and master’s and undergraduate level interns",
+        "Ensured adherence to institutional and federal regulations for human subjects research, including IRB protocol management",
+        "Created and coordinated subject recruitment advertisements on social media platforms and in local news publications",
+        "Acted as liaison between the lab and external departments, collaborators, and organizations",
+        "Managed inventory of lab supplies",
+        "Coordinated lab member travel to international, national, and regional conferences ",
+        "Maintained all responsibilities outlined in the Research Assistant role below"
+      ]
+    },
+     {
+      "lab": "Functional Neuroimaging of Memory Lab",
+      "institution": "University of Texas at Dallas",
+      "mentor": "Michael Rugg, PhD",
+      "title": "Research Assistant I",
+      "startDate": "2021-06-21",
+      "endDate": "2024-04-14",
+      "duties": [
+        "Administered neuropsychological tests",
+        "Collected fMRI and behavioral data",
+        "Presented conference posters",
+        "Processed and analyzed MRI data using MATLAB, SPM12, and FreeSurfer",
+        "Analyzed statistical data using SPSS and R",
+        "Represented lab research at community outreach events"
+      ]
+    },
+     {
+      "lab": "Nielsen Brain & Behavior Lab",
+      "institution": "Brigham Young University",
+      "mentor": "Jared Nielsen, PhD",
+      "title": "Research Assistant",
+      "startDate": "2018-08-31",
+      "endDate": "2021-04-22",
+      "duties": [
+        "Contributed to a peer-reviewed manuscript as a co-first author",
+        "Obtained funding through three undergraduate research grants",
+        "Contributed to an IRB application",
+        "Administered tasks to adult research subjects",
+        "Administered questionnaires using Qualtrics",
+        "Analyzed data using R",
+        "Presented a conference poster",
+        "Quality-checked MRI data using FreeSurfer"
+      ]
+    },
+     {
+      "lab": "Ladle Lab",
+      "institution": "Johns Hopkins University School of Medicine",
+      "mentor": "Brian Ladle, MD, PhD",
+      "title": "Research Assistant/Oncology Staff",
+      "startDate": "05-15-2018",
+      "endDate": "07-15-2018",
+      "duties": [
+        "Conducted cancer treatment research analyzing the effectiveness of histone deacetylase inhibitors on osteosarcoma cells from mice",
+        "Utilized molecular techniques such as DNA and RNA isolation, cDNA, PCR, and qPCR",
+        "Isolated immune tissue from mice tumor samples",
+        "Maintained laboratory records",
+        "Processed and analyzed data"
       ]
     }
   ],
 
   "grants": [
     {
-      "title": "",
-      "date": "",
-      "awarder": "",
-      "award": "",
+      "title": "Psychology Experiential Learning Grant",
+      "date": "April 2020",
+      "awarder": "Brigham Young University",
+      "award": "$1500",
+      "summary": ""
+    },
+    {
+      "title": "Psychology Experiential Learning Grant",
+      "date": "January 2020",
+      "awarder": "Brigham Young University",
+      "award": "$1500",
+      "summary": ""
+    },
+    {
+      "title": "Psychology Experiential Learning Grant",
+      "date": "August 2019",
+      "awarder": "Brigham Young University",
+      "award": "$1500",
       "summary": ""
     }
   ],
 
   "awards": [
     {
-      "title": "",
-      "date": "",
-      "awarder": "",
+      "title": "Portuguese Language Certificate, Advanced Level",
+      "date": "April 2020",
+      "awarder": "Brigham Young University Center for Language Studies",
+      "summary": ""
+    },
+    {
+      "title": "Academic Half-Tuition Scholarship",
+      "date": "August 2017",
+      "awarder": "Brigham Young University",
       "summary": ""
     }
   ],
 
   "affiliations": [
     {
-      "organization": ""
+      "organization": [
+        "Cognitive Neuroscience Society",
+        "Society for Neuroscience",
+        "Delta Alpha Pi Honor Society"
+    ]
     }
   ],
 
-  "skills": [
-    {
-      "name": ""
-    }
-  ]
+"skills": [
+  {
+    "category": "Software",
+    "items": ["R Studio", "SPSS", "MATLAB", "SPM12", "FreeSurfer", "PsychoPy", "Qualtrics", "Zotero", "REDCap", "Excel"]
+  },
+  {
+    "category": "Programming Languages",
+    "items": ["Python", "R", "MATLAB", "JavaScript", "HTML", "CSS"]
+  },
+  {
+    "category": "Web Development",
+    "items": ["Astro", "React", "Preact", "Tailwind CSS", "Markdown", "Git", "Netlify", "Node.js"]
+  },
+  {
+    "category": "Neuropsychological Tests",
+    "items": ["WMS-IV", "CVLT-II", "HVLT-R", "BVMT-R", "MMSE", "SDMT", "Digit Span", "Trail Making Test", "Letter Fluency", "Category Fluency", "TOPF", "Raven's APM"]
+  },
+  {
+    "category": "Languages",
+    "items": ["English (Fluent)", "Portuguese (Fluent)"]
+  }
+]
 }
