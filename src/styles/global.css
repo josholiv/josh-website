@@ -135,7 +135,6 @@
 .nav-links {
     display: none;
     width: 100%;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -145,6 +144,7 @@
 }
 
 .nav-links.expanded a {
+  text-align: left;
   background: linear-gradient(
     90deg,
     #ff0000,
@@ -172,6 +172,12 @@
 .nav-links a:not(:first-child) {
     margin-left: 1rem; 
     padding: 0.6rem;
+}
+
+.nav-links.expanded a:first-child, /* disregard the styles pushing links to the right in the expanded hamburger menu */
+.nav-links.expanded a:not(:first-child) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 .nav-links a {
