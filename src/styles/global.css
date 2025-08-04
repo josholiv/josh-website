@@ -281,7 +281,6 @@
   overflow: hidden;
 }
 
-
 .blog-body-pic-cropped {
   position: absolute;
   top: 0;
@@ -517,11 +516,6 @@ li.blog-post {
   margin-left: -2.5rem;
 }
 
-/* blog post hover effect */
-.blog-post a:hover {
-  background-color: #d9f0a3; 
-}
-
 /* BlogSorter component styles, used on blog.astro */
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
@@ -533,7 +527,6 @@ li.blog-post {
   /* Thumbnail Image on BlogSorter component */
   .blog-thumbnail {
     width: 100%;
-    height: 90px; 
     object-fit: cover; 
     object-position: center;
     border-radius: 1rem 1rem 0 0;
