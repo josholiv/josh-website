@@ -14,6 +14,21 @@ h2 {
   text-transform: uppercase;
 }
 
+.cv-container {
+  position: relative;
+  width: 100%;
+  max-width: 8.5in;
+  padding-top: 1in;
+  padding-left: 1in;
+  padding-right: 1in;
+  padding-bottom: 1in;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 .section-item {
   margin-bottom: 0.6em;
 }
@@ -75,6 +90,20 @@ hr {
   margin-bottom: -0.5em; /* also reduce bottom margin */
 }
 
+.print-button {
+  position: absolute;
+  top: 1rem;  /* distance from top inside the container */
+  right: 1rem; /* distance from right inside the container */
+  padding: 0.5rem 1rem;
+  font-size: 10pt;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 4px;
+}
+
 @media print {
 
   @page {
@@ -97,5 +126,24 @@ hr {
 
   a[href]:after {
     content: '';
+  }
+
+  .print-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 6.5in) {
+  .cv-container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem; /* instead of 1in when screen size is small */
+    padding-right: 1rem; /* instead of 1in when screen size is small */
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+
+  .two-column-list {
+    grid-template-columns: 1fr; /* collapse to single column */
   }
 }

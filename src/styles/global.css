@@ -39,20 +39,6 @@
       background: #ffffff;
     }
 
-    .cv-container {
-      width: 100%;
-      max-width: 8.5in;
-      padding-top: 1in;
-      padding-left: 1in;
-      padding-right: 1in;
-      padding-bottom: 1in;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      box-sizing: border-box;
-      background: white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
     .cv-page {
       font-family: 'Garamond', serif;
     }
@@ -105,19 +91,45 @@
     }
 
 
-/* nav styles */
-.hamburger {
-  padding-right: 20px;
-  cursor: pointer;
-  position: relative;  /* Position the hamburger relative to its container */
+/* Keyframes for flowing rainbow gradient */
+@keyframes rainbowShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
+.hamburger {
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Hamburger Lines with Rainbow Gradient Animation */
 .hamburger .line {
   display: block;
   width: 40px;
   height: 5px;
   margin-bottom: 10px;
-  background-color: #41ab5d; /* hamburger color */
+  border-radius: 5px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff9900,
+    #33cc33,
+    #3399ff,
+    #9933ff,
+    #ff3399
+  );
+  background-size: 300% 300%;
+  background-clip: border-box;
+  -webkit-background-clip: border-box;
+  animation: rainbowShift 8s ease infinite;
+  will-change: background-position;
 }
 
 .nav-links {
@@ -130,6 +142,26 @@
 .nav-links.expanded {
   display: block;
   flex-direction: column;
+}
+
+.nav-links.expanded a {
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff9900,
+    #33cc33,
+    #3399ff,
+    #9933ff,
+    #ff3399
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback */
+  animation: rainbowShift 8s ease infinite;
+  border: 3px solid transparent;
+  border-radius: 1rem;
+  background-color: transparent !important;
 }
 
 .nav-links a:first-child {
@@ -149,12 +181,6 @@
   font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
-  color: #000000; /* nav link text color */
-  border-radius: 1rem; /* Rounded corners */
-}
-
-.expanded {
-  display: unset;
 }
 
 .expanded a {
@@ -173,8 +199,8 @@
     gap: 1rem;
   }
 
-/* Rainbow gradient for "homepage" link */
-.nav-links a.home-link {
+/* Rainbow gradient for navigation links */
+.nav-links a.rainbow-link {
   background: linear-gradient(
     90deg,
     #ff0000,
@@ -193,21 +219,7 @@
   border-radius: 1rem;
   background-color: transparent !important; /* override background from .nav-links a */
 }
-
-/* Rainbow animation */
-@keyframes rainbowShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
   
-
   .hamburger {
     display: none;
   }
@@ -274,7 +286,6 @@
   object-position: center;
   display: block;
 }
-
 
 /* Tag container */
 .tags {
@@ -367,20 +378,12 @@ a.tag, a.tag:visited {
   box-shadow: 0 0 0 2px #addd8e; 
 }
 
-/* format page nav link of current page */
-    nav a.active {
-      color: #ffffff; /* Change text color */
-      background-color: #41ab5d; /* Background color */
-    }
-
-
-    .footnote {
-      color: #737373;          /* Make the footnotes gray */
-      font-style: italic;      /* Keep the italics */
-      font-size: 0.8rem;
-    }
+.footnote {
+  color: #737373;          /* Make the footnotes gray */
+  font-style: italic;      /* Keep the italics */
+  font-size: 0.8rem;
+}
     
-
 /* Universal button style class */
 .btn {
   padding: 1rem 1rem;
@@ -594,20 +597,5 @@ li.blog-post {
 
   footer {
     display: none !important;
-  }
-}
-
-@media screen and (max-width: 6.5in) {
-  .cv-container {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 1rem; /* instead of 1in when screen size is small */
-    padding-right: 1rem; /* instead of 1in when screen size is small */
-    margin-left: 0rem;
-    margin-right: 0rem;
-  }
-
-  .two-column-list {
-    grid-template-columns: 1fr; /* collapse to single column */
   }
 }

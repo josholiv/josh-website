@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import cv from '../data/cv.json';
 import '../styles/cv.css'
 
-const pageTitle = "";
+const pageTitle = "Josh Olivier — CV";
 const { basics, education, publications, presentations, researchExperience, grants, awards, affiliations, skills } = cv;
 
 function formatDate(str) {
@@ -18,9 +18,16 @@ function formatDateFull(str) {
   return d.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 ---
-<BaseLayout pageTitle={pageTitle} shouldCenterTitle={true}>
+<script>
+  document.getElementById('print-button').addEventListener('click', function() {
+    window.print();
+  });
+</script>
+
+<BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
 <main class="cv-page">
  <div class="cv-container">
+  <button id="print-button" class="print-button">Print</button>
       <h1>{basics.name}</h1>
       <h2>Personal Information</h2>
       <hr />
