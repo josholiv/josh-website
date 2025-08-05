@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-4/post-4-08.jpg'
     alt: '3D printed TPU storage box attached to the top tube of my triathlon bike'
-tags: ["triathlon", "cycling", "3Dprinting", "functionalprint"]
+tags: ["triathlon", "3Dprinting"]
 ---
 ## A DIY storage solution
 

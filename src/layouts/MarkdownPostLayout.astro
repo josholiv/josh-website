@@ -3,17 +3,21 @@ import BaseLayout from './BaseLayout.astro';
 const { frontmatter, readTime } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
-  
-  <div class="pub-date">
-    {frontmatter.pubDate.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric', 
-      timeZone: 'UTC'})}
-  </div>
 
-  <div class="post-read-time">
-    {readTime} minute read
+  <div style="margin-bottom: 1em">
+    <span class="pub-date">
+      {frontmatter.pubDate.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        timeZone: 'UTC'})}
+    </span>
+
+    <span>| by {frontmatter.author}</span>
+
+    <span class="post-read-time">
+      | {readTime} minute read
+    </span>
   </div>
 
   <img src={frontmatter.image.url} class="blog-pic" width="100" 
@@ -22,7 +26,7 @@ const { frontmatter, readTime } = Astro.props;
   <div class="tags">
     {frontmatter.tags.map((tag: string) => (
       <a href={`/blog?tag=${tag}`} class="tag" role="button">
-      {tag}
+      #{tag}
      </a>
     ))}
   </div>

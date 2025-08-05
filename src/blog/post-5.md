@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-5/preview.png'
     alt: 'Chess.com stats widget preview'
-tags: ["chess", "widget", "code", "preact"]
+tags: ["chess", "coding"]
 ---
 ## A simple widget for Chess.com stats
 

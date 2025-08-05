@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-2/charger-stand-4.jpg'
     alt: 'Successful print of the charger stand'
-tags: ["3Dprinting", "iPhone", "functionalprint"]
+tags: ["3Dprinting"]
 ---
 ## 3D printed stand for my off-brand charger
 <img src="/images/blog/post-2/charger-stand-1.jpg" alt="iPhone in StandBy mode on a MagSafe charger stand" class="blog-body-pic">

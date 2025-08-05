@@ -256,6 +256,7 @@
   object-fit: cover; 
   display: block;
   margin-bottom: 1rem;
+  border-radius: 10px;
 }
 
 .blog-body-pic {
@@ -264,6 +265,7 @@
   height: auto;
   margin-bottom: 1rem;
   padding: 0rem;
+  border-radius: 10px;
 }
 
 /* To crop blog images with different aspect ratios use these wrappers */
@@ -290,6 +292,7 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  border-radius: 10px;
 }
 
 /* Tag container */
@@ -302,23 +305,16 @@
 
 /* Individual tag styling */
 .tag {
-  margin: 0.25rem;
+  margin: 0rem;
   font-family: monospace;
   color: #41ab5d;
-  border-radius: 1rem;
-  padding: .5rem 1rem;
-  padding-left: 2.25rem;
+  border-radius: 9999px;
+  padding: .5rem .5rem;
   font-size: 1rem;
-  border: 1px dashed;
+  border: 1px solid;
   border-color: #969696;
   position: relative;
   cursor: pointer;
-}
-
-a.tag {
-  text-decoration: none;
-  display: inline-block;
-  color: #41ab5d; /* default color */
 }
 
 a.tag, a.tag:visited {
@@ -329,17 +325,6 @@ a.tag, a.tag:visited {
 
 .tag:hover {
   background-color: #f0f0f0;     
-}
-
-/* The '#' symbol before the tag */
-.tag::before {
-  content: "#";
-  font-size: 1.6rem;
-  font-family: monospace;
-  position: absolute;
-  color: #969696;
-  left: 1rem;
-  bottom: 0rem;
 }
 
 /* Count next to the tag */
@@ -510,40 +495,78 @@ li.blog-post {
 .blog-post a {
   display: block;
   text-decoration: none;
-  border-radius: 1rem;
-  border: 1px dashed;
-  border-color: #41ab5d;
   margin-left: -2.5rem;
 }
 
 /* BlogSorter component styles, used on blog.astro */
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
-    padding: 10px;
+    padding: 0px;
     border-radius: 1rem;
     display: block;
   }
+  
+  .blog-thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 Aspect Ratio (3/4 = 0.75) */
+  overflow: hidden;
+  border-radius: 10px;
+  flex-shrink: 0; /* Prevent from shrinking in flex layout */
+}
 
-  /* Thumbnail Image on BlogSorter component */
-  .blog-thumbnail {
-    width: 100%;
-    object-fit: cover; 
-    object-position: center;
-    border-radius: 1rem 1rem 0 0;
-    margin-bottom: 1rem;
-  }
+.blog-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.show-tags-toggle {
+  position: absolute;
+  margin-right: auto; /* Push everything else to the right */
+}
+
+.blog-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* Mobile: Tags sidebar hidden by default */
+.tags-sidebar {
+  display: none;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Mobile: Show tags when toggled */
+.tags-sidebar.show {
+  display: flex;
+}
+
+.blog-content {
+  width: 100%;
+}
+
 
   /* Title on BlogSorter component */
   .post-title {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: var(--text-color);;
     margin: 0;
   }
 
   /* Title on BlogSorter component when user selects "compact view" */
     .post-title.compact {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   /* Tags on BlogSorter component */
@@ -559,7 +582,7 @@ li.blog-post {
     font-size: 1rem;
     margin-top: 0.5rem;
     font-weight: bold;
-    color: #969696;
+    color: #000000;
   }
 
   /* Author on BlogSorter component */
@@ -573,7 +596,8 @@ li.blog-post {
   /* Description on BlogSorter component */
   .post-description {
     font-size: 1rem;
-    margin-left: 0.5rem;
+    margin-left: 0rem;
+    margin-top: 0.5rem;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
     color: var(--text-color);
@@ -585,7 +609,7 @@ li.blog-post {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
     font-style: italic;
-    color: #969696;
+    color: #000000;
   }
 
 @media print {
@@ -596,5 +620,37 @@ li.blog-post {
 
   footer {
     display: none !important;
+  }
+}
+
+/* Responsive layout for blog post items */
+@media (min-width: 636px) {
+  .blog-post .post-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+@media (min-width: 636px) {
+  .blog-thumbnail-wrapper {
+    width: 200px;
+    padding-top: 150px; /* 200px * 0.75 (for 4:3) */
+  }
+  .blog-thumbnail {
+    border-radius: 10px;
+  }
+}
+
+  .post-title,
+  .post-tags,
+  .pub-date,
+  .post-description {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .post-wrapper .post-text {
+    flex: 1;
   }
 }
