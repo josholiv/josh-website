@@ -1,44 +1,65 @@
 ---
 import Social from './social.astro';
-import Greeting from '../components/Greeting';
 import { Image } from 'astro:assets';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
-
-const messages = ["Olá 🇧🇷!", "Hej 🇸🇪!", "Hallo 🇩🇪!", "Hola 🇪🇸!", "Habari 🇰🇪!", 
-"Hello 🇺🇸!", "Bonjour 🇫🇷!", "こんにちは 🇯🇵!", "你好 🇨🇳!", "Ciao 🇮🇹!", "नमस्ते 🇮🇳!",
-"привіт 🇺🇦!"];
 ---
+
 <style>
   footer {
     display: flex;
-    flex-direction: column; /* Use column layout */
-    align-items: center; /* Center items horizontally */
+    flex-direction: column;
     margin-top: 2rem;
-    text-align: center;
+    background-color: #f0f0f0;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+
+  .footer-top {
+    display: flex; /* side-by-side layout for pic + text */
+    align-items: center; /* vertically center content */
+    padding: 1rem;
   }
 
   .profile-pic {
-    margin-bottom: 1rem; /* Space between the image and greeting */
+    margin-right: 1rem;
+    flex-shrink: 0; /* prevents the image from shrinking */
+    border-radius: 5px;
   }
 
-  .greeting-container {
-    margin-bottom: 1rem; /* Space between the greeting and social links */
-  }
-
-  p {
-    width: 100%; /* Forces text to take full width and move to a new line */
+  .footer-text {
+    flex: 1; /* takes up remaining space */
   }
 
   .social-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 0.5rem;
+    padding: 0 1rem 1rem;
+  }
+
+  /* Optional: responsive stacking on small screens */
+  @media (max-width: 600px) {
+    .footer-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .profile-pic {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
   }
 </style>
 
 <footer>
-  <Image src={joshHeadshot} alt="Josh Olivier" class="profile-pic" />
+  <div class="footer-top">
+    <Image src={joshHeadshot} alt="Josh Olivier" class="profile-pic" />
+    <div class="footer-text">
+      <div>Hi, I'm Josh!</div></br>
+      I'm a research assistant interested in memory, aging, and brain imaging. 
+      Find me elsewhere on the web at the links below!
+    </div>
+  </div>
+
   <div class="social-container">
     <Social platform="bsky.app" username="profile/josholivier.bsky.social" displayName="Bluesky"/>
     <Social platform="www.linkedin.com" username="in/joshua-olivier/" displayName="LinkedIn"/>

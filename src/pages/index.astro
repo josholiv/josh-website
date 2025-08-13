@@ -33,11 +33,12 @@ try {
 ---
 <BaseLayout pageTitle={pageTitle}>
 
-    <div>
-        <div class="typewriter-container">
-            <span id="typewriter"></span>
-        </div>
+   <div class="about-header">
+    <Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
+    <div class="typewriter-container">
+      <span id="typewriter"></span>
     </div>
+  </div>
 
     <script type="module">
         const phrases = [
@@ -89,8 +90,6 @@ try {
             setTimeout(typeEffect, 500);
         });
     </script>
-
-<Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
 
   <h2>About me</h2>
     <p>
