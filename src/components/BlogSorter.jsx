@@ -142,7 +142,7 @@ const BlogSorter = ({ posts }) => {
 
         {sortedPosts.length === 0 && selectedTags.length > 0 && (
           <div>
-            <h3>No posts found with the selected combination of tags.</h3>
+            <h3>No posts found with the selected combination of tags :(</h3>
             <p>Try clearing or changing your selection!</p>
           </div>
         )}

@@ -7,12 +7,21 @@ import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 <style>
   footer {
     display: flex;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     flex-direction: column;
     margin-top: 2rem;
     background-color: #f0f0f0;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
+
+  .footer-inner {
+      max-width: 90ch; /* match main page content width */
+      margin: 0 auto;   /* center it horizontally */
+    }
 
   .footer-top {
     display: flex; /* side-by-side layout for pic + text */
@@ -22,7 +31,8 @@ import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 
   .profile-pic {
     margin-right: 1rem;
-    flex-shrink: 0; /* prevents the image from shrinking */
+    width: 80px;
+    height: auto;
     border-radius: 5px;
   }
 
@@ -37,7 +47,6 @@ import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
     padding: 0 1rem 1rem;
   }
 
-  /* Optional: responsive stacking on small screens */
   @media (max-width: 600px) {
     .footer-top {
       flex-direction: column;
@@ -51,20 +60,23 @@ import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 </style>
 
 <footer>
-  <div class="footer-top">
-    <Image src={joshHeadshot} alt="Josh Olivier" class="profile-pic" />
-    <div class="footer-text">
-      <div>Hi, I'm Josh!</div></br>
-      I'm a research assistant interested in memory, aging, and brain imaging. 
-      Find me elsewhere on the web at the links below!
+  <div class="footer-inner">
+    <div class="footer-top">
+      <Image src={joshHeadshot} alt="Josh Olivier" class="profile-pic" />
+      <div class="footer-text">
+        <div><strong>Hi, I'm Josh Olivier!</strong></div></br>
+        <i>I'm a research assistant interested in memory, aging, and brain imaging. 
+        Find me elsewhere on the web here:</i>
+      </div>
     </div>
-  </div>
 
-  <div class="social-container">
-    <Social platform="bsky.app" username="profile/josholivier.bsky.social" displayName="Bluesky"/>
-    <Social platform="www.linkedin.com" username="in/joshua-olivier/" displayName="LinkedIn"/>
-    <Social platform="github.com" username="josholiv" displayName="GitHub" />
-    <Social platform="thingiverse.com" username="josholiv" displayName="Thingiverse" />
-    <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" displayName="Google Scholar"/>
+    <div class="social-container">
+      <Social platform="bsky.app" username="profile/josholivier.bsky.social" displayName="Bluesky"/>
+      <Social platform="linkedin.com" username="in/joshua-olivier/" displayName="LinkedIn"/>
+      <Social platform="github.com" username="josholiv" displayName="GitHub" />
+      <Social platform="thingiverse.com" username="josholiv" displayName="Thingiverse" />
+      <Social platform="orcid.org/" username="0009-0002-3696-5552" displayName="ORCiD"/>
+      <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" displayName="Google Scholar"/>
+    </div>
   </div>
 </footer>

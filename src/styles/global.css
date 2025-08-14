@@ -69,10 +69,6 @@
       padding: 1rem;
     }
 
-    footer {
-      padding: 2rem 0;  /* Padding inside the footer */
-    }
-
 * {
   box-sizing: border-box;
 }
@@ -267,7 +263,7 @@
   object-fit: cover; 
   display: block;
   margin-bottom: 1rem;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .blog-body-pic {
@@ -276,7 +272,7 @@
   height: auto;
   margin-bottom: 1rem;
   padding: 0rem;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 /* To crop blog images with different aspect ratios use these wrappers */
@@ -303,7 +299,7 @@
   object-fit: cover;
   object-position: center;
   display: block;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 /* Tag container */
@@ -318,12 +314,12 @@
 .tag {
   margin: 0rem;
   font-family: monospace;
-  color: #41ab5d;
+  color: #000000;
   border-radius: 9999px;
   padding: .5rem .5rem;
   font-size: 1rem;
   border: 1px solid;
-  border-color: #969696;
+  border-color: #d9d9d9;
   position: relative;
   cursor: pointer;
 }
@@ -331,7 +327,6 @@
 a.tag, a.tag:visited {
   text-decoration: none;
   display: inline-block;
-  color: #41ab5d !important; /* Force the color to stay green */
 }
 
 .tag:hover {
@@ -340,25 +335,21 @@ a.tag, a.tag:visited {
 
 /* Count next to the tag */
 .tag-count {
-  color: #969696;
+  color: #000000;
   font-size: 1rem;
   margin-left: 0.5rem;
 }
 
 /* Styling for when the tag is active */
 .tag.active {
-  background-color: #41ab5d;
-  color: #000000;
-}
-
-/* Change ::before color when tag is active */
-.tag.active::before {
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
 }
 
 /* Change .tag-count color when tag is active */
 .tag.active .tag-count {
-  color: #000000;
+  color: #ffffff;
 }
 
 
@@ -523,7 +514,7 @@ li.blog-post {
   width: 100%;
   padding-top: 75%; /* 4:3 Aspect Ratio (3/4 = 0.75) */
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 5px;
   flex-shrink: 0; /* Prevent from shrinking in flex layout */
 }
 
@@ -535,7 +526,7 @@ li.blog-post {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .show-tags-toggle {
@@ -650,7 +641,7 @@ li.blog-post {
     padding-top: 150px; /* 200px * 0.75 (for 4:3) */
   }
   .blog-thumbnail {
-    border-radius: 10px;
+    border-radius: 5px;
   }
 }
 
