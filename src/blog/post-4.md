@@ -1,169 +1,64 @@
 ---
-title: 'Building a Chess.com stats widget with Preact'
-pubDate: 2025-05-11
-description: 'I made a widget that fetches and displays your live chess stats using the Chess.com Public API.'
+title: 'Designing and 3D printing a road bike storage compartment'
+pubDate: 2025-05-08
+description: 'I created, printed, and tested a TPU storage box design for my bike to help keep my pockets free during triathlon training and racing.'
 author: 'Josh Olivier'
 image:
-    url: '/images/blog/post-5/preview.png'
-    alt: 'Chess.com stats widget preview'
-tags: ["chess", "code"]
-readTime: '9'
+    url: '/images/blog/post-4/post-4-09.jpg'
+    alt: '3D model of a storage compartment for a road bike'
+tags: ["triathlon", "3Dprinting"]
+readTime: '5'
 ---
-## A simple widget for Chess.com stats
+## A DIY storage solution
+An age-old problem in triathlon racing is finding a way to store things like nutrition and multitools on the bike. Road cyclists can typically store these things in their jersey pockets. While this is possible for triathletes too, it can be inconvenient because the swim comes before the bike leg of the race, and storing nutrition and bike tools in pockets can waste precious time while transitioning to the bike leg during a race. 
 
-When building the [About](https://josholivier.com/about) page of this site, I had the idea to include some of my "stats" from other sites and platforms that I use around the web. As someone who enjoys the occasional online chess match, I naturally landed on the idea of showing off some of my online chess stats (as mediocre as they are). 
+Many triathletes opt to simply tape things directly to the top tube of the bike, but storage boxes (or "bento" boxes) like this one have gotten more popular over the last few years. Naturally, as the owner of a 3D printer, this seemed like a perfect use for 3D printing (as they say, if all you have is a hammer, everything looks like a nail), and I decided to design and print my own storage box instead of shelling out the $30+ required to buy one.   
 
-After some digging, I discovered that, thanks to the [Chess.com Public API](https://www.chess.com/news/view/published-data-api), displaying live stats for any Chess.com user on a webpage is delightfully easy. I decided to make it into a full-on widget that anyone can use. 
+<img src="/images/blog/post-4/post-4-01.jpg" alt="PLA storage box prototype on printer bed" class="blog-body-pic" />
 
-You can [check out my code on GitHub](https://github.com/josholiv/chess-stats-widget), and in this post I'll walk you through how to plug the widget in to your own site or portfolio.
+## Designing & prototyping
+I designed the storage box to be just under the width of my bike's top tube (about 1 5/8 in), and long enough so it sits just behind the head tube, with enough space that it doesn't interfere with steering. I added holes in the bottom (2.5 in apart) so the box attaches to the top tube with the standard M5 bolts that come with the bike. I also added a slight recessed area around each hole on the inside of the storage box to snugly fit the washers, so the box stays firmly in place. I also made the opening of the top of the box one long slit, with the idea that a TPU print would allow the box to easily be opened during a ride, but be firm enough to hold anything stored inside in place. 
 
-## Overview
-The chess stats widget is a responsive, card-style component built with [Preact](https://preactjs.com/), a lightweight React alternative. It pulls your Chess.com stats in real-time and displays:
+I printed a prototype of the box in PLA before trying to print with TPU, since PLA is cheaper and a bit more reliable to print. It came out nicely, but had a small imperfection towards the rear of the print where I had designed the model too thin. It printed beautifully without any supports, which I wanted to avoid because they might be difficult to remove from the inside of the print. 
 
-- Ratings for Bullet, Blitz, Rapid, and Daily games
-- Your Puzzle rating
-- Total games played across all modes
-- A minimalist, chessboard-themed background
-- Color-coded stat cards for easy visual parsing
+<img src="/images/blog/post-4/post-4-02.jpg" alt="PLA storage box prototype underside with screw holes" class="blog-body-pic" />
 
-Here’s a quick preview (showing Magnus Carlsen's stats, not mine 😅):
+## Assembly
+Despite how firm and brittle PLA is, I actually managed to screw the prototype to the top tube of the bike with a hex key, through the slit opening of the box. It looked great, but PLA would be a bad choice of material for the real thing because it isn't flexible and can warp when exposed to sunlight and heat. 
 
-<img src="/images/blog/post-5/preview.png" alt="Chess.com stats widget preview" class="blog-body-pic" />
+<img src="/images/blog/post-4/post-4-03.jpg" alt="PLA prototype attached to bike top tube" class="blog-body-pic" />
 
-## How it works
+## TPU test print
+Next, I did a test print with TPU, which is more flexible and much more durable than PLA. I decided to proceed with this despite the imperfection on the PLA prototype, just to see how it would print with TPU without any supports. The imperfection was a little more pronounced, but overall it printed nearly perfectly!
 
-### Fetching the stats
+<img src="/images/blog/post-4/post-4-04.jpg" alt="First TPU print" class="blog-body-pic">
 
-This function uses ```fetch``` API to get a user's stats from Chess.com. The response includes ratings and game records for various game types like Blitz, Bullet, Rapid, and more.
+I was very satisfied with the stretchiness level. When attached the to the bike, it could be easily stretched open with one hand, but it was firm enough to resume its original shape at rest.
 
-```tsx wrap title="ChessStats.tsx"
-const fetchChessStats = async (username: string) => {
-  const response = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
-  return await response.json();
-};
-```
+<img src="/images/blog/post-4/post-4-05.jpg" alt="Stretching the box opening" class="blog-body-pic">
 
-### Basic setup with Preact
+## Improving the design
 
-Here we’re using ```useState``` to store the fetched stats and ```useEffect``` to load them when the component mounts. It’s a pretty standard Preact pattern for loading data on the client side.
+To fix the imperfection, I made some edits to the model. I added some extra thickness all around, especially to the area that was coming disconnected and leaving a hole during printing. I also took advantage of having to edit the design to make it a little taller and longer for a little more storage space. This new design printed perfectly, and attached to the top tube just as expected! 
 
-```tsx wrap title="ChessStats.tsx"
-const ChessStats: FunctionalComponent = () => {
-  const [stats, setStats] = useState<any>(null);
+<img src="/images/blog/post-4/post-4-06.jpg" alt="Second TPU print" class="blog-body-pic">
 
-  useEffect(() => {
-    const getStats = async () => {
-      const userStats = await fetchChessStats(username);
-      setStats(userStats);
-    };
-    getStats();
-  }, []);
-```
+## Testing on the road!
+I took the storage box out for a test ride, and it did a perfect job keeping my multitool and a granola bar secure! Nothing fell out despite many bumps in the road. It rained a bit on this ride, but there didn't seem to be any issues with the box getting wet (though obviously it doesn't keep its contents dry).
 
-### Calculating total games played
+Overall, I'm very happy with how this came out, and I'll be testing it in a race soon! 
 
-The Chess.com API doesn’t directly give you a “total games played” count, so we compute it by summing all wins, losses, and draws across game modes that report a record:
+<img src="/images/blog/post-4/post-4-07.jpg" alt="Testing the storage box on a ride" class="blog-body-pic">
 
-```tsx wrap title="ChessStats.tsx"
-const totalGames = Object.values(stats)
-  .filter((mode: any) => mode && mode.record)   
-  .reduce((acc: number, mode: any) => {
-    return acc + (mode.record.win || 0) + (mode.record.loss || 0) + (mode.record.draw || 0);
-  }, 0);
-```
+## Grab the file
+Feel free to [download my design from Thingiverse](https://www.thingiverse.com/thing:7032027) and print your own! 
 
-### The ```formatCard()``` helper
+Let me know if you print one—I’d love to see how others use or remix the design!
 
-Each stat is rendered using this function. It outputs a styled card with:
+## Print Settings
+- Printer: Creality Ender-3 V2 Neo
+- Filament: TPU (Polymaker PolyFlex TPU95, orange)
+- Supports: No
+- Rafts: No
 
-- A stat label (e.g., Blitz)
-- The numeric value (e.g., rating)
-- An optional link to learn more about each rating type
-- A customizable background color and emoji
-
-You can change the card styling and colors easily here.
-
-```tsx wrap title="ChessStats.tsx"
-const formatCard = (
-  label: string,
-  value: string | number | undefined,
-  href?: string,
-  color?: string,
-  emoji?: string
-) => (
-  <div style={{ ... }}>
-    <div style={{ backgroundColor: color || '#252525', ... }}>
-      <strong>{value ?? '–'}</strong>
-      <div>{href ? <a href={href}> {label} </a> : label}</div>
-      <div>{emoji}</div>
-    </div>
-  </div>
-);
-```
-
-### Putting it all together
-
-This final section builds the UI. It wraps the stats cards in a flex container with a themed background (a chessboard SVG). Each stat is rendered as a card, and the layout adjusts responsively for different screen sizes:
-
-```tsx wrap title="ChessStats.tsx"
-return (
-  <div style={{ display: 'flex', justifyContent: 'center', ... }}>
-    <div style={{
-      backgroundImage: `url(${chessboard})`,
-      backgroundSize: 'cover',
-      ...
-    }}>
-      <p>My current <strong>Chess.com</strong> stats are:</p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', ... }}>
-        {formatCard('Games', totalGames, undefined, '#c2185b', '♟️')}
-        {formatCard('Bullet', stats.chess_bullet?.last?.rating, ..., '#f200ff', '♟️💨')}
-        ...
-      </div>
-    </div>
-  </div>
-);
-```
-
-## How to install and run the widget
-
-### 1. Clone the Github repo
-
-```bash wrap title="bash"
-git clone https://github.com/josholiv/chess-stats-widget.git
-cd chess-stats-widget
-```
-
-### 2. Install dependencies and start the dev server
-
-```bash wrap title="bash"
-npm install
-npm run dev
-```
-
-### 3. Set your Chess.com username
-Open src/components/ChessStats.tsx and update Magnus Carlsen's username to your own (or any other Chess.com user's username):
-
-```tsx wrap title="ChessStats.tsx"
-const username = 'YourUsernameHere';
-```
-
-That's it! You should now see the widget update with your current Chess.com stats (or the stats of whoever's username you put). If you want to customize the widget further, you can follow the next steps. 
-
-## Customization
-
-You can personalize the look and feel of the widget by tweaking the ```formatCard()``` function. Here’s what you can customize:
-
-- Stat Labels — Change emojis or rename cards
-- Card Colors — Adjust the background colors for each stat
-- External Links — Add info links to explain game types
-- Background Image — Swap out chessboard.svg with your own SVG or image file
-
-To change the background, modify this line:
-
-```tsx title="ChessStats.tsx"
-const chessboard = '/chessboard.svg';
-```
-
-## Use it anywhere! 
-
-Feel free to fork this project on Github and integrate it into your own web project, and let me know if you build something cool with it!
+<img src="/images/blog/post-4/post-4-08.jpg" alt="3D printed TPU storage box attached to the top tube of my triathlon bike" class="blog-body-pic">
