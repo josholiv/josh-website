@@ -1,6 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-const { frontmatter, readTime } = Astro.props;
+const { frontmatter } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
 
@@ -16,13 +16,13 @@ const { frontmatter, readTime } = Astro.props;
     <span>| by {frontmatter.author}</span>
 
     <span class="post-read-time">
-      | {readTime} minute read
+      | {frontmatter.readTime} minute read
     </span>
   </div>
 
   <img src={frontmatter.image.url} class="blog-pic" width="100" 
     alt={frontmatter.image.alt} />
-    
+
   <div class="tags">
     {frontmatter.tags.map((tag: string) => (
       <a href={`/blog?tag=${tag}`} class="tag" role="button">

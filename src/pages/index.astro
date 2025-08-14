@@ -7,7 +7,7 @@ import TriathlonStats from '../components/TriathlonStats.jsx';
 import { Image } from 'astro:assets';
 import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 
-const pageTitle = "Hi, I'm Josh Olivier!";
+const pageTitle = "Hi, I'm Josh!";
 const identity = {
   firstName: "Josh",
   country: "United States 🇺🇸",
@@ -31,7 +31,9 @@ try {
   }
 }
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
+
+  <h1>Hi, I'm Josh Olivier!</h1>
 
    <div class="about-header">
     <Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />

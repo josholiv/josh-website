@@ -1,5 +1,5 @@
 ---
-title: 'Intro: Welcome to my blog!'
+title: 'Welcome to my blog!'
 pubDate: 2025-04-01
 description: 'A brief introduction to my blog and the topics I plan to explore—from neuroscience and coding to hobbies like triathlon and 3D printing.'
 author: 'Josh Olivier'
@@ -7,6 +7,7 @@ image:
     url: '/images/blog/post-1/black-sand-beach.jpg'
     alt: 'Me at Punaluʻu Black Sand Beach, Hawaii'
 tags: ["blogging", "astro"]
+readTime: '3'
 ---
 ## Hello, my name is Josh! But I'd be surprised 
 if you didn't know that already, given the site you're on (though if you somehow, inexplicably, got super lost while surfing the righteous and gnarly waves of the world wide web 🤙 and unwittingly washed up on my site before knowing my name, check out my [About](https://josholivier.com/about) page). 

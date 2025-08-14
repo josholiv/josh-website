@@ -2,7 +2,9 @@ import { useState, useEffect } from 'preact/hooks';
 
 const BlogSorter = ({ posts }) => {
   const [sortOrder, setSortOrder] = useState('newest');
-  const [sortedPosts, setSortedPosts] = useState(posts);
+  const [sortedPosts, setSortedPosts] = useState(() => {
+  return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+});
   const [hoveredSelect, setHoveredSelect] = useState(false);
   const [hoveredClearTags, setHoveredClearTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -135,7 +137,7 @@ const BlogSorter = ({ posts }) => {
               onMouseEnter={() => setHoveredClearTags(true)}
               onMouseLeave={() => setHoveredClearTags(false)}
             >
-              ✖ Clear Tags
+              ✖ Clear
             </button>
           </p>
         )}
@@ -162,18 +164,22 @@ const BlogSorter = ({ posts }) => {
                     </div>
                   )}
                   <div class="post-text">
-                    <p class="post-title">
+                    <h2 class="post-title">
                       {post.data.title}
-                    </p>
+                    </h2>
 
-                    <div className="pub-date">
+                    <span className="pub-date">
                       {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
                         timeZone: 'UTC',
                       })}
-                    </div>
+                    </span>
+
+                    <span className="post-author"> | by {post.data.author}</span>
+
+                    <span className="post-read-time"> | {post.data.readTime} minute read</span>
 
                     <div className="post-description">
                       {post.data.description}
