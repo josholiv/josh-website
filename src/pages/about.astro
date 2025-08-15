@@ -4,17 +4,9 @@ import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
 import TriathlonStats from '../components/TriathlonStats.jsx';
-import { Image } from 'astro:assets';
-import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 
 const pageTitle = "Josh Olivier — About";
-const identity = {
-  firstName: "Josh",
-  country: "United States",
-  occupation: "lab manager",
-  hobbies: ["Triathlons", "Chess", "3D printing", "Yoyos", "Tereré 🧉"],
-	};
-const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
+
 const currentYear = new Date().getFullYear();
 
 // Display error message if Strava API messes up
@@ -35,8 +27,7 @@ try {
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
   <h1>About me</h1>
     <p>
-      I live in the {identity.country} and work as {identity.occupation} of the Functional Neuroimaging 
-      of Memory Lab at the University of Texas at Dallas. 
+      My name is Josh Olivier, and I'm a lab manager in a neuroimaging research lab in Dallas, Texas.
     </p>
 
     <p>
@@ -51,15 +42,9 @@ try {
       açaí, tacacá, and tambaqui. I'm currently working on learning Spanish.
     </p>
 
-<h2>My hobbies</h2>
-
-<p>Some things I love are:</p>
-
-<ul>
-  {identity.hobbies.map(hobby => (
-    <li>{hobby}</li>
-  ))}
-</ul>
+    <p>
+      I also love training for triathlons, fiddling with my 3D printer, and drinking tereré (cold yerba mate). 
+    </p>
 
 	<TriathlonStats client:load data={data} error={error} />
 	    <ErrorRenderer error={error} />

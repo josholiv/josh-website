@@ -34,24 +34,25 @@ const TriathlonStats = ({ data, error }) => {
 
   const formatCard = (label, value, color) => (
     <div style={{
-      background: color,
-      padding: '0.5rem 0.8rem',
-      borderRadius: '1rem', 
-      border: 'solid',
+      color: color,
+      padding: '0.2rem 0.5rem',
+      borderRadius: '5px', 
+      border: '2px solid',
       display: 'inline-flex',
       flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: '#ffffff',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
       fontSize: '1.5rem',
-      textAlign: 'center',
+      textAlign: 'left',
       minWidth: '8rem', 
       minHeight: '4rem', 
     }}>
+      <div style={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '0.3rem' }}>
+        {label}
+      </div>
       <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
         {value ?? '–'}
       </div>
-      <div>{label}</div>
     </div>
   );
   
@@ -59,42 +60,39 @@ const TriathlonStats = ({ data, error }) => {
   // Helper to format the number + unit nicely
   const getFormattedValue = (distanceMi, distanceKm) => {
     if (unit === "miles") {
-      return (<>{formatNumber(distanceMi)}<br />mi</>);
+      return (<>{formatNumber(distanceMi)}<br /></>);
     } else if (unit === "km") {
-      return (<>{formatNumber(distanceKm)}<br />km</>);
+      return (<>{formatNumber(distanceKm)}<br /></>);
     } else if (unit === "fields") {
-      return (<>{formatNumber(convertToFields(distanceKm * 1000))}<br />🏈</>);
+      return (<>{formatNumber(convertToFields(distanceKm * 1000))}<br /></>);
     } else {
-      return (<>{convertToMoonPercentage(distanceKm)}<br />🚀</>);
+      return (<>{convertToMoonPercentage(distanceKm)}<br /></>);
     }
   };
 
   return (
     <div style={{ padding: '0rem', borderRadius: '1rem', position: 'relative' }}>
-      {/* Orange Background */}
       <div style={{
-        backgroundColor: '#ff7032',
-        padding: '2rem',
-        borderRadius: '1rem',
+        padding: '0rem',
         position: 'relative',
       }}>
-      <div style={{ marginBottom: '2rem', textAlign: 'left', color: "#ffffff" }}>
+      <div style={{ marginBottom: '2rem', textAlign: 'left', color: "#000000" }}>
   <p>
     In <strong>{new Date().getFullYear()}</strong>, I’ve covered the following distances*{" "}
     <span style={{
-      backgroundColor: "#0099cc",
+      backgroundColor: "#3399ff",
       padding: "0.2rem 0.4rem",
-      borderRadius: "0.5rem"
+      borderRadius: "5px"
     }}>swimming</span>,{" "}
     <span style={{
-      backgroundColor: "#41ab5d",
+      backgroundColor: "#33cc33",
       padding: "0.2rem 0.4rem",
-      borderRadius: "0.5rem"
+      borderRadius: "5px"
     }}>biking</span>, and{" "}
     <span style={{
-      backgroundColor: "#ffaa00",
+      backgroundColor: "#ff9900",
       padding: "0.2rem 0.4rem",
-      borderRadius: "0.5rem"
+      borderRadius: "5px"
     }}>running</span>:
   </p>
 </div>
@@ -103,79 +101,35 @@ const TriathlonStats = ({ data, error }) => {
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: '0.5rem',
+          justifyContent: 'left',
+          gap: '1rem',
           marginTop: '-0.5rem',
           }}>
-          {formatCard('🏊', getFormattedValue(swimDistanceMi, swimDistanceKm), '#0099cc')}
-          {formatCard('🚴‍♂️', getFormattedValue(rideDistanceMi, rideDistanceKm), '#41ab5d')}
-          {formatCard('🏃‍♂️', getFormattedValue(runDistanceMi, runDistanceKm), '#ffaa00')}
+          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), '#3399ff')}
+          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), '#33cc33')}
+          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), '#ff9900')}
         </div>
 
-        <div style={{ marginTop: '1rem', textAlign: 'center' }}> 
+        <div style={{ marginTop: '1rem', textAlign: 'left' }}> 
           <span style={{
             fontFamily: "monospace",
-            border: 'solid',
-            backgroundColor: '#ffffff',
-            borderColor: '#ffffff',
-            color: "#ff7032",
-            fontSize: '1.2rem',
+            fontSize: '1rem',
             fontWeight: 'bold',
             padding: "0.2rem 0.4rem",
-            borderRadius: "1rem",
             display: 'inline-block'
           }}>
             {unit === "miles" ? "miles" :
             unit === "km" ? "kilometers" :
-            unit === "fields" ? "American football fields 🏈" :
-            "% distance to the Moon 🚀"}
+            unit === "fields" ? "American football fields" :
+            "% distance to the Moon"}
           </span>
         </div>
 
-        <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+        <div style={{ marginTop: '1rem', textAlign: 'left' }}>
           <button onClick={toggleUnit} className="btn">Change Unit of Measure</button>
         </div>
 
-        {/* Relative Distance Bar */}
-        <div style={{
-          marginTop: '2rem',
-          height: '2rem',
-          width: '100%',
-          border: 'solid',
-          borderColor: '#ffffff',
-          display: 'flex',
-          overflow: 'hidden',
-          backgroundColor: 'transparent',
-          borderRadius: '1rem',
-        }}> 
-           <div style={{
-            width: `${runPercent}%`,
-            backgroundColor: '#ffaa00',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            🏃‍♂️
-          </div>
-          <div style={{
-            width: `${ridePercent}%`,
-            backgroundColor: '#41ab5d',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            🚴‍♂️
-          </div>
-            <div style={{
-            width: `${swimPercent}%`,
-            backgroundColor: '#0099cc',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            🏊
-          </div>
-        </div>
+   
       </div>
     </div>
   );

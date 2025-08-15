@@ -1,6 +1,4 @@
 import axios from "axios"
-import cheerio from "cheerio"
-import { find, get } from "lodash-es"
 
 const env = import.meta.env
 
