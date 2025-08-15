@@ -1,5 +1,5 @@
 ---
-title: 'Building a Chess.com stats widget with Preact'
+title: 'Building a chess stats widget with Preact'
 pubDate: 2025-05-11
 description: 'I made a widget that fetches and displays your live chess stats using the Chess.com Public API.'
 author: 'Josh Olivier'

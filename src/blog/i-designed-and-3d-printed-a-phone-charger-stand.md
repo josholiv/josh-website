@@ -1,5 +1,5 @@
 ---
-title: 'I designed and 3D printed a wireless phone charger stand'
+title: 'I designed and 3D printed a phone charger stand'
 pubDate: 2025-04-06
 description: 'After a few failed prints and some design tweaks,  I ended up with a stable, functional charger stand that works perfectly with the iPhone’s StandBy mode.'
 author: 'Josh Olivier'

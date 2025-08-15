@@ -6,10 +6,10 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-1/black-sand-beach.jpg'
     alt: 'Me at Punaluʻu Black Sand Beach, Hawaii'
-tags: ["blogging", "astro"]
+tags: ["blogging"]
 readTime: '3'
 ---
-## Hello, my name is Josh! But I'd be surprised 
+## Hello, my name is Josh! But I'd be surprised
 if you didn't know that already, given the site you're on (though if you somehow, inexplicably, got super lost while surfing the righteous and gnarly waves of the world wide web 🤙 and unwittingly washed up on my site before knowing my name, check out my [About](https://josholivier.com/about) page). 
 
 First and foremost, I hope you enjoy this photo of me holding a chicken:

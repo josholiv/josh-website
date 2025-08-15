@@ -35,19 +35,14 @@ const TriathlonStats = ({ data, error }) => {
   const formatCard = (label, value, color) => (
     <div style={{
       color: color,
-      padding: '0.2rem 0.5rem',
-      borderRadius: '5px', 
-      border: '2px solid',
+      padding: '0',
       display: 'inline-flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
-      fontSize: '1.5rem',
       textAlign: 'left',
-      minWidth: '8rem', 
-      minHeight: '4rem', 
     }}>
-      <div style={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '0.3rem' }}>
+      <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
         {label}
       </div>
       <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
@@ -71,31 +66,16 @@ const TriathlonStats = ({ data, error }) => {
   };
 
   return (
-    <div style={{ padding: '0rem', borderRadius: '1rem', position: 'relative' }}>
+    <div style={{position: 'relative' }}>
       <div style={{
-        padding: '0rem',
+        padding: '1rem',
+        backgroundColor: '#f0f0f0',
+        borderRadius: '5px',
         position: 'relative',
       }}>
-      <div style={{ marginBottom: '2rem', textAlign: 'left', color: "#000000" }}>
-  <p>
-    In <strong>{new Date().getFullYear()}</strong>, I’ve covered the following distances*{" "}
-    <span style={{
-      backgroundColor: "#3399ff",
-      padding: "0.2rem 0.4rem",
-      borderRadius: "5px"
-    }}>swimming</span>,{" "}
-    <span style={{
-      backgroundColor: "#33cc33",
-      padding: "0.2rem 0.4rem",
-      borderRadius: "5px"
-    }}>biking</span>, and{" "}
-    <span style={{
-      backgroundColor: "#ff9900",
-      padding: "0.2rem 0.4rem",
-      borderRadius: "5px"
-    }}>running</span>:
-  </p>
-</div>
+      <div style={{textAlign: 'left', color: "#000000" }}>
+ 
+    </div>
 
         {/* Stats Cards */}
         <div style={{
@@ -103,25 +83,21 @@ const TriathlonStats = ({ data, error }) => {
           flexWrap: 'wrap',
           justifyContent: 'left',
           gap: '1rem',
-          marginTop: '-0.5rem',
           }}>
           {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), '#3399ff')}
           {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), '#33cc33')}
           {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), '#ff9900')}
         </div>
 
-        <div style={{ marginTop: '1rem', textAlign: 'left' }}> 
+        <div style={{ marginTop: '0.5rem', textAlign: 'left' }}> 
           <span style={{
-            fontFamily: "monospace",
-            fontSize: '1rem',
-            fontWeight: 'bold',
-            padding: "0.2rem 0.4rem",
+            padding: "0.2rem 0rem",
             display: 'inline-block'
           }}>
             {unit === "miles" ? "miles" :
             unit === "km" ? "kilometers" :
             unit === "fields" ? "American football fields" :
-            "% distance to the Moon"}
+            "of the distance from Earth to the Moon"}
           </span>
         </div>
 
@@ -129,7 +105,6 @@ const TriathlonStats = ({ data, error }) => {
           <button onClick={toggleUnit} className="btn">Change Unit of Measure</button>
         </div>
 
-   
       </div>
     </div>
   );

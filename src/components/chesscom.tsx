@@ -34,105 +34,51 @@ const ChessStats: FunctionalComponent = () => {
   const formatCard = (
     label: string,
     value: string | number | undefined,
-    href?: string,
     color?: string,
-    emoji?: string
   ) => (
-    <div style={{ flex: '1 1 calc(50% - 0.5rem)', minWidth: '6rem', maxWidth: '8rem' }}>
-      <div style={{
-        backgroundColor: color || '#252525',
-        border: 'solid',
-        borderColor: '#ffffff',
-        padding: '0.5rem 0.8rem',
-        borderRadius: '1rem',
-        color: '#ffffff',
-        textAlign: 'center',
-      }}>
-        <strong style={{ fontSize: '1.5rem' }}>{value ?? '–'}</strong><br />
-        <div style={{ marginBottom: '0.1rem' }}>
-          {href ? (
-            <a href={href} target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', textDecoration: 'underline' }}>
-              {label}
-            </a>
-          ) : label}
+    <div style={{
+      color: color,
+      padding: '0',
+      display: 'inline-flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      textAlign: 'left',
+    }}>
+        <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
+          {label}
         </div>
-        <div style={{ fontSize: '1.2rem' }}>{emoji}</div>
+        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+          {value ?? '–'}
+        </div>
       </div>
-    </div>
   );
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '0rem',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          padding: '2rem',
-          borderRadius: '1rem',
-          color: '#ffffff',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          overflow: 'hidden',
-          textAlign: 'center',
-          backgroundImage: `url(${chessboard})`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <p style={{
-          textAlign: 'left',
-          alignSelf: 'flex-start',
-          backgroundColor: '#4E7837',
-          padding: '0.2rem 0.5rem',
-          borderRadius: '0.5rem',
-          color: '#ffffff',
-        }}>
-          My <strong>current</strong> chess stats and ratings<sup>†</sup> are:
-        </p>
-
-        {/* Card rows */}
+         <div style={{position: 'relative' }}>
+      <div style={{
+        padding: '1rem',
+        backgroundColor: '#f0f0f0',
+        borderRadius: '5px',
+        position: 'relative',
+      }}>
+      <div style={{textAlign: 'left', color: "#000000" }}>
+ 
+</div>
+      
+      {/* Card rows */}
         <div style={{
           display: 'flex',
-          gap: '1rem',
           flexWrap: 'wrap',
-          justifyContent: 'center',
-          marginTop: '0rem',
-          maxWidth: '500px',
-          fontSize: '1.2rem',
-          fontWeight: 'bold',
-        }}>
-          {formatCard('Games', totalGames, undefined, '#c2185b', '♟️')}
-          {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'https://www.chess.com/terms/bullet-chess', '#f200ff', '♟️💨')}
-          {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'https://www.chess.com/terms/blitz-chess', '#9b4dca', '⚡')}
-          {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'https://www.chess.com/terms/rapid-chess', '#5c6bc0', '⏱️')}
-          {formatCard('Daily', stats.chess_daily?.last?.rating, '', '#00acc1', '☀️')}
-          {formatCard('Puzzles', stats.tactics?.highest?.rating, '', '#ff9800', '🧩')}
-        </div>
-
-        <div className="btn" style={{ marginTop: '0.5rem', textAlign: 'center' }}>
-          <a
-            href="https://link.chess.com/friend/Py1tup"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: '#000000',
-              textDecoration: 'none',
-            }}
-          >
-            ♟️ Play me in chess!
-          </a>
+          justifyContent: 'left',
+          gap: '1rem',
+          }}>
+          {formatCard('Bullet', stats.chess_bullet?.last?.rating, '#ff0000')}
+          {formatCard('Blitz', stats.chess_blitz?.last?.rating, '#ff3399')}
+          {formatCard('Rapid', stats.chess_rapid?.last?.rating, '#9933ff')}
         </div>
       </div>
-    </div>
+      </div>
   );
 };
 

@@ -191,7 +191,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
             </li>
           ))}
         </ul>
-
       </div>
     </div>
   );
