@@ -35,15 +35,17 @@ const ChessStats: FunctionalComponent = () => {
     label: string,
     value: string | number | undefined,
     color?: string,
+    isLast: boolean
   ) => (
     <div style={{
       color: color,
-      padding: '0',
+      padding: '0rem 1rem 0rem 0rem',
       display: 'inline-flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       textAlign: 'left',
+      borderRight: isLast ? 'none' : '1px solid #d9d9d9',
     }}>
         <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
           {label}
@@ -73,9 +75,9 @@ const ChessStats: FunctionalComponent = () => {
           justifyContent: 'left',
           gap: '1rem',
           }}>
-          {formatCard('Bullet', stats.chess_bullet?.last?.rating, '#ff0000')}
-          {formatCard('Blitz', stats.chess_blitz?.last?.rating, '#ff3399')}
-          {formatCard('Rapid', stats.chess_rapid?.last?.rating, '#9933ff')}
+          {formatCard('Bullet', stats.chess_bullet?.last?.rating, '#ff0000', false)}
+          {formatCard('Blitz', stats.chess_blitz?.last?.rating, '#ff3399', false)}
+          {formatCard('Rapid', stats.chess_rapid?.last?.rating, '#9933ff', true)}
         </div>
       </div>
       </div>

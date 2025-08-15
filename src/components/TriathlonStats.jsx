@@ -32,15 +32,16 @@ const TriathlonStats = ({ data, error }) => {
   const ridePercent = totalDistance ? (rideDistanceKm / totalDistance) * 100 : 0;
   const runPercent = totalDistance ? (runDistanceKm / totalDistance) * 100 : 0;
 
-  const formatCard = (label, value, color) => (
+  const formatCard = (label, value, color, isLast) => (
     <div style={{
       color: color,
-      padding: '0',
+      padding: '0rem 1rem 0rem 0rem',
       display: 'inline-flex',
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       textAlign: 'left',
+      borderRight: isLast ? 'none' : '1px solid #d9d9d9',
     }}>
       <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
         {label}
@@ -51,7 +52,6 @@ const TriathlonStats = ({ data, error }) => {
     </div>
   );
   
-
   // Helper to format the number + unit nicely
   const getFormattedValue = (distanceMi, distanceKm) => {
     if (unit === "miles") {
@@ -84,9 +84,9 @@ const TriathlonStats = ({ data, error }) => {
           justifyContent: 'left',
           gap: '1rem',
           }}>
-          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), '#3399ff')}
-          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), '#33cc33')}
-          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), '#ff9900')}
+          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), '#3399ff', false)}
+          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), '#33cc33', false)}
+          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), '#ff9900', true)}
         </div>
 
         <div style={{ marginTop: '0.5rem', textAlign: 'left' }}> 
