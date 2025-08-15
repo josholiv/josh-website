@@ -177,9 +177,14 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                         timeZone: 'UTC',
                       })}
                     </span>
-                    <span className="post-author"> | by {post.data.author}</span>
-                    <span className="post-read-time"> | {post.data.readTime} minute read</span>
-                    <div className="post-description">{post.data.description}</div>
+
+                    <span className="post-author"> | by {post.data.author} |</span>
+
+                    <span className="post-read-time"> {post.data.readTime} minute read</span>
+
+                    <div className="post-description">
+                      {post.data.description}
+                    </div>
                   </div>
                 </div>
               </a>
