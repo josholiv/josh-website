@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'preact/hooks';
 
-const BlogSorter = ({ posts }) => {
+const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [sortedPosts, setSortedPosts] = useState(() => {
-  return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
-});
+    // Initially sort posts by pubDate
+    return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+  });
+
   const [hoveredSelect, setHoveredSelect] = useState(false);
   const [hoveredClearTags, setHoveredClearTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [showTags, setShowTags] = useState(false); // Tags toggled on mobile only
+  const [showTagsSidebar, setShowTagsSidebar] = useState(false);
 
   const baseButtonStyle = {
     padding: '0.6rem 1rem',
@@ -29,89 +31,89 @@ const BlogSorter = ({ posts }) => {
     backgroundColor: isHovered ? '#bdbdbd' : '#d9d9d9',
   });
 
+  // Check for tag from URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tagFromUrl = urlParams.get('tag');
-    if (tagFromUrl) {
-      setSelectedTags([tagFromUrl]);
-    } else {
-      setSelectedTags([]);
-    }
+    if (tagFromUrl) setSelectedTags([tagFromUrl]);
+    else setSelectedTags([]);
   }, []);
 
+  // Filter and sort posts whenever sort order, selected tags, or posts change
   useEffect(() => {
-    const filteredPosts = posts.filter((post) =>
-      selectedTags.every((tag) => post.data.tags?.includes(tag))
-    );
+    let filteredPosts = posts;
+
+    if (selectedTags.length > 0) {
+      filteredPosts = posts.filter((post) =>
+        selectedTags.every((tag) => post.data.tags?.includes(tag))
+      );
+    }
 
     const sorted = [...filteredPosts].sort((a, b) => {
       const dateA = new Date(a.data.pubDate);
       const dateB = new Date(b.data.pubDate);
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
+
     setSortedPosts(sorted);
   }, [sortOrder, selectedTags, posts]);
 
-  const handleSortChange = (e) => {
-    setSortOrder(e.target.value);
-  };
+  const handleSortChange = (e) => setSortOrder(e.target.value);
 
+  // Tags and counts
   const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
-
   const tagCounts = tags.map(tag => ({
     tag,
     count: posts.filter(post => post.data.tags?.includes(tag)).length,
   }));
-
-  tagCounts.sort((a, b) => {
-    if (b.count === a.count) {
-      return a.tag.localeCompare(b.tag);
-    }
-    return b.count - a.count;
-  });
-
-  const sortedTags = tagCounts.map(tagCount => tagCount.tag);
+  tagCounts.sort((a, b) => b.count === a.count ? a.tag.localeCompare(b.tag) : b.count - a.count);
+  const sortedTags = tagCounts.map(tc => tc.tag);
 
   const handleTagClick = (tag) => {
-    setSelectedTags((prevSelectedTags) =>
-      prevSelectedTags.includes(tag)
-        ? prevSelectedTags.filter((t) => t !== tag)
-        : [...prevSelectedTags, tag]
+    setSelectedTags(prev => prev.includes(tag)
+      ? prev.filter(t => t !== tag)
+      : [...prev, tag]
     );
   };
 
   return (
     <div className="blog-layout">
       <div className="blog-content">
-        <div style="margin-bottom: 0.75rem; display: flex; align-items: center; flex-wrap: wrap;">
-          <button
-            onClick={() => setShowTags(prev => !prev)}
-            className="btn show-tags-toggle"
-            style={getButtonStyle(false)}
-          >
-            {showTags ? 'Hide Tags ▲' : 'Show Tags ▼'}
-          </button>
 
-          <div style="display: flex; gap: 0.75rem; margin-left: auto;">
-            <div className="sort-container">
-              <label for="sort-select" style="margin-right: 0.5rem;"></label>
-              <select
-                id="sort-select"
-                value={sortOrder}
-                onChange={handleSortChange}
-                className="btn"
-                style={getButtonStyle(hoveredSelect)}
-                onMouseEnter={() => setHoveredSelect(true)}
-                onMouseLeave={() => setHoveredSelect(false)}
+        {/* Sort & Tag Toggle */}
+        {(showSort || showTags) && (
+          <div style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+            {showTags && (
+              <button
+                onClick={() => setShowTagsSidebar(prev => !prev)}
+                className="btn show-tags-toggle"
+                style={getButtonStyle(false)}
               >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-              </select>
-            </div>
-          </div>
-        </div>
+                {showTagsSidebar ? 'Hide Tags ▲' : 'Show Tags ▼'}
+              </button>
+            )}
 
-          <aside className={`tags-sidebar ${showTags ? 'show' : ''}`}>
+            {showSort && (
+              <div style={{ display: 'flex', gap: '0.75rem', marginLeft: 'auto' }}>
+                <select
+                  value={sortOrder}
+                  onChange={handleSortChange}
+                  className="btn"
+                  style={getButtonStyle(hoveredSelect)}
+                  onMouseEnter={() => setHoveredSelect(true)}
+                  onMouseLeave={() => setHoveredSelect(false)}
+                >
+                  <option value="newest">Newest</option>
+                  <option value="oldest">Oldest</option>
+                </select>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Tags Sidebar */}
+        {showTags && showTagsSidebar && (
+          <aside className={`tags-sidebar show`}>
             {sortedTags.map((tag) => (
               <div
                 key={tag}
@@ -125,9 +127,9 @@ const BlogSorter = ({ posts }) => {
               </div>
             ))}
           </aside>
+        )}
 
-        <hr style="margin-bottom: 1rem;" />
-
+        {/* Clear tags button */}
         {selectedTags.length > 0 && (
           <p>
             <button
@@ -142,6 +144,7 @@ const BlogSorter = ({ posts }) => {
           </p>
         )}
 
+        {/* No posts message */}
         {sortedPosts.length === 0 && selectedTags.length > 0 && (
           <div>
             <h3>No posts found with the selected combination of tags :(</h3>
@@ -149,25 +152,23 @@ const BlogSorter = ({ posts }) => {
           </div>
         )}
 
+        {/* Posts List */}
         <ul>
           {sortedPosts.map((post) => (
-            <li key={post.id} class="blog-post">
+            <li key={post.id} className="blog-post">
               <a href={`/posts/${post.id}/`}>
-                <div class="post-wrapper">
+                <div className="post-wrapper">
                   {post.data.image?.url && (
-                    <div class="blog-thumbnail-wrapper">
+                    <div className="blog-thumbnail-wrapper">
                       <img
                         src={post.data.image.url}
                         alt={post.data.image.alt || post.data.title}
-                        class="blog-thumbnail"
+                        className="blog-thumbnail"
                       />
                     </div>
                   )}
-                  <div class="post-text">
-                    <h2 class="post-title">
-                      {post.data.title}
-                    </h2>
-
+                  <div className="post-text">
+                    <h2 className="post-title">{post.data.title}</h2>
                     <span className="pub-date">
                       {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                         day: 'numeric',
@@ -176,20 +177,16 @@ const BlogSorter = ({ posts }) => {
                         timeZone: 'UTC',
                       })}
                     </span>
-
                     <span className="post-author"> | by {post.data.author}</span>
-
                     <span className="post-read-time"> | {post.data.readTime} minute read</span>
-
-                    <div className="post-description">
-                      {post.data.description}
-                    </div>
+                    <div className="post-description">{post.data.description}</div>
                   </div>
                 </div>
               </a>
             </li>
           ))}
         </ul>
+
       </div>
     </div>
   );

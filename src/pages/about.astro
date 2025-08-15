@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ChessStats from '../components/chesscom.tsx';
+import Strava from "../components/strava.js";
+import ErrorRenderer from "../Error.astro";
+import TriathlonStats from '../components/TriathlonStats.jsx';
+import { Image } from 'astro:assets';
+import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
+
+const pageTitle = "Josh Olivier — About";
+const identity = {
+  firstName: "Josh",
+  country: "United States",
+  occupation: "lab manager",
+  hobbies: ["Triathlons", "Chess", "3D printing", "Yoyos", "Tereré 🧉"],
+	};
+const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
+const currentYear = new Date().getFullYear();
+
+// Display error message if Strava API messes up
+let data, error
+try {
+  const strava = new Strava()
+  data = await strava.fetch()
+} catch (e) {
+  error = e.message
+  if (error.includes("401")) {
+    throw Error(
+      "Something went wrong with the Strava API, try updating your refresh_token",
+    )
+  }
+}
+---
+
+<BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
+  <h1>About me</h1>
+    <p>
+      I live in the {identity.country} and work as {identity.occupation} of the Functional Neuroimaging 
+      of Memory Lab at the University of Texas at Dallas. 
+    </p>
+
+    <p>
+      I'm interested in researching how memory, brain structure, and brain function
+      are related and how these relationships change with increasing age across the lifespan.
+    </p>
+    
+    <p>
+      In my free time, I love traveling, trying new foods, 
+      and learning new skills. I learned Portuguese
+      after spending two years living in northern Brazil, where I enjoyed eating lots of 
+      açaí, tacacá, and tambaqui. I'm currently working on learning Spanish.
+    </p>
+
+<h2>My hobbies</h2>
+
+<p>Some things I love are:</p>
+
+<ul>
+  {identity.hobbies.map(hobby => (
+    <li>{hobby}</li>
+  ))}
+</ul>
+
+	<TriathlonStats client:load data={data} error={error} />
+	    <ErrorRenderer error={error} />
+
+  <br></br>
+	    
+	<ChessStats client:load />
+
+	<p class="footnote">*Data from my <a href="https://www.strava.com/athletes/26573817" target="_blank" rel="noopener noreferrer">Strava</a> profile</p>
+	<p class="footnote"><sup>†</sup>Data from my <a href="https://www.chess.com/member/pichugang" target="_blank" rel="noopener noreferrer">Chess.com</a> profile</p>     
+
+</BaseLayout>

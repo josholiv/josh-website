@@ -192,6 +192,10 @@
 }
 
 @media screen and (min-width: 636px) {
+  header {
+    padding: 0rem; /* the header has 0 padding when screen width is >636px */
+  }
+  
   .nav-links {
     margin-left: auto;
     margin-right: auto;
@@ -228,22 +232,14 @@
   }
 }
 
-.profile-pic {
-  width: 6rem;
-  height: 6rem; 
-  flex-shrink: 0; 
-  border-radius: 5px;
-  display: block;
-}
-
 .about-header {
   display: flex;
-  align-items: center; /* vertical align */
+  align-items: top; /* vertical align */
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 635px) {
   .about-header {
     flex-direction: column;
     align-items: flex-start;
@@ -251,8 +247,8 @@
 }
 
 .about-pic {
-  width: 9rem;
-  height: 9rem; 
+  width: 8rem;
+  height: 8rem; 
   flex-shrink: 0; 
   border-radius: 5px;
   display: block;
@@ -367,34 +363,6 @@ a.tag, a.tag:visited {
   background-color: #bdbdbd;     /* Change background color on hover */
 }
 
-/* global class for back-links on blog posts, etc */
-.back-link {
-  display: inline-block;           /* Prevent it from spanning the entire width */
-  max-width: fit-content;          /* Allow the link to take up only as much width as necessary */
-  padding: 0.25rem 1rem;          /* Add padding */
-  font-size: 1.5rem;               /* Set font size */
-  font-family: monospace;
-  text-transform: uppercase;
-  cursor: pointer;                /* Change cursor on hover */
-  background-color: #41ab5d;      /* Set background color */
-  color: #ffffe5 !important;                 /* Set text color */
-  border: none;                   /* Remove border */
-  border-radius: 1rem;            /* Add rounded corners */
-  margin-top: 0rem;
-  margin-bottom: 1rem;
-  text-decoration: none;          /* Remove underline */
-}
-
-/* Hover effect for back-link */
-.back-link:hover {
-  background-color: #addd8e;      /* Change background color on hover */
-}
-
-.back-links-container { /* for when there are multiple back links on a page */
-  display: flex;
-  gap: 1rem; 
-}
-
 /* global class for links to the tag index page */
 .tag-index-link {
   display: inline-block;           /* Prevent it from spanning the entire width */
@@ -425,14 +393,16 @@ a.tag, a.tag:visited {
   font-family: monospace;
   font-weight: bold;
   text-align: left;
-  min-height: 6rem;
+  min-height: 20rem;
+  padding: 0rem;
+  margin-top: 0rem;
 }
 
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
   margin-left: -3px;
-  color: #ffaa00;
+  color: #ff9900;
   animation: blink 1.2s infinite;
 }
 
