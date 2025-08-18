@@ -386,16 +386,14 @@ a.tag, a.tag:visited {
   background-color: #addd8e;      /* Change background color on hover */
 }
 
-
 .typewriter-container {
   flex: 1;
   font-size: 1.5rem;
   font-family: monospace;
+  border-radius: 5px;
   font-weight: bold;
   text-align: left;
   min-height: 20rem;
-  padding: 0rem;
-  margin-top: 0rem;
 }
 
 #typewriter::after {

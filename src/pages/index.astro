@@ -6,14 +6,6 @@ import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 import { getCollection } from "astro:content";
 import BlogSorter from "../components/BlogSorter.jsx"; 
 const pageTitle = "Josh Olivier — Home";
-const identity = {
-  firstName: "Josh",
-  country: "United States",
-  occupation: "lab manager",
-  hobbies: ["Triathlons", "Chess", "3D printing", "Yoyos", "Tereré 🧉"],
-	};
-const hobbyText = identity.hobbies.slice(0, -1).join(", ") + ", and " + identity.hobbies.at(-1);
-const currentYear = new Date().getFullYear();
 
 let allPosts = await getCollection("blog");
   // Sort by date (newest first)
@@ -38,18 +30,19 @@ try {
 ---
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
 
-  <h1>Hi, I'm Josh!</h1>
-
    <div class="about-header">
     <Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
-    <div class="typewriter-container">
-      <span id="typewriter"></span>
-    </div>
+    <h1>Hi, I'm Josh!</h1>
   </div>
+
+  <div class="typewriter-container">
+    <span id="typewriter"></span>
+  </div>
+ 
 
     <script type="module">
         const phrases = [
-            "I'm a lab manager in a neuroimaging research lab in Dallas, Texas.",
+            "I'm a lab manager/research assistant in a neuroimaging research lab in Dallas, Texas.",
             "I'm interested in researching how memory, brain structure, and brain function are related and how these relationships change with increasing age.",
             "I also love traveling, 3D printing, triathlons, and tereré 🧉.",
             "I'm building this blog to share my projects and interests, and learn new skills in public."
