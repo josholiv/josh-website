@@ -90,18 +90,23 @@ hr {
   margin-bottom: -0.5em; /* also reduce bottom margin */
 }
 
-.print-button {
+.print-button { 
   position: absolute;
   top: 1rem;  /* distance from top inside the container */
   right: 1rem; /* distance from right inside the container */
-  padding: 0.5rem 1rem;
-  font-size: 10pt;
-  background: #333;
-  color: white;
+  padding: 0.6rem 1rem;
+  font-size: 0.75rem;
+  font-family: monospace;
+  background-color: #d9d9d9;
+  color: #000000;
   border: none;
   cursor: pointer;
   z-index: 10;
-  border-radius: 4px;
+  border-radius: 1rem;
+}
+
+.print-button:hover {
+  background-color: #bdbdbd;     /* Change background color on hover */
 }
 
 @media print {
