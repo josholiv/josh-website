@@ -128,72 +128,70 @@
   will-change: background-position;
 }
 
+/* Mobile: nav links hidden by default */
 .nav-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
+  display: none;
+  flex-direction: column;
+  width: 100%;
 }
 
-.nav-links a.active {
-  font-weight: 700;
-}
-
+/* Expanded mobile menu */
 .nav-links.expanded {
   display: flex;
 }
 
-.nav-links.expanded a {
-  text-align: left;
-}
-
-.nav-links a:first-child {
-    margin-right: auto; /* Push other links to the right */
-    padding: 0.6rem;
-}
-
-.nav-links a:not(:first-child) {
-    margin-left: 1rem; 
-    padding: 0.6rem;
-}
-
-.nav-links.expanded a:first-child, /* disregard the styles pushing links to the right in the expanded hamburger menu */
-.nav-links.expanded a:not(:first-child) {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
+/* Mobile link styles */
 .nav-links a {
   display: block;
-  text-align: center;
-  color: #3399ff; 
-  text-decoration: none;
-  font-size: 1rem;
+  text-align: left;
+  padding: 0.6rem;
   text-transform: uppercase;
+  font-size: 1rem;
+  color: #3399ff;
+  text-decoration: none;
 }
 
+/* Active link */
+.nav-links a.active {
+  font-weight: 700;
+}
+
+/* Spacing between stacked links in hamburger menu */
 .expanded a {
-  margin-bottom: 0.8rem; /* Adds spacing between stacked links in hamburger menu */
+  margin-bottom: 0.8rem;
 }
 
+/* Desktop styles */
 @media screen and (min-width: 636px) {
   header {
-    padding: 0rem; /* the header has 0 padding when screen width is >636px */
+    padding: 0;
   }
-  
-  .nav-links {
-    margin-left: auto;
-    margin-right: auto;
-    display: flex !important;
-    flex-direction: row !important;
-    position: static;
-    width: auto;
-    gap: 1rem;
-  }
-
   .hamburger {
     display: none;
   }
+
+  .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+    gap: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* First link stays left */
+  .nav-links a:first-child {
+    margin-right: auto;
+  }
+
+  /* Other links spaced normally */
+  .nav-links a:not(:first-child) {
+    margin-left: 1rem;
+  }
 }
+
 
 .about-header {
   display: flex;
