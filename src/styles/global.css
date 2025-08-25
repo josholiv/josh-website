@@ -132,9 +132,10 @@
     display: none;
     width: 100%;
     flex-direction: column;
+    color: red;
 }
 
-.nav-links a.active.rainbow-link {
+.nav-links a.active {
   font-weight: 700;
 }
 
@@ -145,22 +146,6 @@
 
 .nav-links.expanded a {
   text-align: left;
-  background: linear-gradient(
-    90deg,
-    #ff0000,
-    #ff9900,
-    #33cc33,
-    #3399ff,
-    #9933ff,
-    #ff3399
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent; /* fallback */
-  animation: rainbowShift 8s ease infinite;
-  border: 3px solid transparent;
-  background-color: transparent !important;
 }
 
 .nav-links a:first-child {
@@ -182,6 +167,7 @@
 .nav-links a {
   display: block;
   text-align: center;
+  color: #3399ff; 
   text-decoration: none;
   font-size: 1rem;
   text-transform: uppercase;

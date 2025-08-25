@@ -2,9 +2,9 @@
 const pathname = Astro.url.pathname;
 ---
 <div class="nav-links">
-    <a href="/" class={`rainbow-link ${pathname === "/" ? "active" : ""}`}>JoshOlivier.com</a>
-    <a href="/about" class={`rainbow-link ${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>About</a>
-    <a href="/cv" class={`rainbow-link ${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>CV</a>
-    <a href="/blog" class={`rainbow-link ${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>Blog</a>
-    <a href="/contact" class={`rainbow-link ${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>Contact</a>
+    <a href="/" class={`${pathname === "/" ? "active" : ""}`}>JoshOlivier.com</a>
+    <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>About</a>
+    <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>CV</a>
+    <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>Blog</a>
+    <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>Contact</a>
 </div>
