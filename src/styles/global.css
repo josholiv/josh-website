@@ -74,15 +74,15 @@
 }
 
 /* Link colors (not including nav links and back links) */
-    a:not(.nav-links a):not(.back-link) {
+    a:not(.nav-links a) {
       color: #0077cc; /* Link color */
     }
 
-    a:not(.nav-links a):not(.back-link):hover {
+    a:not(.nav-links a):hover {
       color: #005fa3; /* Link hover color */
     }
 
-    a:not(.nav-links a):not(.back-link):visited {
+    a:not(.nav-links a):visited {
       color: #551A8B; /* Link visited color */
     }
 
@@ -132,7 +132,6 @@
     display: none;
     width: 100%;
     flex-direction: column;
-    color: red;
 }
 
 .nav-links a.active {
@@ -140,8 +139,7 @@
 }
 
 .nav-links.expanded {
-  display: block;
-  flex-direction: column;
+  display: flex;
 }
 
 .nav-links.expanded a {
@@ -187,32 +185,11 @@
     margin-right: auto;
     display: flex !important;
     flex-direction: row !important;
-    justify-content: left;
     position: static;
     width: auto;
     gap: 1rem;
   }
 
-/* Rainbow gradient for navigation links */
-.nav-links a.rainbow-link {
-  background: linear-gradient(
-    90deg,
-    #ff0000,
-    #ff9900,
-    #33cc33,
-    #3399ff,
-    #9933ff,
-    #ff3399
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent; /* fallback */
-  animation: rainbowShift 8s ease infinite;
-  border: 3px solid transparent;
-  background-color: transparent !important; /* override background from .nav-links a */
-}
-  
   .hamburger {
     display: none;
   }
@@ -366,17 +343,11 @@ a.tag, a.tag:visited {
   text-decoration: none;          /* Remove underline */
 }
 
-/* Hover effect for back-link */
-.tag-index-link:hover {
-  background-color: #addd8e;      /* Change background color on hover */
-}
-
 .typewriter-container {
   flex: 1;
   font-size: 1.5rem;
   font-family: monospace;
   border-radius: 5px;
-  font-weight: bold;
   text-align: left;
   min-height: 20rem;
 }

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
@@ -25,6 +27,7 @@ try {
 ---
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
+  <Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
   <h1>About me</h1>
     <p>
       My name is Josh Olivier, and I'm a lab manager in a neuroimaging research lab in Dallas, Texas.
