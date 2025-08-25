@@ -1,18 +1,71 @@
-/* colorblind safe color scheme(s) generated at:
-    
-    main (yellows/greens)
-    https://colorbrewer2.org/?type=sequential&scheme=YlGn&n=9
-        ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679',
-        '#41ab5d','#238443','#006837','#004529']
-    
-    greys
-    https://colorbrewer2.org/?type=sequential&scheme=Greys&n=9
-        #ffffff, #f0f0f0, #d9d9d9, #bdbdbd, #969696, #737373, 
-        #525252, #252525, #000000 */
+/* accessible color palette with consistent luminance generated with:
+https://perceptualpalettes.alexdunn.au/?c=Brand%2333cc33%2CSecondary
+%23ff9900%2CTertiary%233399ff%2CNeutral%23000000%2CQuaternary%239933
+ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
+
+    :root {
+--brand-050: #e6f9e6;
+--brand-100: #c9f2c9;
+--brand-200: #a9eaa9;
+--brand-300: #84e084;
+--brand-400: #2eb82e;
+--brand-500: #249224;
+--brand-600: #1c701c;
+--brand-700: #145014;
+--brand-800: #0b2d0b;
+--brand-900: #081e08;
+--brand-950: #051305;
+--secondary-050: #fff2de;
+--secondary-100: #ffe3ba;
+--secondary-200: #ffd391;
+--secondary-300: #ffc062;
+--secondary-400: #e68a00;
+--secondary-500: #b66d00;
+--secondary-600: #8c5400;
+--secondary-700: #643c00;
+--secondary-800: #392200;
+--secondary-900: #261700;
+--secondary-950: #170e00;
+--tertiary-050: #ebf5ff;
+--tertiary-100: #d5eaff;
+--tertiary-200: #bcdeff;
+--tertiary-300: #a1d0ff;
+--tertiary-400: #48a4ff;
+--tertiary-500: #2b81d6;
+--tertiary-600: #2163a5;
+--tertiary-700: #184776;
+--tertiary-800: #0d2843;
+--tertiary-900: #091a2c;
+--tertiary-950: #05101b;
+--neutral-000: #ffffff; /* added lightest white */
+--neutral-050: #f3f3f3;
+--neutral-100: #e7e7e7;
+--neutral-200: #dadada;
+--neutral-300: #cbcbcb;
+--neutral-400: #a0a0a0;
+--neutral-500: #7e7e7e;
+--neutral-600: #616161;
+--neutral-700: #454545;
+--neutral-800: #272727;
+--neutral-900: #191919;
+--neutral-950: #101010;
+--neutral-999: #000000; /* added darkest black */
+--quaternary-050: #f8f1ff;
+--quaternary-100: #f0e2ff;
+--quaternary-200: #e8d1ff;
+--quaternary-300: #dfbfff;
+--quaternary-400: #c184ff;
+--quaternary-500: #a74fff;
+--quaternary-600: #852cdd;
+--quaternary-700: #60209f;
+--quaternary-800: #37125b;
+--quaternary-900: #250c3d;
+--quaternary-950: #170827;
+}
 
     html {
-      color: #000000;
-      --text-color: #000000;
+      color: var(--neutral-999);
+      --text-color: var(--neutral-999);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif;
       margin: 0;
     }
@@ -35,12 +88,12 @@
  
     body {
       margin: 0;
-      color: #000000;
+      color: var(--neutral-999);
       display: flex;
       align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
-      background: #ffffff;
+      background: var(--neutral-000);
     }
 
     .cv-page h1, .cv-page h2 {
@@ -73,17 +126,21 @@
   box-sizing: border-box;
 }
 
-/* Link colors (not including nav links and back links) */
-    a:not(.nav-links a) {
-      color: #0077cc; /* Link color */
+    a {
+      color: var(--tertiary-600);
+      text-decoration: none;
     }
 
-    a:not(.nav-links a):hover {
-      color: #005fa3; /* Link hover color */
+    a:hover {
+      color: var(--tertiary-700);
     }
 
-    a:not(.nav-links a):visited {
-      color: #551A8B; /* Link visited color */
+    a:visited {
+      color: var(--quaternary-600);
+    }
+
+    a:visited:hover {
+      color: var(--quaternary-700);
     }
 
 
@@ -147,13 +204,17 @@
   padding: 0.6rem 0;
   text-transform: uppercase;
   font-size: 1rem;
-  color: #0077cc;
+  color: var(--tertiary-600);
   text-decoration: none;
 }
 
 /* Active link */
 .nav-links a.active {
   font-weight: 700;
+}
+
+.nav-links a:hover {
+  color: var(--tertiary-700);
 }
 
 /* Spacing between stacked links in hamburger menu */
@@ -456,12 +517,8 @@ li.blog-post {
 
   /* Title on BlogSorter component */
   .post-title {
-    margin: 0;
-  }
-
-  /* Title on BlogSorter component when user selects "compact view" */
-    .post-title.compact {
-    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
   }
 
   /* Tags on BlogSorter component */
@@ -529,7 +586,6 @@ li.blog-post {
     border-radius: 5px;
   }
 }
-
   .post-title,
   .post-tags,
   .pub-date,
