@@ -13,7 +13,7 @@ const { frontmatter } = Astro.props;
         timeZone: 'UTC'})}
     </span>
 
-    <span>| by {frontmatter.author} | </span>
+    <span class="post-author">| by {frontmatter.author} | </span>
 
     <span class="post-read-time">
       {frontmatter.readTime} minute read

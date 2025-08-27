@@ -144,11 +144,13 @@ hr {
     max-width: 100%;
     padding-left: 1rem; /* instead of 1in when screen size is small */
     padding-right: 1rem; /* instead of 1in when screen size is small */
-    margin-left: 0rem;
-    margin-right: 0rem;
   }
 
   .two-column-list {
     grid-template-columns: 1fr; /* collapse to single column */
   }
+
+  .main-content {
+      padding: 0rem;
+    }
 }

@@ -95,20 +95,6 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
       min-height: 100vh;
       background: var(--neutral-000);
     }
-
-    .cv-page h1, .cv-page h2 {
-      margin: 0;
-      font-weight: 700;
-    }
-
-    .cv-page h1 {
-      text-align: center;
-    }
-
-    .cv-page h2 {
-      margin-top: 1.2em;
-      text-transform: uppercase;
-    }
     
     .page-wrapper {
       display: flex;
@@ -310,12 +296,12 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
 .tag {
   margin: 0rem;
   font-family: monospace;
-  color: #969696;
+  color:  var(--neutral-600);
   border-radius: 9999px;
   padding: 5px 10px;
   font-size: 1rem;
   border: 1px solid;
-  border-color: #969696;
+  border-color:  var(--neutral-600);
   position: relative;
   cursor: pointer;
 }
@@ -323,44 +309,27 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
 a.tag, a.tag:visited {
   text-decoration: none;
   display: inline-block;
-  color: #000000 !important;
-  border-color: #000000 !important;
+  color:  var(--neutral-999) !important;
+  border-color:  var(--neutral-999) !important;
 }
 
 /* Count next to the tag */
 .tag-count {
-  color: #969696;
+  color:  var(--neutral-600);
   font-size: 1rem;
   margin-left: 0.5rem;
 }
 
 /* Styling for when the tag is active */
 .tag.active {
-  background-color: #ffffff;
-  color: #000000;
-  border-color: #000000;
+  background-color: var(--neutral-000);
+  color:  var(--neutral-999);
+  border-color:  var(--neutral-999);
 }
 
 /* Change .tag-count color when tag is active */
 .tag.active .tag-count {
-  color: #000000;
-}
-
-.sorter select {
-  font-size: 0.75rem;               /* Set font size */
-  font-family: monospace;
-  text-transform: uppercase;
-  cursor: pointer;           
-  background-color: #d9d9d9; 
-  color: #000000;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 0.5rem; /* rounded-md */
-}
-
-.sorter select:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px #addd8e; 
+  color: var(--neutral-999);
 }
 
 .footnote {
@@ -377,50 +346,38 @@ a.tag, a.tag:visited {
     font-family: monospace;
     text-transform: uppercase;
     cursor: pointer;
-    background-color: #d9d9d9;
-    color: #000000;
+    background-color:  var(--neutral-200);
+    color:  var(--neutral-999);
     border: none;
     border-radius: 1rem;
 }
 
 /* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: #bdbdbd;     /* Change background color on hover */
-}
-
-/* global class for links to the tag index page */
-.tag-index-link {
-  display: inline-block;           /* Prevent it from spanning the entire width */
-  max-width: fit-content;          /* Allow the link to take up only as much width as necessary */
-  padding: 0.5rem 1rem;          /* Add padding */
-  font-size: 1rem;               /* Set font size */
-  font-family: monospace;
-  text-transform: uppercase;
-  cursor: pointer;                /* Change cursor on hover */
-  background-color: #41ab5d;      /* Set background color */
-  color: #ffffe5 !important;                 /* Set text color */
-  border: none;                   /* Remove border */
-  border-radius: 1rem;            /* Add rounded corners */
-  margin-top: 0rem;
-  margin-bottom: 1rem;
-  text-decoration: none;          /* Remove underline */
+  background-color: var(--neutral-300);     /* Change background color on hover */
 }
 
 .typewriter-container {
   flex: 1;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-family: monospace;
-  border-radius: 5px;
+  color:  var(--neutral-000);
+  border-radius: px;
   text-align: left;
+  line-height: 1.5;
   min-height: 20rem;
+}
+
+.typewriter-container span {
+  background-color:  var(--neutral-999); /* looks like a highlight marker */
 }
 
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  margin-left: -3px;
-  color: #ff9900;
+  color: var(--brand-300);
   animation: blink 1.2s infinite;
+  font-weight: 700;
 }
 
 @keyframes blink {
@@ -521,25 +478,17 @@ li.blog-post {
     margin-bottom: 0.5rem;
   }
 
-  /* Tags on BlogSorter component */
-  .post-tags {
-    color: #969696;
-    font-size: 1rem;
-    font-family: monospace; 
-    margin-top: 0.5rem;
-  }
-
   /* Date on BlogSorter component */
   .pub-date {
     font-size: 1rem;
     margin-top: 0.5rem;
     font-weight: bold;
-    color: #000000;
+    color:  var(--neutral-600);
   }
 
   /* Author on BlogSorter component */
   .post-author {
-    color: #000000;
+    color: var(--neutral-600);
   }
 
   /* Description on BlogSorter component */
@@ -549,13 +498,13 @@ li.blog-post {
     margin-top: 0.5rem;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
-    color: var(--text-color);
+    color:  var(--neutral-600);
   }
 
    /* Description on BlogSorter component */
    .post-read-time {
     font-style: italic;
-    color: #000000;
+    color:  var(--neutral-600);
   }
 
 @media print {
