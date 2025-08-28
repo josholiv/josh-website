@@ -50,9 +50,9 @@ try {
     <p>
       Some of my other hobbies include fiddling with my 3D printer, drinking tereré (cold yerba mate), and training for triathlons. 
       So far, in <strong>{new Date().getFullYear()}</strong>, I’ve logged the following distances{" "}
-        <span style={{fontWeight: 'bold', color: "#3399ff"}}>swimming</span>,{" "}
-        <span style={{fontWeight: 'bold', color: "#33cc33"}}>biking</span>, and{" "}
-        <span style={{fontWeight: 'bold', color: "#ff9900"}}>running</span>, according to my data from Strava:
+        <span style={{fontWeight: 'bold', color: "var(--blue-600)"}}>swimming</span>,{" "}
+        <span style={{fontWeight: 'bold', color: "var(--green-600)"}}>biking</span>, and{" "}
+        <span style={{fontWeight: 'bold', color: "var(--orange-600)"}}>running</span>, according to my data from Strava:
     </p>
 
 	<TriathlonStats client:load data={data} error={error} />
@@ -61,11 +61,11 @@ try {
       <p>
         In my free time, I also love playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
         Here are my current ratings on chess.com for three categories of speed chess: 
-        <span style={{fontWeight: 'bold', color: "#ff0000"}}>bullet</span>,{" "} 
+        <span style={{fontWeight: 'bold', color: "var(--red-600)"}}>bullet</span>,{" "} 
         with time controls of less than 3 minutes per player, 
-        <span style={{fontWeight: 'bold', color: "#ff3399"}}>blitz</span>,{" "} 
+        <span style={{fontWeight: 'bold', color: "var(--pink-600)"}}>blitz</span>,{" "} 
         with time controls of less than 10 minutes per player, and 
-        <span style={{fontWeight: 'bold', color: "#9933ff"}}>rapid</span>,{" "}
+        <span style={{fontWeight: 'bold', color: "var(--purple-600)"}}>rapid</span>,{" "}
         with time controls of more than 10 minutes per player:
       </p>
 	<ChessStats client:load />

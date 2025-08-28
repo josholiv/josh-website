@@ -1,43 +1,42 @@
 /* accessible color palette with consistent luminance generated with:
-https://perceptualpalettes.alexdunn.au/?c=Brand%2333cc33%2CSecondary
-%23ff9900%2CTertiary%233399ff%2CNeutral%23000000%2CQuaternary%239933
-ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
+https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblue%233399ff%2Cneutral%23000000%2Cpurple%239933ff%2Cred%23ff0000%2Cpink%23ff3399&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
 
-    :root {
---brand-050: #e6f9e6;
---brand-100: #c9f2c9;
---brand-200: #a9eaa9;
---brand-300: #84e084;
---brand-400: #2eb82e;
---brand-500: #249224;
---brand-600: #1c701c;
---brand-700: #145014;
---brand-800: #0b2d0b;
---brand-900: #081e08;
---brand-950: #051305;
---secondary-050: #fff2de;
---secondary-100: #ffe3ba;
---secondary-200: #ffd391;
---secondary-300: #ffc062;
---secondary-400: #e68a00;
---secondary-500: #b66d00;
---secondary-600: #8c5400;
---secondary-700: #643c00;
---secondary-800: #392200;
---secondary-900: #261700;
---secondary-950: #170e00;
---tertiary-050: #ebf5ff;
---tertiary-100: #d5eaff;
---tertiary-200: #bcdeff;
---tertiary-300: #a1d0ff;
---tertiary-400: #48a4ff;
---tertiary-500: #2b81d6;
---tertiary-600: #2163a5;
---tertiary-700: #184776;
---tertiary-800: #0d2843;
---tertiary-900: #091a2c;
---tertiary-950: #05101b;
+   :root {
 --neutral-000: #ffffff; /* added lightest white */
+--neutral-999: #000000; /* added darkest black */
+--green-050: #e6f9e6;
+--green-100: #c9f2c9;
+--green-200: #a9eaa9;
+--green-300: #84e084;
+--green-400: #2eb82e;
+--green-500: #249224;
+--green-600: #1c701c;
+--green-700: #145014;
+--green-800: #0b2d0b;
+--green-900: #081e08;
+--green-950: #051305;
+--orange-050: #fff2de;
+--orange-100: #ffe3ba;
+--orange-200: #ffd391;
+--orange-300: #ffc062;
+--orange-400: #e68a00;
+--orange-500: #b66d00;
+--orange-600: #8c5400;
+--orange-700: #643c00;
+--orange-800: #392200;
+--orange-900: #261700;
+--orange-950: #170e00;
+--blue-050: #ebf5ff;
+--blue-100: #d5eaff;
+--blue-200: #bcdeff;
+--blue-300: #a1d0ff;
+--blue-400: #48a4ff;
+--blue-500: #2b81d6;
+--blue-600: #2163a5;
+--blue-700: #184776;
+--blue-800: #0d2843;
+--blue-900: #091a2c;
+--blue-950: #05101b;
 --neutral-050: #f3f3f3;
 --neutral-100: #e7e7e7;
 --neutral-200: #dadada;
@@ -49,18 +48,39 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
 --neutral-800: #272727;
 --neutral-900: #191919;
 --neutral-950: #101010;
---neutral-999: #000000; /* added darkest black */
---quaternary-050: #f8f1ff;
---quaternary-100: #f0e2ff;
---quaternary-200: #e8d1ff;
---quaternary-300: #dfbfff;
---quaternary-400: #c184ff;
---quaternary-500: #a74fff;
---quaternary-600: #852cdd;
---quaternary-700: #60209f;
---quaternary-800: #37125b;
---quaternary-900: #250c3d;
---quaternary-950: #170827;
+--purple-050: #f8f1ff;
+--purple-100: #f0e2ff;
+--purple-200: #e8d1ff;
+--purple-300: #dfbfff;
+--purple-400: #c184ff;
+--purple-500: #a74fff;
+--purple-600: #852cdd;
+--purple-700: #60209f;
+--purple-800: #37125b;
+--purple-900: #250c3d;
+--purple-950: #170827;
+--red-050: #fff0f0;
+--red-100: #ffe0e0;
+--red-200: #ffcece;
+--red-300: #ffbaba;
+--red-400: #ff7474;
+--red-500: #fe0000;
+--red-600: #c60000;
+--red-700: #910000;
+--red-800: #560000;
+--red-900: #3d0000;
+--red-950: #2a0000;
+--pink-050: #ffeff7;
+--pink-100: #ffdfef;
+--pink-200: #ffcce5;
+--pink-300: #ffb6db;
+--pink-400: #ff6bb5;
+--pink-500: #e82e8b;
+--pink-600: #b4246c;
+--pink-700: #821a4e;
+--pink-800: #4a0f2d;
+--pink-900: #320a1e;
+--pink-950: #200613;
 }
 
     html {
@@ -113,20 +133,19 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
 }
 
     a {
-      color: var(--tertiary-600);
-      text-decoration: none;
+      color: var(--blue-600);
     }
 
     a:hover {
-      color: var(--tertiary-700);
+      color: var(--blue-700);
     }
 
     a:visited {
-      color: var(--quaternary-600);
+      color: var(--purple-600);
     }
 
     a:visited:hover {
-      color: var(--quaternary-700);
+      color: var(--purple-700);
     }
 
 
@@ -157,12 +176,12 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
   border-radius: 5px;
   background: linear-gradient(
     90deg,
-    #ff0000,
-    #ff9900,
-    #33cc33,
-    #3399ff,
-    #9933ff,
-    #ff3399
+    var(--red-500),
+    var(--orange-500),
+    var(--green-500),
+    var(--blue-500),
+    var(--purple-500),
+    var(--pink-500)
   );
   background-size: 300% 300%;
   background-clip: border-box;
@@ -190,7 +209,7 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
   padding: 0.6rem 0;
   text-transform: uppercase;
   font-size: 1rem;
-  color: var(--tertiary-600);
+  color: var(--blue-600);
   text-decoration: none;
 }
 
@@ -200,7 +219,7 @@ ff&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
 }
 
 .nav-links a:hover {
-  color: var(--tertiary-700);
+  color: var(--blue-700);
 }
 
 /* Spacing between stacked links in hamburger menu */
@@ -332,10 +351,8 @@ a.tag, a.tag:visited {
   color: var(--neutral-999);
 }
 
-.footnote {
-  color: #737373;          /* Make the footnotes gray */
-  font-style: italic;      /* Keep the italics */
-  font-size: 0.8rem;
+.tag:hover {
+  background-color: var(--neutral-050)
 }
     
 /* Universal button style class */
@@ -361,21 +378,21 @@ a.tag, a.tag:visited {
   flex: 1;
   font-size: 1.2rem;
   font-family: monospace;
-  color:  var(--neutral-000);
+  color:  var(--neutral-999);
   border-radius: px;
   text-align: left;
-  line-height: 1.5;
+  line-height: 2;
   min-height: 20rem;
 }
 
 .typewriter-container span {
-  background-color:  var(--neutral-999); /* looks like a highlight marker */
+  background-color:  var(--neutral-050); /* looks like a highlight marker */
 }
 
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  color: var(--brand-300);
+  color: var(--green-600);
   animation: blink 1.2s infinite;
   font-weight: 700;
 }
@@ -421,12 +438,14 @@ li.blog-post {
   .blog-post .post-wrapper {
     padding: 0px;
     display: block;
+    margin-bottom: 1rem;
   }
   
   .blog-thumbnail-wrapper {
   position: relative;
   width: 100%;
   padding-top: 75%; /* 4:3 Aspect Ratio (3/4 = 0.75) */
+  margin-bottom: 1rem;
   overflow: hidden;
   border-radius: 5px;
   flex-shrink: 0; /* Prevent from shrinking in flex layout */
@@ -497,7 +516,6 @@ li.blog-post {
     margin-left: 0rem;
     margin-top: 0.5rem;
     margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
     color:  var(--neutral-600);
   }
 

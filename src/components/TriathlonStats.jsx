@@ -41,7 +41,7 @@ const TriathlonStats = ({ data, error }) => {
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       textAlign: 'left',
-      borderRight: isLast ? 'none' : '1px solid #d9d9d9',
+      borderRight: isLast ? 'none' : '1px solid var(--neutral-200)',
     }}>
       <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
         {label}
@@ -69,11 +69,11 @@ const TriathlonStats = ({ data, error }) => {
     <div style={{position: 'relative' }}>
       <div style={{
         padding: '1rem',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: 'var(--neutral-050)',
         borderRadius: '5px',
         position: 'relative',
       }}>
-      <div style={{textAlign: 'left', color: "#000000" }}>
+      <div style={{textAlign: 'left', color: "var(--neutral-999)" }}>
  
     </div>
 
@@ -84,25 +84,26 @@ const TriathlonStats = ({ data, error }) => {
           justifyContent: 'left',
           gap: '1rem',
           }}>
-          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), '#3399ff', false)}
-          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), '#33cc33', false)}
-          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), '#ff9900', true)}
+          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), 'var(--blue-600)', false)}
+          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-600)', false)}
+          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), 'var(--orange-600)', true)}
         </div>
 
         <div style={{ marginTop: '0.5rem', textAlign: 'left' }}> 
+          <span>Unit: </span>
           <span style={{
             padding: "0.2rem 0rem",
-            display: 'inline-block'
+            fontWeight: '700',
           }}>
             {unit === "miles" ? "miles" :
             unit === "km" ? "kilometers" :
             unit === "fields" ? "American football fields" :
-            "of the distance from Earth to the Moon"}
+            "percent of the distance to the Moon"}
           </span>
         </div>
 
         <div style={{ marginTop: '1rem', textAlign: 'left' }}>
-          <button onClick={toggleUnit} className="btn">Change Unit of Measure</button>
+          <button onClick={toggleUnit} className="btn">Change Unit</button>
         </div>
 
       </div>

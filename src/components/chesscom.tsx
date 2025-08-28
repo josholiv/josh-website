@@ -45,7 +45,7 @@ const ChessStats: FunctionalComponent = () => {
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       textAlign: 'left',
-      borderRight: isLast ? 'none' : '1px solid #d9d9d9',
+      borderRight: isLast ? 'none' : '1px solid var(--neutral-200)',
     }}>
         <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
           {label}
@@ -60,11 +60,11 @@ const ChessStats: FunctionalComponent = () => {
          <div style={{position: 'relative' }}>
       <div style={{
         padding: '1rem',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: 'var(--neutral-050)',
         borderRadius: '5px',
         position: 'relative',
       }}>
-      <div style={{textAlign: 'left', color: "#000000" }}>
+      <div style={{textAlign: 'left', color: "var(--neutral-999)" }}>
  
 </div>
       
@@ -75,9 +75,9 @@ const ChessStats: FunctionalComponent = () => {
           justifyContent: 'left',
           gap: '1rem',
           }}>
-          {formatCard('Bullet', stats.chess_bullet?.last?.rating, '#ff0000', false)}
-          {formatCard('Blitz', stats.chess_blitz?.last?.rating, '#ff3399', false)}
-          {formatCard('Rapid', stats.chess_rapid?.last?.rating, '#9933ff', true)}
+          {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'var(--red-600)', false)}
+          {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'var(--pink-600)', false)}
+          {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'var(--purple-600)', true)}
         </div>
       </div>
       </div>

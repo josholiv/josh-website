@@ -12,25 +12,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [showTagsSidebar, setShowTagsSidebar] = useState(false);
 
-  const baseButtonStyle = {
-    padding: '0.6rem 1rem',
-    height: '2.25rem',
-    fontSize: '0.75rem',
-    fontFamily: 'monospace',
-    textTransform: 'uppercase',
-    cursor: 'pointer',
-    backgroundColor: '#d9d9d9',
-    color: '#000000',
-    border: 'none',
-    borderRadius: '1rem',
-    marginTop: '0rem',
-  };
-
-  const getButtonStyle = (isHovered) => ({
-    ...baseButtonStyle,
-    backgroundColor: isHovered ? '#bdbdbd' : '#d9d9d9',
-  });
-
   // Check for tag from URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -87,7 +68,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
               <button
                 onClick={() => setShowTagsSidebar(prev => !prev)}
                 className="btn show-tags-toggle"
-                style={getButtonStyle(false)}
               >
                 {showTagsSidebar ? 'Hide Tags ▲' : 'Show Tags ▼'}
               </button>
@@ -99,9 +79,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                   value={sortOrder}
                   onChange={handleSortChange}
                   className="btn"
-                  style={getButtonStyle(hoveredSelect)}
-                  onMouseEnter={() => setHoveredSelect(true)}
-                  onMouseLeave={() => setHoveredSelect(false)}
                 >
                   <option value="newest">Newest</option>
                   <option value="oldest">Oldest</option>
@@ -135,9 +112,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
             <button
               onClick={() => setSelectedTags([])}
               className="btn"
-              style={getButtonStyle(hoveredClearTags)}
-              onMouseEnter={() => setHoveredClearTags(true)}
-              onMouseLeave={() => setHoveredClearTags(false)}
             >
               ✖ Clear
             </button>
