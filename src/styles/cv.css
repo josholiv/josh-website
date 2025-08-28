@@ -14,6 +14,10 @@ h2 {
   text-transform: uppercase;
 }
 
+body {
+  font-size: 12pt;
+}
+
 .cv-container {
   position: relative;
   width: 100%;
@@ -26,7 +30,7 @@ h2 {
   margin-bottom: 1rem;
   box-sizing: border-box;
   background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--neutral-100);
 }
 
 .section-item {
@@ -138,10 +142,11 @@ hr {
   }
 }
 
-@media screen and (max-width: 6.5in) {
+@media screen and (max-width: 635px) {
   .cv-container {
-    width: 100%;
-    max-width: 100%;
+    width: 100vw !important;
+    margin: 0 !important;
+    max-width: 100vw !important;    
     padding-left: 1rem; /* instead of 1in when screen size is small */
     padding-right: 1rem; /* instead of 1in when screen size is small */
   }
