@@ -33,13 +33,11 @@ body {
 .cv-container {
   position: relative;
   width: 100%;
-  max-width: 8.5in;
   padding-top: 1in;
   padding-left: 1in;
   padding-right: 1in;
   padding-bottom: 1in;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   box-sizing: border-box;
   background: white;
   box-shadow: 0 4px 12px var(--neutral-100);
