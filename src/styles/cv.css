@@ -155,7 +155,7 @@ hr {
     grid-template-columns: 1fr; /* collapse to single column */
   }
 
-  .main-content {
-      padding: 0rem;
+  body .main-content {
+    padding: 0rem !important;
     }
 }
