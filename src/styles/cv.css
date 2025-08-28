@@ -101,6 +101,14 @@ hr {
   z-index: 10;
 }
 
+/* Fix font size for CV sections to prevent shrinking on mobile rotation */
+.section-item,
+.item-entry,
+.date-range {
+  font-size: 1rem !important; /* enforce consistent size */
+  -webkit-text-size-adjust: 100%; /* prevent iOS auto-scaling */
+  text-size-adjust: 100%;        /* prevent Android auto-scaling */
+}
 
 @media print {
 
