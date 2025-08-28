@@ -35,8 +35,6 @@ body {
 
 .section-item {
   margin-bottom: 0.6em;
-  font-size: 1rem;
-  flex-shrink: 0; 
 }
 
 .subhead {
@@ -57,8 +55,6 @@ hr {
 
 .item-entry {
   margin-bottom: 1rem;
-  font-size: 1rem;
-  flex-shrink: 0; 
 }
 
 .item-header {
@@ -70,8 +66,6 @@ hr {
 .date-range {
   white-space: nowrap;
   font-weight: normal;
-  font-size: 1rem;
-  flex-shrink: 0; 
 }
 
 .two-column-list {
