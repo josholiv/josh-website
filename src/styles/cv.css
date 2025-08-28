@@ -63,6 +63,12 @@ hr {
   align-items: baseline;
 }
 
+.item-header > div,
+.item-header > span {
+  flex-shrink: 0;      /* prevents the text from compressing */
+  font-size: 1rem;     /* enforces consistent font size */
+}
+
 .date-range {
   white-space: nowrap;
   font-weight: normal;
@@ -99,15 +105,6 @@ hr {
   top: 1rem;  /* distance from top inside the container */
   right: 1rem; /* distance from right inside the container */
   z-index: 10;
-}
-
-/* Fix font size for CV sections to prevent shrinking on mobile rotation */
-.section-item,
-.item-entry,
-.date-range {
-  font-size: 1rem !important; /* enforce consistent size */
-  -webkit-text-size-adjust: 100%; /* prevent iOS auto-scaling */
-  text-size-adjust: 100%;        /* prevent Android auto-scaling */
 }
 
 @media print {
