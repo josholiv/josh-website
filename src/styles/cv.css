@@ -63,12 +63,6 @@ hr {
   align-items: baseline;
 }
 
-.item-header > div,
-.item-header > span {
-  flex-shrink: 0;      /* prevents the text from compressing */
-  font-size: 1rem;     /* enforces consistent font size */
-}
-
 .date-range {
   white-space: nowrap;
   font-weight: normal;
