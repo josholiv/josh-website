@@ -358,15 +358,15 @@ a.tag, a.tag:visited {
 /* Universal button style class */
 .btn {
   padding: 0.6rem 1rem;
-    height: 2.25rem;
-    font-size: 0.75rem;
-    font-family: monospace;
-    text-transform: uppercase;
-    cursor: pointer;
-    background-color:  var(--neutral-200);
-    color:  var(--neutral-999);
-    border: none;
-    border-radius: 1rem;
+  height: 2.25rem;
+  font-size: 0.75rem;
+  font-family: monospace;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color:  var(--neutral-200);
+  color:  var(--neutral-999);
+  border: none;
+  border-radius: 1rem;
 }
 
 /* Hover effect for buttons with .btn class */

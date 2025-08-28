@@ -4,18 +4,18 @@ h1, h2 {
 }
 
 h1 {
-  font-size: 16pt;
+  font-size: 1.33rem;
   text-align: center;
 }
 
 h2 {
-  font-size: 12pt;
+  font-size: 1rem;
   margin-top: 1.2em;
   text-transform: uppercase;
 }
 
 body {
-  font-size: 12pt;
+  font-size: 1rem;
 }
 
 .cv-container {
@@ -43,7 +43,7 @@ body {
 
 hr {
   border: none;
-  border-top: 1pt solid #000;
+  border-top: 1pt solid var(--neutral-999);
   margin: 0em 0 0.6em 0;
 }
 
@@ -98,20 +98,9 @@ hr {
   position: absolute;
   top: 1rem;  /* distance from top inside the container */
   right: 1rem; /* distance from right inside the container */
-  padding: 0.6rem 1rem;
-  font-size: 0.75rem;
-  font-family: monospace;
-  background-color: #d9d9d9;
-  color: #000000;
-  border: none;
-  cursor: pointer;
   z-index: 10;
-  border-radius: 1rem;
 }
 
-.print-button:hover {
-  background-color: #bdbdbd;     /* Change background color on hover */
-}
 
 @media print {
 
@@ -120,10 +109,6 @@ hr {
     margin-left: 1in;
     margin-right: 1in;
     margin-bottom: 1in;
-  }
-
-  body {
-    background: white;
   }
 
   .cv-container {
