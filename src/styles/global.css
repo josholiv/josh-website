@@ -2,8 +2,6 @@
 https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblue%233399ff%2Cneutral%23000000%2Cpurple%239933ff%2Cred%23ff0000%2Cpink%23ff3399&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
 
    :root {
---neutral-000: #ffffff; /* added lightest white */
---neutral-999: #000000; /* added darkest black */
 --green-050: #e6f9e6;
 --green-100: #c9f2c9;
 --green-200: #a9eaa9;
@@ -84,8 +82,8 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
     html {
-      color: var(--neutral-999);
-      --text-color: var(--neutral-999);
+      color: var(--neutral-950);
+      --text-color: var(--neutral-950);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, sans-serif;
       margin: 0;
     }
@@ -107,12 +105,12 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
  
     body {
       margin: 0;
-      color: var(--neutral-999);
+      color: var(--neutral-950);
       display: flex;
       align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
-      background: var(--neutral-000);
+      background: var(--neutral-050);
     }
     
     .page-wrapper {
@@ -327,8 +325,8 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 a.tag, a.tag:visited {
   text-decoration: none;
   display: inline-block;
-  color:  var(--neutral-999) !important;
-  border-color:  var(--neutral-999) !important;
+  color:  var(--neutral-950) !important;
+  border-color:  var(--neutral-950) !important;
 }
 
 /* Count next to the tag */
@@ -340,18 +338,18 @@ a.tag, a.tag:visited {
 
 /* Styling for when the tag is active */
 .tag.active {
-  background-color: var(--neutral-000);
-  color:  var(--neutral-999);
-  border-color:  var(--neutral-999);
+  background-color: var(--neutral-050);
+  color:  var(--neutral-950);
+  border-color:  var(--neutral-950);
 }
 
 /* Change .tag-count color when tag is active */
 .tag.active .tag-count {
-  color: var(--neutral-999);
+  color: var(--neutral-950);
 }
 
 .tag:hover {
-  background-color: var(--neutral-050)
+  background-color: var(--neutral-100)
 }
     
 /* Universal button style class */
@@ -362,22 +360,22 @@ a.tag, a.tag:visited {
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;
-  background-color:  var(--neutral-200);
-  color:  var(--neutral-999);
+  background-color:  var(--neutral-300);
+  color:  var(--neutral-950);
   border: none;
   border-radius: 1rem;
 }
 
 /* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: var(--neutral-300);     /* Change background color on hover */
+  background-color: var(--neutral-400);     /* Change background color on hover */
 }
 
 .typewriter-container {
   flex: 1;
   font-size: 1.2rem;
   font-family: monospace;
-  color:  var(--neutral-999);
+  color:  var(--neutral-950);
   border-radius: px;
   text-align: left;
   line-height: 2;
@@ -385,13 +383,13 @@ a.tag, a.tag:visited {
 }
 
 .typewriter-container span {
-  background-color:  var(--neutral-050); /* looks like a highlight marker */
+  background-color:  var(--neutral-100); /* looks like a highlight marker */
 }
 
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  color: var(--green-600);
+  color: var(--neutral-600);
   animation: blink 1.2s infinite;
   font-weight: 700;
 }
