@@ -34,58 +34,81 @@ try {
   <h1>Hi, I'm Josh!</h1>
   <div class="typewriter-container">
     <span id="typewriter"></span>
+    <button id="nextBtn" class="btn">Next</button>
   </div>
  
-    <script type="module">
-        const phrases = [
-            "I'm a research assistant and lab manager in a neuroimaging lab in Dallas, Texas.",
-            "I'm interested in researching how memory, brain structure, and brain function are related and how these relationships change with increasing age.",
-            "I also love traveling, 3D printing, triathlons, and tereré 🧉.",
-            "I'm building this blog to share my projects and interests, and learn new skills in public."
-            ];
-        let i = 0;
-        let j = 0;
-        let isTyping = true;
-        let isDeleting = false;
-        let pauseDuration = 10000;
-        let postDeletePauseDuration = 2000;
+   <script type="module">
+      const phrases = [
+        "I'm a research assistant in a neuroimaging lab in Dallas, Texas.",
+        "I'm interested in studying how memory, brain structure, and brain function are related and how these relationships change with age.",
+        "I also love traveling, 3D printing, triathlons, and tereré 🧉.",
+        "I'm building this blog to share my projects and interests, and learn new skills in public."
+      ];
+      let i = 0;
+      let j = 0;
+      let isTyping = true;
+      let isDeleting = false;
+      let pauseDuration = 10000;
+      let postDeletePauseDuration = 2000;
+      let timeoutId;
 
-        function typeEffect() {
-            const element = document.querySelector("#typewriter");
-            if (!element) return;
+    function typeEffect() {
+      const element = document.querySelector("#typewriter");
+      if (!element) return;
 
-            const currentPhrase = phrases[i];
+      const currentPhrase = phrases[i];
 
-            if (isTyping) {
-                element.innerHTML = currentPhrase.substring(0, j++);
-            } else if (isDeleting) {
-                element.innerHTML = currentPhrase.substring(0, j--);
-            }
+      if (isTyping) {
+        element.innerHTML = currentPhrase.substring(0, j++);
+      } else if (isDeleting) {
+        element.innerHTML = currentPhrase.substring(0, j--);
+      }
 
-            if (isTyping && j === currentPhrase.length + 1) {
-                setTimeout(() => {
-                    isTyping = false;
-                    isDeleting = true;
-                    typeEffect();
-                }, pauseDuration);
-                return;
-            } else if (isDeleting && j === -1) {
-                setTimeout(() => {
-                    i = (i + 1) % phrases.length;
-                    isDeleting = false;
-                    isTyping = true;
-                    typeEffect();
-                }, postDeletePauseDuration);
-                return;
-            }
+      if (isTyping && j === currentPhrase.length + 1) {
+        timeoutId = setTimeout(() => {
+          isTyping = false;
+          isDeleting = true;
+          typeEffect();
+        }, pauseDuration);
+        return;
+      } else if (isDeleting && j === -1) {
+        timeoutId = setTimeout(() => {
+          i = (i + 1) % phrases.length;
+          isDeleting = false;
+          isTyping = true;
+          typeEffect();
+        }, postDeletePauseDuration);
+        return;
+      }
 
-            const randomSpeed = isDeleting ? 20 : Math.floor(Math.random() * (60 - 20 + 1)) + 20;
-            setTimeout(typeEffect, randomSpeed);
-        }
+      // speed logic
+        const randomSpeed = isDeleting
+        ? 20 // deleting always normal speed
+        : Math.floor(Math.random() * (60 - 20 + 1)) + 20; // typing speed 20–60ms
 
-        document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(typeEffect, 500);
-        });
+        timeoutId = setTimeout(typeEffect, randomSpeed);
+    }
+
+    function skipToNextPhrase() {
+      clearTimeout(timeoutId); 
+      const element = document.querySelector("#typewriter");
+      if (!element) return;
+
+      // Jump to next phrase
+      i = (i + 1) % phrases.length;
+      j = 0;
+      isTyping = true;
+      isDeleting = false;
+      element.innerHTML = "";
+
+      // Restart typing effect
+      typeEffect();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(typeEffect, 500);
+      document.querySelector("#nextBtn").addEventListener("click", skipToNextPhrase);
+    });
     </script>
 
 <h2>Latest Posts</h2>

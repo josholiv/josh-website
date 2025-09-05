@@ -372,26 +372,31 @@ a.tag, a.tag:visited {
 }
 
 .typewriter-container {
+  position: relative;
   flex: 1;
   font-size: 1.2rem;
   font-family: monospace;
-  color:  var(--neutral-950);
-  border-radius: px;
+  color:  var(--neutral-300);
+  border-radius: 5px;
   text-align: left;
-  line-height: 2;
-  min-height: 20rem;
+  line-height: 1.5;
+  min-height: 16rem;
+  background-color: var(--neutral-700);
+  padding: 1rem;
 }
-
-.typewriter-container span {
-  background-color:  var(--neutral-100); /* looks like a highlight marker */
-}
-
+ 
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  color: var(--neutral-600);
+  color: var(--green-300);
   animation: blink 1.2s infinite;
   font-weight: 700;
+}
+
+#nextBtn {
+  position: absolute; /* ✅ pin it inside the container */
+  bottom: 0.75rem;   /* adjust spacing */
+  right: 0.75rem;
 }
 
 @keyframes blink {

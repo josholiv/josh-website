@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [
     preact(),
     expressiveCode({
-      themes: ['github-light'],
+      themes: ['synthwave-84'],
     }),
     mdx()
   ],
