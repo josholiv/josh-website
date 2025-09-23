@@ -376,19 +376,19 @@ a.tag, a.tag:visited {
   flex: 1;
   font-size: 1.2rem;
   font-family: monospace;
-  color:  var(--neutral-300);
+  color:  var(--neutral-950);
   border-radius: 5px;
   text-align: left;
   line-height: 1.5;
   min-height: 16rem;
-  background-color: var(--neutral-700);
+  background-color: white;
   padding: 1rem;
 }
  
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  color: var(--green-300);
+  color: var(--green-600);
   animation: blink 1.2s infinite;
   font-weight: 700;
 }
