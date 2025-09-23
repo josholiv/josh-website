@@ -69,7 +69,7 @@ const TriathlonStats = ({ data, error }) => {
     <div style={{position: 'relative' }}>
       <div style={{
         padding: '1rem',
-        backgroundColor: 'var(--neutral-050)',
+        backgroundColor: 'var(--neutral-900)',
         borderRadius: '5px',
         position: 'relative',
       }}>
@@ -84,9 +84,9 @@ const TriathlonStats = ({ data, error }) => {
           justifyContent: 'left',
           gap: '1rem',
           }}>
-          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), 'var(--blue-600)', false)}
-          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-600)', false)}
-          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), 'var(--orange-600)', true)}
+          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), 'var(--blue-400)', false)}
+          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-400)', false)}
+          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), 'var(--orange-400)', true)}
         </div>
 
         <div style={{ marginTop: '0.5rem', textAlign: 'left' }}> 

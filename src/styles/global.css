@@ -105,12 +105,12 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
  
     body {
       margin: 0;
-      color: var(--neutral-950);
+      color: var(--neutral-050);
       display: flex;
       align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
-      background: var(--neutral-050);
+      background: var(--neutral-900);
     }
     
     .page-wrapper {
@@ -130,19 +130,19 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
     a {
-      color: var(--blue-600);
+      color: var(--blue-400);
     }
 
     a:hover {
-      color: var(--blue-700);
+      color: var(--blue-300);
     }
 
     a:visited {
-      color: var(--purple-600);
+      color: var(--purple-400);
     }
 
     a:visited:hover {
-      color: var(--purple-700);
+      color: var(--purple-300);
     }
 
 
@@ -173,12 +173,12 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
   border-radius: 5px;
   background: linear-gradient(
     90deg,
-    var(--red-500),
-    var(--orange-500),
-    var(--green-500),
-    var(--blue-500),
-    var(--purple-500),
-    var(--pink-500)
+    var(--red-400),
+    var(--orange-400),
+    var(--green-400),
+    var(--blue-400),
+    var(--purple-400),
+    var(--pink-400)
   );
   background-size: 300% 300%;
   background-clip: border-box;
@@ -206,7 +206,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
   padding: 0.6rem 0;
   text-transform: uppercase;
   font-size: 1rem;
-  color: var(--blue-600);
+  color: var(--blue-400);
   text-decoration: none;
 }
 
@@ -216,7 +216,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
 .nav-links a:hover {
-  color: var(--blue-700);
+  color: var(--blue-300);
 }
 
 /* Spacing between stacked links in hamburger menu */
@@ -312,12 +312,12 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 .tag {
   margin: 0rem;
   font-family: monospace;
-  color:  var(--neutral-600);
+  color:  var(--neutral-400);
   border-radius: 9999px;
   padding: 5px 10px;
   font-size: 1rem;
   border: 1px solid;
-  border-color:  var(--neutral-600);
+  border-color:  var(--neutral-400);
   position: relative;
   cursor: pointer;
 }
@@ -325,13 +325,13 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 a.tag, a.tag:visited {
   text-decoration: none;
   display: inline-block;
-  color:  var(--neutral-950) !important;
-  border-color:  var(--neutral-950) !important;
+  color:  var(--neutral-300) !important;
+  border-color:  var(--neutral-300) !important;
 }
 
 /* Count next to the tag */
 .tag-count {
-  color:  var(--neutral-600);
+  color:  var(--neutral-400);
   font-size: 1rem;
   margin-left: 0.5rem;
 }
@@ -349,7 +349,7 @@ a.tag, a.tag:visited {
 }
 
 .tag:hover {
-  background-color: var(--neutral-100)
+  background-color: var(--neutral-700)
 }
     
 /* Universal button style class */
@@ -360,15 +360,15 @@ a.tag, a.tag:visited {
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;
-  background-color:  var(--neutral-300);
-  color:  var(--neutral-950);
+  background-color:  var(--neutral-400);
+  color:  var(--neutral-800);
   border: none;
   border-radius: 1rem;
 }
 
 /* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: var(--neutral-400);     /* Change background color on hover */
+  background-color: var(--neutral-300);     /* Change background color on hover */
 }
 
 .typewriter-container {
@@ -376,12 +376,12 @@ a.tag, a.tag:visited {
   flex: 1;
   font-size: 1.2rem;
   font-family: monospace;
-  color:  var(--neutral-950);
+  color: var(--neutral-600);
   border-radius: 5px;
   text-align: left;
   line-height: 1.5;
-  min-height: 16rem;
-  background-color: white;
+  min-height: 14rem;
+  background-color: var(--neutral-050);
   padding: 1rem;
 }
  
@@ -504,12 +504,12 @@ li.blog-post {
     font-size: 1rem;
     margin-top: 0.5rem;
     font-weight: bold;
-    color:  var(--neutral-600);
+    color:  var(--neutral-400);
   }
 
   /* Author on BlogSorter component */
   .post-author {
-    color: var(--neutral-600);
+    color: var(--neutral-400);
   }
 
   /* Description on BlogSorter component */
@@ -518,13 +518,13 @@ li.blog-post {
     margin-left: 0rem;
     margin-top: 0.5rem;
     margin-right: 0.5rem;
-    color:  var(--neutral-600);
+    color:  var(--neutral-400);
   }
 
    /* Description on BlogSorter component */
    .post-read-time {
     font-style: italic;
-    color:  var(--neutral-600);
+    color:  var(--neutral-400);
   }
 
 @media print {

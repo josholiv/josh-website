@@ -38,9 +38,10 @@ body {
   padding-right: 1in;
   padding-bottom: 1in;
   margin: 1rem 0;
+  border-radius: 5px;
   box-sizing: border-box;
+  color: var(--neutral-950);
   background: white;
-  box-shadow: 0 4px 12px var(--neutral-100);
 }
 
 .section-item {
