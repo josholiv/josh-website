@@ -142,7 +142,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                     </div>
                   )}
                   <div className="post-text">
-                    <h2 className="post-title">{post.data.title}</h2>
+                    <h3 className="post-title">{post.data.title}</h3>
                     <span className="pub-date">
                       {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                         day: 'numeric',
