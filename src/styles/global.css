@@ -103,7 +103,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
  
     body {
       margin: 0;
-      color: var(--neutral-300);
+      color: var(--neutral-200);
       display: flex;
       align-items: flex-start;
       justify-content: center;
@@ -128,19 +128,19 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
     a {
-      color: var(--blue-400);
-    }
-
-    a:hover {
       color: var(--blue-300);
     }
 
+    a:hover {
+      color: var(--blue-200);
+    }
+
     a:visited {
-      color: var(--purple-400);
+      color: var(--purple-300);
     }
 
     a:visited:hover {
-      color: var(--purple-300);
+      color: var(--purple-200);
     }
 
 
@@ -212,6 +212,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 /* Active link */
 .nav-links a.active {
   font-weight: 700;
+  color: var(--neutral-200);
 }
 
 .nav-links a:hover {
@@ -359,15 +360,16 @@ a.tag, a.tag:visited {
   font-family: monospace;
   text-transform: uppercase;
   cursor: pointer;
-  background-color:  var(--neutral-400);
-  color:  var(--neutral-800);
+  background-color:  var(--neutral-700);
+  color:  var(--neutral-300);
   border: none;
   border-radius: 1rem;
 }
 
 /* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: var(--neutral-300);     /* Change background color on hover */
+  background-color: var(--neutral-600);
+  color: var(--neutral-100);
 }
 
 .typewriter-container {

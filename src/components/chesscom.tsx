@@ -47,10 +47,10 @@ const ChessStats: FunctionalComponent = () => {
       textAlign: 'left',
       borderRight: isLast ? 'none' : '1px solid var(--neutral-200)',
     }}>
-        <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
+        <div style={{ fontSize: '1rem', marginBottom: '0.3rem' }}>
           {label}
         </div>
-        <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+        <div style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
           {value ?? '–'}
         </div>
       </div>
@@ -60,7 +60,7 @@ const ChessStats: FunctionalComponent = () => {
          <div style={{position: 'relative' }}>
       <div style={{
         padding: '1rem',
-        backgroundColor: 'var(--neutral-900)',
+        backgroundColor: 'var(--neutral-800)',
         borderRadius: '5px',
         position: 'relative',
       }}>

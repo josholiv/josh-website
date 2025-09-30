@@ -43,10 +43,10 @@ const TriathlonStats = ({ data, error }) => {
       textAlign: 'left',
       borderRight: isLast ? 'none' : '1px solid var(--neutral-200)',
     }}>
-      <div style={{ fontSize: '0.9rem', marginBottom: '0.3rem' }}>
+      <div style={{ fontSize: '1rem', marginBottom: '0.3rem' }}>
         {label}
       </div>
-      <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+      <div style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
         {value ?? '–'}
       </div>
     </div>
@@ -69,13 +69,11 @@ const TriathlonStats = ({ data, error }) => {
     <div style={{position: 'relative' }}>
       <div style={{
         padding: '1rem',
-        backgroundColor: 'var(--neutral-900)',
+        backgroundColor: 'var(--neutral-800)',
+        color: 'var(--neutral-400)',
         borderRadius: '5px',
         position: 'relative',
       }}>
-      <div style={{textAlign: 'left', color: "var(--neutral-999)" }}>
- 
-    </div>
 
         {/* Stats Cards */}
         <div style={{
@@ -90,15 +88,16 @@ const TriathlonStats = ({ data, error }) => {
         </div>
 
         <div style={{ marginTop: '0.5rem', textAlign: 'left' }}> 
-          <span>Unit: </span>
+          <span></span>
           <span style={{
             padding: "0.2rem 0rem",
             fontWeight: '700',
+            fontStyle: 'italic'
           }}>
             {unit === "miles" ? "miles" :
             unit === "km" ? "kilometers" :
             unit === "fields" ? "American football fields" :
-            "percent of the distance to the Moon"}
+            "of the distance from Earth to the Moon"}
           </span>
         </div>
 

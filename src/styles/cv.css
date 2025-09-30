@@ -1,5 +1,5 @@
 html {
-  font-size: 16px;        /* fixed root font size */
+  font-size: 1rem;        /* fixed root font size */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -33,15 +33,12 @@ body {
 .cv-container {
   position: relative;
   width: 100%;
-  padding-top: 1in;
-  padding-left: 1in;
-  padding-right: 1in;
-  padding-bottom: 1in;
+  padding-top: 4rem;
   margin: 1rem 0;
   border-radius: 5px;
   box-sizing: border-box;
-  color: var(--neutral-950);
-  background: white;
+  color: var(--neutral-200);
+  background: var(--neutral-900);
 }
 
 .section-item {
@@ -54,7 +51,7 @@ body {
 
 hr {
   border: none;
-  border-top: 1pt solid var(--neutral-999);
+  border-top: 1pt solid var(--neutral-400);
   margin: 0em 0 0.6em 0;
 }
 
