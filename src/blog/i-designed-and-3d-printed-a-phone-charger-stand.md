@@ -44,8 +44,6 @@ If you're using a knockoff MagSafe charger like mine, or one with a similar size
 
 Let me know if you print one—I’d love to see how others use or remix the design!
 
-<img src="/images/blog/post-2/charger-stand-6.jpg" alt="Charger stand with charger inserted" class="blog-body-pic">
-
 ## Print Settings
 
 - Printer: Creality Ender-3 V2 Neo
@@ -54,3 +52,5 @@ Let me know if you print one—I’d love to see how others use or remix the des
 - Rafts: No
 
 <img src="/images/blog/post-2/charger-stand-1.jpg" alt="iPhone in StandBy mode on a MagSafe charger stand" class="blog-body-pic">
+
+<img src="/images/blog/post-2/charger-stand-6.jpg" alt="Charger stand with charger inserted" class="blog-body-pic">

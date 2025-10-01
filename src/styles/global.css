@@ -420,7 +420,6 @@ a.tag, a.tag:visited {
   opacity: 0;
 }
 
-
 /* blog post button styles on the main blog page */
 /* List Item Styles */
 li.blog-post {
@@ -447,7 +446,7 @@ li.blog-post {
   .blog-thumbnail-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 75%; /* 4:3 Aspect Ratio (3/4 = 0.75) */
+  padding-top: 56.25%; /* for 16:9 Aspect Ratio (100*9/16 = 56.25%) */
   margin-bottom: 1rem;
   overflow: hidden;
   border-radius: 5px;
@@ -493,7 +492,6 @@ li.blog-post {
   width: 100%;
 }
 
-
   /* Title on BlogSorter component */
   .post-title {
     margin-top: 0;
@@ -522,7 +520,7 @@ li.blog-post {
     color:  var(--neutral-400);
   }
 
-   /* Description on BlogSorter component */
+   /* Read time on BlogSorter component */
    .post-read-time {
     font-style: italic;
     color:  var(--neutral-400);
@@ -549,8 +547,8 @@ li.blog-post {
 
 @media (min-width: 636px) {
   .blog-thumbnail-wrapper {
-    width: 200px;
-    padding-top: 150px; /* 200px * 0.75 (for 4:3) */
+    width: 10.667rem;
+    padding-top: 6rem; /* 10.667rem:6rem for 16:9 ratio */
   }
   .blog-thumbnail {
     border-radius: 5px;
