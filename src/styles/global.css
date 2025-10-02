@@ -88,6 +88,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 
     h1, h2 {
       color: var(--neutral-050);
+      text-transform: uppercase;
     }
 
     header {
@@ -203,7 +204,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
   text-align: left;
   padding: 0.6rem 0;
   text-transform: uppercase;
-  font-family: 'gill-sans-nova-condensed';
+  font-family: 'gill-sans-nova';
   font-size: 1.2rem;
   color: var(--neutral-400);
   text-decoration: none;
@@ -376,12 +377,11 @@ a.tag, a.tag:visited {
   position: relative;
   flex: 1;
   font-size: 1.2rem;
-  font-family: monospace;
   color: var(--neutral-400);
   border-radius: 5px;
   text-align: left;
   line-height: 1.5;
-  min-height: 14rem;
+  min-height: 10rem;
   background-color: var(--neutral-800);
   padding: 1rem;
 }
