@@ -4,10 +4,10 @@ import { Image } from 'astro:assets';
 import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
-import ErrorRenderer from "../Error.astro";
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import Hardcover from '../components/Hardcover.js';
 import HardcoverStats from '../components/HardcoverStats.jsx';
+import ErrorRenderer from "../Error.astro";
 
 const pageTitle = "Josh Olivier — About";
 
@@ -20,9 +20,10 @@ try {
   error = e.message
 }
 
-// Fetch Hardcover data server-side
+// Fetch Hardcover data
 let hardcoverGoals;
 let hardcoverError;
+
 try {
   const hc = new Hardcover();
   hardcoverGoals = await hc.fetch();
@@ -77,9 +78,7 @@ try {
 	<ChessStats client:load />
 
   <p>Reading stats:</p>
-    <HardcoverStats client:only data={hardcoverGoals} />
-    <ErrorRenderer error={hardcoverError} />
-  </BaseLayout>
-
+  <HardcoverStats client:only data={hardcoverGoals} />
+  <ErrorRenderer error={hardcoverError} />
   
 </BaseLayout>

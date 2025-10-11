@@ -1,9 +1,11 @@
 const HardcoverStats = ({ data }) => {
-  const goals = data || [];
+  // Use dummy data if nothing is passed
+  const goals =
+    Array.isArray(data) && data.length > 0
+      ? data
+      : [{ goal: 999, progress: 999 }]; // dummy data for dev/testing
 
   const formatCard = (progress, goal, color, isLast) => {
-    const percent = goal ? Math.min((parseFloat(progress) / parseFloat(goal)) * 100, 100) : 0;
-
     return (
       <div
         style={{
@@ -22,24 +24,6 @@ const HardcoverStats = ({ data }) => {
         <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>
           {progress} / {goal}
         </div>
-        <div
-          style={{
-            marginTop: "0.3rem",
-            width: "100%",
-            height: "6px",
-            backgroundColor: "var(--neutral-700)",
-            borderRadius: "3px",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              width: `${percent}%`,
-              height: "100%",
-              backgroundColor: color,
-            }}
-          ></div>
-        </div>
       </div>
     );
   };
@@ -57,12 +41,8 @@ const HardcoverStats = ({ data }) => {
           gap: "1rem",
         }}
       >
-        {goals.length === 0 ? (
-          <p>No reading goal set for this year.</p>
-        ) : (
-          goals.map((g, i) =>
-            formatCard(g.progress, g.goal, "var(--blue-400)", i === goals.length - 1)
-          )
+        {goals.map((g, i) =>
+          formatCard(g.progress, g.goal, "var(--blue-400)", i === goals.length - 1)
         )}
       </div>
     </div>

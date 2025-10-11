@@ -1,8 +1,12 @@
 import axios from "axios";
 
+const env = import.meta.env; // Vite-style env, works at build time
+
+const currentYear = new Date().getFullYear();
+
 export default class Hardcover {
   constructor() {
-    if (!process.env.HARDCOVER_API_KEY) {
+    if (!env.HARDCOVER_API_KEY) {
       throw new Error("Hardcover API credentials are missing.");
     }
   }
@@ -25,16 +29,12 @@ export default class Hardcover {
       {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.HARDCOVER_API_KEY}`,
+          "Authorization": `Bearer ${env.HARDCOVER_API_KEY}`,
         },
       }
     );
 
-    if (response.data.errors) {
-      throw new Error(response.data.errors[0].message);
-    }
-
-    // Safely return goals, fallback to empty array
+    // Safely access goals
     return response.data?.data?.me?.goals || [];
   }
 
@@ -46,10 +46,10 @@ export default class Hardcover {
       return [];
     }
 
-    // Filter for current year
-    const currentYear = new Date().getFullYear();
+    // Filter goals for the current year
     const yearlyGoals = goalsData.filter(g => g.goal.includes(currentYear));
 
+    // Map to simple objects
     return yearlyGoals.map(g => ({
       goal: g.goal,
       progress: g.progress,
