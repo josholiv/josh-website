@@ -42,7 +42,7 @@ export default class Hardcover {
   async fetch() {
     const goals = await this.#fetchData();
 
-    // Optionally, filter or format goals for the current year
+    // Optionally filter for current year
     const currentYear = new Date().getFullYear();
     const yearlyGoals = goals.filter(g => g.goal.includes(currentYear));
 

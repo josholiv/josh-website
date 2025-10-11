@@ -7,7 +7,7 @@ import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import Hardcover from '../components/Hardcover.js';
-import HardcoverStats from '../components/HardcoverStats.js';
+import HardcoverStats from '../components/HardcoverStats.jsx';
 
 const pageTitle = "Josh Olivier — About";
 
@@ -29,12 +29,13 @@ try {
 
 // Display error message if Hardcover API messes up
 let hardcoverGoals;
-let error2;
+let hardcoverError;
 try {
   const hc = new Hardcover();
-  hardcoverGoals = await hc.fetch();
+  hardcoverGoals = await hc.fetch(); // runs server-side
 } catch (e) {
-  error2 = e.message;
+  hardcoverGoals = [{ goal: 999, progress: 999 }]; // fallback
+  hardcoverError = e.message;
 }
 ---
 
@@ -84,7 +85,8 @@ try {
 
       <p>Reading stats</p>
 
-  <HardcoverStats client:load />
+  <HardcoverStats client:only data={hardcoverGoals} />
+  <ErrorRenderer error={hardcoverError} />
 
   
 </BaseLayout>
