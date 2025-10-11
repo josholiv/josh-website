@@ -27,7 +27,7 @@ export default class Hardcover {
       {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `${env.HARDCOVER_API_KEY}`,
+          "Authorization": `Bearer ${env.HARDCOVER_API_KEY}`,
         },
       }
     );
