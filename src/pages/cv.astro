@@ -55,7 +55,10 @@ function formatDateFull(str) {
               <div><strong>{ed.studyType}, {ed.area},</strong> {ed.institution}</div>
               <span class="date-range">{formatDate(ed.startDate)} – {formatDate(ed.endDate)}</span>
             </div>
+            <div class="indent-item">
+            {ed.score && <div>GPA: {ed.score}</div>} {/* show GPA only if listed in cv.json */}
             {ed.advisor && <div>Advisor: {ed.advisor}</div>} {/* show advisor only if listed in cv.json */}
+            
             {ed.courses && ed.courses.length > 0 && ( /* show coursework only if listed in cv.json */
                 <div class="indent-item"><i>Relevant coursework:</i></div> 
                 <ul class="two-column-list">
@@ -64,6 +67,7 @@ function formatDateFull(str) {
                   ))}
                 </ul>
             )}
+            </div>
           </div>
         ))}
       </section>
@@ -170,7 +174,7 @@ function formatDateFull(str) {
             <div>{org}</div>
           ))
         ))}
-      </section>
+      </section> 
 
    <section>
   <h2>Skills</h2>
@@ -198,17 +202,21 @@ function formatDateFull(str) {
         introText = "";
     }
 
-    return (
-      <div class="skill-category">
-        <p>{introText}</p>
-        <ul class="two-column-list">
-          {skillCategory.items.map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  })}
+  const listClass = skillCategory.category === "Programming Languages"
+    ? "single-column-list" /* make Programming Languages a single-column list--an exception to the rule */ 
+    : "three-column-list";
+
+  return (
+    <div class="skill-category">
+      <p>{introText}</p>
+      <ul class={listClass}>
+        {skillCategory.items.map(item => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+})}
 </section>
 
     </div>

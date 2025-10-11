@@ -84,6 +84,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     html {
       font-family: "gill-sans-nova", sans-serif;
       margin: 0;
+      overflow-y: scroll; /* Always reserve space for the scrollbar */
     }
 
     h1, h2 {
@@ -212,8 +213,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 
 /* Active link */
 .nav-links a.active {
-  font-weight: 700;
-  color: var(--neutral-200);
+  color: var(--neutral-050);
 }
 
 .nav-links a:hover {
@@ -391,12 +391,11 @@ a.tag, a.tag:visited {
   display: inline-block;
   color: var(--green-400);
   animation: blink 1.2s infinite;
-  font-weight: 700;
 }
 
 #nextBtn {
-  position: absolute; /* ✅ pin it inside the container */
-  bottom: 0.75rem;   /* adjust spacing */
+  position: absolute;
+  bottom: 0.75rem;
   right: 0.75rem;
 }
 

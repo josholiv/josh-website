@@ -33,9 +33,17 @@
       "studyType": "BS",
       "startDate": "2017-09-05",
       "endDate": "2021-04-22",
-      "score": "",
+      "score": "3.59",
       "advisor": "",
       "courses": [
+        "Abnormal Psychology",
+        "Psychological Statistics",
+        "Behavioral Neurobiology",
+        "Psychometrics",
+        "Clinical Psychology",
+        "Stress Psychobiology",
+        "Cognition",
+        "Writing Within Psychology"
       ]
     }
   ],
@@ -304,23 +312,42 @@
 "skills": [
   {
     "category": "Software",
-    "items": ["R Studio", "SPSS", "MATLAB", "SPM12", "FreeSurfer", "PsychoPy", "Qualtrics", "Zotero", "REDCap", "Excel"]
+    "items": [
+      "FreeSurfer",
+      "Qualtrics",
+      "SPM12",
+      "MATLAB",
+      "R Studio",
+      "SPSS",
+      "PsychoPy",
+      "REDCap",
+      "Zotero"
+    ]
   },
   {
     "category": "Programming Languages",
-    "items": ["Python", "R", "MATLAB", "JavaScript", "HTML", "CSS"]
-  },
-  {
-    "category": "Web Development",
-    "items": ["Astro", "React", "Preact", "Tailwind CSS", "Markdown", "Git", "Netlify", "Node.js"]
+    "items": [
+      "MATLAB",
+      "Python",
+      "R"
+    ]
   },
   {
     "category": "Neuropsychological Tests",
-    "items": ["WMS-IV", "CVLT-II", "HVLT-R", "BVMT-R", "MMSE", "SDMT", "Digit Span", "Trail Making Test", "Letter Fluency", "Category Fluency", "TOPF", "Raven's APM"]
-  },
-  {
-    "category": "Languages",
-    "items": ["English (Fluent)", "Portuguese (Fluent)"]
+    "items": [
+      "BVMT-R",
+      "HVLT-R",
+      "SDMT", 
+      "Category Fluency",
+      "Letter Fluency", 
+      "TOPF",
+      "CVLT-II",
+      "MMSE", 
+      "Trail Making Test",
+      "Digit Span", 
+      "Raven's APM",
+      "WMS-IV"
+    ]
   }
 ]
 }

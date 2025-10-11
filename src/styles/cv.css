@@ -77,6 +77,26 @@ hr {
   font-weight: normal;
 }
 
+.single-column-list {
+  display: grid;
+  grid-template-columns: 1fr;  /* always one column */
+  padding: 0;
+  list-style: none;
+}
+
+.single-column-list li::before {
+  content: "•"; /* manual bullet */
+  position: absolute;
+  left: 0;
+}
+
+.single-column-list li {
+  position: relative;
+  padding-left: 1em;  
+  margin-left: 1.5em;
+  margin-bottom: 0em;
+}
+
 .two-column-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -91,6 +111,26 @@ hr {
 }
 
 .two-column-list li {
+  position: relative;
+  padding-left: 1em;  /* space for the bullet */
+  margin-left: 1.5em;   /* indent whole block */
+  margin-bottom: 0em;
+}
+
+.three-column-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0;
+  list-style: none; /* Remove default bullets */
+}
+
+.three-column-list li::before {
+  content: "•"; /* Add bullet manually */
+  position: absolute;
+  left: 0;
+}
+
+.three-column-list li {
   position: relative;
   padding-left: 1em;  /* space for the bullet */
   margin-left: 1.5em;   /* indent whole block */
@@ -145,6 +185,10 @@ hr {
   }
 
   .two-column-list {
+    grid-template-columns: 1fr; /* collapse to single column */
+  }
+
+    .three-column-list {
     grid-template-columns: 1fr; /* collapse to single column */
   }
 
