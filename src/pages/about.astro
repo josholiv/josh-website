@@ -6,6 +6,8 @@ import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import ErrorRenderer from "../Error.astro";
 import TriathlonStats from '../components/TriathlonStats.jsx';
+import Hardcover from '../components/Hardcover.js';
+import HardcoverStats from '../components/HardcoverStats.js';
 
 const pageTitle = "Josh Olivier — About";
 
@@ -23,6 +25,16 @@ try {
       "Something went wrong with the Strava API, try updating your refresh_token",
     )
   }
+}
+
+// Display error message if Hardcover API messes up
+let hardcoverGoals;
+let error2;
+try {
+  const hc = new Hardcover();
+  hardcoverGoals = await hc.fetch();
+} catch (e) {
+  error2 = e.message;
 }
 ---
 
@@ -69,4 +81,10 @@ try {
         with time controls of more than 10 minutes per player:
       </p>
 	<ChessStats client:load />
+
+      <p>Reading stats</p>
+
+  <HardcoverStats client:load />
+
+  
 </BaseLayout>
