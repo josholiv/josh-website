@@ -11,30 +11,23 @@ import HardcoverStats from '../components/HardcoverStats.jsx';
 
 const pageTitle = "Josh Olivier — About";
 
-const currentYear = new Date().getFullYear();
-
-// Display error message if Strava API messes up
+// Fetch Strava data
 let data, error
 try {
   const strava = new Strava()
   data = await strava.fetch()
 } catch (e) {
   error = e.message
-  if (error.includes("401")) {
-    throw Error(
-      "Something went wrong with the Strava API, try updating your refresh_token",
-    )
-  }
 }
 
-// Display error message if Hardcover API messes up
+// Fetch Hardcover data server-side
 let hardcoverGoals;
 let hardcoverError;
 try {
   const hc = new Hardcover();
-  hardcoverGoals = await hc.fetch(); // runs server-side
+  hardcoverGoals = await hc.fetch();
 } catch (e) {
-  hardcoverGoals = [{ goal: 999, progress: 999 }]; // fallback
+  hardcoverGoals = [];
   hardcoverError = e.message;
 }
 ---
@@ -83,10 +76,10 @@ try {
       </p>
 	<ChessStats client:load />
 
-      <p>Reading stats</p>
-
-  <HardcoverStats client:only data={hardcoverGoals} />
-  <ErrorRenderer error={hardcoverError} />
+  <p>Reading stats:</p>
+    <HardcoverStats client:only data={hardcoverGoals} />
+    <ErrorRenderer error={hardcoverError} />
+  </BaseLayout>
 
   
 </BaseLayout>

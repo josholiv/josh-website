@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const env = import.meta.env;
-
 export default class Hardcover {
   constructor() {
-    if (!env.HARDCOVER_API_KEY) {
+    if (!process.env.HARDCOVER_API_KEY) {
       throw new Error("Hardcover API credentials are missing.");
     }
   }
@@ -21,30 +19,36 @@ export default class Hardcover {
       }
     `;
 
-    const { data } = await axios.post(
+    const response = await axios.post(
       "https://api.hardcover.app/v1/graphql",
       { query },
       {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${env.HARDCOVER_API_KEY}`,
+          "Authorization": `Bearer ${process.env.HARDCOVER_API_KEY}`,
         },
       }
     );
 
-    if (data.errors) {
-      throw new Error(data.errors[0].message);
+    if (response.data.errors) {
+      throw new Error(response.data.errors[0].message);
     }
 
-    return data.data.me.goals;
+    // Safely return goals, fallback to empty array
+    return response.data?.data?.me?.goals || [];
   }
 
   async fetch() {
-    const goals = await this.#fetchData();
+    const goalsData = await this.#fetchData();
 
-    // Optionally filter for current year
+    if (!Array.isArray(goalsData)) {
+      console.warn("Hardcover returned invalid goals data:", goalsData);
+      return [];
+    }
+
+    // Filter for current year
     const currentYear = new Date().getFullYear();
-    const yearlyGoals = goals.filter(g => g.goal.includes(currentYear));
+    const yearlyGoals = goalsData.filter(g => g.goal.includes(currentYear));
 
     return yearlyGoals.map(g => ({
       goal: g.goal,

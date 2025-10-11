@@ -58,7 +58,7 @@ const HardcoverStats = ({ data }) => {
         }}
       >
         {goals.length === 0 ? (
-          <p>No reading goals set for this year.</p>
+          <p>No reading goal set for this year.</p>
         ) : (
           goals.map((g, i) =>
             formatCard(g.progress, g.goal, "var(--blue-400)", i === goals.length - 1)
