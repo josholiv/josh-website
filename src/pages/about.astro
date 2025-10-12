@@ -109,10 +109,9 @@ try {
                   : <>{acc}, <strong>{genre}</strong></>
             , "")
         : "not available yet"}
-      . Here is the total number of books I've read in <strong>{new Date().getFullYear()}</strong>, as well as my reading goal for the year:
+      . Here is the total number of books I've read in <strong>{new Date().getFullYear()}</strong> and my reading goal for the year:
     </p>
 
   <HardcoverStats client:only data={hardcoverGoals} />
   <ErrorRenderer error={hardcoverError} />
-  
 </BaseLayout>
