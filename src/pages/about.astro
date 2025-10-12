@@ -22,8 +22,8 @@ try {
 
 // Fetch Hardcover data
 let hardcoverGoals = [];
-let topGenres = [];
-let books2025 = [];
+let topGenresAllTime = [];
+let booksThisYear = [];
 let hardcoverError;
 
 try {
@@ -31,17 +31,23 @@ try {
   const result = await hc.fetch(); // fetch goals, topGenres, and userBooks
 
   hardcoverGoals = result.goals;
-  topGenres = result.topGenres;
+  topGenresAllTime = result.topGenres; // top 5 genres of all time
 
-  const userBooks = result.userBooks || [];
-  books2025 = userBooks
-    .filter(entry => entry.reviewed_at && new Date(entry.reviewed_at).getFullYear() === 2025)
-    .map(entry => entry.book.title || "Untitled");
+  const allBooks = result.userBooks || [];
+  
+  // Books read in the current year
+  const currentYear = new Date().getFullYear();
+  booksThisYear = allBooks
+    .filter(entry => entry.reviewed_at && new Date(entry.reviewed_at).getFullYear() === currentYear)
+    .map(entry => ({
+      title: entry.book?.title || "Untitled",
+      rating: entry.rating ?? null
+    }));
 
 } catch (e) {
   hardcoverGoals = [];
-  topGenres = [];
-  books2025 = [];
+  topGenresAllTime = [];
+  booksThisYear = [];
   hardcoverError = e.message;
 }
 ---
@@ -94,22 +100,24 @@ try {
   <HardcoverStats client:only data={hardcoverGoals} />
   <ErrorRenderer error={hardcoverError} />
 
-   {books2025.length > 0 && (
+   {booksThisYear.length > 0 && (
     <>
-      <h2 class="mt-6">Books I've Read in 2025</h2>
+      <h2 class="mt-6">Books I've Read in {new Date().getFullYear()}</h2>
       <ul class="list-disc list-inside text-lg">
-        {books2025.map(title => (
-          <li>{title}</li>
+        {booksThisYear.map(({ title, rating }) => (
+          <li>
+            {title}{rating ? ` — Rating: ${rating}/5` : ""}
+          </li>
         ))}
       </ul>
     </>
   )}
 
-  {topGenres.length > 0 && (
+  {topGenresAllTime.length > 0 && (
     <>
-      <h2 class="mt-6">My Top Genres of 2025</h2>
+      <h2 class="mt-6">My Top Genres of All Time</h2>
       <ul class="list-disc list-inside text-lg">
-        {topGenres.map(({ genre, count }) => (
+        {topGenresAllTime.map(({ genre, count }) => (
           <li>{genre} ({count} books)</li>
         ))}
       </ul>

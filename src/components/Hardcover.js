@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const env = import.meta.env; // Vite-style env
+const env = import.meta.env;
 
 export default class Hardcover {
   constructor() {
@@ -20,9 +20,10 @@ export default class Hardcover {
           }
           user_books(where: {status_id: {_eq: 3}}) { # 3 = read
             reviewed_at
+            rating
             book {
-                title
-                cached_tags
+              title
+              cached_tags
             }
           }
         }
@@ -45,20 +46,16 @@ export default class Hardcover {
 
   async fetch() {
     const data = await this.#fetchData();
+
     const goalsData = Array.isArray(data.goals)
       ? data.goals.map(g => ({ goal: g.goal, progress: g.progress }))
       : [];
 
-    // Filter books reviewed in 2025
-    const books2025 = (data.user_books || []).filter(entry => {
-      if (!entry.reviewed_at) return false;
-      const year = new Date(entry.reviewed_at).getFullYear();
-      return year === 2025;
-    });
+    const allBooks = data.user_books || [];
 
     // Compute top 5 genres (one genre per book)
     const genreCounts = {};
-    for (const entry of books2025) {
+    for (const entry of allBooks) {
       const genres = entry.book?.cached_tags?.Genre || [];
       if (genres.length > 0) {
         const mainGenre = genres[0].tag; // first genre only
@@ -71,10 +68,10 @@ export default class Hardcover {
       .slice(0, 5)
       .map(([genre, count]) => ({ genre, count }));
 
-   return {
+    return {
       goals: goalsData,
       topGenres,
-      userBooks: data.user_books || [],
+      userBooks: allBooks, // all read books
     };
   }
 }
