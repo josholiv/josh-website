@@ -70,10 +70,10 @@ export default class Hardcover {
       .slice(0, 5)
       .map(([genre, count]) => ({ genre, count }));
 
-    return {
+   return {
       goals: goalsData,
       topGenres,
-      userBooks,
+      userBooks: data.user_books || [], // <-- fixed
     };
   }
 }
