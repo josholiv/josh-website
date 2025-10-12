@@ -57,19 +57,21 @@ export default class Hardcover {
       progress: g.progress,
     }));
 
-    // --- New section: compute top 3 genres ---
-    const genreCounts = {};
+    // --- Compute top 3 genres ---
+  const genreCounts = {};
     for (const book of books) {
-      const genres = book.cached_tags?.Genre || [];
-      for (const genre of genres) {
-        genreCounts[genre.tag] = (genreCounts[genre.tag] || 0) + 1;
-      }
+    const genres = book.cached_tags?.Genre || [];
+    if (genres.length > 0) {
+        // Only count the first genre per book
+        const mainGenre = genres[0].tag;
+        genreCounts[mainGenre] = (genreCounts[mainGenre] || 0) + 1;
+    }
     }
 
     const topGenres = Object.entries(genreCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 3)
-      .map(([genre, count]) => ({ genre, count }));
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([genre, count]) => ({ genre, count }));
 
     // Return both goals and top genres
     return {
