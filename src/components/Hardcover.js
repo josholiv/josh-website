@@ -70,7 +70,7 @@ export default class Hardcover {
 
     const topGenres = Object.entries(genreCounts)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 3)
+    .slice(0, 5)
     .map(([genre, count]) => ({ genre, count }));
 
     // Return both goals and top genres
