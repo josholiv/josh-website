@@ -96,30 +96,23 @@ try {
       </p>
 	<ChessStats client:load /> 
 
-  <p>I also enjoy reading. Here is the total number of books I've read in <strong>{new Date().getFullYear()}</strong>, as well as my reading goal for the year:</p>
+    <p>
+      I also enjoy reading. According to my data from Hardcover, my top genres are{" "}
+      {topGenresAllTime.length > 0
+        ? topGenresAllTime
+            .map(g => g.genre)
+            .reduce((acc, genre, i, arr) => 
+              i === 0 
+                ? <strong>{genre}</strong> 
+                : i === arr.length - 1 
+                  ? <>{acc} and <strong>{genre}</strong></> 
+                  : <>{acc}, <strong>{genre}</strong></>
+            , "")
+        : "not available yet"}
+      . Here is the total number of books I've read in <strong>{new Date().getFullYear()}</strong>, as well as my reading goal for the year:
+    </p>
+
   <HardcoverStats client:only data={hardcoverGoals} />
   <ErrorRenderer error={hardcoverError} />
-
-  <h2>Books I've read in {new Date().getFullYear()}</h2>
-  {booksThisYear.length > 0 ? (
-    <ul class="list-disc list-inside text-lg">
-      {booksThisYear.map(({ title, rating }) => (
-        <li>{title}{rating ? ` — Rating: ${rating}/5` : ""}</li>
-      ))}
-    </ul>
-  ) : (
-    <p>No books read yet this year.</p>
-  )}
-
-  <h2>My top genres</h2>
-  {topGenresAllTime.length > 0 ? (
-    <ul class="list-disc list-inside text-lg">
-      {topGenresAllTime.map(({ genre, count }) => (
-        <li>{genre} ({count} books)</li>
-      ))}
-    </ul>
-  ) : (
-    <p>No genre data available yet.</p>
-  )}
   
 </BaseLayout>
