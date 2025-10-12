@@ -13,6 +13,9 @@ export default class Hardcover {
   async #fetchData() {
     const query = `
       query MyQuery {
+        books {
+          cached_tags
+        }
         me {
           goals {
             goal
@@ -33,22 +36,45 @@ export default class Hardcover {
       }
     );
 
-    // Safely access goals
-    return response.data?.data?.me?.[0]?.goals || [];
+    const data = response.data?.data || {};
+    return {
+      goals: data.me?.[0]?.goals || [],
+      books: data.books || [],
+    };
   }
 
   async fetch() {
-    const goalsData = await this.#fetchData();
+    const { goals, books } = await this.#fetchData();
 
-    if (!Array.isArray(goalsData)) {
-      console.warn("Hardcover returned invalid goals data:", goalsData);
-      return [];
+    if (!Array.isArray(goals)) {
+      console.warn("Hardcover returned invalid goals data:", goals);
+      return { goals: [], topGenres: [] };
     }
 
-    // Map to simple objects (no year filtering)
-    return goalsData.map(g => ({
+    // Map goals (kept exactly as before)
+    const goalsData = goals.map(g => ({
       goal: g.goal,
       progress: g.progress,
     }));
+
+    // --- New section: compute top 3 genres ---
+    const genreCounts = {};
+    for (const book of books) {
+      const genres = book.cached_tags?.Genre || [];
+      for (const genre of genres) {
+        genreCounts[genre.tag] = (genreCounts[genre.tag] || 0) + 1;
+      }
+    }
+
+    const topGenres = Object.entries(genreCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([genre, count]) => ({ genre, count }));
+
+    // Return both goals and top genres
+    return {
+      goals: goalsData,
+      topGenres,
+    };
   }
 }

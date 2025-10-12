@@ -1,32 +1,44 @@
 const HardcoverStats = ({ data }) => {
-  // Use dummy data if nothing is passed
   const goals =
     Array.isArray(data) && data.length > 0
       ? data
-      : [{ goal: 999, progress: 999 }]; // dummy data for dev/testing
+      : [{ goal: 999, progress: 999 }]; // fallback dummy data
 
-  const formatCard = (progress, goal, color, isLast) => {
-    return (
-      <div
-        style={{
-          color,
-          padding: "0.5rem 1rem",
-          display: "inline-flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          textAlign: "left",
-          borderRight: isLast ? "none" : "1px solid var(--neutral-200)",
-          minWidth: "120px",
-        }}
-      >
-        <div style={{ fontSize: "1rem", marginBottom: "0.3rem" }}>Books Read</div>
-        <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>
-          {progress} / {goal}
+  const formatCard = (progress, goal, color, isLast) => (
+    <div
+      style={{
+        color,
+        padding: "0rem 1rem 0rem 0rem",
+        display: "inline-flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        textAlign: 'left',
+        borderRight: isLast ? "none" : "1px solid var(--neutral-200)",
+      }}
+    >
+      {/* Row for progress and goal */}
+      <div style={{ display: "flex", height: "100%" }}>
+        {/* Books Read section */}
+        <div style={{ flex: 1, textAlign: "left", paddingRight: "1rem"}}>
+          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-400)" }}>
+            Read
+          </div>
+          <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>{progress}</div>
+        </div>
+
+        {/* Solid vertical separator */}
+        <div style={{ width: "1px", backgroundColor: "var(--neutral-200)" }} />
+
+        {/* Reading Goal section */}
+        <div style={{ flex: 1, textAlign: "left", paddingLeft: "1rem"}}>
+          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-400)" }}>
+            Goal
+          </div>
+          <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>{goal}</div>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
 
   return (
     <div style={{ position: "relative" }}>
@@ -42,7 +54,7 @@ const HardcoverStats = ({ data }) => {
         }}
       >
         {goals.map((g, i) =>
-          formatCard(g.progress, g.goal, "var(--blue-400)", i === goals.length - 1)
+          formatCard(g.progress, g.goal, "var(--neutral-400)", i === goals.length - 1)
         )}
       </div>
     </div>

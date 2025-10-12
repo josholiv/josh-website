@@ -64,9 +64,9 @@ const ChessStats: FunctionalComponent = () => {
         borderRadius: '5px',
         position: 'relative',
       }}>
-      <div style={{textAlign: 'left', color: "var(--neutral-999)" }}>
+      <div style={{textAlign: 'left'}}>
  
-</div>
+    </div>
       
       {/* Card rows */}
         <div style={{

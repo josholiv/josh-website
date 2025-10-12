@@ -21,14 +21,18 @@ try {
 }
 
 // Fetch Hardcover data
-let hardcoverGoals;
+let hardcoverGoals = [];
+let topGenres = [];
 let hardcoverError;
 
 try {
   const hc = new Hardcover();
-  hardcoverGoals = await hc.fetch();
+  const result = await hc.fetch(); // fetch once
+  hardcoverGoals = result.goals;
+  topGenres = result.topGenres;
 } catch (e) {
   hardcoverGoals = [];
+  topGenres = [];
   hardcoverError = e.message;
 }
 ---
@@ -77,8 +81,25 @@ try {
       </p>
 	<ChessStats client:load />
 
-  <p>Reading stats:</p>
+  <p>I also enjoy reading. Here is the total number of books I've read in <strong>{new Date().getFullYear()}</strong>, as well as my reading goal for the year:</p>
   <HardcoverStats client:only data={hardcoverGoals} />
   <ErrorRenderer error={hardcoverError} />
+
+  {topGenres.length > 0 ? (
+    <>
+      <p>
+        My top genres are:
+      </p>
+      <ul class="list-disc list-inside text-lg">
+        {topGenres.map(({ genre, count }) => (
+          <li>{genre} ({count} books)</li>
+        ))}
+      </ul>
+    </>
+  ) : (
+    <p>
+      Loading your top genres...
+    </p>
+  )}
   
 </BaseLayout>
