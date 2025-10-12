@@ -23,16 +23,25 @@ try {
 // Fetch Hardcover data
 let hardcoverGoals = [];
 let topGenres = [];
+let books2025 = [];
 let hardcoverError;
 
 try {
   const hc = new Hardcover();
-  const result = await hc.fetch(); // fetch once
+  const result = await hc.fetch(); // fetch goals, topGenres, and userBooks
+
   hardcoverGoals = result.goals;
   topGenres = result.topGenres;
+
+  const userBooks = result.userBooks || [];
+  books2025 = userBooks
+    .filter(entry => entry.reviewed_at && new Date(entry.reviewed_at).getFullYear() === 2025)
+    .map(entry => entry.book.title || "Untitled");
+
 } catch (e) {
   hardcoverGoals = [];
   topGenres = [];
+  books2025 = [];
   hardcoverError = e.message;
 }
 ---
@@ -85,21 +94,26 @@ try {
   <HardcoverStats client:only data={hardcoverGoals} />
   <ErrorRenderer error={hardcoverError} />
 
-  {topGenres.length > 0 ? (
+   {books2025.length > 0 && (
     <>
-      <p>
-        My top genres are:
-      </p>
+      <h2 class="mt-6">Books I've Read in 2025</h2>
+      <ul class="list-disc list-inside text-lg">
+        {books2025.map(title => (
+          <li>{title}</li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {topGenres.length > 0 && (
+    <>
+      <h2 class="mt-6">My Top Genres of 2025</h2>
       <ul class="list-disc list-inside text-lg">
         {topGenres.map(({ genre, count }) => (
           <li>{genre} ({count} books)</li>
         ))}
       </ul>
     </>
-  ) : (
-    <p>
-      Loading your top genres...
-    </p>
   )}
   
 </BaseLayout>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const env = import.meta.env; // Vite-style env, works at build time
+const env = import.meta.env; // Vite-style env
 
 export default class Hardcover {
   constructor() {
@@ -12,14 +12,17 @@ export default class Hardcover {
 
   async #fetchData() {
     const query = `
-      query MyQuery {
-        books {
-          cached_tags
-        }
+      query MyReadBooks {
         me {
           goals {
             goal
             progress
+          }
+          user_books(where: {status_id: {_eq: 3}}) { # 3 = read
+            reviewed_at
+            book {
+              cached_tags
+            }
           }
         }
       }
@@ -36,47 +39,41 @@ export default class Hardcover {
       }
     );
 
-    const data = response.data?.data || {};
-    return {
-      goals: data.me?.[0]?.goals || [],
-      books: data.books || [],
-    };
+    return response.data?.data?.me?.[0] || { goals: [], user_books: [] };
   }
 
   async fetch() {
-    const { goals, books } = await this.#fetchData();
+    const data = await this.#fetchData();
+    const goalsData = Array.isArray(data.goals)
+      ? data.goals.map(g => ({ goal: g.goal, progress: g.progress }))
+      : [];
 
-    if (!Array.isArray(goals)) {
-      console.warn("Hardcover returned invalid goals data:", goals);
-      return { goals: [], topGenres: [] };
-    }
+    // Filter books reviewed in 2025
+    const books2025 = (data.user_books || []).filter(entry => {
+      if (!entry.reviewed_at) return false;
+      const year = new Date(entry.reviewed_at).getFullYear();
+      return year === 2025;
+    });
 
-    // Map goals (kept exactly as before)
-    const goalsData = goals.map(g => ({
-      goal: g.goal,
-      progress: g.progress,
-    }));
-
-    // --- Compute top 3 genres ---
-  const genreCounts = {};
-    for (const book of books) {
-    const genres = book.cached_tags?.Genre || [];
-    if (genres.length > 0) {
-        // Only count the first genre per book
-        const mainGenre = genres[0].tag;
+    // Compute top 5 genres (one genre per book)
+    const genreCounts = {};
+    for (const entry of books2025) {
+      const genres = entry.book?.cached_tags?.Genre || [];
+      if (genres.length > 0) {
+        const mainGenre = genres[0].tag; // first genre only
         genreCounts[mainGenre] = (genreCounts[mainGenre] || 0) + 1;
-    }
+      }
     }
 
     const topGenres = Object.entries(genreCounts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
-    .map(([genre, count]) => ({ genre, count }));
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([genre, count]) => ({ genre, count }));
 
-    // Return both goals and top genres
     return {
       goals: goalsData,
       topGenres,
+      userBooks,
     };
   }
 }
