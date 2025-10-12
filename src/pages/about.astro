@@ -94,34 +94,32 @@ try {
         <span style={{fontWeight: 'bold', color: "var(--purple-400)"}}>rapid</span>,{" "}
         with time controls of more than 10 minutes per player:
       </p>
-	<ChessStats client:load />
+	<ChessStats client:load /> 
 
   <p>I also enjoy reading. Here is the total number of books I've read in <strong>{new Date().getFullYear()}</strong>, as well as my reading goal for the year:</p>
   <HardcoverStats client:only data={hardcoverGoals} />
   <ErrorRenderer error={hardcoverError} />
 
-   {booksThisYear.length > 0 && (
-    <>
-      <h2 class="mt-6">Books I've Read in {new Date().getFullYear()}</h2>
-      <ul class="list-disc list-inside text-lg">
-        {booksThisYear.map(({ title, rating }) => (
-          <li>
-            {title}{rating ? ` — Rating: ${rating}/5` : ""}
-          </li>
-        ))}
-      </ul>
-    </>
+  <h2>Books I've read in {new Date().getFullYear()}</h2>
+  {booksThisYear.length > 0 ? (
+    <ul class="list-disc list-inside text-lg">
+      {booksThisYear.map(({ title, rating }) => (
+        <li>{title}{rating ? ` — Rating: ${rating}/5` : ""}</li>
+      ))}
+    </ul>
+  ) : (
+    <p>No books read yet this year.</p>
   )}
 
-  {topGenresAllTime.length > 0 && (
-    <>
-      <h2 class="mt-6">My Top Genres of All Time</h2>
-      <ul class="list-disc list-inside text-lg">
-        {topGenresAllTime.map(({ genre, count }) => (
-          <li>{genre} ({count} books)</li>
-        ))}
-      </ul>
-    </>
+  <h2>My top genres</h2>
+  {topGenresAllTime.length > 0 ? (
+    <ul class="list-disc list-inside text-lg">
+      {topGenresAllTime.map(({ genre, count }) => (
+        <li>{genre} ({count} books)</li>
+      ))}
+    </ul>
+  ) : (
+    <p>No genre data available yet.</p>
   )}
   
 </BaseLayout>
