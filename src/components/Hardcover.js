@@ -21,7 +21,8 @@ export default class Hardcover {
           user_books(where: {status_id: {_eq: 3}}) { # 3 = read
             reviewed_at
             book {
-              cached_tags
+                title
+                cached_tags
             }
           }
         }
@@ -73,7 +74,7 @@ export default class Hardcover {
    return {
       goals: goalsData,
       topGenres,
-      userBooks: data.user_books || [], // <-- fixed
+      userBooks: data.user_books || [],
     };
   }
 }
