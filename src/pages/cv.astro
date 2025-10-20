@@ -194,10 +194,10 @@ function formatDateFull(str) {
 
     switch (skillCategory.category) {
       case "Software":
-        introText = "Advanced proficiency and hands-on experience with the following software:";
+        introText = "Advanced proficiency with the following software:";
         break;
       case "Programming Languages":
-        introText = "Programming experience with the following languages:";
+        introText = "Experience scripting with the following languages:";
         break;
       case "Web Development":
         introText = "Web development experience with:";
@@ -218,7 +218,8 @@ function formatDateFull(str) {
 
   return (
     <div class="skill-category">
-      <p>{introText}</p>
+      <div><strong>{skillCategory.category}</strong></div>
+      <div class="indent-item-simple">{introText}</div>
       <ul class={listClass}>
         {skillCategory.items.map(item => (
           <li key={item}>{item}</li>
