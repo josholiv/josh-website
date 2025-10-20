@@ -119,19 +119,20 @@ function formatDateFull(str) {
         {researchExperience.map(res => (
           <div class="section-item item-entry">
             <div class="item-header">
-              <div><strong>{res.lab}</strong>, {res.institution}</div>
+              <div><strong>{res.lab}</strong></div>
               <span class="date-range">
                 {res.startDate
                   ? `${formatDate(res.startDate)} – ${res.endDate ? formatDate(res.endDate) : 'Present'}` 
                   : ''} {/* if startDate contains a date and endDate is blank, show Present as the endDate */}
               </span>
             </div>
+            <div class="indent-item">
+            <div>{res.institution}</div>
             <div>Mentor: {res.mentor}</div>
             <div>Title: {res.title}</div>
-            
+            </div>
             {res.duties && res.duties.length > 0 && ( /* show duties only if listed in cv.json */
-                <div class="indent-item"><i>Duties:</i></div> 
-                <ul class="two-column-list">
+                <ul>
                   {res.duties.map((duty, index) => (
                     <li key={index}>{duty}</li>
                   ))}
@@ -147,11 +148,14 @@ function formatDateFull(str) {
         {grants.map(g => (
           <div class="section-item item-entry">
             <div class="item-header">
-              <div><strong>{g.title}</strong>, {g.awarder}</div>
+              <div><strong>{g.title}</strong></div>
               <span>{formatDate(g.date)}</span>
             </div>
+            <div class="indent-item-simple">
+            {g.awarder}
             <div>{g.summary}</div>
             <div>Award: {g.award}</div>
+            </div>
           </div>
         ))}
       </section>
@@ -162,10 +166,12 @@ function formatDateFull(str) {
         {awards.map(a => (
           <div class="section-item item-entry">
             <div class="item-header">
-              <div><strong>{a.title}</strong>, {a.awarder}</div>
+              <div><strong>{a.title}</strong></div>
               <span>{formatDate(a.date)}</span>
             </div>
+            <div class="indent-item-simple">{a.awarder}
             <div>{a.summary}</div>
+            </div>
           </div>
         ))}
       </section>
@@ -188,7 +194,7 @@ function formatDateFull(str) {
 
     switch (skillCategory.category) {
       case "Software":
-        introText = "Extensive experience with the following software:";
+        introText = "Advanced proficiency and hands-on experience with the following software:";
         break;
       case "Programming Languages":
         introText = "Programming experience with the following languages:";
@@ -197,7 +203,7 @@ function formatDateFull(str) {
         introText = "Web development experience with:";
         break;
       case "Neuropsychological Tests":
-        introText = "Experience administering the following neuropsychological tests:";
+        introText = "Extensive experience administering and scoring neuropsychological tests with healthy and clinical adult participants (ages 18-85+) as part of research protocols, including:";
         break;
       case "Languages":
         introText = "Languages spoken:";

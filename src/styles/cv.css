@@ -143,6 +143,10 @@ hr {
   margin-bottom: -0.5em; /* also reduce bottom margin */
 }
 
+.indent-item-simple {
+  margin-left: 1.5em; /* indent item */
+}
+
 .print-button { 
   position: absolute;
   top: 1rem;  /* distance from top inside the container */
@@ -172,6 +176,10 @@ hr {
 
   .print-button {
     display: none;
+  }
+
+  h1, h2, body, body p, body li, body span, body div {
+    color: black !important;
   }
 }
 
