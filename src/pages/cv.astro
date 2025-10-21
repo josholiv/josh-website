@@ -194,9 +194,9 @@ function formatDateFull(str) {
 
     switch (skillCategory.category) {
       case "Software":
-        introText = "Advanced proficiency with the following software:";
+        introText = "Proficiency with the following software:";
         break;
-      case "Programming Languages":
+      case "Programming":
         introText = "Experience with the following languages:";
         break;
       case "Web Development":
@@ -212,7 +212,7 @@ function formatDateFull(str) {
         introText = "";
     }
 
-  const listClass = skillCategory.category === "Programming Languages"
+  const listClass = skillCategory.category === "Programming"
     ? "single-column-list" /* make Programming Languages a single-column list--an exception to the rule */ 
     : "three-column-list";
 
