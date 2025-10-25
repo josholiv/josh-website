@@ -182,39 +182,39 @@ hr {
 
   h1, h2, body, body p, body li, body span, body div {
     color: black !important;
-    font-family: "Lato", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Lato", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   }
 
     /* change link colors for print */
   a {
-      color: var(--blue-600);
+      color: var(--blue-600) !important;
     }
     a:visited {
-      color: var(--purple-600);
+      color: var(--purple-600) !important;
     }
 
     /* Set font sizes in points for print */
   body {
-    font-size: 11pt; /* main body text */
-    line-height: 1.4;
+    font-size: 11pt !important; 
+    line-height: 1.4 !important;
   }
 
   h1 {
-    font-size: 16pt;
-    font-weight: 700;
+    font-size: 16pt !important;
+    font-weight: 700 !important;
   }
 
   h2 {
-    font-size: 13pt;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-size: 13pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
   }
 
   p, li, span, div {
-    font-size: 11pt;
+    font-size: 11pt !important;
   }
   .my-name {
-    font-weight: bold;
+    font-weight: bold !important;
   }
 
 }
