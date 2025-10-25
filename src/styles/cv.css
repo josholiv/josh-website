@@ -12,17 +12,15 @@ html {
 
 h1, h2 {
   margin: 0;
-  font-weight: 700;
+  font-weight: normal;
   color: var(--neutral-200);
 }
 
 h1 {
-  font-size: 1.33rem;
   text-align: center;
 }
 
 h2 {
-  font-size: 1rem;
   margin-top: 1.2em;
   text-transform: uppercase;
 }
@@ -64,6 +62,10 @@ hr {
 
 .item-entry {
   margin-bottom: 1rem;
+}
+
+.my-name {
+  color: var(--green-200);
 }
 
 .item-header {
@@ -180,7 +182,41 @@ hr {
 
   h1, h2, body, body p, body li, body span, body div {
     color: black !important;
+    font-family: "Lato", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
+
+    /* change link colors for print */
+  a {
+      color: var(--blue-600);
+    }
+    a:visited {
+      color: var(--purple-600);
+    }
+
+    /* Set font sizes in points for print */
+  body {
+    font-size: 11pt; /* main body text */
+    line-height: 1.4;
+  }
+
+  h1 {
+    font-size: 16pt;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  p, li, span, div {
+    font-size: 11pt;
+  }
+  .my-name {
+    font-weight: bold;
+  }
+
 }
 
 @media screen and (max-width: 635px) {

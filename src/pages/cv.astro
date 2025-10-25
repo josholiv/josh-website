@@ -56,7 +56,7 @@ function formatDateFull(str) {
         {education.map(ed => (
           <div key={ed.institution} class="section-item item-entry">
             <div class="item-header">
-              <div><strong>{ed.studyType}, {ed.area},</strong> {ed.institution}</div>
+              <div>{ed.studyType}, {ed.area}, {ed.institution}</div>
               <span class="date-range">{formatDate(ed.startDate)} – {formatDate(ed.endDate)}</span>
             </div>
             <div class="indent-item">
@@ -82,7 +82,7 @@ function formatDateFull(str) {
         <div>
           {publications.map(pub => (
             <div class="reference-entry">
-              <Fragment set:html={`${pub.authors.replace(/Olivier, J. M\./g, "<strong>Olivier, J. M.</strong>")}`} />
+              <Fragment set:html={`${pub.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')}`} />
               &nbsp;({pub.year}). {pub.name}. <em>{pub.publisher}</em>. 
               <a href={pub.url} target="_blank">{pub.url}</a>
             </div>
@@ -99,7 +99,7 @@ function formatDateFull(str) {
           {presentations.map(pres => (
             <div class="reference-entry">
               <Fragment set:html={`
-                ${pres.authors.replace(/Olivier, J. M\./g, "<strong>Olivier, J. M.</strong>")} 
+                ${pres.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')} 
                 (${pres.year}, ${pres.dateRange}). 
                 <i>${pres.name}</i> [${pres.type}]. 
                 ${pres.conference}, ${pres.location}. 
