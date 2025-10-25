@@ -75,9 +75,9 @@ const ChessStats: FunctionalComponent = () => {
           justifyContent: 'left',
           gap: '1rem',
           }}>
-          {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'var(--red-400)', false)}
-          {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'var(--pink-400)', false)}
-          {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'var(--purple-400)', true)}
+          {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'var(--red-200)', false)}
+          {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'var(--pink-200)', false)}
+          {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'var(--purple-200)', true)}
         </div>
       </div>
       </div>

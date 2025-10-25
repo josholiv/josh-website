@@ -20,7 +20,7 @@ const HardcoverStats = ({ data }) => {
       <div style={{ display: "flex", height: "100%" }}>
         {/* Books Read section */}
         <div style={{ flex: 1, textAlign: "left", paddingRight: "1rem"}}>
-          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-400)" }}>
+          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-200)" }}>
             Read
           </div>
           <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>{progress}</div>
@@ -31,7 +31,7 @@ const HardcoverStats = ({ data }) => {
 
         {/* Reading Goal section */}
         <div style={{ flex: 1, textAlign: "left", paddingLeft: "1rem"}}>
-          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-400)" }}>
+          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-200)" }}>
             Goal
           </div>
           <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>{goal}</div>
@@ -46,7 +46,7 @@ const HardcoverStats = ({ data }) => {
         style={{
           padding: "1rem",
           backgroundColor: "var(--neutral-800)",
-          color: "var(--neutral-400)",
+          color: "var(--neutral-200)",
           borderRadius: "5px",
           display: "flex",
           flexWrap: "wrap",
@@ -54,7 +54,7 @@ const HardcoverStats = ({ data }) => {
         }}
       >
         {goals.map((g, i) =>
-          formatCard(g.progress, g.goal, "var(--neutral-400)", i === goals.length - 1)
+          formatCard(g.progress, g.goal, "var(--neutral-200)", i === goals.length - 1)
         )}
       </div>
     </div>

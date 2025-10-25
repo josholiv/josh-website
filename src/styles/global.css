@@ -385,7 +385,7 @@ a.tag, a.tag:visited {
 .typewriter-container {
   position: relative;
   flex: 1;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--neutral-400);
   border-radius: 5px;
   text-align: left;
@@ -398,7 +398,7 @@ a.tag, a.tag:visited {
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  color: var(--green-400);
+  color: var(--neutral-400);
   animation: blink 1.2s infinite;
 }
 
