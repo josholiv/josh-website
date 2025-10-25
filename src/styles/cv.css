@@ -68,6 +68,11 @@ hr {
   color: var(--green-200);
 }
 
+.footnote {
+  color: var(--neutral-400);
+  font-style: italic;
+}
+
 .item-header {
   display: flex;
   justify-content: space-between;
