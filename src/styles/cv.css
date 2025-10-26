@@ -71,6 +71,7 @@ hr {
 .footnote {
   color: var(--neutral-400);
   font-style: italic;
+  margin-top: 0.6em;
 }
 
 .item-header {
@@ -177,10 +178,6 @@ hr {
     margin-bottom: 0 !important;
   }
 
-  a[href]:after {
-    content: '';
-  }
-
   .print-button {
     display: none;
   }
@@ -190,13 +187,10 @@ hr {
     font-family: "Lato", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   }
 
-    /* change link colors for print */
-  a {
-      color: var(--blue-600) !important;
-    }
-    a:visited {
-      color: var(--purple-600) !important;
-    }
+    /* change link color for print */
+   a {
+    color: var(--blue-600) !important;
+  }
 
     /* Set font sizes in points for print */
   body {

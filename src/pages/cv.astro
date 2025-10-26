@@ -83,7 +83,7 @@ function formatDateFull(str) {
           {publications.map(pub => (
             <div class="reference-entry">
               <Fragment set:html={`${pub.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')}`} />
-              &nbsp;({pub.year}). {pub.name}. <em>{pub.publisher}</em>. 
+              ({pub.year}). {pub.name}. <em>{pub.publisher}</em>. 
               <a href={pub.url} target="_blank">{pub.url}</a>
             </div>
           ))}
@@ -98,19 +98,13 @@ function formatDateFull(str) {
         <div>
           {presentations.map(pres => (
             <div class="reference-entry">
-              <Fragment set:html={`
-                ${pres.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')} 
-                (${pres.year}, ${pres.dateRange}). 
-                <i>${pres.name}</i> [${pres.type}]. 
-                ${pres.conference}, ${pres.location}. 
-                <a href="${pres.url}" target="_blank">${pres.url}</a>
-              `} />
+              <Fragment set:html={`${pres.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')}`} />
+              ({pres.year}, {pres.dateRange}). <i>{pres.name}</i> [{pres.type}].
+              {pres.conference}, {pres.location}. <a href={pres.url} target="_blank">{pres.url}</a>
             </div>
           ))}
         </div>
-        <div class="footnote">
-          *Presenter
-        </div>
+        <div class="footnote">*Presenter</div>
       </section>
 
      <section>
