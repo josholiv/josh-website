@@ -182,6 +182,28 @@ hr {
     display: none;
   }
 
+   /* Keep section content together */
+  .print-section {
+    break-inside: avoid;       /* modern */
+    page-break-inside: avoid;  /* fallback */
+  }
+
+   /* Keep header + hr together and avoid orphaning */
+  .print-header {
+    break-inside: avoid;       /* modern */
+    page-break-inside: avoid;  /* fallback */
+    break-after: avoid;        /* avoid breaking immediately after */
+    page-break-after: avoid;   /* fallback */
+  }
+
+    /* Prevent content items immediately after header from being orphaned */
+  .print-header + .section-item,
+  .print-header + .reference-entry,
+  .print-header + .skill-category {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+
   h1, h2, body, body p, body li, body span, body div {
     color: black !important;
     font-family: "Lato", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
