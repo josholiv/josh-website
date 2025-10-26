@@ -37,17 +37,17 @@ function formatDateFull(str) {
           {basics.location.city}, {basics.location.postalCode}
         </div>
       )}
-      <div>{basics.phone}</div>
-      <div> <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
+      <div class="section-item">{basics.phone}</div>
+      <div class="section-item"> <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
         Email: <a href="&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D" 
-        target="_blank">j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om</span>
-        </a>
-      </div>
-      <div> <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
-        Alt Email: <a href='mail&#116;&#111;&#58;j&#111;%7&#51;hua%2Eo&#37;&#54;Civier&#64;u&#116;&#100;all&#97;&#115;&#46;%65du'
+        target="_blank">j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om</a>
+        <span> <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
+        | <a href='mail&#116;&#111;&#58;j&#111;%7&#51;hua%2Eo&#37;&#54;Civier&#64;u&#116;&#100;all&#97;&#115;&#46;%65du'
         target="_blank">j&#111;s&#104;ua&#46;oli&#118;ie&#114;&#64;u&#116;da&#108;las&#46;edu</span></a>
+      </span>
       </div>
-      <div>
+      
+      <div class="section-item">
         Website: <a href={basics.url} target="_blank">{basics.url}</a>
       </div>
       <section>
