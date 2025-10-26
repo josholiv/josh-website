@@ -21,7 +21,7 @@ h1 {
 }
 
 h2 {
-  margin-top: 1.2em;
+  margin-top: 1em;
   text-transform: uppercase;
 }
 
@@ -61,7 +61,7 @@ hr {
 }
 
 .item-entry {
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 .my-name {
@@ -71,7 +71,7 @@ hr {
 .footnote {
   color: var(--neutral-400);
   font-style: italic;
-  margin-top: 0.6em;
+  margin-top: .6em;
 }
 
 .item-header {
