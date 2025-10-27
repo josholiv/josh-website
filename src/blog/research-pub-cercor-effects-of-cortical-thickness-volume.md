@@ -9,7 +9,7 @@ image:
 tags: ["papers"]
 readTime: '1'
 ---
-<i>Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information</i>, is now published in Cerebral Cortex! 
+<i>Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information</i> is now published in Cerebral Cortex! 
 
 Find the full paper [here](https://doi.org/10.1093/cercor/bhaf213).
 
