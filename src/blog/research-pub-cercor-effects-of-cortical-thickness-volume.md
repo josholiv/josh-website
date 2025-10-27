@@ -1,13 +1,13 @@
 ---
-title: 'New research paper in Cerebral Cortex!'
+title: 'New paper in Cerebral Cortex!'
 pubDate: 2025-08-25
 description: 'Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information'
 author: 'Josh Olivier'
 image:
     url: '/images/blog/paper-thumbnail/paper-thumbnail.jpg'
     alt: 'paper icon'
-tags: ["research"]
-readTime: '2'
+tags: ["papers"]
+readTime: '1'
 ---
 <i>Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information</i>, is now published in Cerebral Cortex! 
 
