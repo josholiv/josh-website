@@ -4,7 +4,7 @@ import cv from '../data/cv.json';
 import '../styles/cv.css'
 
 const pageTitle = "Josh Olivier — CV";
-const { basics, education, publications, presentations, researchExperience, grants, awards, affiliations, skills } = cv;
+const { basics, education, publications, presentations, researchExperience, grants, awards, service, affiliations, skills } = cv;
 
 function formatDate(str) {
   if (!str) return '';
@@ -180,6 +180,28 @@ function formatDateFull(str) {
             </div>
             <div>{a.awarder}
             <div>{a.summary}</div>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section>
+        <div class="print-header">
+          <h2>Service, Work &amp; Activities</h2>
+         <hr />
+        </div>
+        {service.map(s => (
+          <div class="section-item item-entry print-section">
+            <div class="item-header">
+              <div><strong>{s.title}</strong></div>
+              <span class="date-range">
+                {s.startDate
+                  ? `${formatDate(s.startDate)} – ${s.endDate ? formatDate(s.endDate) : 'Present'}` 
+                  : ''} {/* if startDate contains a date and endDate is blank, show Present as the endDate */}
+              </span>
+            </div>
+            <div>{s.organization}
+            <div>{s.summary}</div>
             </div>
           </div>
         ))}

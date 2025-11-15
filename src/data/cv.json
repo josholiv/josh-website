@@ -18,7 +18,7 @@
       },
     "profiles": [
       {
-        "network": "", 
+        "network": "",  
         "username": "",
         "url": ""
       }
@@ -279,6 +279,30 @@
       "title": "Academic Half-Tuition Scholarship",
       "date": "August 2017",
       "awarder": "Brigham Young University",
+      "summary": ""
+    }
+  ],
+
+  "service": [
+    {
+      "title": "Volunteer Crisis Counselor",
+      "startDate": "10-15-2021",
+      "endDate": "",
+      "organization": "Crisis Text Line",
+      "summary": ""
+    },
+     {
+      "title": "Student Secretary",
+      "startDate": "12-15-2019",
+      "endDate": "04-15-2021",
+      "organization": "BYU Neuroscience Center",
+      "summary": ""
+    },
+     {
+      "title": "English as a Second Language Tutor",
+      "startDate": "09-15-2017",
+      "endDate": "12-15-2017",
+      "organization": "BYU International Network of Tutors of Languages, Provo, UT",
       "summary": ""
     }
   ],
