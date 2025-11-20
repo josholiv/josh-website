@@ -71,7 +71,7 @@ hr {
 .footnote {
   color: var(--neutral-400);
   font-style: italic;
-  margin-top: .6em;
+  margin-top: 0em;
 }
 
 .item-header {
@@ -242,6 +242,11 @@ hr {
   }
   .my-name {
     font-weight: bold !important;
+  }
+
+  .footnote {
+    font-style: italic;
+    margin-top: 0em;
   }
 
 }
