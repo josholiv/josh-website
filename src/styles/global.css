@@ -154,6 +154,13 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
       color: var(--purple-200);
     }
 
+.blockquote {
+  border-left: 4px solid var(--green-400); /* vertical line */
+  padding-left: 1rem;          /* space between line and content */
+  margin-left: 0;               /* remove default indent */
+  margin-bottom: 1rem;          /* spacing after blockquote */
+  color: var(--neutral-400);                  /* slightly muted text color */
+}
 
 /* Keyframes for flowing rainbow gradient */
 @keyframes rainbowShift {
@@ -214,7 +221,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
   text-align: left;
   padding: 0.6rem 0;
   text-transform: uppercase;
-  font-family: 'gill-sans-nova';
+  font-family: 'gill-sans-nova-condensed';
   font-size: 1.2rem;
   color: var(--neutral-400);
   text-decoration: none;
