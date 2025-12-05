@@ -41,7 +41,7 @@ const TriathlonStats = ({ data, error }) => {
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       textAlign: 'left',
-      borderRight: isLast ? 'none' : '1px solid var(--neutral-200)',
+      borderRight: isLast ? 'none' : '1px solid var(--neutral-400)',
     }}>
       <div style={{ fontSize: '1rem', marginBottom: '0.3rem' }}>
         {label}
@@ -82,9 +82,9 @@ const TriathlonStats = ({ data, error }) => {
           justifyContent: 'left',
           gap: '1rem',
           }}>
-          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), 'var(--blue-200)', false)}
-          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-200)', false)}
-          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), 'var(--orange-200)', true)}
+          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), 'var(--blue-400)', false)}
+          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-400)', false)}
+          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), 'var(--orange-400)', true)}
         </div>
 
         <div style={{ marginTop: '0.5rem', textAlign: 'left' }}> 

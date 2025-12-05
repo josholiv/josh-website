@@ -1,9 +1,12 @@
 ---
 const { platform, username, displayName = platform } = Astro.props;
+import { ExternalLink } from "lucide-preact";
+
 ---
 <a href={`https://${platform}/${username}`} target="_blank" rel="noopener noreferrer" class="social-link">
   <slot name="icon" />
   <span>{displayName}</span>
+  <ExternalLink size={"0.8rem"} class="mr-1" color="var(--neutral-400)" />
 </a>
 
 <style>

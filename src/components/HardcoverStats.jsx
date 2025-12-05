@@ -13,25 +13,25 @@ const HardcoverStats = ({ data }) => {
         flexDirection: "column",
         justifyContent: "flex-start",
         textAlign: 'left',
-        borderRight: isLast ? "none" : "1px solid var(--neutral-200)",
+        borderRight: isLast ? "none" : "1px solid var(--neutral-400)",
       }}
     >
       {/* Row for progress and goal */}
       <div style={{ display: "flex", height: "100%" }}>
         {/* Books Read section */}
         <div style={{ flex: 1, textAlign: "left", paddingRight: "1rem"}}>
-          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-200)" }}>
+          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-050)" }}>
             Read
           </div>
           <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>{progress}</div>
         </div>
 
         {/* Solid vertical separator */}
-        <div style={{ width: "1px", backgroundColor: "var(--neutral-200)" }} />
+        <div style={{ width: "1px", backgroundColor: "var(--neutral-400)" }} />
 
         {/* Reading Goal section */}
         <div style={{ flex: 1, textAlign: "left", paddingLeft: "1rem"}}>
-          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-200)" }}>
+          <div style={{ fontSize: "1rem", marginBottom: "0.3rem", color: "var(--neutral-050)" }}>
             Goal
           </div>
           <div style={{ fontSize: "1.3rem", fontWeight: "bold" }}>{goal}</div>
@@ -46,7 +46,7 @@ const HardcoverStats = ({ data }) => {
         style={{
           padding: "1rem",
           backgroundColor: "var(--neutral-800)",
-          color: "var(--neutral-200)",
+          color: "var(--neutral-400)",
           borderRadius: "5px",
           display: "flex",
           flexWrap: "wrap",
@@ -54,7 +54,7 @@ const HardcoverStats = ({ data }) => {
         }}
       >
         {goals.map((g, i) =>
-          formatCard(g.progress, g.goal, "var(--neutral-200)", i === goals.length - 1)
+          formatCard(g.progress, g.goal, "var(--neutral-050)", i === goals.length - 1)
         )}
       </div>
     </div>
