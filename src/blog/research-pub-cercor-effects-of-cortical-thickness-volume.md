@@ -4,7 +4,7 @@ pubDate: 2025-08-26
 description: 'Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information.'
 author: 'Josh Olivier'
 image:
-    url: '/images/blog/paper-thumbnail/paper-thumbnail.jpg'
+    url: '/images/blog/post-paper-cercor2025/cercor35.jpg'
     alt: 'paper icon'
 tags: ["papers"]
 readTime: '1'

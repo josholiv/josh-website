@@ -20,8 +20,8 @@ const { frontmatter } = Astro.props;
     </span>
   </div>
 
-  <img src={frontmatter.image.url} class="blog-pic" width="100" 
-    alt={frontmatter.image.alt} />
+  <!-- <img src={frontmatter.image.url} class="blog-pic" width="100" 
+    alt={frontmatter.image.alt} /> -->
 
   <div class="tags">
     {frontmatter.tags.map((tag: string) => (
@@ -30,6 +30,8 @@ const { frontmatter } = Astro.props;
      </a>
     ))}
   </div>
+
+<hr>
 
   <slot />
 </BaseLayout>
