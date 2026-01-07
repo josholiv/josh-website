@@ -162,6 +162,13 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
   color: var(--neutral-400);                  /* slightly muted text color */
 }
 
+  ul,
+  ol,
+  li {
+    margin-left: 1.5rem; /* tweak as needed */
+  }
+
+
 /* Keyframes for flowing rainbow gradient */
 @keyframes rainbowShift {
   0% {

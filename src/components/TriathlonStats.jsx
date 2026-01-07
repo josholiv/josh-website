@@ -83,7 +83,7 @@ const TriathlonStats = ({ data, error }) => {
           gap: '1rem',
           }}>
           {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), 'var(--blue-400)', false)}
-          {formatCard('Biking', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-400)', false)}
+          {formatCard('Cycling', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-400)', false)}
           {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), 'var(--orange-400)', true)}
         </div>
 

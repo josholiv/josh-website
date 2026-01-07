@@ -74,25 +74,41 @@ try {
 
     <p>
       Some of my other hobbies include fiddling with my 3D printer, drinking tereré (cold yerba mate), and training for triathlons. 
-      So far, in <strong>{new Date().getFullYear()}</strong>, I’ve logged the following distances{" "}
+      So far, in <strong>{new Date().getFullYear()}</strong>, I’ve logged the distances shown below for {" "}
         <span style={{fontWeight: 'bold', color: "var(--blue-400)"}}>swimming</span>,{" "}
-        <span style={{fontWeight: 'bold', color: "var(--green-400)"}}>biking</span>, and{" "}
-        <span style={{fontWeight: 'bold', color: "var(--orange-400)"}}>running</span>, according to my data from Strava:
+        <span style={{fontWeight: 'bold', color: "var(--green-400)"}}>cycling</span>, and{" "}
+        <span style={{fontWeight: 'bold', color: "var(--orange-400)"}}>running</span>, according to my data from Strava.
     </p>
+
+  <h2 id="distances-logged">Distances logged in {new Date().getFullYear()}</h2>
 
 	<TriathlonStats client:load data={data} error={error} />
 	    <ErrorRenderer error={error} />
   
       <p>
+
         I also love playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
-        Here are my current ratings on chess.com for three categories of speed chess: 
-        <span style={{fontWeight: 'bold', color: "var(--red-400)"}}>bullet</span>,{" "} 
-        with time controls of less than 3 minutes per player, 
-        <span style={{fontWeight: 'bold', color: "var(--pink-400)"}}>blitz</span>,{" "} 
-        with time controls of less than 10 minutes per player, and 
-        <span style={{fontWeight: 'bold', color: "var(--purple-400)"}}>rapid</span>,{" "}
-        with time controls of more than 10 minutes per player:
+        Below are my current ratings on chess.com for three categories of speed chess: 
+
+        <li>
+          <span style={{fontWeight: 'bold', color: "var(--red-400)"}}>bullet</span>{" "} 
+          (time controls of less than 3 minutes per player)
+        </li>
+
+        <li>
+          <span style={{fontWeight: 'bold', color: "var(--pink-400)"}}>blitz</span>{" "} 
+          (time controls of less than 10 minutes per player)
+        </li>
+
+        <li>
+          <span style={{fontWeight: 'bold', color: "var(--purple-400)"}}>rapid</span>{" "}
+          (time controls of more than 10 minutes per player)
+        </li>
+
       </p>
+
+  <h2 id="chess-stats">Chess stats</h2>
+
 	<ChessStats client:load /> 
 
     <p>
@@ -108,9 +124,13 @@ try {
                   : <>{acc}, <strong>{genre}</strong></>
             , "")
         : "not available yet"}
-      . Here is the total number of <span style={{fontWeight: 'bold', color: "var(--neutral-050)"}}>books I've read in {" "}{new Date().getFullYear()}</span> and my reading goal for the year:
+      . Below is the total number of <span style={{fontWeight: 'bold', color: "var(--neutral-050)"}}>books I've read 
+        in {" "}{new Date().getFullYear()}</span> and my reading goal for the year.
     </p>
+    
+  <h2 id="books-read">Books read in {new Date().getFullYear()}</h2>
 
   <HardcoverStats client:only data={hardcoverGoals} />
+
   <ErrorRenderer error={hardcoverError} />
 </BaseLayout>
