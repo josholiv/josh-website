@@ -1,5 +1,4 @@
-import { useMemo, useState, useEffect } from "preact/hooks";
-import Strava from "../components/strava.js";
+import { useState, useEffect, useMemo } from "preact/hooks";
 
 const COLORS = [
   "var(--orange-950)",
@@ -15,26 +14,27 @@ const getColor = (count) => {
   return COLORS[count];
 };
 
-const StravaContributionGrid = ({ dailyCounts: initialDailyCounts = {} }) => {
-  const [dailyCounts, setDailyCounts] = useState(initialDailyCounts);
+const StravaContributionGrid = () => {
+  const [dailyCounts, setDailyCounts] = useState({});
 
-  // In dev, generate dummy data client-side
- useEffect(() => {
-  if (Object.keys(initialDailyCounts).length === 0) {
-    const counts = {};
-    const today = new Date();
-    for (let i = 0; i < 365; i++) {
-      const d = new Date(today);
-      d.setDate(today.getDate() - i);
-      const key = d.toISOString().slice(0, 10);
-      counts[key] = Math.floor(Math.random() * 4) + 1;
-    }
-    setDailyCounts(counts);
-  }
-}, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/strava");
+        const json = await res.json();
+        if (json.dailyCounts) setDailyCounts(json.dailyCounts);
+      } catch (err) {
+        console.error("Failed to fetch Strava data:", err);
+      }
+    };
 
+    fetchData();
+  }, []);
 
-  console.log("Non-zero activity days:", Object.values(dailyCounts).filter(v => v > 0).length);
+  console.log(
+    "Non-zero activity days:",
+    Object.values(dailyCounts).filter((v) => v > 0).length
+  );
 
   const days = useMemo(() => {
     const today = new Date();
@@ -46,7 +46,6 @@ const StravaContributionGrid = ({ dailyCounts: initialDailyCounts = {} }) => {
       const d = new Date(start);
       d.setDate(start.getDate() + i);
       const key = d.toISOString().slice(0, 10);
-
       allDays.push({
         date: key,
         count: dailyCounts[key] || 0,
@@ -54,7 +53,6 @@ const StravaContributionGrid = ({ dailyCounts: initialDailyCounts = {} }) => {
         week: Math.floor(i / 7),
       });
     }
-
     return allDays;
   }, [dailyCounts]);
 
