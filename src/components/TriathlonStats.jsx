@@ -11,7 +11,7 @@ const TriathlonStats = ({ data, error }) => {
     });
   };
 
-  const formatNumber = (num) => String(num);
+  const formatNumber = (num) => String(num);  
 
   const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44);
 

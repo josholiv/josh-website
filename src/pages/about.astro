@@ -8,16 +8,19 @@ import TriathlonStats from '../components/TriathlonStats.jsx';
 import Hardcover from '../components/Hardcover.js';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import ErrorRenderer from "../Error.astro";
+import StravaContributionGrid from "../components/StravaContributionGrid.jsx";
 
 const pageTitle = "Josh Olivier — About";
 
 // Fetch Strava data
-let data, error
+let data, dailyData, error;
+
 try {
-  const strava = new Strava()
-  data = await strava.fetch()
+  const strava = new Strava();
+  data = await strava.fetch(); // stats
+  dailyData = await strava.fetchDailyActivityCounts(); // contributions
 } catch (e) {
-  error = e.message
+  error = e.message;
 }
 
 // Fetch Hardcover data
@@ -51,6 +54,7 @@ try {
   hardcoverError = e.message;
 }
 ---
+
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
   <Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
   <h1>About me</h1>
@@ -85,6 +89,8 @@ try {
 	<TriathlonStats client:load data={data} error={error} />
 	    <ErrorRenderer error={error} />
   
+<StravaContributionGrid client:load dailyCounts={dailyData?.dailyCounts ?? {}} />
+
       <p>
 
         I also love playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
