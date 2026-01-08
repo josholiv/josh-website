@@ -145,15 +145,23 @@ export default class Strava {
 
   async fetchDailyActivityCounts() {
     if (isDev) {
+      console.log("Using dummy daily counts (DEV)");
       return { dailyCounts: this.#generateDummyDailyCounts() };
     }
 
-    const activities = await this.#getActivitiesLastYear();
-    const dailyCounts = this.#aggregateActivitiesByDay(activities);
-    return { dailyCounts };
+    try {
+      const activities = await this.#getActivitiesLastYear();
+      const dailyCounts = this.#aggregateActivitiesByDay(activities);
+      console.log("Fetched daily activity counts from Strava API:", Object.values(dailyCounts).filter(v => v > 0).length);
+      return { dailyCounts };
+    } catch (e) {
+      console.error("Error fetching Strava daily activity counts:", e.message);
+      // fallback to dummy data in case of error
+      return { dailyCounts: this.#generateDummyDailyCounts() };
+    }
   }
 
-  // --- STATIC helper for dummy data outside class ---
+  // --- STATIC helper for generating dummy data outside instance ---
   static generateDummyDailyCounts() {
     const counts = {};
     const today = new Date();
