@@ -1,18 +1,22 @@
 ---
 const pathname = Astro.url.pathname;
-import { Home } from "lucide-preact";
+import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 ---
 <div class="nav-links">
     <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
-        <Home size={"0.8rem"} class="mr-1" color="var(--neutral-400)"/>
+        <Home size={"1rem"} class="mr-1"/>
         JoshOlivier.com
     </a>
     <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>
+        <Info size={"1rem"} class="mr-1"/>
         About</a>
     <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>
+        <GraduationCap size={"1rem"} class="mr-1"/>
         CV</a>
     <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>
+        <Rss size={"1rem"} class="mr-1"/>
         Blog</a>
     <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>
+        <Contact size={"1rem"} class="mr-1"/>
         Contact</a>
 </div>

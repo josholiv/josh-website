@@ -2,7 +2,8 @@
 import Social from './social.astro';
 import { Image } from 'astro:assets';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
-import { ExternalLink } from "lucide-preact";
+import Lucide from 'lucide-preact';
+const { Link, Linkedin, Github, GraduationCap, User } = Lucide;
 ---
 
 <style>
@@ -72,12 +73,12 @@ import { ExternalLink } from "lucide-preact";
     <br>
 
     <div class="social-container">
-      <Social platform="bsky.app" username="profile/josholivier.bsky.social" displayName="Bluesky"/>
-      <Social platform="linkedin.com" username="in/joshua-olivier/" displayName="LinkedIn"/>
-      <Social platform="github.com" username="josholiv" displayName="GitHub" />
-      <Social platform="thingiverse.com" username="josholiv" displayName="Thingiverse" />
-      <Social platform="orcid.org/" username="0009-0002-3696-5552" displayName="ORCiD"/>
-      <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" displayName="Google Scholar"/>
+      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={User} displayName="Bluesky"/>
+      <Social platform="linkedin.com" username="in/joshua-olivier/" icon={Linkedin} displayName="LinkedIn"/>
+      <Social platform="github.com" username="josholiv" icon={Github} displayName="GitHub" />
+      <Social platform="thingiverse.com" username="josholiv" icon={User} displayName="Thingiverse" />
+      <Social platform="orcid.org/" username="0009-0002-3696-5552" icon={User} displayName="ORCiD"/>
+      <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/>
     </div>
   </div>
 </footer>
