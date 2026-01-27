@@ -95,13 +95,17 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     h1 {
       font-weight: 400;
       font-size: 2.5rem;
-      margin-top: 5rem;
-      margin-bottom: 5rem;
+      margin-top: 9rem;
+      margin-bottom: 9rem;
     }
 
     h2 {
       font-weight: 200;
       font-size: 2rem;
+    }
+
+    .title-muted {
+      color: var(--neutral-500);
     }
 
     code {
