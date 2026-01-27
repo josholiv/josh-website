@@ -4,7 +4,7 @@ pubDate: 2025-04-01
 description: 'A brief introduction to my blog and the topics I plan to explore—from neuroscience and coding to hobbies like triathlon and 3D printing.'
 author: 'Josh Olivier'
 image:
-    url: '/src/assets/blog/post-1/black-sand-beach.jpg'
+    url: '/images/blog/post-1/black-sand-beach.jpg'
     alt: 'Me at Punaluʻu Black Sand Beach, Hawaii'
 tags: ["blog"]
 readTime: '3'
@@ -14,7 +14,7 @@ if you didn't know that already, given the site you're on (though if you somehow
 
 First and foremost, I hope you enjoy this photo of me holding a chicken:
 
-<img src="/src/assets/blog/post-1/me-with-chicken.jpg" alt="Me holding a chicken" class="blog-body-pic">
+<img src="/images/blog/post-1/me-with-chicken.jpg" alt="Me holding a chicken" class="blog-body-pic">
 
 ## Now that that's out of the way, welcome to my blog! 
 
