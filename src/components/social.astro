@@ -2,18 +2,19 @@
 const { platform, username, icon: Icon, displayName = platform } = Astro.props;
 import { ExternalLink } from "lucide-preact";
 ---
-<a href={`https://${platform}/${username}`} target="_blank" rel="noopener noreferrer" class="social-link">
-  
-  <span>{Icon && <Icon size={14}/>} {displayName}</span>
-  <ExternalLink size={"0.8rem"} class="mr-1" color="var(--neutral-400)" />
-</a>
 
-<style>
-  .social-link {
-    display: inline-flex;
-    align-items: center;
-    font-family: 'gill-sans-nova-condensed';    
-    font-size: 1rem;
-    font-weight: normal;
-  }
-</style>
+<span>
+  
+  {Icon && <Icon size={"1rem"}/>}
+
+  <a 
+    href={`https://${platform}/${username}`} 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="social-link">
+  
+    {displayName} 
+    
+  </a>
+
+</span>

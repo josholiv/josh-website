@@ -2,8 +2,7 @@
 import Social from './social.astro';
 import { Image } from 'astro:assets';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
-import Lucide from 'lucide-preact';
-const { Linkedin, Github, GraduationCap, User } = Lucide;
+import { UserCircle, GraduationCap } from "lucide-preact";
 ---
 
 <style>
@@ -70,7 +69,7 @@ const { Linkedin, Github, GraduationCap, User } = Lucide;
       />
       
       <div class="footer-text">
-        <h3>Hi, I'm Josh Olivier!</h3>
+        <h3>Hi, I'm Josh!</h3>
         <div>I'm a lab manager in a neuroimaging research lab in Dallas, Texas. I'm interested in researching how memory, brain structure, and brain function are related.
           I also love traveling, 3D printing, doing triathlons, and drinking tereré 🧉.
         </div>
@@ -80,11 +79,11 @@ const { Linkedin, Github, GraduationCap, User } = Lucide;
     <br>
 
     <div class="social-container">
-      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={User} displayName="Bluesky"/>
-      <Social platform="linkedin.com" username="in/joshua-olivier/" icon={Linkedin} displayName="LinkedIn"/>
-      <Social platform="github.com" username="josholiv" icon={Github} displayName="GitHub" />
-      <Social platform="thingiverse.com" username="josholiv" icon={User} displayName="Thingiverse" />
-      <Social platform="orcid.org/" username="0009-0002-3696-5552" icon={User} displayName="ORCiD"/>
+      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={UserCircle} displayName="Bluesky"/>
+      <Social platform="linkedin.com" username="in/joshua-olivier/" icon={UserCircle} displayName="LinkedIn"/>
+      <Social platform="github.com" username="josholiv" icon={UserCircle} displayName="GitHub" />
+      <Social platform="thingiverse.com" username="josholiv" icon={UserCircle} displayName="Thingiverse" />
+      <Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD"/>
       <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/>
     </div>
   </div>
