@@ -2,7 +2,7 @@
 import Social from './social.astro';
 import { Image } from 'astro:assets';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
-import { UserCircle, GraduationCap } from "lucide-preact";
+import { UserCircle, GraduationCap, Radio } from "lucide-preact";
 ---
 
 <style>
@@ -79,12 +79,13 @@ import { UserCircle, GraduationCap } from "lucide-preact";
     <br>
 
     <div class="social-container">
-      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={UserCircle} displayName="Bluesky"/>
+      
       <Social platform="linkedin.com" username="in/joshua-olivier/" icon={UserCircle} displayName="LinkedIn"/>
       <Social platform="github.com" username="josholiv" icon={UserCircle} displayName="GitHub" />
       <Social platform="thingiverse.com" username="josholiv" icon={UserCircle} displayName="Thingiverse" />
       <Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD"/>
       <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/>
+      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky"/>
     </div>
   </div>
 </footer>
