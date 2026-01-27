@@ -9,9 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.0",
-    "@astrojs/preact": "^5.0.0",
-    "@astrojs/rss": "^5.0.0",
+    "@astrojs/preact": "^4.1.3",
+    "@astrojs/rss": "^4.0.15",
     "@netlify/functions": "^3.0.1",
     "astro": "^5.16.15",
     "astro-expressive-code": "^0.41.2",
