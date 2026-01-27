@@ -4,16 +4,27 @@ import { Image } from 'astro:assets';
 import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 import { Mail, Linkedin, User } from "lucide-preact";
 
-const pageTitle = "Josh Olivier — Contact";
+const pageTitle = "Josh Olivier - Contact";
 ---
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
-<Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
-<h1>Josh Olivier</h1>
-<div>Lab Manager, Functional Neuroimaging of Memory Lab</div>
-</br>
-<div>Center for Vital Longevity, University of Texas at Dallas</div>
+
+<h1>Contact me</h1>
+
+  <Image
+    src={aboutMePhoto}
+    alt="Josh Olivier"
+    class="about-pic"
+    loading="eager"
+    priority
+  />
+
+<h2>Josh Olivier</h2>
 
 <div class="blockquote">
+
+<p>Lab Manager, Functional Neuroimaging of Memory Lab</p>
+<p>Center for Vital Longevity, University of Texas at Dallas</p>  
+
 <p> <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
   <a href='&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D' 
   target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; text-decoration:none;">

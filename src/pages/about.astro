@@ -10,7 +10,7 @@ import HardcoverStats from '../components/HardcoverStats.jsx';
 import ErrorRenderer from "../Error.astro";
 import StravaContributionGrid from "../components/StravaContributionGrid.jsx";
 
-const pageTitle = "Josh Olivier — About";
+const pageTitle = "Josh Olivier - About";
 
 // Fetch Strava data
 let data, dailyData, error;
@@ -56,8 +56,19 @@ try {
 ---
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
-  <Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
-  <h1>About me</h1>
+
+  <h1>About</h1>
+
+    <Image
+      src={aboutMePhoto}
+      alt="Josh Olivier"
+      class="about-pic"
+      loading="eager"
+      priority
+    />
+
+    <h2>Who I am</h2>
+
     <p>
       My name is Josh Olivier, and I'm a lab manager in a neuroimaging research lab in Dallas, Texas.
     </p>

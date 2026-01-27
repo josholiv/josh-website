@@ -10,7 +10,15 @@ const { pageTitle, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
   <head />
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://use.typekit.net/qck4nvy.css"> <!--- Gill Sans Nova font family from Adobe Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet"> <!--- Lato font family from Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!--- DM Serif Text font from Google Fonts -->
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!--- Noto Sans font from Google Fonts -->
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <link rel="icon" type="image/svg+xml" href="/josh-favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
@@ -24,7 +32,7 @@ const { pageTitle, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-LZBBDCSVZC');
-  </script>
+  </script> 
 
   <body>
     <div class="page-wrapper">

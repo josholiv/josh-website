@@ -82,23 +82,24 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
     html {
-      font-family: "gill-sans-nova", sans-serif;
+      font-family: "Noto Sans", sans-serif;
       margin: 0;
       overflow-y: scroll; /* Always reserve space for the scrollbar */
     }
 
     h1, h2 {
       color: var(--neutral-050);
-      font-weight: normal;
-      text-transform: uppercase;
+      font-family: "DM Serif Text", serif;
     }
 
     h1 {
-      font-size: 2rem;
+      font-weight: 400;
+      font-size: 2.5rem;
     }
 
     h2 {
-      font-size: 1.5rem;
+      font-weight: 200;
+      font-size: 2rem;
     }
 
     header {
@@ -114,7 +115,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
  
     body {
       margin: 0;
-      color: var(--neutral-200);
+      color: var(--neutral-400);
       display: flex;
       align-items: flex-start;
       justify-content: center;
@@ -139,25 +140,29 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
     a {
-      color: var(--blue-300);
+      color: var(--blue-400);
     }
 
     a:hover {
-      color: var(--blue-200);
+      color: var(--blue-300);
     }
 
     a:visited {
-      color: var(--purple-300);
+      color: var(--purple-400);
     }
 
     a:visited:hover {
-      color: var(--purple-200);
+      color: var(--purple-300);
     }
 
 .blockquote {
-  border-left: 4px solid var(--green-400); /* vertical line */
-  padding-left: 1rem;          /* space between line and content */
+  border-left: 4px solid var(--neutral-400); /* vertical line */
+  background-color: var(--neutral-800);
+  padding-left: 1rem;          /* space between line and content */ 
+  padding-bottom: 1px;
+  padding-top: 1px;
   margin-left: 0;               /* remove default indent */
+  margin-top: 1rem;
   margin-bottom: 1rem;          /* spacing after blockquote */
   color: var(--neutral-400);                  /* slightly muted text color */
 }
@@ -227,9 +232,9 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
   display: block;
   text-align: left;
   padding: 0.6rem 0;
-  text-transform: uppercase;
-  font-family: 'gill-sans-nova-condensed';
-  font-size: 1.2rem;
+  font-family: 'Noto Sans';
+  font-weight: 400;
+  font-size: 1rem;
   color: var(--neutral-400);
   text-decoration: none;
 }
@@ -240,7 +245,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
 .nav-links a:hover {
-  color: var(--neutral-300);
+  color: var(--neutral-500);
 }
 
 /* Spacing between stacked links in hamburger menu */

@@ -22,9 +22,8 @@ h1 {
 
 h2 {
   margin-top: 1em;
-  text-transform: uppercase;
 }
-
+ 
 body {
   font-size: 1rem;
 }
@@ -36,7 +35,7 @@ body {
   margin: 1rem 0;
   border-radius: 5px;
   box-sizing: border-box;
-  color: var(--neutral-200);
+  color: var(--neutral-400);
   background: var(--neutral-900);
 }
 
@@ -65,11 +64,12 @@ hr {
 }
 
 .my-name {
-  color: var(--green-200);
+  color: var(--neutral-200);
+  font-weight: 700;
 }
 
 .footnote {
-  color: var(--neutral-400);
+  color: var(--neutral-500);
   font-style: italic;
   margin-top: 0em;
 }
@@ -206,7 +206,7 @@ hr {
 
   h1, h2, body, body p, body li, body span, body div {
     color: black !important;
-    font-family: "Lato", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-family: "Helvetica", "Helvetica Neue", "Segoe UI", Arial, sans-serif !important;
   }
 
   hr {
@@ -234,7 +234,6 @@ hr {
   h2 {
     font-size: 13pt !important;
     font-weight: 700 !important;
-    text-transform: uppercase !important;
   }
 
   p, li, span, div {
