@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogSorter from "../components/BlogSorter.jsx"; 
-import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
+import headshotPhoto from '../assets/josh-headshot-cropped.jpg';
 const pageTitle = "Josh Olivier - Home";
 
 let allPosts = await getCollection("blog");
@@ -21,14 +21,14 @@ const recentPosts = allPosts.slice(0, 3); // show the newest 3 blog posts by pub
   <h1>Hi, I'm Josh Olivier!</h1>
 
   <Image
-    src={aboutMePhoto}
+    src={headshotPhoto}
     alt="Josh Olivier"
-    class="about-pic"
+    class="home-pic"
     loading="eager"
     priority
   />
 
-  <h2>About me</h2>
+  <h2>Home</h2>
 
     <p>
 
@@ -52,6 +52,7 @@ const recentPosts = allPosts.slice(0, 3); // show the newest 3 blog posts by pub
 
     </p>
 
+    <hr>
 
   <h2>Latest posts</h2>
 

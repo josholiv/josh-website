@@ -1,14 +1,15 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
-import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import aboutMePhoto1 from '../assets/josh-at-lencois.jpg';
+import aboutMePhoto2 from '../assets/josh-and-oliver.jpg';
 import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import Hardcover from '../components/Hardcover.js';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import ErrorRenderer from "../Error.astro";
-import StravaContributionGrid from "../components/StravaContributionGrid.jsx";
 
 const pageTitle = "Josh Olivier - About";
 
@@ -57,17 +58,26 @@ try {
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
 
-  <h1>About</h1>
+  <h1>About me</h1>
 
-    <Image
-      src={aboutMePhoto}
-      alt="Josh Olivier"
-      class="about-pic"
-      loading="eager"
-      priority
-    />
+    <div class="about-pics">
+      <Image
+        src={aboutMePhoto1}
+        alt="Josh at Lençóis Maranhenses National Park"
+        class="about-pic"
+        loading="eager"
+        priority
+      />
 
-    <h2>Who I am</h2>
+      <Image
+        src={aboutMePhoto2}
+        alt="Josh and Oliver"
+        class="about-pic"
+        loading="eager"
+        priority
+      />
+    </div>
+
 
     <p>
       My name is Josh Olivier, and I'm a lab manager in a neuroimaging research lab in Dallas, Texas.
