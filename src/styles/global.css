@@ -239,7 +239,7 @@ hr {
   text-align: left;
   padding: 0.6rem 0;
   font-family: 'Noto Sans';
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1rem;
   color: var(--neutral-400);
   text-decoration: none;
@@ -252,6 +252,10 @@ hr {
 
 .nav-links a:hover {
   color: var(--neutral-500);
+}
+
+  .nav-icon {
+  margin-right: 0.2 rem;
 }
 
 /* Spacing between stacked links in hamburger menu */
@@ -305,7 +309,6 @@ hr {
   display: none;
 }
 }
-
 
 .about-header {
   display: flex;
