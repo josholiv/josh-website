@@ -95,11 +95,23 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     h1 {
       font-weight: 400;
       font-size: 2.5rem;
+      margin-top: 5rem;
+      margin-bottom: 5rem;
     }
 
     h2 {
       font-weight: 200;
       font-size: 2rem;
+    }
+
+    code {
+      font-family: "Atkinson Hyperlegible Mono", monospace;
+      background-color: var(--neutral-950);
+      color: var(--neutral-400);
+      padding: 0rem 0.35rem;
+      border-radius: 2px;
+      font-size: 0.9rem;
+      border: 1px solid var(--neutral-600);
     }
 
     header {
@@ -126,7 +138,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     .page-wrapper {
       display: flex;
       flex-direction: column;
-      width: 90ch;
+      width: 80ch;
       min-height: 100vh;
     }
     
@@ -165,6 +177,7 @@ hr {
   border-left: 4px solid var(--neutral-400); /* vertical line */
   background-color: var(--neutral-800);
   padding-left: 1rem;          /* space between line and content */ 
+  padding-right: 1rem;
   padding-bottom: 1px;
   padding-top: 1px;
   margin-left: 0;               /* remove default indent */
@@ -375,7 +388,7 @@ hr {
 /* Individual tag styling */
 .tag {
   margin: 0rem;
-  font-family: monospace;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
   color:  var(--neutral-400);
   border-radius: 9999px;
   padding: 5px 10px;
@@ -420,20 +433,19 @@ a.tag, a.tag:visited {
 .btn {
   padding: 0.6rem 1rem;
   height: 2.25rem;
-  font-size: 0.75rem;
-  font-family: monospace;
-  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
   cursor: pointer;
-  background-color:  var(--neutral-700);
-  color:  var(--neutral-300);
+  background-color:  var(--neutral-400);
+  color:  var(--neutral-800);
   border: none;
   border-radius: 1rem;
 }
 
 /* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: var(--neutral-600);
-  color: var(--neutral-100);
+  background-color: var(--neutral-500);
+  color: var(--neutral-950);
 }
 
 .typewriter-container {

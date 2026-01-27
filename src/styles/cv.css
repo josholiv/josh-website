@@ -10,17 +10,17 @@ html {
   font-size: 1rem;        /* relative but now stable */
 }
 
-h1, h2 {
+.h1-cv, .h2-cv {
   margin: 0;
   font-weight: normal;
   color: var(--neutral-200);
 }
 
-h1 {
+.h1-cv {
   text-align: center;
 }
 
-h2 {
+.h2-cv {
   margin-top: 1em;
 }
  
@@ -172,8 +172,10 @@ body {
     margin-bottom: 0 !important;
   }
 
-  .print-button {
-    display: none;
+  .print-button,
+  .cv-page-title,
+  .blockquote {
+    display: none;  
   }
 
    /* Keep section content together */
@@ -200,7 +202,7 @@ body {
 
   h1, h2, body, body p, body li, body span, body div {
     color: black !important;
-    font-family: "Helvetica", "Helvetica Neue", "Segoe UI", Arial, sans-serif !important;
+    font-family: Arial, "Helvetica", "Helvetica Neue", "Segoe UI", sans-serif !important;
   }
 
   hr {
@@ -245,6 +247,10 @@ body {
 }
 
 @media screen and (max-width: 635px) {
+  .h1-cv {
+  text-align: left;
+}
+
   .cv-container {
     width: 100vw;
     margin: 0;
@@ -264,4 +270,13 @@ body {
   body .main-content {
     padding: 0rem;
     }
+
+  .cv-page-title {
+    padding: 1rem;
+  }
+
+  .blockquote {
+    margin: 1rem;
+  }
+
 }

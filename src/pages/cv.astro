@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import cv from '../data/cv.json';
 import '../styles/cv.css'
+import { Info } from "lucide-preact";
 
 const pageTitle = "Josh Olivier - CV";
 const { basics, education, publications, presentations, researchExperience, grants, awards, service, affiliations, skills } = cv;
@@ -25,12 +26,29 @@ function formatDateFull(str) {
 </script>
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
+
+<h1 class="cv-page-title">CV</h1>
+
+<div class="blockquote">
+
+  <p>
+    <Info size={"1rem"} class="inline-block mr-1" /> <strong>Info</strong>
+  </p>
+
+  <p>
+    To download a PDF, click the <code>Print</code> button and choose <code>Save as PDF</code> from your browser’s print dialog.
+  </p>
+
+</div>
+
 <main>
  <div class="cv-container">
   <button id="print-button" class="btn print-button">Print</button>
-      <h1>{basics.name}</h1>
+
+      <h1 class="h1-cv">{basics.name}</h1>
+
       <div class="print-header">
-        <h2>Personal Information</h2>
+        <h2 class="h2-cv">Personal Information</h2>
         <hr />
       </div>
       {basics.location.address && ( /* show address only if listed in cv.json */
@@ -54,7 +72,7 @@ function formatDateFull(str) {
       </div>
       <section>
         <div class="print-header">
-        <h2>Education</h2>
+        <h2 class="h2-cv">Education</h2>
         <hr />
         </div>
         {education.map(ed => (
@@ -83,7 +101,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2>Publications</h2>
+        <h2 class="h2-cv">Publications</h2>
         <hr />
         </div>
         <div>
@@ -101,7 +119,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2>Presentations</h2>
+        <h2 class="h2-cv">Presentations</h2>
           <hr/>
           </div>
         <div>
@@ -120,7 +138,7 @@ function formatDateFull(str) {
 
      <section>
       <div class="print-header">
-        <h2>Research Experience</h2>
+        <h2 class="h2-cv">Research Experience</h2>
         <hr />
         </div>
         {researchExperience.map(res => (
@@ -151,7 +169,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2>Grants &amp; Fellowships</h2>
+        <h2 class="h2-cv">Grants &amp; Fellowships</h2>
         <hr />
         </div>
         {grants.map(g => (
@@ -171,7 +189,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2>Honors, Awards &amp; Certificates</h2>
+        <h2 class="h2-cv">Honors, Awards &amp; Certificates</h2>
         <hr />
         </div>
         {awards.map(a => (
@@ -189,7 +207,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-          <h2>Service, Work &amp; Activities</h2>
+          <h2 class="h2-cv">Service, Work &amp; Activities</h2>
          <hr />
         </div>
         {service.map(s => (
@@ -211,7 +229,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2>Professional Affiliations</h2>
+        <h2 class="h2-cv">Professional Affiliations</h2>
         <hr />
         </div>
         {affiliations.map(aff => (
@@ -223,7 +241,7 @@ function formatDateFull(str) {
 
    <section>
     <div class="print-header">
-  <h2>Skills</h2>
+  <h2 class="h2-cv">Skills</h2>
   <hr />
   </div>
   {skills.map(skillCategory => {
