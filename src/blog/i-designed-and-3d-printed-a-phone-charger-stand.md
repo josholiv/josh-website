@@ -4,7 +4,7 @@ pubDate: 2025-04-06
 description: 'After a few failed prints and some design tweaks,  I ended up with a stable, functional charger stand that works perfectly with the iPhone’s StandBy mode.'
 author: 'Josh Olivier'
 image:
-    url: '/images/blog/post-2/charger-stand-model.jpg'
+    url: '/src/assets/blog/post-2/charger-stand-model.jpg'
     alt: 'Successful print of the charger stand'
 tags: ["3Dprinting"]
 readTime: '3' 
@@ -19,24 +19,24 @@ So, I fired up the old 3D printer and made my own.
 ## The design process
 I created the design in [Tinkercad](https://www.tinkercad.com/), which I like using for quick 3D models because it's simple to use and doesn't require downloading any software.
 
-<img src="/images/blog/post-2/charger-stand-model.jpg" alt="3D model of my wireless phone charger stand" class="blog-body-pic">
+<img src="/src/assets/blog/post-2/charger-stand-model.jpg" alt="3D model of my wireless phone charger stand" class="blog-body-pic">
 
 ## A few failures
 There were a few hiccups along the way. I experienced a couple of catastrophic print failures due to design and printer calibration issues, and my initial design ended up being just too small to fit the charger.
 
-<img src="/images/blog/post-2/charger-stand-2.jpg" alt="Catastrophic print failure" class="blog-body-pic">
+<img src="/src/assets/blog/post-2/charger-stand-2.jpg" alt="Catastrophic print failure" class="blog-body-pic">
 
 ## Success!
 Luckily, I was able to get a near-perfect print after making a few tweaks to the design and adjustments to my printer. Leveling my bed was likely the most important printer adjustment, but I also switched to a magnetic PEI build plate during this project. 
 
 This was one of my first real 3D modeling projects and I'm pretty proud of how it turned out. The stand holds the charger at just the right angle to work with Apple’s StandBy mode, and I’ve used it nightly to charge my phone for over six months without a single issue. It's solid, stable, and super functional (unlike many of the other things I print 😅).
 
-<img src="/images/blog/post-2/charger-stand-4.jpg" alt="Successful print of the charger stand" class="blog-body-pic">
+<img src="/src/assets/blog/post-2/charger-stand-4.jpg" alt="Successful print of the charger stand" class="blog-body-pic">
 
 ## Finishing touches
 To keep the base from sliding around on smooth surfaces, I added four small indents underneath that perfectly fit 8 mm adhesive bumper pads. With those in place, it stays put on a desk or nightstand like a champ.
 
-<img src="/images/blog/post-2/charger-stand-5.jpg" alt="Bumper pads under the base of the charger stand" class="blog-body-pic">
+<img src="/src/assets/blog/post-2/charger-stand-5.jpg" alt="Bumper pads under the base of the charger stand" class="blog-body-pic">
 
 ## Grab the file
 
@@ -51,6 +51,6 @@ Let me know if you print one—I’d love to see how others use or remix the des
 - Supports: Yes
 - Rafts: No
 
-<img src="/images/blog/post-2/charger-stand-1.jpg" alt="iPhone in StandBy mode on a MagSafe charger stand" class="blog-body-pic">
+<img src="/src/assets/blog/post-2/charger-stand-1.jpg" alt="iPhone in StandBy mode on a MagSafe charger stand" class="blog-body-pic">
 
-<img src="/images/blog/post-2/charger-stand-6.jpg" alt="Charger stand with charger inserted" class="blog-body-pic">
+<img src="/src/assets/blog/post-2/charger-stand-6.jpg" alt="Charger stand with charger inserted" class="blog-body-pic">

@@ -4,7 +4,7 @@ pubDate: 2025-05-11
 description: 'I made a widget that fetches and displays your live chess stats using the Chess.com Public API.'
 author: 'Josh Olivier'
 image:
-    url: '/images/blog/post-5/preview.jpg'
+    url: '/src/assets/blog/post-5/preview.jpg'
     alt: 'Chess.com stats widget preview'
 tags: ["chess", "code"]
 readTime: '5'
@@ -28,7 +28,7 @@ The chess stats widget is a responsive, card-style component built with [Preact]
 
 Here’s a quick preview (showing Magnus Carlsen's stats, not mine 😅):
 
-<img src="/images/blog/post-5/preview.jpg" alt="Chess.com stats widget preview" class="blog-body-pic" />
+<img src="/src/assets/blog/post-5/preview.jpg" alt="Chess.com stats widget preview" class="blog-body-pic" />
 
 ## How it works
 

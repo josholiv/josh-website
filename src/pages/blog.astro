@@ -8,5 +8,7 @@ const allPosts = await getCollection("blog");
 ---
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
+
    <BlogSorter posts={allPosts} client:load /> 
-</BaseLayout>
+
+</BaseLayout> 

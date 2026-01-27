@@ -30,9 +30,9 @@ const { Link, Linkedin, Github, GraduationCap, User } = Lucide;
 
   .profile-pic {
     margin-right: 1rem;
-    width: 6.5rem;
-    height: 6.5rem;
-    border-radius: 5px;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 3rem;
     margin-top: 1.5rem;
   }
 
@@ -61,7 +61,14 @@ const { Link, Linkedin, Github, GraduationCap, User } = Lucide;
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <Image src={joshHeadshot} alt="Josh Olivier" class="profile-pic" />
+
+      <Image 
+        src={joshHeadshot} 
+        alt="Josh Olivier" 
+        class="profile-pic"
+        loading="eager"
+      />
+      
       <div class="footer-text">
         <h3>Hi, I'm Josh Olivier!</h3>
         <div>I'm a lab manager in a neuroimaging research lab in Dallas, Texas. I'm interested in researching how memory, brain structure, and brain function are related.

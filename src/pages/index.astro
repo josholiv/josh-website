@@ -1,123 +1,67 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Strava from "../components/strava.js";
-import { Image } from 'astro:assets';
-import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 import { getCollection } from "astro:content";
+import { Image } from 'astro:assets';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogSorter from "../components/BlogSorter.jsx"; 
+import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 const pageTitle = "Josh Olivier — Home";
 
 let allPosts = await getCollection("blog");
+
   // Sort by date (newest first)
   allPosts = allPosts.sort(
     (a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate)
   );
-const recentPosts = allPosts.slice(0, 4); // show the newest 4 blog posts by pubDate
 
-// Display error message if Strava API messes up
-let data, error
-try {
-  const strava = new Strava()
-  data = await strava.fetch()
-} catch (e) {
-  error = e.message
-  if (error.includes("401")) {
-    throw Error(
-      "Something went wrong with the Strava API, try updating your refresh_token",
-    )
-  }
-}
+const recentPosts = allPosts.slice(0, 3); // show the newest 3 blog posts by pubDate
 ---
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
 
-  <Image src={aboutMePhoto} alt="Josh Olivier" class="about-pic" />
-  <h1>Hi, I'm Josh!</h1>
+  <h1>Hi, I'm Josh Olivier!</h1>
 
-  <div class="typewriter-container">
-    <span id="typewriter"></span>
-    <button id="nextBtn" class="btn">Next</button>
-  </div>
- 
-   <script type="module">
-      const phrases = [
-        "I'm a research assistant in a neuroimaging lab in Dallas, Texas.",
-        "I'm interested in studying how memory, brain structure, and brain function are related and how these relationships change with age.",
-        "I also love traveling, 3D printing, doing triathlons, and drinking tereré 🧉!",
-        "I'm building this blog to share my projects and interests, and learn new skills in public."
-      ];
-      let i = 0;
-      let j = 0;
-      let isTyping = true;
-      let isDeleting = false;
-      let pauseDuration = 10000;
-      let postDeletePauseDuration = 2000;
-      let timeoutId;
-
-    function typeEffect() {
-      const element = document.querySelector("#typewriter");
-      if (!element) return;
-
-      const currentPhrase = phrases[i];
-
-      if (isTyping) {
-        element.innerHTML = currentPhrase.substring(0, j++);
-      } else if (isDeleting) {
-        element.innerHTML = currentPhrase.substring(0, j--);
-      }
-
-      if (isTyping && j === currentPhrase.length + 1) {
-        timeoutId = setTimeout(() => {
-          isTyping = false;
-          isDeleting = true;
-          typeEffect();
-        }, pauseDuration);
-        return;
-      } else if (isDeleting && j === -1) {
-        timeoutId = setTimeout(() => {
-          i = (i + 1) % phrases.length;
-          isDeleting = false;
-          isTyping = true;
-          typeEffect();
-        }, postDeletePauseDuration);
-        return;
-      }
-
-      // speed logic
-        const randomSpeed = isDeleting
-        ? 20 // deleting always normal speed
-        : Math.floor(Math.random() * (60 - 20 + 1)) + 20; // typing speed 20–60ms
-
-        timeoutId = setTimeout(typeEffect, randomSpeed);
-    }
-
-    function skipToNextPhrase() {
-      clearTimeout(timeoutId); 
-      const element = document.querySelector("#typewriter");
-      if (!element) return;
-
-      // Jump to next phrase
-      i = (i + 1) % phrases.length;
-      j = 0;
-      isTyping = true;
-      isDeleting = false;
-      element.innerHTML = "";
-
-      // Restart typing effect
-      typeEffect();
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(typeEffect, 500);
-      document.querySelector("#nextBtn").addEventListener("click", skipToNextPhrase);
-    });
-    </script>
-
-<h2>Latest Posts</h2>
-  <BlogSorter
-    posts={recentPosts} 
-    client:load
-    showSort={false}
-    showTags={false}
+  <Image
+    src={aboutMePhoto}
+    alt="Josh Olivier"
+    class="about-pic"
+    loading="eager"
+    priority
   />
-  <a href="/blog">All blog posts</a>
+
+  <h2>About me</h2>
+
+    <p>
+
+      I'm a lab manager in a neuroimaging research lab in Dallas, Texas. 
+
+      I'm interested in studying how memory, brain structure, and brain function are related and how these relationships change with age.
+
+      I also love traveling, 3D printing, doing triathlons, and drinking tereré 🧉!
+
+    </p>
+  
+    <p>
+
+      Read more about me on my <a href="https://josholivier.com/about/">About</a> page!
+
+    </p>
+
+    <p> 
+
+      For more details on the research I've worked on, check out my <a href="https://josholivier.com/cv/">CV</a>.
+
+    </p>
+
+
+  <h2>Latest posts</h2>
+
+    <BlogSorter
+      posts={recentPosts} 
+      client:load 
+      showSort={false}
+      showTags={false}
+    />
+
+    <a href="/blog">See all blog posts</a>
+
 </BaseLayout>
