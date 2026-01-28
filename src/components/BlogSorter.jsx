@@ -128,6 +128,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
         )}
 
         {/* Posts List */}
+        <div style={{ marginTop: '2rem'}}>
         <ul>
           {sortedPosts.map((post) => (
             <li key={post.id} className="blog-post">
@@ -153,7 +154,9 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                       })}
                     </span>
 
-                    <span className="post-author"> | <User size={"1rem"} class="inline-block mr-1" /> {post.data.author} |</span>
+                    <span className="post-author icon-container"><span>|</span><User size="1.2rem" style={{ color: "var(--neutral-500)" }}/>
+                    &nbsp;
+                    <span>{post.data.author} |</span></span>
 
                     <span className="post-read-time"> {post.data.readTime} minute read</span>
 
@@ -166,6 +169,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
             </li>
           ))}
         </ul>
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import { Mail, UserCircle, Radio } from "lucide-preact";
-
 import BaseLayout from "../layouts/BaseLayout.astro";
-import aboutMePhoto from '../assets/josh-headshot-cropped.jpg';
 
 const pageTitle = "Josh Olivier - Contact";
 ---
@@ -11,79 +8,82 @@ const pageTitle = "Josh Olivier - Contact";
 
 <h1>Contact me</h1>
 
-  <Image
-    src={aboutMePhoto}
-    alt="Josh Olivier"
-    class="home-pic"
-    loading="eager"
-    priority
-  />
+  <div class="wave-container">
+    <div class="wave wave-small"></div>
+    <div class="wave wave-big"></div>
+  </div>
 
 <h2>Josh Olivier</h2>
 
 <div class="blockquote">
 
-  <p>Lab Manager, Functional Neuroimaging of Memory Lab</p>
+  <p><strong>Lab Manager</strong> | Functional Neuroimaging of Memory Lab</p>
   
   <p>Center for Vital Longevity, University of Texas at Dallas</p>  
 
-  <p> 
-    
-    <span>
+  <div style={{marginLeft: "1rem"}}>
 
-      <Mail size={"1rem"} class="inline-block mr-1" />  &nbsp;
+    <p class="icon-container">
 
-      <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
-      <a 
-        href='&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D' 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        style="display:inline-flex; align-items:center; text-decoration:none;"
-      >
-        <span style="text-decoration:underline;">j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om</span>
-      </a>
+      <Mail size={"1.2rem"} style={{color: "var(--neutral-500)"}}/> 
+      
+        <span> &nbsp;
 
-    </span>
+            <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
+          <a 
+            href='&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D' 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style="display:inline-flex; align-items:center; text-decoration:none;"
+            >
+            <span style="text-decoration:underline;">j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om</span>
+          </a>
 
-  </p>
+        </span>
 
-  <p>
+      </p>
 
-    <span>
+    <p class="icon-container">
 
-      <UserCircle size={"1rem"} class="inline-block mr-1" />  &nbsp;
+      <UserCircle size={"1.2rem"} style={{color: "var(--neutral-500)"}}/>
+      
+        <span> &nbsp;
 
-      <a 
-        href="https://linkedin.com/in/joshua-olivier/" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        style="display:inline-flex; align-items:center; text-decoration:none;"
-      >
-        <span style="text-decoration:underline;">LinkedIn</span>
-      </a>
+          <a 
+            href="https://linkedin.com/in/joshua-olivier/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style="display:inline-flex; align-items:center; text-decoration:none;"
+          >
+            <span style="text-decoration:underline;">LinkedIn</span>
+          </a>
 
-    </span>
+        </span>
 
-  </p>
+      </p>
 
-  <p>
 
-    <span>
 
-      <Radio size={"1rem"} class="inline-block mr-1" />  &nbsp;
+    <p class="icon-container">
 
-      <a 
-        href="https://bsky.app/profile/josholivier.bsky.social" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        style="display:inline-flex; align-items:center; text-decoration:none;"
-      >
-        <span style="text-decoration:underline;">Bluesky</span>
-      </a>
+      <Radio size={"1.2rem"} style={{color: "var(--neutral-500)"}}/>
+      
+        <span> &nbsp;
 
-    </span>
+          <a 
+            href="https://bsky.app/profile/josholivier.bsky.social" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style="display:inline-flex; align-items:center; text-decoration:none;"
+          >
+            <span style="text-decoration:underline;">Bluesky</span>
+          </a>
 
-  </p>
+        </span>
+
+      </p>
+
+  </div>
 
 </div>
 

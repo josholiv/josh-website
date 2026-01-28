@@ -4,30 +4,45 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 ---
 <div class="nav-links">
 
-    <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
-  <Home size="1rem" class="nav-icon" />
-  <span>JoshOlivier.com</span>
-</a>
+  <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
+    <span class="icon-container">
+      <Home size={"1.2rem"} style={{color: "var(--neutral-500)"}}/>
+      &nbsp;
+      JoshOlivier<span style={{color: "var(--neutral-500)"}}>.com</span>
+    </span>
+  </a>
 
-<a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>
-  <Info size="1rem" class="nav-icon" />
-  <span>About</span>
-</a>
+  <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>
+    <span class="icon-container">
+      <Info size={"1.2rem"} style={{color: "var(--neutral-500)"}} class="nav-icon"/>
+      
+      About
+    </span>
+  </a>
 
-<a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>
-  <GraduationCap size="1rem" class="nav-icon" />
-  <span>CV</span>
-</a>
+  <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>
+    <span class="icon-container">
+      <GraduationCap size={"1.2rem"} style={{color: "var(--neutral-500)"}} class="nav-icon"/>
+      &nbsp;
+      CV
+    </span>
+  </a>
 
-<a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>
-  <Rss size="1rem" class="nav-icon" />
-  <span>Blog</span>
-</a>
+  <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>
+    <span class="icon-container">
+      <Rss size={"1.2rem"} style={{color: "var(--neutral-500)"}} class="nav-icon"/>
+      &nbsp;
+      Blog
+    </span>
+  </a>
 
-<a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>
-  <Contact size="1rem" class="nav-icon" />
-  <span>Contact</span>
-</a>
+  <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>
+    <span class="icon-container">
+      <Contact size={"1.2rem"} style={{color: "var(--neutral-500)"}} class="nav-icon"/>
+      &nbsp;
+      Contact
+    </span>
+  </a>
 
 
 </div>

@@ -94,18 +94,18 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 
     h1 {
       font-weight: 400;
-      font-size: 2.5rem;
-      margin-top: 9rem;
-      margin-bottom: 9rem;
+      font-size: 3rem;
+      margin: 9rem 0;
     }
 
     h2 {
       font-weight: 200;
       font-size: 2rem;
+      margin: 2rem 0;
     }
 
     .title-muted {
-      color: var(--neutral-500);
+      color: var(--neutral-600);
     }
 
     code {
@@ -116,6 +116,11 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
       border-radius: 2px;
       font-size: 0.9rem;
       border: 1px solid var(--neutral-600);
+    }
+
+    .icon-container {
+      display: inline-flex; 
+      align-items: center;
     }
 
     header {
@@ -173,29 +178,84 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 
 hr {
   border: none;
-  border-top: 1px solid var(--neutral-400);
-  margin: 0em 0 0.6em 0;
+  border-top: 1px solid var(--neutral-700);
+  margin: 0em 0 1rem 0;
 }
+
+.wave-container {
+  position: relative;
+  height: 48px;
+  overflow: hidden;
+  margin: 3rem 0;
+}
+
+/* shared wave layer */
+.wave {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* small wave */
+.wave-small {
+  background-color: var(--neutral-700);
+
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 Q 15 0 30 12 T 60 12 T 90 12 T 120 12' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 Q 15 0 30 12 T 60 12 T 90 12 T 120 12' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+
+  -webkit-mask-size: 120px 24px;
+  mask-size: 120px 24px;
+
+  animation: wave-scroll-small 13s linear infinite; 
+}
+
+/* big wave */
+.wave-big {
+  background-color: var(--neutral-600);
+
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='36' viewBox='0 0 180 36'%3E%3Cpath d='M0 18 Q 22.5 0 45 18 T 90 18 T 135 18 T 180 18' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='36' viewBox='0 0 180 36'%3E%3Cpath d='M0 18 Q 22.5 0 45 18 T 90 18 T 135 18 T 180 18' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E");
+
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+
+  -webkit-mask-size: 180px 36px;
+  mask-size: 180px 36px;
+
+  animation: wave-scroll-big 25s linear infinite;
+}
+
+/* animations */
+@keyframes wave-scroll-small {
+  from { mask-position: 0 0; }
+  to   { mask-position: 120px 0; }
+}
+
+@keyframes wave-scroll-big {
+  from { mask-position: 0 0; }
+  to   { mask-position: 180px 0; }
+}
+
 
 .blockquote {
   border-left: 4px solid var(--neutral-400); /* vertical line */
   background-color: var(--neutral-800);
   padding-left: 1rem;          /* space between line and content */ 
   padding-right: 1rem;
-  padding-bottom: 1px;
-  padding-top: 1px;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   margin-left: 0;               /* remove default indent */
   margin-top: 1rem;
   margin-bottom: 1rem;          /* spacing after blockquote */
   color: var(--neutral-400);                  /* slightly muted text color */
 }
 
-  ul,
-  ol,
-  li {
-    margin-left: 1.5rem; /* tweak as needed */
+  li::marker {
+    color: var(--neutral-600);
   }
-
 
 /* Keyframes for flowing rainbow gradient */
 @keyframes rainbowShift {
@@ -271,10 +331,6 @@ hr {
   color: var(--neutral-500);
 }
 
-  .nav-icon {
-  margin-right: 0.2 rem;
-}
-
 /* Spacing between stacked links in hamburger menu */
 .expanded a {
   margin-bottom: 0.8rem;
@@ -293,6 +349,7 @@ hr {
   header {
     padding: 0;
   }
+
   .hamburger {
     display: none;
   }
@@ -303,7 +360,7 @@ hr {
     justify-content: flex-start;
     align-items: center;
     width: auto;
-    gap: 1rem;
+    gap: 0rem;
     margin-left: auto;
     margin-right: auto;
   }
@@ -323,8 +380,8 @@ hr {
   }
 
   .nav-icon {
-  display: none;
-}
+    display: none;
+  }
 
 }
 
@@ -343,7 +400,7 @@ hr {
 }
 
 .home-pic {
-  width: 21rem;
+  width: 10.5rem;
   height: auto; 
   flex-shrink: 0; 
   border-radius: 5px;
@@ -517,10 +574,8 @@ li.blog-post {
 /* BlogSorter component styles, used on blog.astro */
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
-    padding: 0px;
     display: block;
     margin-bottom: 1rem;
-    margin-left: -1.5rem;
   }
   
   .blog-thumbnail-wrapper {

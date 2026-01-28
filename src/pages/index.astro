@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { Image } from 'astro:assets';
-import { Home } from "lucide-preact";
+import { Info } from "lucide-preact";
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogSorter from "../components/BlogSorter.jsx"; 
@@ -20,7 +20,12 @@ const recentPosts = allPosts.slice(0, 3); // show the newest 3 blog posts by pub
 ---
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
 
-  <h1>JoshOlivier<span class="title-muted">.com</span></h1>
+  <h1>JoshOlivier<span class="title-muted">.com</span></h1>  
+
+  <div class="wave-container">
+    <div class="wave wave-small"></div>
+    <div class="wave wave-big"></div>
+  </div>
 
   <Image
     src={headshotPhoto}
@@ -38,23 +43,21 @@ const recentPosts = allPosts.slice(0, 3); // show the newest 3 blog posts by pub
 
       I'm interested in studying how memory, brain structure, and brain function are related and how these relationships change with age.
 
-      I also love traveling, 3D printing, doing triathlons, and drinking tereré 🧉!
-
     </p>
+    
+    <p>I also love traveling, 3D printing, triathlons, and tereré 🧉!</p>
   
-    <p>
+    <div class="blockquote">
 
-      Read more about me on my <a href="https://josholivier.com/about/">About</a> page!
-
-    </p>
-
-    <p> 
-
-      For more details on the research I've worked on, check out my <a href="https://josholivier.com/cv/">CV</a>.
-
-    </p>
-
-    <hr>
+      <div class="icon-container">
+        <Info size={"1.2rem"} style={{color: "var(--neutral-500)"}}/> &nbsp; <strong>Info</strong>
+      </div>
+     
+      <ul>
+        <li>Read more about me on my <a href="https://josholivier.com/about/">About</a> page!</li>     
+        <li>Check out my research work on my <a href="https://josholivier.com/cv/">CV</a>.</li>
+      </ul>
+    </div>
 
   <h2>Latest posts</h2>
 
@@ -64,7 +67,5 @@ const recentPosts = allPosts.slice(0, 3); // show the newest 3 blog posts by pub
       showSort={false}
       showTags={false}
     />
-
-    <a href="/blog">See all blog posts</a>
 
 </BaseLayout>

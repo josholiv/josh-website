@@ -1,5 +1,7 @@
 ---
 import { getCollection } from "astro:content";
+import { Info } from "lucide-preact";
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogSorter from "../components/BlogSorter.jsx"; 
 
@@ -11,6 +13,26 @@ const allPosts = await getCollection("blog");
 
    <h1>Blog</h1>
 
-   <BlogSorter posts={allPosts} client:load /> 
+   <div class="wave-container">
+    <div class="wave wave-small"></div>
+    <div class="wave wave-big"></div>
+  </div>
 
-</BaseLayout> 
+   <div class="blockquote">
+
+  <div style={{display: "flex", alignItems: "center"}}>
+    <Info size={"1rem"}/> &nbsp; <strong>Info</strong>
+  </div>
+
+    <ul>
+      <li>Use the <code>Show Tags</code> button to filter posts by <code>#Tag</code>.</li>
+      <li>Use the <code>Newest</code> / <code>Oldest</code> dropdown to sort posts chronologically.</li>
+    </ul>
+
+  </div>
+
+   <div style={{ marginTop: '2rem'}}>
+      <BlogSorter posts={allPosts} client:load /> 
+   </div>
+   
+</BaseLayout>
