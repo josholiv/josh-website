@@ -247,7 +247,7 @@ hr {
   padding-right: 1rem;
   padding-bottom: 1rem;
   padding-top: 1rem;
-  margin-left: 0;               /* remove default indent */
+  margin-left: 0rem;               /* remove default indent */
   margin-top: 1rem;
   margin-bottom: 1rem;          /* spacing after blockquote */
   color: var(--neutral-400);                  /* slightly muted text color */
