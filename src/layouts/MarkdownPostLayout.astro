@@ -1,10 +1,12 @@
 ---
+import { User } from "lucide-preact";
+
 import BaseLayout from './BaseLayout.astro';
 const { frontmatter } = Astro.props;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
 
-  <div style="margin-bottom: 1em">
+  <div style="margin-bottom: 3em">
     <span class="pub-date">
       {frontmatter.pubDate.toLocaleDateString('en-US', { 
         year: 'numeric', 
@@ -13,7 +15,7 @@ const { frontmatter } = Astro.props;
         timeZone: 'UTC'})}
     </span>
 
-    <span class="post-author">| by {frontmatter.author} | </span>
+    <span class="post-author">| <User size={"1rem"} class="inline-block mr-1" /> {frontmatter.author} | </span>
 
     <span class="post-read-time">
       {frontmatter.readTime} minute read
@@ -23,7 +25,7 @@ const { frontmatter } = Astro.props;
   <!-- <img src={frontmatter.image.url} class="blog-pic" width="100" 
     alt={frontmatter.image.alt} /> -->
 
-  <div class="tags">
+  <div style="margin-bottom: 2em" class="tags">
     {frontmatter.tags.map((tag: string) => (
       <a href={`/blog?tag=${tag}`} class="tag" role="button">
       #{tag}

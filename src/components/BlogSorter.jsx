@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
+import { User } from "lucide-preact";
 
 const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [sortOrder, setSortOrder] = useState('newest');
@@ -152,7 +153,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                       })}
                     </span>
 
-                    <span className="post-author"> | by {post.data.author} |</span>
+                    <span className="post-author"> | <User size={"1rem"} class="inline-block mr-1" /> {post.data.author} |</span>
 
                     <span className="post-read-time"> {post.data.readTime} minute read</span>
 
