@@ -154,7 +154,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                       })}
                     </span>
 
-                    <span className="post-author icon-container"><span>|</span><User size="1.2rem" style={{ color: "var(--neutral-500)" }}/>
+                    <span className="post-author icon-container-inline"><span>|</span><User size="1.2rem" style={{ color: "var(--neutral-500)" }}/>
                     &nbsp;
                     <span>{post.data.author} |</span></span>
 

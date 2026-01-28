@@ -20,7 +20,7 @@ const { frontmatter } = Astro.props;
         timeZone: 'UTC'})}
     </span>
 
-    <span class="post-author icon-container">| <User size={"1.2rem"} style={{color: "var(--neutral-500)"}} />&nbsp;{frontmatter.author} | </span>
+    <span class="post-author icon-container-inline">| <User size={"1.2rem"} style={{color: "var(--neutral-500)"}} />&nbsp;{frontmatter.author} | </span>
 
     <span class="post-read-time">
       {frontmatter.readTime} minute read
