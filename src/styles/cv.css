@@ -32,7 +32,7 @@ body {
   position: relative;
   width: 100%;
   padding-top: 4rem;
-  margin: 1rem 0;
+  margin: 1rem auto;
   border-radius: 5px;
   box-sizing: border-box;
   color: var(--neutral-400);
@@ -174,7 +174,8 @@ body {
 
   .print-button,
   .cv-page-title,
-  .blockquote {
+  .blockquote,
+  .wave-container {
     display: none;  
   }
 
@@ -251,12 +252,12 @@ body {
   text-align: left;
 }
 
-  .cv-container {
-    width: 100vw;
-    margin: 0;
-    max-width: 100vw;    
-    padding-left: 1rem; /* instead of 1in when screen size is small */
-    padding-right: 1rem; /* instead of 1in when screen size is small */
+   .cv-container {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0; 
+    box-sizing: border-box;
   }
 
   .two-column-list {
@@ -275,8 +276,9 @@ body {
     padding: 1rem;
   }
 
+ .wave-container,
   .blockquote {
-    margin: 0 1rem;
+    margin-left: 1rem; 
+    margin-right: 1rem;
   }
-
 }
