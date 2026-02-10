@@ -1,12 +1,15 @@
 {
  "basics": {
     "name": "Joshua M. Olivier",
+    "phoneticName": "JAH-shoo-uh oh-LIV-ee-ay",
+    "pronouns": "he, him, his",
     "label": "",
     "image": "",
     "email": "", 
     "altEmail": "",
     "phone": "",
-    "url": "https://josholivier.com",
+    "url": "josholivier.com",
+    "url2": "https://www.name-coach.com/joshua-olivier",
     "summary": "",
     "location": 
       {
@@ -33,7 +36,7 @@
       "studyType": "BS",
       "startDate": "2017-09-05",
       "endDate": "2021-04-22",
-      "score": "3.59",
+      "score": "",
       "advisor": "",
       "courses": [
         "Abnormal Psychology",
