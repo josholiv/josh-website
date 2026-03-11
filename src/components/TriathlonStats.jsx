@@ -11,103 +11,55 @@ const TriathlonStats = ({ data, error }) => {
     });
   };
 
-  const formatNumber = (num) => String(num);  
-
   const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44);
-
-  const convertToMoonPercentage = (distanceKm) => {
-    return `${((distanceKm / 384400) * 100).toFixed(2)}%`;
-  };
+  const convertToMoonPercentage = (distanceKm) => `${((distanceKm / 384400) * 100).toFixed(2)}%`;
 
   const swimDistanceKm = data?.swimDistanceKm || 9999;
   const rideDistanceKm = data?.rideDistanceKm || 9999;
-  const runDistanceKm = data?.runDistanceKm || 9999;
+  const runDistanceKm  = data?.runDistanceKm  || 9999;
+  const swimDistanceMi = data?.swimDistance   || 9999;
+  const rideDistanceMi = data?.rideDistance   || 9999;
+  const runDistanceMi  = data?.runDistance    || 9999;
 
-  const swimDistanceMi = data?.swimDistance || 9999;
-  const rideDistanceMi = data?.rideDistance || 9999;
-  const runDistanceMi = data?.runDistance || 9999;
-
-  const totalDistance = swimDistanceKm + rideDistanceKm + runDistanceKm;
-  const swimPercent = totalDistance ? (swimDistanceKm / totalDistance) * 100 : 0;
-  const ridePercent = totalDistance ? (rideDistanceKm / totalDistance) * 100 : 0;
-  const runPercent = totalDistance ? (runDistanceKm / totalDistance) * 100 : 0;
-
-  const formatCard = (label, value, color, isLast) => (
-    <div style={{
-      color: color,
-      padding: '0rem 1rem 0rem 0rem',
-      display: 'inline-flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      textAlign: 'left',
-      borderRight: isLast ? 'none' : '1px solid var(--text-normal)',
-    }}>
-      <div style={{ fontSize: '1rem', marginBottom: '0.3rem' }}>
-        {label}
-      </div>
-      <div style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
-        {value ?? '–'}
-      </div>
-    </div>
-  );
-  
-  // Helper to format the number + unit nicely
-  const getFormattedValue = (distanceMi, distanceKm) => {
-    if (unit === "miles") {
-      return (<>{formatNumber(distanceMi)}<br /></>);
-    } else if (unit === "km") {
-      return (<>{formatNumber(distanceKm)}<br /></>);
-    } else if (unit === "fields") {
-      return (<>{formatNumber(convertToFields(distanceKm * 1000))}<br /></>);
-    } else {
-      return (<>{convertToMoonPercentage(distanceKm)}<br /></>);
-    }
+  const getDistance = (distanceMi, distanceKm) => {
+    if (unit === "miles")  return distanceMi;
+    if (unit === "km")     return distanceKm;
+    if (unit === "fields") return convertToFields(distanceKm * 1000);
+    return convertToMoonPercentage(distanceKm);
   };
 
-  return (
-    <div style={{position: 'relative' }}>
-      <div style={{
-        padding: '1rem',
-        backgroundColor: 'var(--bg-secondary)',
-        color: 'var(--text-normal)',
-        borderRadius: '5px',
-        position: 'relative',
-      }}>
+  const unitLabel = unit === "miles"  ? "miles"
+                  : unit === "km"     ? "km"
+                  : unit === "fields" ? "fields"
+                  : "% Earth → Moon";
 
-        {/* Stats Cards */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'left',
-          gap: '1rem',
-          }}>
-          {formatCard('Swimming', getFormattedValue(swimDistanceMi, swimDistanceKm), 'var(--blue-400)', false)}
-          {formatCard('Cycling', getFormattedValue(rideDistanceMi, rideDistanceKm), 'var(--green-400)', false)}
-          {formatCard('Running', getFormattedValue(runDistanceMi, runDistanceKm), 'var(--orange-400)', true)}
-        </div>
+  const sports = [
+    { label: "Swimming", mi: swimDistanceMi, km: swimDistanceKm },
+    { label: "Biking", mi: rideDistanceMi, km: rideDistanceKm },
+    { label: "Running", mi: runDistanceMi,  km: runDistanceKm  },
+  ];
 
-        <div style={{ marginTop: '0.5rem', textAlign: 'left' }}> 
-          <span></span>
-          <span style={{
-            padding: "0.2rem 0rem",
-            fontWeight: '700',
-            fontStyle: 'italic'
-          }}>
-            {unit === "miles" ? "miles" :
-            unit === "km" ? "kilometers" :
-            unit === "fields" ? "American football fields" :
-            "of the distance from Earth to the Moon"}
-          </span>
-        </div>
-
-        <div style={{ marginTop: '1rem', textAlign: 'left' }}>
-          <button onClick={toggleUnit} className="btn">Change Unit</button>
-        </div>
-
-      </div>
-    </div>
-  );
+ return (
+  <div>
+    <table style={{ borderCollapse: 'collapse', marginBottom: '1rem', width: '100%' }}>
+      <thead>
+        <tr>
+          <th style={{ textAlign: 'left', paddingRight: '2rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>Sport</th>
+          <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Distance ({unitLabel})</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sports.map(({ label, mi, km }) => (
+          <tr key={label}>
+            <td style={{ paddingRight: '2rem', paddingBottom: '0.3rem', fontWeight: 'bold' }}>{label}</td>
+            <td style={{ paddingBottom: '0.3rem', color: 'var(--text-normal)' }}>{getDistance(mi, km)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <button onClick={toggleUnit} className="btn">Change Unit</button>
+  </div>
+);
 };
 
 export default TriathlonStats;

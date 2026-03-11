@@ -7,7 +7,6 @@ const fetchChessStats = async (username: string) => {
 };
 
 const username = 'pichugang';
-const chessboard = '/chessboard.svg';
 
 const ChessStats: FunctionalComponent = () => {
   const [stats, setStats] = useState<any>(null);
@@ -17,70 +16,34 @@ const ChessStats: FunctionalComponent = () => {
       const userStats = await fetchChessStats(username);
       setStats(userStats);
     };
-
     getStats();
   }, []);
 
-  if (!stats) {
-    return <div>Loading...</div>;
-  }
+  if (!stats) return <div>Loading...</div>;
 
-  const totalGames = Object.values(stats)
-    .filter((mode: any) => mode && mode.record)
-    .reduce((acc: number, mode: any) => {
-      return acc + (mode.record.win || 0) + (mode.record.loss || 0) + (mode.record.draw || 0);
-    }, 0);
-
-  const formatCard = (
-    label: string,
-    value: string | number | undefined,
-    color?: string,
-    isLast: boolean
-  ) => (
-    <div style={{
-      color: color,
-      padding: '0rem 1rem 0rem 0rem',
-      display: 'inline-flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      textAlign: 'left',
-      borderRight: isLast ? 'none' : '1px solid var(--text-normal)',
-    }}>
-        <div style={{ fontSize: '1rem', marginBottom: '0.3rem' }}>
-          {label}
-        </div>
-        <div style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
-          {value ?? '–'}
-        </div>
-      </div>
-  );
+  const modes = [
+    { label: 'Bullet', rating: stats.chess_bullet?.last?.rating },
+    { label: 'Blitz',  rating: stats.chess_blitz?.last?.rating },
+    { label: 'Rapid',  rating: stats.chess_rapid?.last?.rating },
+  ];
 
   return (
-         <div style={{position: 'relative' }}>
-      <div style={{
-        padding: '1rem',
-        backgroundColor: 'var(--bg-secondary)',
-        borderRadius: '5px',
-        position: 'relative',
-      }}>
-      <div style={{textAlign: 'left'}}>
- 
-    </div>
-      
-      {/* Card rows */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'left',
-          gap: '1rem',
-          }}>
-          {formatCard('Bullet', stats.chess_bullet?.last?.rating, 'var(--red-400)', false)}
-          {formatCard('Blitz', stats.chess_blitz?.last?.rating, 'var(--pink-400)', false)}
-          {formatCard('Rapid', stats.chess_rapid?.last?.rating, 'var(--purple-400)', true)}
-        </div>
-      </div>
-      </div>
+    <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+      <thead>
+        <tr>
+          <th style={{ textAlign: 'left', paddingRight: '2rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>Mode</th>
+          <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        {modes.map(({ label, rating }) => (
+          <tr key={label}>
+            <td style={{ paddingRight: '2rem', paddingBottom: '0.3rem', fontWeight: 'bold' }}>{label}</td>
+            <td style={{ paddingBottom: '0.3rem', color: 'var(--text-normal)' }}>{rating ?? '–'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

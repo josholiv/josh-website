@@ -56,6 +56,8 @@ try {
   booksThisYear = [];
   hardcoverError = e.message;
 }
+
+console.log(hardcoverGoals)
 ---
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
@@ -102,11 +104,8 @@ try {
     </p>
 
     <p>
-      Some of my other hobbies include fiddling with my 3D printer, drinking tereré (cold yerba mate), and training for triathlons. 
-      So far, in <strong>{new Date().getFullYear()}</strong>, I’ve logged the distances shown below for {" "}
-        <span style={{fontWeight: 'bold'}}>swimming</span>,{" "}
-        <span style={{fontWeight: 'bold'}}>cycling</span>, and{" "}
-        <span style={{fontWeight: 'bold'}}>running</span>, according to my data from Strava.
+      Some of my other hobbies include fiddling with my 3D printer, drinking tereré (cold yerba mate), and training for triathlons.
+      So far this year, I've logged the distances below for swimming, biking, and running, according to my data from Strava.
     </p>
 
 <Callout type="info" title={`Distances logged in ${new Date().getFullYear()}`} icon={Bike}>
@@ -117,7 +116,7 @@ try {
       <p>
 
         I also love playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
-        Below are my current ratings on chess.com for three categories of speed chess: 
+        Below are my current ratings on Chess.com for three categories of speed chess: 
 
         <ul>
           <li>
@@ -143,24 +142,19 @@ try {
 </Callout>
 
     <p>
-      I also enjoy reading. According to my data from Hardcover, my top genres are{" "}
-      {topGenresAllTime.length > 0
-        ? topGenresAllTime
-            .map(g => g.genre)
-            .reduce((acc, genre, i, arr) => 
-              i === 0 
-                ? <strong>{genre}</strong> 
-                : i === arr.length - 1 
-                  ? <>{acc} and <strong>{genre}</strong></> 
-                  : <>{acc}, <strong>{genre}</strong></>
-            , "")
-        : "not available yet"}
-      . Below is the total number of <span style={{fontWeight: 'bold'}}>books I've read 
-        in {" "}{new Date().getFullYear()}</span> and my reading goal for the year.
-    </p>
+  I also enjoy reading. According to my data from Hardcover, my top genres are:
+</p>
+<ul>
+  {topGenresAllTime.slice(0, 3).map(g => (
+    <li><strong>{g.genre}</strong></li>
+  ))}
+</ul>
+<p>
+  Below is the total number of books I've read in <strong>{new Date().getFullYear()}</strong> and my reading goal for the year.
+</p>
     
 <Callout type="tip" title={`Books read in ${new Date().getFullYear()}`} icon={BookOpen}>
-  <HardcoverStats client:only data={hardcoverGoals} />
+  <HardcoverStats client:only data={hardcoverGoals.filter(g => g.year === new Date().getFullYear())} />
 </Callout>
 
 </BaseLayout>
