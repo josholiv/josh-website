@@ -16,9 +16,9 @@ html {
   color: var(--text-heading);
 }
 
-.h1-cv, .subtitle-cv {
+/* .h1-cv, .subtitle-cv {
   text-align: center;
-}
+} */
 
 .h2-cv {
   margin-top: 1em;
@@ -179,6 +179,10 @@ body {
     display: none;  
   }
 
+  .h1-cv, .subtitle-cv {
+    text-align: center;
+  }
+
    /* Keep section content together */
   .print-section {
     break-inside: avoid;       /* modern */
@@ -245,11 +249,6 @@ body {
     margin-top: 0em;
   }
 
-}
-
-@media screen and (max-width: 635px) {
-  .h1-cv, .subtitle-cv {
-  text-align: left;
 }
 
    .cv-container {
