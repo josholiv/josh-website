@@ -45,7 +45,7 @@ const ChessStats: FunctionalComponent = () => {
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       textAlign: 'left',
-      borderRight: isLast ? 'none' : '1px solid var(--neutral-400)',
+      borderRight: isLast ? 'none' : '1px solid var(--text-normal)',
     }}>
         <div style={{ fontSize: '1rem', marginBottom: '0.3rem' }}>
           {label}
@@ -60,7 +60,7 @@ const ChessStats: FunctionalComponent = () => {
          <div style={{position: 'relative' }}>
       <div style={{
         padding: '1rem',
-        backgroundColor: 'var(--neutral-800)',
+        backgroundColor: 'var(--bg-secondary)',
         borderRadius: '5px',
         position: 'relative',
       }}>

@@ -1,0 +1,30 @@
+---
+import { Info, CheckCircle, AlertTriangle, XCircle, Lightbulb, NotebookPen } from "lucide-preact";
+
+const variants = {
+  info:    { icon: Info,          label: "Info",    class: "callout-info" },
+  success: { icon: CheckCircle,   label: "Success", class: "callout-success" },
+  warning: { icon: AlertTriangle, label: "Warning", class: "callout-warning" },
+  danger:  { icon: XCircle,       label: "Danger",  class: "callout-danger" },
+  tip:     { icon: Lightbulb,     label: "Tip",     class: "callout-tip" },
+  note:    { icon: NotebookPen,   label: "Note",    class: "callout-note" },
+};
+
+interface Props {
+  type?: keyof typeof variants;
+  title?: string;
+  icon?: any;
+}
+
+const { type = "info", title, icon } = Astro.props;
+const variant = variants[type];
+const Icon = icon ?? variant.icon;
+---
+
+<div class={`blockquote ${variant.class}`}>
+  <div class="callout-title">
+    <Icon size={"1rem"} />
+    {title ?? variant.label}
+  </div>
+  <slot />
+</div>

@@ -41,7 +41,7 @@ const TriathlonStats = ({ data, error }) => {
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
       textAlign: 'left',
-      borderRight: isLast ? 'none' : '1px solid var(--neutral-400)',
+      borderRight: isLast ? 'none' : '1px solid var(--text-normal)',
     }}>
       <div style={{ fontSize: '1rem', marginBottom: '0.3rem' }}>
         {label}
@@ -69,8 +69,8 @@ const TriathlonStats = ({ data, error }) => {
     <div style={{position: 'relative' }}>
       <div style={{
         padding: '1rem',
-        backgroundColor: 'var(--neutral-800)',
-        color: 'var(--neutral-400)',
+        backgroundColor: 'var(--bg-secondary)',
+        color: 'var(--text-normal)',
         borderRadius: '5px',
         position: 'relative',
       }}>

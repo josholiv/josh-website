@@ -79,6 +79,69 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --pink-800: #4a0f2d;
 --pink-900: #320a1e;
 --pink-950: #200613;
+
+/* ─── Theme tokens (default: dark, matching Obsidian .theme-dark) ─── */
+--bg-primary:        var(--neutral-900);   /* #191919 */
+--bg-secondary:      var(--neutral-800);   /* #272727 */
+--bg-border:         var(--neutral-700);   /* #454545 */
+--text-normal:       var(--neutral-400);   /* #a0a0a0 */
+--text-muted:        var(--neutral-500);   /* #7e7e7e */
+--text-faint:        var(--neutral-600);   /* #616161 */
+--text-on-accent:    var(--neutral-050);   /* #f3f3f3 */
+--text-heading:      var(--neutral-050);   /* #f3f3f3 */
+--accent:            var(--blue-400);      /* #48a4ff */
+--accent-hover:      var(--blue-300);      /* #a1d0ff */
+--link-color:        var(--blue-400);      /* #48a4ff */
+--link-color-hover:  var(--blue-200);      /* #bcdeff */
+--link-visited:      var(--purple-400);    /* #c184ff */
+--link-visited-hover:var(--purple-300);    /* #dfbfff */
+--code-bg:           var(--neutral-950);   /* #101010 */
+--code-text:         var(--neutral-400);   /* #a0a0a0 */
+--code-border:       var(--neutral-600);   /* #616161 */
+}
+
+/* Light mode: either OS preference OR explicit toggle */
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) {
+    --bg-primary:         var(--neutral-050);
+    --bg-secondary:       var(--neutral-100);
+    --bg-border:          var(--neutral-300);
+    --text-normal:        var(--neutral-600);
+    --text-muted:         var(--neutral-500);
+    --text-faint:         var(--neutral-400);
+    --text-on-accent:     var(--neutral-950);
+    --text-heading:       var(--neutral-950);
+    --accent:             var(--blue-500);
+    --accent-hover:       var(--blue-700);
+    --link-color:         var(--blue-500);
+    --link-color-hover:   var(--blue-700);
+    --link-visited:       var(--purple-600);
+    --link-visited-hover: var(--purple-700);
+    --code-bg:            var(--neutral-200);
+    --code-text:          var(--neutral-700);
+    --code-border:        var(--neutral-300);
+  }
+}
+
+/* Explicit light override (toggle overrides dark OS preference) */
+html:not(.dark) {
+  --bg-primary:         var(--neutral-050);
+  --bg-secondary:       var(--neutral-100);
+  --bg-border:          var(--neutral-300);
+  --text-normal:        var(--neutral-600);
+  --text-muted:         var(--neutral-500);
+  --text-faint:         var(--neutral-400);
+  --text-on-accent:     var(--neutral-950);
+  --text-heading:       var(--neutral-950);
+  --accent:             var(--blue-500);
+  --accent-hover:       var(--blue-700);
+  --link-color:         var(--blue-500);
+  --link-color-hover:   var(--blue-700);
+  --link-visited:       var(--purple-600);
+  --link-visited-hover: var(--purple-700);
+  --code-bg:            var(--neutral-200);
+  --code-text:          var(--neutral-700);
+  --code-border:        var(--neutral-300);
 }
 
     html {
@@ -88,7 +151,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     }
 
     h1, h2 {
-      color: var(--neutral-050);
+      color: var(--text-heading);
       font-family: "DM Serif Text", serif;
     }
 
@@ -105,17 +168,17 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     }
 
     .title-muted {
-      color: var(--neutral-600);
+      color: var(--text-faint);
     }
 
     code {
       font-family: "Atkinson Hyperlegible Mono", monospace;
-      background-color: var(--neutral-950);
-      color: var(--neutral-400);
+      background-color: var(--code-bg);
+      color: var(--code-text);
       padding: 0rem 0.35rem;
       border-radius: 2px;
       font-size: 0.9rem;
-      border: 1px solid var(--neutral-600);
+      border: 1px solid var(--code-border);
     }
 
     .icon-container {
@@ -141,12 +204,12 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
  
     body {
       margin: 0;
-      color: var(--neutral-400);
+      color: var(--text-normal);
       display: flex;
       align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
-      background: var(--neutral-900);
+      background: var(--bg-primary);
     }
     
     .page-wrapper {
@@ -166,24 +229,24 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 }
 
     a {
-      color: var(--blue-400);
+      color: var(--link-color);
     }
 
     a:hover {
-      color: var(--blue-300);
+      color: var(--link-color-hover);
     }
 
     a:visited {
-      color: var(--purple-400);
+      color: var(--link-visited);
     }
 
     a:visited:hover {
-      color: var(--purple-300);
+      color: var(--link-visited-hover);
     }
 
 hr {
   border: none;
-  border-top: 1px solid var(--neutral-700);
+  border-top: 1px solid var(--bg-border);
   margin: 0em 0 1rem 0;
 }
 
@@ -203,7 +266,7 @@ hr {
 
 /* small wave */
 .wave-small {
-  background-color: var(--neutral-700);
+  background-color: var(--bg-border);
 
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 Q 15 0 30 12 T 60 12 T 90 12 T 120 12' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 Q 15 0 30 12 T 60 12 T 90 12 T 120 12' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
@@ -219,7 +282,7 @@ hr {
 
 /* big wave */
 .wave-big {
-  background-color: var(--neutral-600);
+  background-color: var(--text-faint);
 
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='36' viewBox='0 0 180 36'%3E%3Cpath d='M0 18 Q 22.5 0 45 18 T 90 18 T 135 18 T 180 18' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='36' viewBox='0 0 180 36'%3E%3Cpath d='M0 18 Q 22.5 0 45 18 T 90 18 T 135 18 T 180 18' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E");
@@ -246,8 +309,8 @@ hr {
 
 
 .blockquote {
-  border-left: 4px solid var(--neutral-400); /* vertical line */
-  background-color: var(--neutral-800);
+  border-left: 4px solid var(--text-normal); /* vertical line */
+  background-color: var(--bg-secondary);
   padding-left: 1rem;          /* space between line and content */ 
   padding-right: 1rem;
   padding-bottom: 1rem;
@@ -255,11 +318,65 @@ hr {
   margin-left: 0rem;               /* remove default indent */
   margin-top: 1rem;
   margin-bottom: 1rem;          /* spacing after blockquote */
-  color: var(--neutral-400);                  /* slightly muted text color */
+  color: var(--text-normal);    /* slightly muted text color */
 }
 
+/* ─── Callout variants (extend .blockquote) ─── */
+
+.callout-info {
+  border-left-color: var(--blue-400);
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+}
+
+.callout-success {
+  border-left-color: var(--green-400);
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+}
+
+.callout-warning {
+  border-left-color: var(--orange-400);
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+}
+
+.callout-danger {
+  border-left-color: var(--red-400);
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+}
+
+.callout-tip {
+  border-left-color: var(--pink-400);
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+}
+
+.callout-note {
+  border-left-color: var(--purple-400);
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+}
+
+/* Callout title row */
+.callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.callout-info    .callout-title { color: var(--blue-400); }
+.callout-success .callout-title { color: var(--green-400); }
+.callout-warning .callout-title { color: var(--orange-400); }
+.callout-danger  .callout-title { color: var(--red-400); }
+.callout-tip     .callout-title { color: var(--pink-400); }
+.callout-note    .callout-title { color: var(--purple-400); }
+
   li::marker {
-    color: var(--neutral-600);
+    color: var(--text-faint);
   }
 
 /* Keyframes for flowing rainbow gradient */
@@ -323,17 +440,17 @@ hr {
   font-family: 'Noto Sans';
   font-weight: 700;
   font-size: 1rem;
-  color: var(--neutral-400);
+  color: var(--text-normal);
   text-decoration: none;
 }
 
 /* Active link */
 .nav-links a.active {
-  color: var(--neutral-050);
+  color: var(--text-heading);
 }
 
 .nav-links a:hover {
-  color: var(--neutral-500);
+  color: var(--text-muted);
 }
 
 /* Spacing between stacked links in hamburger menu */
@@ -456,12 +573,12 @@ hr {
 .tag {
   margin: 0rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
-  color:  var(--neutral-400);
+  color:  var(--text-normal);
   border-radius: 9999px;
   padding: 5px 10px;
   font-size: 1rem;
   border: 1px solid;
-  border-color:  var(--neutral-400);
+  border-color: var(--text-normal);
   position: relative;
   cursor: pointer;
 }
@@ -469,31 +586,31 @@ hr {
 a.tag, a.tag:visited {
   text-decoration: none;
   display: inline-block;
-  color:  var(--neutral-300) !important;
-  border-color:  var(--neutral-300) !important;
+  color: var(--text-muted) !important;
+  border-color: var(--text-muted) !important;
 }
 
 /* Count next to the tag */
 .tag-count {
-  color:  var(--neutral-400);
+  color: var(--text-normal);
   font-size: 1rem;
   margin-left: 0.5rem;
 }
 
 /* Styling for when the tag is active */
 .tag.active {
-  background-color: var(--neutral-050);
-  color:  var(--neutral-950);
-  border-color:  var(--neutral-950);
+  background-color: var(--text-heading);
+  color: var(--bg-primary);
+  border-color: var(--bg-primary);
 }
 
 /* Change .tag-count color when tag is active */
 .tag.active .tag-count {
-  color: var(--neutral-950);
+  color: var(--bg-primary);
 }
 
 .tag:hover {
-  background-color: var(--neutral-700)
+  background-color: var(--bg-border);
 }
     
 /* Universal button style class */
@@ -503,35 +620,35 @@ a.tag, a.tag:visited {
   font-size: 0.8rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   cursor: pointer;
-  background-color:  var(--neutral-400);
-  color:  var(--neutral-800);
+  background-color: var(--text-normal);
+  color: var(--bg-secondary);
   border: none;
   border-radius: 1rem;
 }
 
 /* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: var(--neutral-500);
-  color: var(--neutral-950);
+  background-color: var(--text-muted);
+  color: var(--bg-primary);
 }
 
 .typewriter-container {
   position: relative;
   flex: 1;
   font-size: 1rem;
-  color: var(--neutral-400);
+  color: var(--text-normal);
   border-radius: 5px;
   text-align: left;
   line-height: 1.5;
   min-height: 10rem;
-  background-color: var(--neutral-800);
+  background-color: var(--bg-secondary);
   padding: 1rem;
 }
  
 #typewriter::after {
   content: "|"; /* Cursor character */
   display: inline-block;
-  color: var(--neutral-400);
+  color: var(--text-normal);
   animation: blink 1.2s infinite;
 }
 
@@ -643,12 +760,12 @@ li.blog-post {
     font-size: 1rem;
     margin-top: 0.5rem;
     font-weight: bold;
-    color:  var(--neutral-400);
+    color: var(--text-normal);
   }
 
   /* Author on BlogSorter component */
   .post-author {
-    color: var(--neutral-400);
+    color: var(--text-normal);
   }
 
   /* Description on BlogSorter component */
@@ -657,13 +774,13 @@ li.blog-post {
     margin-left: 0rem;
     margin-top: 0.5rem;
     margin-right: 0.5rem;
-    color:  var(--neutral-400);
+    color: var(--text-normal);
   }
 
    /* Read time on BlogSorter component */
    .post-read-time {
     font-style: italic;
-    color:  var(--neutral-400);
+    color: var(--text-normal);
   }
 
 @media print {
