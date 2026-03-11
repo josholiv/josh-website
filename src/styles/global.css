@@ -93,8 +93,6 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --accent-hover:      var(--blue-300);      /* #a1d0ff */
 --link-color:        var(--blue-400);      /* #48a4ff */
 --link-color-hover:  var(--blue-200);      /* #bcdeff */
---link-visited:      var(--purple-400);    /* #c184ff */
---link-visited-hover:var(--purple-300);    /* #dfbfff */
 --code-bg:           var(--neutral-950);   /* #101010 */
 --code-text:         var(--neutral-400);   /* #a0a0a0 */
 --code-border:       var(--neutral-600);   /* #616161 */
@@ -115,8 +113,6 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     --accent-hover:       var(--blue-700);
     --link-color:         var(--blue-500);
     --link-color-hover:   var(--blue-700);
-    --link-visited:       var(--purple-600);
-    --link-visited-hover: var(--purple-700);
     --code-bg:            var(--neutral-200);
     --code-text:          var(--neutral-700);
     --code-border:        var(--neutral-300);
@@ -137,8 +133,6 @@ html:not(.dark) {
   --accent-hover:       var(--blue-700);
   --link-color:         var(--blue-500);
   --link-color-hover:   var(--blue-700);
-  --link-visited:       var(--purple-600);
-  --link-visited-hover: var(--purple-700);
   --code-bg:            var(--neutral-200);
   --code-text:          var(--neutral-700);
   --code-border:        var(--neutral-300);
@@ -158,7 +152,7 @@ html:not(.dark) {
     h1 {
       font-weight: 400;
       font-size: 3rem;
-      margin: 9rem 0;
+      margin: 2rem 0;
     }
 
     h2 {
@@ -237,11 +231,11 @@ html:not(.dark) {
     }
 
     a:visited {
-      color: var(--link-visited);
+      color: var(--link-color);
     }
 
     a:visited:hover {
-      color: var(--link-visited-hover);
+      color: var(--link-color-hover);
     }
 
 hr {
@@ -446,7 +440,7 @@ hr {
 
 /* Active link */
 .nav-links a.active {
-  color: var(--text-heading);
+  color: var(--link-color);
 }
 
 .nav-links a:hover {
@@ -573,12 +567,12 @@ hr {
 .tag {
   margin: 0rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
-  color:  var(--text-normal);
-  border-radius: 9999px;
-  padding: 5px 10px;
-  font-size: 1rem;
+  color:  var(--text-muted);
+  border-radius: 2px;
+  padding: 2px 5px;
+  font-size: 0.9rem;
   border: 1px solid;
-  border-color: var(--text-normal);
+  border-color: var(--text-faint);
   position: relative;
   cursor: pointer;
 }
@@ -623,7 +617,7 @@ a.tag, a.tag:visited {
   background-color: var(--text-normal);
   color: var(--bg-secondary);
   border: none;
-  border-radius: 1rem;
+  border-radius: 2px;
 }
 
 /* Hover effect for buttons with .btn class */
@@ -693,12 +687,19 @@ li.blog-post {
   margin-left: -2.5rem;
 }
 
+.blog-post a .post-title {
+  text-decoration: underline;
+}
+
 /* BlogSorter component styles, used on blog.astro */
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
-    display: block;
-    margin-bottom: 1rem;
-  }
+  display: block;
+  margin-bottom: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 2px;
+  padding: 1rem;
+}
   
   .blog-thumbnail-wrapper {
   position: relative;
@@ -757,9 +758,6 @@ li.blog-post {
 
   /* Date on BlogSorter component */
   .pub-date {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    font-weight: bold;
     color: var(--text-normal);
   }
 
@@ -793,21 +791,26 @@ li.blog-post {
   }
 }
 
-/* Responsive layout for blog post items */
+@media (max-width: 635px) {
+  .blog-thumbnail-wrapper {
+    display: none;
+  }
+}
+
 @media (min-width: 636px) {
   .blog-post .post-wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: flex-start;
     gap: 1rem;
+    padding: 1rem 1rem 0 1rem;
   }
 
-@media (min-width: 636px) {
   .blog-thumbnail-wrapper {
     width: 10.667rem;
-    padding-top: 6rem; /* 10.667rem:6rem for 16:9 ratio */
+    padding-top: 6rem;
   }
-}
+
   .post-title,
   .post-tags,
   .pub-date,

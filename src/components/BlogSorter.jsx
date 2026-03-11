@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
-import { User } from "lucide-preact";
+import { User, Calendar, Timer } from "lucide-preact";
 
 const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [sortOrder, setSortOrder] = useState('newest');
@@ -145,24 +145,36 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                   )}
                   <div className="post-text">
                     <h3 className="post-title">{post.data.title}</h3>
-                    <span className="pub-date">
-                      {new Date(post.data.pubDate).toLocaleDateString('en-US', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                        timeZone: 'UTC',
-                      })}
-                    </span>
 
-                    <span className="post-author icon-container-inline"><span>|</span><User size="1.2rem" style={{ color: "var(--neutral-500)" }}/>
-                    &nbsp;
-                    <span>{post.data.author} |</span></span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
+                        <span className="pub-date" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                          <Calendar size="1rem" />
+                          {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+                            day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+                          })}
+                        </span>
 
-                    <span className="post-read-time"> {post.data.readTime} minute read</span>
+                        <span style={{ color: 'var(--text-faint)' }}>|</span>
 
-                    <div className="post-description">
-                      {post.data.description}
-                    </div>
+                        <span className="post-author" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                          <User size="1rem" />
+                          {post.data.author}
+                        </span>
+
+                        <span style={{ color: 'var(--text-faint)' }}>|</span>
+
+                        <span className="post-read-time" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                          <Timer size="1rem" />
+                          {post.data.readTime} min read
+                        </span>
+                      </div>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.5rem' }}>
+                        {post.data.tags?.map(tag => (
+                          <span key={tag} className="tag">#{tag}</span>
+                        ))}
+                     </div>
+                     
                   </div>
                 </div>
               </a>

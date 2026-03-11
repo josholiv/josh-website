@@ -6,15 +6,15 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 
 <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
   <span class="icon-container">
-    <Home size={"1.2rem"} class="nav-icon"/>
+    <Home size={"1rem"}/>
     &nbsp;
-    JoshOlivier<span style={{color: "var(--text-muted)"}}>.com</span>
+    Home<span style={{color: "var(--text-muted)"}}></span>
   </span>
 </a>
 
 <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>
   <span class="icon-container">
-    <Info size={"1.2rem"} class="nav-icon"/>
+    <Info size={"1rem"} class="nav-icon"/>
     &nbsp;
     About
   </span>
@@ -22,7 +22,7 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 
 <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>
   <span class="icon-container">
-    <GraduationCap size={"1.2rem"} class="nav-icon"/>
+    <GraduationCap size={"1rem"} class="nav-icon"/>
     &nbsp;
     CV
   </span>
@@ -30,7 +30,7 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 
 <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>
   <span class="icon-container">
-    <Rss size={"1.2rem"} class="nav-icon"/>
+    <Rss size={"1rem"} class="nav-icon"/>
     &nbsp;
     Blog
   </span>
@@ -38,7 +38,7 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 
 <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>
   <span class="icon-container">
-    <Contact size={"1.2rem"} class="nav-icon"/>
+    <Contact size={"1rem"} class="nav-icon"/>
     &nbsp;
     Contact
   </span>

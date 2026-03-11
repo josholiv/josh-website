@@ -4,6 +4,7 @@ import { Info } from "lucide-preact";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogSorter from "../components/BlogSorter.jsx"; 
+import Callout from '../components/Callout.astro';
 
 const pageTitle = "Josh Olivier - Blog";
 const allPosts = await getCollection("blog");
@@ -18,16 +19,9 @@ const allPosts = await getCollection("blog");
     <div class="wave wave-big"></div>
   </div>
 
-   <div class="blockquote">
-
-  <div style={{display: "flex", alignItems: "center"}}>
-    <Info size={"1rem"}/> &nbsp; <strong>Info</strong>
-  </div>
-
-      <p>Use <code>Show Tags</code> to filter posts by tag.</p>
-      <p>Use the <code>Newest</code> / <code>Oldest</code> dropdown to sort posts chronologically.</p>
-
-  </div>
+  <Callout type="tip">
+   Use <code>Show Tags</code> to filter posts by tag. Use the <code>Newest</code> / <code>Oldest</code> dropdown to sort posts chronologically.
+  </Callout>
 
    <div style={{ marginTop: '2rem'}}>
       <BlogSorter posts={allPosts} client:load /> 
