@@ -42,7 +42,7 @@ export default class Hardcover {
             user_id: { _eq: 29246 }
             status_id: { _eq: 3 }
           }
-        ) {
+        ) { 
           rating
           book {
             title
