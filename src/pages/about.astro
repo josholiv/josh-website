@@ -34,6 +34,7 @@ let hardcoverError;
 try {
   const hc = new Hardcover();
   const result = await hc.fetch(); // fetch goals, topGenres, and userBooks
+  console.log("Hardcover result:", result);
 
   hardcoverGoals = result.goals;
   topGenresAllTime = result.topGenres; // top 5 genres of all time
@@ -54,6 +55,7 @@ try {
   topGenresAllTime = [];
   booksThisYear = [];
   hardcoverError = e.message;
+  console.log("Hardcover error:", e);
 }
 
 console.log(hardcoverGoals)
@@ -129,7 +131,7 @@ console.log(hardcoverGoals)
   ))}
 </ul>
 <p>
-  Below is the total number of books I've read in <strong>{new Date().getFullYear()}</strong> and my reading goal for the year.
+  Below is the total number of books I've read in {new Date().getFullYear()} and my reading goal for the year.
 </p>
     
 <Callout type="tip" title={`Books read in ${new Date().getFullYear()}`} icon={BookOpen}>

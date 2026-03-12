@@ -5,18 +5,18 @@ const HardcoverStats = ({ data }) => {
       : [{ goal: 0, progress: 0 }];
 
   return (
-    <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+    <table style={{ borderCollapse: 'collapse', marginBottom: '1rem', width: 'auto' }}>
       <thead>
         <tr>
-          <th style={{ textAlign: 'left', paddingRight: '2rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>Read</th>
           <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Goal</th>
+          <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Read</th>
         </tr>
       </thead>
       <tbody>
         {goals.map((g, i) => (
           <tr key={i}>
-            <td style={{ paddingRight: '2rem', paddingBottom: '0.3rem', fontWeight: 'bold' }}>{g.progress}</td>
-            <td style={{ paddingBottom: '0.3rem', color: 'var(--text-normal)' }}>{g.goal}</td>
+            <td style={{ fontFamily: 'Atkinson Hyperlegible Mono', paddingRight: '2rem' }}>{g.goal}</td>
+            <td style={{ fontFamily: 'Atkinson Hyperlegible Mono' }}>{g.progress}</td>
           </tr>
         ))}
       </tbody>

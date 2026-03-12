@@ -27,7 +27,7 @@ const TriathlonStats = ({ data, error }) => {
 
   const unitLabel = unit === "miles"  ? "miles"
                   : unit === "km"     ? "km"
-                  : unit === "fields" ? "fields"
+                  : unit === "fields" ? "football fields"
                   : "% Earth → Moon";
 
   const sports = [
@@ -38,22 +38,22 @@ const TriathlonStats = ({ data, error }) => {
 
   return (
     <div>
-      <table style={{ borderCollapse: 'collapse', marginBottom: '1rem', width: '100%' }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: 'left', paddingRight: '2rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>Sport</th>
-            <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Distance ({unitLabel})</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sports.map(({ label, km }) => (
-            <tr key={label}>
-              <td style={{ paddingRight: '2rem', paddingBottom: '0.3rem', fontWeight: 'bold' }}>{label}</td>
-              <td style={{ paddingBottom: '0.3rem', color: 'var(--text-normal)' }}>{getDistance(km)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <table style={{ borderCollapse: 'collapse', marginBottom: '1rem', width: 'auto' }}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Sport</th>
+      <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Distance ({unitLabel})</th>
+    </tr>
+  </thead>
+  <tbody>
+    {sports.map(({ label, km }) => (
+      <tr key={label}>
+        <td style={{ fontWeight: 'bold', paddingRight: '2rem' }}>{label}</td>
+        <td style={{ fontFamily: 'Atkinson Hyperlegible Mono', color: 'var(--text-normal)' }}>{getDistance(km)}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
       <button onClick={toggleUnit} className="btn">Change Unit</button>
     </div>
   );
