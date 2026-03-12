@@ -14,7 +14,7 @@
     "@astrojs/rss": "^4.0.17",
     "@netlify/functions": "^3.0.1",
     "astro": "^6.0.3",
-    "astro-expressive-code": "^0.41.2",
+    "astro-expressive-code": "^0.41.7",
     "axios": "^1.8.3",
     "cheerio": "^1.0.0-rc.12",
     "font-color-contrast": "^11.1.0",
