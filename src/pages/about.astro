@@ -68,24 +68,6 @@ console.log(hardcoverGoals)
     <div class="wave wave-big"></div>
   </div>
 
-    <div class="about-pics">
-      <Image
-        src={aboutMePhoto1}
-        alt="Josh at Lençóis Maranhenses National Park"
-        class="about-pic"
-        loading="eager"
-        priority
-      />
-
-      <Image
-        src={aboutMePhoto2}
-        alt="Josh and Oliver"
-        class="about-pic"
-        loading="eager"
-        priority
-      />
-    </div>
-
     <h2>Hi, I'm Josh!</h2>
 
     <p>
@@ -94,17 +76,15 @@ console.log(hardcoverGoals)
     </p>
     
     <p>
-      In my free time, I love traveling, trying new foods, 
-      and learning new skills. I learned Portuguese
-      after spending some time living in Manaus, Brazil. There, I enjoyed eating lots of 
-      açaí, tacacá, and grilled tambaqui. I visit Brazil often and try to explore a new region of 
-      the country at least once each year.
-      In addition to Portuguese, I'm currently working on learning Spanish.
+      In my free time, I love traveling, trying new foods, and learning new skills. 
+      I learned Portuguese after spending some time living in Manaus, Brazil, where, I enjoyed eating lots of tambaqui, tacacá, and açaí—some of the best food on Earth. 
+      I try to visit Brazil as often as I can, and I try to explore a new region of the country each time.
     </p>
 
     <p>
-      Some of my other hobbies include fiddling with my 3D printer, drinking tereré (cold yerba mate), and training for triathlons.
-      So far this year, I've logged the distances below for swimming, biking, and running, according to my data from Strava.
+      Some of my other hobbies include <a href="/blog/?tag=3Dprinting">tinkering with my 3D printer</a> and doing triathlons.
+      Throughout my triathlon training in {`${new Date().getFullYear()}`}, I've logged the following distances swimming, biking, 
+      and running (according to my data from <a href="https://www.strava.com/" target="_blank" rel="noopener noreferrer">Strava</a>).
     </p>
 
 <Callout type="info" title={`Distances logged in ${new Date().getFullYear()}`} icon={Bike}>
@@ -115,7 +95,7 @@ console.log(hardcoverGoals)
       <p>
 
         I also love playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
-        Below are my current ratings on Chess.com for three categories of speed chess: 
+        Below are my current ratings on <a href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">Chess.com</a> for three categories of speed chess: 
 
         <ul>
           <li>
@@ -141,7 +121,7 @@ console.log(hardcoverGoals)
 </Callout>
 
     <p>
-  I also enjoy reading. According to my data from Hardcover, my top genres are:
+  I also enjoy reading. According to my data from <a href="https://hardcover.app/" target="_blank" rel="noopener noreferrer">Hardcover</a>, my top genres are:
 </p>
 <ul>
   {topGenresAllTime.slice(0, 3).map(g => (

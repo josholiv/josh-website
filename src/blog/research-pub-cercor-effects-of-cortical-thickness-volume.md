@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-paper-cercor2025/cercor35.jpg'
     alt: 'paper icon'
-tags: ["papers"]
+tags: ["papers", "neuroscience"]
 readTime: '1'
 ---
 <i>Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information</i> is now published in Cerebral Cortex! 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
-import { User, Calendar, Timer } from "lucide-preact";
+import { User, Calendar, Timer, ChevronUp, ChevronDown } from "lucide-preact";
 
 const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [sortOrder, setSortOrder] = useState('newest');
@@ -11,7 +11,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [hoveredSelect, setHoveredSelect] = useState(false);
   const [hoveredClearTags, setHoveredClearTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [showTagsSidebar, setShowTagsSidebar] = useState(false);
+  const [showTagsSidebar, setShowTagsSidebar] = useState(true);
 
   // Check for tag from URL
   useEffect(() => {
@@ -66,11 +66,12 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
         {(showSort || showTags) && (
           <div style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
             {showTags && (
-              <button
+             <button
                 onClick={() => setShowTagsSidebar(prev => !prev)}
-                className="btn show-tags-toggle"
-              >
-                {showTagsSidebar ? 'Hide Tags ▲' : 'Show Tags ▼'}
+                className="btn icon-container-inline"
+                >
+                {showTagsSidebar ? "Hide Tags" : "Show Tags"}
+                {showTagsSidebar ? <ChevronUp size="1rem" /> : <ChevronDown size="1rem" />}
               </button>
             )}
 
@@ -147,7 +148,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
                     <h3 className="post-title">{post.data.title}</h3>
 
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
-                        <span className="pub-date" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span className="pub-date icon-container-inline">
                           <Calendar size="1rem" />
                           {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                             day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
@@ -156,14 +157,14 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
 
                         <span style={{ color: 'var(--text-faint)' }}>|</span>
 
-                        <span className="post-author" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span className="post-author icon-container-inline">
                           <User size="1rem" />
                           {post.data.author}
                         </span>
 
                         <span style={{ color: 'var(--text-faint)' }}>|</span>
 
-                        <span className="post-read-time" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span className="post-read-time icon-container-inline">
                           <Timer size="1rem" />
                           {post.data.readTime} min read
                         </span>

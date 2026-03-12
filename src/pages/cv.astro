@@ -155,15 +155,18 @@ function formatDateFull(str) {
         <h2 class="h2-cv">Presentations</h2>
           <hr/>
           </div>
-        <div>
-          {presentations.map(pres => (
-            <div class="reference-entry print-section">
-              <Fragment set:html={`${pres.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')}`} />
-              ({pres.year}, {pres.dateRange}). <i>{pres.name}</i> [{pres.type}].
-              {pres.conference}, {pres.location}. <a href={pres.url} target="_blank">{pres.url}</a>
-            </div>
-          ))}
-        </div>
+          <div>
+            {presentations.map(pres => (
+              <div class="reference-entry print-section">
+                <Fragment set:html={`${pres.authors.replace(/Olivier, J. M\./g, '<span class="my-name">Olivier, J. M.</span>')}`} />
+                ({pres.year}, {pres.dateRange}). <i>{pres.name}</i> [{pres.type}].
+                {pres.conference}, {pres.location}.
+                {pres.url && (
+                  <> <a href={pres.url} target="_blank" rel="noopener noreferrer">{pres.url}</a></>
+                )}
+              </div>
+            ))}
+          </div>
         <div></br>
         <div class="footnote">*Presenter</div>
         </div>

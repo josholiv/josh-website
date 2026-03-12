@@ -2,7 +2,7 @@ const HardcoverStats = ({ data }) => {
   const goals =
     Array.isArray(data) && data.length > 0
       ? data
-      : [{ goal: 999, progress: 999 }];
+      : [{ goal: 0, progress: 0 }];
 
   return (
     <table style={{ borderCollapse: 'collapse', width: '100%' }}>

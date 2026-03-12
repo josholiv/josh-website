@@ -183,6 +183,7 @@ html:not(.dark) {
     .icon-container-inline {
       display: inline-flex; 
       align-items: center;
+      gap: 0.35rem;
     }
 
     header {
@@ -368,6 +369,30 @@ hr {
 .callout-danger  .callout-title { color: var(--red-400); }
 .callout-tip     .callout-title { color: var(--pink-400); }
 .callout-note    .callout-title { color: var(--purple-400); }
+
+/* Add external link Lucide icon automatically after every link with `target=" _blank"` */
+a[target="_blank"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+a[target="_blank"]::after {
+  content: "";
+  width: 0.9rem;
+  height: 0.9rem;
+  background-color: currentColor;
+
+  mask-image: url("/icons/external-link.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+
+  -webkit-mask-image: url("/icons/external-link.svg");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
 
   li::marker {
     color: var(--text-faint);

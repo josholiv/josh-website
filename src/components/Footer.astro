@@ -2,7 +2,7 @@
 import Social from './social.astro';
 import { Image } from 'astro:assets';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
-import { UserCircle, GraduationCap, Radio } from "lucide-preact";
+import { UserCircle, GraduationCap, Radio, Cog } from "lucide-preact";
 ---
 
 <style>
@@ -18,7 +18,7 @@ import { UserCircle, GraduationCap, Radio } from "lucide-preact";
   }
 
   .footer-inner {
-      max-width: 90ch; /* match main page content width */
+      max-width: 80ch; /* match main page content width */
       margin: 0 auto;   /* center it horizontally */
     }
 
@@ -42,7 +42,7 @@ import { UserCircle, GraduationCap, Radio } from "lucide-preact";
   .social-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.1rem;
     padding: 0rem;
   }
 
@@ -71,7 +71,7 @@ import { UserCircle, GraduationCap, Radio } from "lucide-preact";
       <div class="footer-text">
         <h3>Hi, I'm Josh!</h3>
         <div>I'm a lab manager in a neuroimaging research lab in Dallas, Texas. I'm interested in researching how memory, brain structure, and brain function are related.
-          I also love traveling, 3D printing, doing triathlons, and drinking tereré 🧉.
+          I also love traveling, 3D printing, and doing triathlons!
         </div>
       </div>
     </div>
@@ -80,12 +80,28 @@ import { UserCircle, GraduationCap, Radio } from "lucide-preact";
 
     <div class="social-container">
       
-      <Social platform="linkedin.com" username="in/joshua-olivier/" icon={UserCircle} displayName="LinkedIn"/>
+      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky"/> 
+
+        <span style={{ color: 'var(--text-faint)' }}>|</span>
+
       <Social platform="github.com" username="josholiv" icon={UserCircle} displayName="GitHub" />
-      <Social platform="thingiverse.com" username="josholiv" icon={UserCircle} displayName="Thingiverse" />
+
+        <span style={{ color: 'var(--text-faint)' }}>|</span>
+
+      <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/> 
+
+        <span style={{ color: 'var(--text-faint)' }}>|</span>
+
+      <Social platform="linkedin.com" username="in/joshua-olivier/" icon={UserCircle} displayName="LinkedIn"/> 
+
+        <span style={{ color: 'var(--text-faint)' }}>|</span>
+
       <Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD"/>
-      <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/>
-      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky"/>
+
+        <span style={{ color: 'var(--text-faint)' }}>|</span>
+
+      <Social platform="thingiverse.com" username="josholiv" icon={Cog} displayName="Thingiverse" /> 
+      
     </div>
   </div>
 </footer>

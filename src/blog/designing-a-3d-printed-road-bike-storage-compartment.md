@@ -1,12 +1,12 @@
 ---
-title: 'Designing a 3D-printed road bike storage compartment'
+title: '3D printing a TPU bike storage compartment'
 pubDate: 2025-05-08
 description: 'I created, printed, and tested a TPU storage box design for my bike to help keep my pockets free during triathlon training and racing.'
 author: 'Josh Olivier'
 image:
     url: '/images/blog/post-4/post-4-09.jpg'
     alt: '3D model of a storage compartment for a road bike'
-tags: ["triathlon", "3Dprinting"]
+tags: ["3Dprinting", "triathlon"]
 readTime: '5'
 ---
 ## A DIY storage solution
