@@ -379,8 +379,8 @@ a[target="_blank"] {
 
 a[target="_blank"]::after {
   content: "";
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 1rem;
+  height: 1rem;
   background-color: currentColor;
 
   mask-image: url("/icons/external-link.svg");

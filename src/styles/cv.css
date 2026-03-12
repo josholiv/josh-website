@@ -178,6 +178,15 @@ body {
     margin-bottom: 0 !important;
   }
 
+  @media print {
+  .print-only a {
+    display: inline;           
+    overflow-wrap: anywhere;   
+    word-break: break-word;    /* fallback for older browsers */
+    hyphens: none;             /* optional: prevent hyphenation */
+  }
+}
+
   .print-button,
   .cv-page-title,
   .blockquote,
