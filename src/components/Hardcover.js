@@ -95,4 +95,4 @@ export default class Hardcover {
       userBooks: allBooks,
     };
   }
-}
+} 
