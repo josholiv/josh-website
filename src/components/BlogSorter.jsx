@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
-import { User, Calendar, Timer, ChevronUp, ChevronDown } from "lucide-preact";
+import { User, Calendar, Timer, ChevronUp, ChevronDown, X } from "lucide-preact";
 
 const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [sortOrder, setSortOrder] = useState('newest');
@@ -91,31 +91,32 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
         )}
 
         {/* Tags Sidebar */}
-        {showTags && showTagsSidebar && (
-          <aside className={`tags-sidebar show`}>
-            {sortedTags.map((tag) => (
-              <div
-                key={tag}
-                onClick={() => handleTagClick(tag)}
-                className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
-              >
-                #{tag}
-                <span className="tag-count">
-                  ({posts.filter(post => post.data.tags?.includes(tag)).length})
-                </span>
-              </div>
-            ))}
-          </aside>
-        )}
+{showTags && showTagsSidebar && (
+  <aside className={`tags-sidebar show`}>
+    {sortedTags.map((tag) => (
+      <span
+  key={tag}
+  className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+  onClick={() => handleTagClick(tag)}
+>
+  #{tag}
+  <span className="tag-count">
+    ({posts.filter(post => post.data.tags?.includes(tag)).length})
+  </span>
+</span>
+    ))}
+  </aside>
+)}
 
         {/* Clear tags button */}
         {selectedTags.length > 0 && (
           <p>
             <button
               onClick={() => setSelectedTags([])}
-              className="btn"
+              className="btn icon-container-inline"
+              aria-label="Clear tags"
             >
-              ✖ Clear
+              <X size="1rem" /> Clear Tags
             </button>
           </p>
         )}
@@ -133,53 +134,79 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
         <ul>
           {sortedPosts.map((post) => (
             <li key={post.id} className="blog-post">
-              <a href={`/posts/${post.id}/`}>
-                <div className="post-wrapper">
-                  {post.data.image?.url && (
-                    <div className="blog-thumbnail-wrapper">
-                      <img
-                        src={post.data.image.url}
-                        alt={post.data.image.alt || post.data.title}
-                        className="blog-thumbnail"
-                      />
-                    </div>
-                  )}
-                  <div className="post-text">
-                    <h3 className="post-title">{post.data.title}</h3>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
-                        <span className="pub-date icon-container-inline">
-                          <Calendar size="1rem" />
-                          {new Date(post.data.pubDate).toLocaleDateString('en-US', {
-                            day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
-                          })}
-                        </span>
-
-                        <span style={{ color: 'var(--text-faint)' }}>|</span>
-
-                        <span className="post-author icon-container-inline">
-                          <User size="1rem" />
-                          {post.data.author}
-                        </span>
-
-                        <span style={{ color: 'var(--text-faint)' }}>|</span>
-
-                        <span className="post-read-time icon-container-inline">
-                          <Timer size="1rem" />
-                          {post.data.readTime} min read
-                        </span>
-                      </div>
-
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.5rem' }}>
-                        {post.data.tags?.map(tag => (
-                          <span key={tag} className="tag">#{tag}</span>
-                        ))}
-                     </div>
-                     
+              <div className="post-wrapper">
+                {/* Thumbnail */}
+                {post.data.image?.url && (
+                  <div className="blog-thumbnail-wrapper">
+                    <img
+                      src={post.data.image.url}
+                      alt={post.data.image.alt || post.data.title}
+                      className="blog-thumbnail"
+                    />
                   </div>
+                )}
+
+                <div className="post-text">
+        
+                  <h3 className="post-title">
+                    <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+                  </h3>
+
+                  {/* Post metadata */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      flexWrap: 'wrap',
+                      marginTop: '0.25rem',
+                    }}
+                  >
+                    <span className="pub-date icon-container-inline">
+                      <Calendar size="1rem" />
+                      {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        timeZone: 'UTC',
+                      })}
+                    </span>
+
+                    <span style={{ color: 'var(--text-faint)' }}>|</span>
+
+                    <span className="post-author icon-container-inline">
+                      <User size="1rem" />
+                      {post.data.author}
+                    </span>
+
+                    <span style={{ color: 'var(--text-faint)' }}>|</span>
+
+                    <span className="post-read-time icon-container-inline">
+                      <Timer size="1rem" />
+                      {post.data.readTime} min read
+                    </span>
+                  </div>
+
+                {/* Tags */}
+                <div
+                  className="tags"
+                  style={{
+                    margin: '0.75rem 0',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  {post.data.tags?.map((tag) => (
+                    <span key={tag} className="tag-blogsorter">
+                      #{tag}
+                    </span>
+                  ))}
                 </div>
-              </a>
-            </li>
+              </div>
+            </div>
+          </li>
           ))}
         </ul>
         </div>

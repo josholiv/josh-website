@@ -261,18 +261,28 @@ hr {
 
 /* small wave */
 .wave-small {
-  background-color: var(--bg-border);
+  background: linear-gradient(
+    90deg,
+    var(--red-400),
+    var(--orange-400),
+    var(--green-400),
+    var(--blue-400),
+    var(--purple-400),
+    var(--pink-400)
+  );
+  background-size: 300% 300%; /* expand gradient to allow smooth animation */
 
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 Q 15 0 30 12 T 60 12 T 90 12 T 120 12' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 Q 15 0 30 12 T 60 12 T 90 12 T 120 12' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q 15 0 30 10 T 60 10 T 90 10 T 120 10' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='20' viewBox='0 0 120 20'%3E%3Cpath d='M0 10 Q 15 0 30 10 T 60 10 T 90 10 T 120 10' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
 
   -webkit-mask-repeat: repeat-x;
   mask-repeat: repeat-x;
 
-  -webkit-mask-size: 120px 24px;
-  mask-size: 120px 24px;
-
-  animation: wave-scroll-small 13s linear infinite; 
+  -webkit-mask-size: 120px 20px;
+  mask-size: 120px 20px;
+  
+  top: 8px;
+  animation: wave-scroll-small 18s linear infinite, rainbowShift 8s ease infinite;
 }
 
 /* big wave */
@@ -294,7 +304,7 @@ hr {
 /* animations */
 @keyframes wave-scroll-small {
   from { mask-position: 0 0; }
-  to   { mask-position: 120px 0; }
+  to   { mask-position: 180px 0; }
 }
 
 @keyframes wave-scroll-big {
@@ -419,10 +429,10 @@ a[target="_blank"]::after {
 /* Hamburger Lines with Rainbow Gradient Animation */
 .hamburger .line {
   display: block;
-  width: 40px;
+  width: 28px;
   height: 5px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  margin-bottom: 5px;
+  border-radius: 2px;
   background: linear-gradient(
     90deg,
     var(--red-400),
@@ -437,6 +447,19 @@ a[target="_blank"]::after {
   -webkit-background-clip: border-box;
   animation: rainbowShift 8s ease infinite;
   will-change: background-position;
+}
+
+/* Open state */
+.hamburger.open .line1 {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger.open .line2 {
+  opacity: 0; /* middle line disappears */
+}
+
+.hamburger.open .line3 {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* Mobile: nav links hidden by default */
@@ -605,6 +628,19 @@ a[target="_blank"]::after {
   cursor: pointer;
 }
 
+/* Individual tag styling on BlogSorter component (just for show, with no cursor or hover effects!) */
+.tag-blogsorter {
+  margin: 0rem;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
+  color:  var(--text-muted);
+  border-radius: 2px;
+  padding: 2px 5px;
+  font-size: 0.9rem;
+  border: 1px solid;
+  border-color: var(--text-faint);
+  position: relative;
+}
+
 a.tag, a.tag:visited {
   text-decoration: none;
   display: inline-block;
@@ -614,21 +650,15 @@ a.tag, a.tag:visited {
 
 /* Count next to the tag */
 .tag-count {
-  color: var(--text-normal);
-  font-size: 1rem;
-  margin-left: 0.5rem;
+  color: var(--text-muted);
+  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-size: 0.9rem;
+  margin-left: 0.2rem;
 }
 
 /* Styling for when the tag is active */
 .tag.active {
-  background-color: var(--text-heading);
-  color: var(--bg-primary);
-  border-color: var(--bg-primary);
-}
-
-/* Change .tag-count color when tag is active */
-.tag.active .tag-count {
-  color: var(--bg-primary);
+  background-color: var(--bg-border);
 }
 
 .tag:hover {
@@ -710,7 +740,8 @@ li.blog-post {
 .blog-post a {
   display: block;
   text-decoration: none;
-  margin-left: -2.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .blog-post a .post-title {
@@ -725,6 +756,7 @@ li.blog-post {
   background-color: var(--bg-secondary);
   border-radius: 2px;
   padding: 1rem;
+  margin-left: -2.5rem;
 }
   
   .blog-thumbnail-wrapper {
