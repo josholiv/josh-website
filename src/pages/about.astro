@@ -135,7 +135,7 @@ console.log(hardcoverGoals)
 </p>
     
 <Callout type="tip" title={`Books read in ${new Date().getFullYear()}`} icon={BookOpen}>
-  <HardcoverStats client:only data={hardcoverGoals.filter(g => g.year === new Date().getFullYear())} />
+  <HardcoverStats client:only data={hardcoverGoals} />
 </Callout>
 
 </BaseLayout>
