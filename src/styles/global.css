@@ -80,7 +80,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --pink-900: #320a1e;
 --pink-950: #200613;
 
-/* ─── Theme tokens (default: dark, matching Obsidian .theme-dark) ─── */
+/* ─── Theme tokens (default: dark theme) ─── */
 --bg-primary:        var(--neutral-900);   /* #191919 */
 --bg-secondary:      var(--neutral-800);   /* #272727 */
 --bg-border:         var(--neutral-700);   /* #454545 */
@@ -507,6 +507,10 @@ hr {
   margin-bottom: 1.5rem;
 }
 
+.theme-loading #themeToggle {
+  visibility: hidden;
+}
+
 @media (max-width: 635px) {
   .about-header {
     flex-direction: column;
@@ -606,23 +610,21 @@ a.tag, a.tag:visited {
   background-color: var(--bg-border);
 }
     
-/* Universal button style class */
 .btn {
   padding: 0.6rem 1rem;
   height: 2.25rem;
   font-size: 0.8rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   cursor: pointer;
-  background-color: var(--text-normal);
-  color: var(--bg-secondary);
-  border: none;
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+  border: 1px solid var(--bg-border);
   border-radius: 2px;
 }
 
-/* Hover effect for buttons with .btn class */
 .btn:hover {
-  background-color: var(--text-muted);
-  color: var(--bg-primary);
+  background-color: var(--bg-border);
+  color: var(--text-heading);
 }
 
 .typewriter-container {

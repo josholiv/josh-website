@@ -20,8 +20,7 @@ let data, dailyData, error;
 
 try {
   const strava = new Strava();
-  data = await strava.fetch(); // stats
-  dailyData = await strava.fetchDailyActivityCounts(); // contributions
+  data = await strava.fetch(); 
 } catch (e) {
   error = e.message;
 }

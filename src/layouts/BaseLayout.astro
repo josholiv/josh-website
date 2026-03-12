@@ -7,7 +7,18 @@ const { pageTitle, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
 ---
 
 <html lang="en">
-  <head />
+  <head>
+
+    <script is:inline>
+      const stored = localStorage?.getItem("theme");
+      if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      document.documentElement.classList.add("theme-loading");
+    </script>
+  
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://use.typekit.net/qck4nvy.css"> <!--- Gill Sans Nova font family from Adobe Fonts -->
 

@@ -2,23 +2,58 @@
 import { Sun, Moon } from "lucide-preact";
 ---
 
-<button id="themeToggle" aria-label="Toggle theme">
-  <Sun id="sun-icon" size={24} />
-  <Moon id="moon-icon" size={24} />
+<button id="themeToggle" aria-label="Toggle theme" role="switch">
+  <span id="track">
+    <span id="thumb">
+      <Sun id="sun-icon" size={14} />
+      <Moon id="moon-icon" size={14} />
+    </span>
+  </span>
 </button>
 
 <style>
   #themeToggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 100;
     border: 0;
     background: none;
     cursor: pointer;
-    color: var(--text-normal);
+    padding: 0;
+  }
+
+  #track {
     display: flex;
     align-items: center;
+    width: 3.5rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    background: var(--bg-border);
+    padding: 3px;
+    transition: background 0.3s ease;
+    border: 1px solid var(--bg-border);
+  }
+
+  #thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--text-normal);
+    color: var(--bg-primary);
+    transition: transform 0.3s ease;
+    transform: translateX(0);
   }
 
   #moon-icon { display: none; }
   #sun-icon  { display: block; }
+
+  :global(.dark) #thumb {
+    transform: translateX(1.75rem);
+  }
 
   :global(.dark) #sun-icon  { display: none; }
   :global(.dark) #moon-icon { display: block; }
@@ -52,4 +87,5 @@ import { Sun, Moon } from "lucide-preact";
   }
 
   document.getElementById("themeToggle")?.addEventListener("click", handleToggleClick);
+  document.documentElement.classList.remove("theme-loading");
 </script>

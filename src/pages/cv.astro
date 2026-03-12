@@ -54,22 +54,24 @@ function formatDateFull(str) {
         <h2 class="h2-cv">Personal Information</h2>
         <hr />
 
-      <h3>Name</h3>
+      <div class="print-name-section">
+        <h3>Name</h3>
 
-      <div class="icon-container">
-        <Speech size={"1rem"}/> &nbsp;
-        <i>{basics.phoneticName}</i>
+        <div class="icon-container">
+          <Speech size={"1rem"}/> &nbsp;
+          <i>{basics.phoneticName}</i>
+        </div>
+
+        <div class="icon-container">
+          <Volume2 size={"1rem"}/> &nbsp;
+          <a href={basics.url2} target="_blank">hear me pronounce my name</a>
+        </div>
       </div>
 
-      <div class="icon-container">
-        <Volume2 size={"1rem"}/> &nbsp;
-        <a href={basics.url2} target="_blank">hear me pronounce my name</a>
-      </div>
-
-      <h3>Contact</h3>
+      <h3 class="print-hide">Contact</h3>
 
       </div>
-      {basics.location.address && ( /* show address only if listed in cv.json */
+      {basics.location.address && (
         <div>
           {basics.location.address} <br />
           {basics.location.city}, {basics.location.postalCode}
@@ -80,13 +82,15 @@ function formatDateFull(str) {
       <div> 
         <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
         <div class="icon-container">
-          <Mail size={"1rem"}/> &nbsp;
+          <span class="print-hide"><Mail size={"1rem"}/> &nbsp;</span>
+          <span class="print-only">Email:&nbsp;</span>
           <a href="&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D" 
           target="_blank">j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om</a>
         </div>
 
         <div class="icon-container">
-          <Mail size={"1rem"}/> &nbsp;
+          <span class="print-hide"><Mail size={"1rem"}/> &nbsp;</span>
+          <span class="print-only">Alt email:&nbsp;</span>
            <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
         <a href='mail&#116;&#111;&#58;j&#111;%7&#51;hua%2Eo&#37;&#54;Civier&#64;u&#116;&#100;all&#97;&#115;&#46;%65du'
         target="_blank">j&#111;s&#104;ua&#46;oli&#118;ie&#114;&#64;u&#116;da&#108;las&#46;edu</span></a>
@@ -94,7 +98,8 @@ function formatDateFull(str) {
       </div>
       
       <div class="icon-container">
-          <Rss size={"1rem"}/> &nbsp;
+          <span class="print-hide"><Rss size={"1rem"}/> &nbsp;</span>
+          <span class="print-only">Website:&nbsp;</span>
       <a href={basics.url} target="_blank">{basics.url}</a>
       </div>
 

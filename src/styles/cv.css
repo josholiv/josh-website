@@ -51,6 +51,8 @@ body {
   margin-bottom: 1rem;
   padding-left: 1.5rem;
   text-indent: -1.5rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .item-entry {
@@ -156,6 +158,10 @@ body {
   z-index: 10;
 }
 
+.print-only {
+  display: none;
+}
+
 @media print {
 
   @page {
@@ -175,9 +181,15 @@ body {
   .print-button,
   .cv-page-title,
   .blockquote,
-  .wave-container {
+  .wave-container,
+  .print-name-section,
+  .print-hide {
     display: none;  
   }
+
+  .print-only {
+  display: inline;
+}
 
   .h1-cv, .subtitle-cv {
     text-align: center;
@@ -251,6 +263,7 @@ body {
 
 }
 
+@media (max-width: 635px) {
    .cv-container {
     width: 100%;
     padding-left: 1rem;
@@ -267,6 +280,13 @@ body {
     grid-template-columns: 1fr; /* collapse to single column */
   }
 
+   .single-column-list li,
+  .two-column-list li,
+  .three-column-list li {
+    padding-left: 2.5em;
+    margin-left: 0;
+  }
+
   body .main-content {
     padding: 0rem;
     }
@@ -281,3 +301,4 @@ body {
     margin-right: 1rem;
   }
 }
+

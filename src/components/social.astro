@@ -4,7 +4,7 @@ const { platform, username, icon: Icon, displayName = platform } = Astro.props;
 
 <span class="icon-container">
   
-  {Icon && <Icon size={"1.2rem"} style={{color: "var(--neutral-500)"}}/>} &nbsp;
+  {Icon && <Icon size={"1rem"}/>} &nbsp;
 
   <a 
     href={`https://${platform}/${username}`} 
