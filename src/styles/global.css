@@ -178,6 +178,7 @@ html:not(.dark) {
     .icon-container {
       display: flex; 
       align-items: center;
+      gap: 0.35rem;
     }
 
     .icon-container-inline {
@@ -384,14 +385,14 @@ hr {
 a[target="_blank"] {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.05rem;
 }
 
 a[target="_blank"]::after {
   content: "";
-  width: 1rem;
-  height: 1rem;
-  background-color: currentColor;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--text-faint);
 
   mask-image: url("/icons/external-link.svg");
   mask-size: contain;

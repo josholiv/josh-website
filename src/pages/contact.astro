@@ -1,6 +1,7 @@
 ---
-import { Mail, UserCircle, Radio } from "lucide-preact";
+import { Mail, UserCircle, Radio, Contact } from "lucide-preact";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Callout from "../components/Callout.astro";
 
 const pageTitle = "Josh Olivier - Contact";
 ---
@@ -13,78 +14,71 @@ const pageTitle = "Josh Olivier - Contact";
     <div class="wave wave-big"></div>
   </div>
 
-<h2>Josh Olivier</h2>
+ 
+
+<Callout type="info" title="Josh Olivier" icon={Contact}>
+
+ <div>
+    I'm always happy to connect with fellow researchers, students, or anyone interested in learning more about my work or neuroimaging research in general. Feel free to reach out via email or connect with me on LinkedIn or Bluesky!
+  </div>
 
 <div class="blockquote">
 
-  <p><strong>Lab Manager</strong> | Functional Neuroimaging of Memory Lab</p>
-  
-  <p>Center for Vital Longevity, University of Texas at Dallas</p>  
+<div style={{marginBottom: "1rem"}} class="icon-container">
 
-  <div style={{marginLeft: "1rem"}}>
-
-    <div class="icon-container">
-
-      <Mail size={"1.2rem"} style={{color: "var(--neutral-500)"}}/> 
-      
-        <span> &nbsp;
-
-            <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
-          <a 
-            href='&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D' 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            style="display:inline-flex; align-items:center; text-decoration:none;"
-            >
-            <span style="text-decoration:underline;">j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om</span>
-          </a>
-
-        </span>
-
-      </div>
-
-    <p class="icon-container">
-
-      <UserCircle size={"1.2rem"} style={{color: "var(--neutral-500)"}}/>
-      
-        <span> &nbsp;
-
-          <a 
-            href="https://linkedin.com/in/joshua-olivier/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            style="display:inline-flex; align-items:center; text-decoration:none;"
-          >
-            <span style="text-decoration:underline;">LinkedIn</span>
-          </a>
-
-        </span>
-
-      </p>
-
-
-
-    <p class="icon-container">
-
-      <Radio size={"1.2rem"} style={{color: "var(--neutral-500)"}}/>
-      
-        <span> &nbsp;
-
-          <a 
-            href="https://bsky.app/profile/josholivier.bsky.social" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            style="display:inline-flex; align-items:center; text-decoration:none;"
-          >
-            <span style="text-decoration:underline;">Bluesky</span>
-          </a>
-
-        </span>
-
-      </p>
-
-  </div>
+    <Mail size="1rem"/> 
+    <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
+    <a 
+      href='&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D' 
+      target="_blank" 
+      rel="noopener noreferrer" 
+    >
+      j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om
+    </a>
 
 </div>
+
+<div style={{marginBottom: "1rem"}} class="icon-container">
+
+    <Mail size="1rem"/> 
+    <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
+   <a 
+      href='&#109;ai&#108;to&#58;jos%&#54;8ua&#46;%&#54;Fl%69v%69%6&#53;r&#37;40%75%74%64&#97;lla&#115;&#46;&#101;d%75'
+      target="_blank" 
+      rel="noopener noreferrer"  
+    >
+      &#106;&#111;shua&#46;oli&#118;ier&#64;utd&#97;l&#108;&#97;s&#46;&#101;d&#117;
+    </a>
+
+</div>
+
+  
+<div style={{marginBottom: "1rem"}} class="icon-container">
+
+  <UserCircle size={"1rem"}/>
+
+  <a 
+  href="https://linkedin.com/in/joshua-olivier/" 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  >
+  LinkedIn
+  </a>
+
+</div>
+
+<div class="icon-container">
+
+  <Radio size={"1rem"}/>
+  <a 
+  href="https://bsky.app/profile/josholivier.bsky.social" 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  >
+  Bluesky
+  </a>
+  </div>
+
+</Callout>
 
 </BaseLayout>

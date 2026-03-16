@@ -2,9 +2,9 @@
 const { platform, username, icon: Icon, displayName = platform } = Astro.props;
 ---
 
-<span class="icon-container">
+<div class="icon-container-inline">
   
-  {Icon && <Icon size={"1rem"}/>} &nbsp;
+  {Icon && <Icon size={"1rem"}/>}
 
   <a 
     href={`https://${platform}/${username}`} 
@@ -16,4 +16,4 @@ const { platform, username, icon: Icon, displayName = platform } = Astro.props;
     
   </a>
 
-</span>
+</div>
