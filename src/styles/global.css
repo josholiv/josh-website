@@ -152,13 +152,13 @@ html:not(.dark) {
     h1 {
       font-weight: 400;
       font-size: 3rem;
-      margin: 2rem 0;
+      margin: 1rem 0;
     }
 
     h2 {
       font-weight: 200;
       font-size: 2rem;
-      margin: 2rem 0;
+      margin: 1rem 0;
     }
 
     .title-muted {
@@ -173,6 +173,13 @@ html:not(.dark) {
       border-radius: 2px;
       font-size: 0.9rem;
       border: 1px solid var(--code-border);
+    }
+
+    .copyright {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      font-size: 0.85rem;
+      color: var(--text-faint);
     }
 
     .icon-container {
@@ -243,7 +250,7 @@ html:not(.dark) {
 hr {
   border: none;
   border-top: 1px solid var(--bg-border);
-  margin: 0em 0 1rem 0;
+  margin: 1rem 0 1rem 0;
 }
 
 .wave-container {
@@ -740,7 +747,7 @@ li.blog-post {
 /* Anchor Styles */
 .blog-post a {
   display: block;
-  text-decoration: none;
+  
   width: 100%;
   box-sizing: border-box;
 }

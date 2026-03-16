@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'preact/hooks';
 import { User, Calendar, Timer, ChevronUp, ChevronDown, X } from "lucide-preact";
+import noTagResults from '../assets/no-tag-results.png';
 
-const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
+const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = noTagResults.src }) => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [sortedPosts, setSortedPosts] = useState(() => {
     // Initially sort posts by pubDate
@@ -122,29 +123,40 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
         )}
 
         {/* No posts message */}
-        {sortedPosts.length === 0 && selectedTags.length > 0 && (
-          <div>
-            <h3>No posts found with the selected combination of tags :(</h3>
-            <p>Try clearing or changing your selection!</p>
-          </div>
-        )}
+          {sortedPosts.length === 0 && selectedTags.length > 0 && (
+            <div style={{ marginTop: '2rem' }}>
+              {noPostsImage && (
+                <img
+                  src={noPostsImage}
+                  alt="No posts found"
+                  style={{ width: '9rem', height: 'auto', marginBottom: '0rem' }}
+                />
+              )}
+              <p style={{ fontWeight: 'bold' }}>
+                There are no posts with that combination of tags :(
+              </p>
+              <i>Try clearing or changing your selection!</i>
+            </div>
+          )}
 
         {/* Posts List */}
-        <div style={{ marginTop: '2rem'}}>
-        <ul>
-          {sortedPosts.map((post) => (
-            <li key={post.id} className="blog-post">
-              <div className="post-wrapper">
-                {/* Thumbnail */}
-                {post.data.image?.url && (
-                  <div className="blog-thumbnail-wrapper">
-                    <img
-                      src={post.data.image.url}
-                      alt={post.data.image.alt || post.data.title}
-                      className="blog-thumbnail"
-                    />
-                  </div>
-                )}
+
+          {/*Conditional so the top margin only appears when the controls above it are actually visible*/}
+          <div style={{ marginTop: showSort || showTags ? '2rem' : '0' }}> 
+          <ul>
+            {sortedPosts.map((post) => (
+              <li key={post.id} className="blog-post">
+                <div className="post-wrapper">
+                  {/* Thumbnail */}
+                  {post.data.image?.url && (
+                    <div className="blog-thumbnail-wrapper">
+                      <img
+                        src={post.data.image.url}
+                        alt={post.data.image.alt || post.data.title}
+                        className="blog-thumbnail"
+                      />
+                    </div>
+                  )}
 
                 <div className="post-text">
         
