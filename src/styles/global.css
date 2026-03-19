@@ -619,7 +619,7 @@ a[target="_blank"]::after {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 
 /* Individual tag styling */
@@ -740,8 +740,7 @@ a.tag, a.tag:visited {
 /* List Item Styles */
 li.blog-post {
   list-style-type: none;
-  margin: 0;
-  padding: 0 0 1rem 0;
+  margin-bottom: 1rem;
 }
 
 /* Anchor Styles */
@@ -760,21 +759,19 @@ li.blog-post {
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
   display: block;
-  margin-bottom: 1rem;
-  background-color: var(--bg-secondary);
+  margin-bottom: 0rem;
   border-radius: 2px;
-  padding: 1rem;
-  margin-left: -2.5rem;
+  padding: 0rem;
 }
   
   .blog-thumbnail-wrapper {
   position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* for 16:9 Aspect Ratio (100*9/16 = 56.25%) */
-  margin-bottom: 1rem;
   overflow: hidden;
-  border-radius: 5px;
-  flex-shrink: 0; /* Prevent from shrinking in flex layout */
+}
+
+.blog-list {
+  padding-left: 0; 
+  list-style: none;
 }
 
 .blog-thumbnail {
@@ -785,7 +782,7 @@ li.blog-post {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .show-tags-toggle {
@@ -818,7 +815,6 @@ li.blog-post {
 
   /* Title on BlogSorter component */
   .post-title {
-    margin-top: 0;
     margin-bottom: 0.5rem;
   }
 
@@ -829,15 +825,6 @@ li.blog-post {
 
   /* Author on BlogSorter component */
   .post-author {
-    color: var(--text-normal);
-  }
-
-  /* Description on BlogSorter component */
-  .post-description {
-    font-size: 1rem;
-    margin-left: 0rem;
-    margin-top: 0.5rem;
-    margin-right: 0.5rem;
     color: var(--text-normal);
   }
 
@@ -866,15 +853,14 @@ li.blog-post {
 @media (min-width: 636px) {
   .blog-post .post-wrapper {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 1rem 0 1rem;
   }
 
   .blog-thumbnail-wrapper {
     width: 10.667rem;
     padding-top: 6rem;
+    margin-right: 0.75rem;
   }
 
   .post-title,

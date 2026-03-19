@@ -9,8 +9,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
     return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
   });
 
-  const [hoveredSelect, setHoveredSelect] = useState(false);
-  const [hoveredClearTags, setHoveredClearTags] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showTagsSidebar, setShowTagsSidebar] = useState(true);
 
@@ -143,7 +141,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
 
           {/*Conditional so the top margin only appears when the controls above it are actually visible*/}
           <div style={{ marginTop: showSort || showTags ? '2rem' : '0' }}> 
-          <ul>
+          <ul className="blog-list">
             {sortedPosts.map((post) => (
               <li key={post.id} className="blog-post">
                 <div className="post-wrapper">
@@ -160,9 +158,9 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
 
                 <div className="post-text">
         
-                  <h3 className="post-title">
+                  <div className="post-title">
                     <a href={`/posts/${post.id}/`}>{post.data.title}</a>
-                  </h3>
+                  </div>
 
                   {/* Post metadata */}
                   <div
@@ -171,7 +169,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
                       alignItems: 'center',
                       gap: '0.5rem',
                       flexWrap: 'wrap',
-                      marginTop: '0.25rem',
                     }}
                   >
                     <span className="pub-date icon-container-inline">
@@ -203,7 +200,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
                 <div
                   className="tags"
                   style={{
-                    margin: '0.75rem 0',
+                    marginTop: '0.75rem',
                     display: 'flex',
                     flexWrap: 'wrap',
                     gap: '0.5rem',
