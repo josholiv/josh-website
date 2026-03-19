@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Callout from '../components/Callout.astro';
+
+const isDev = import.meta.env.DEV;
+if (!isDev) return Astro.redirect('/404');
+---
+
+<BaseLayout pageTitle="Style Guide" shouldCenterTitle={false} shouldShowTitle={false}>
+
+  <h1>Style Guide <span class="title-muted">/ dev only</span></h1>
+
+  <hr />
+
+  <!-- ─── Typography ─── -->
+  <h2>Typography</h2>
+
+  <h1>Heading 1 — DM Serif Text</h1>
+  <h2>Heading 2 — DM Serif Text</h2>
+  <p>Body text — Noto Sans. The quick brown fox jumps over the lazy dog. <strong>Bold text.</strong> <em>Italic text.</em> <strong><em>Bold italic.</em></strong></p>
+  <p>A paragraph with an <a href="#">inline link</a> and an <a href="https://example.com" target="_blank">external link</a> (should show external link icon).</p>
+  <p class="title-muted">Muted text using <code>.title-muted</code></p>
+
+  <hr />
+
+  <!-- ─── Code ─── -->
+  <h2>Inline Code</h2>
+  <p>Use <code>const x = 1</code> for inline code. Or reference a class like <code>.post-wrapper</code>.</p>
+
+  <hr />
+
+  <!-- ─── Buttons ─── -->
+  <h2>Buttons</h2>
+  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+    <button class="btn">Default Button</button>
+    <button class="btn icon-container-inline">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+      With Icon
+    </button>
+    <select class="btn">
+      <option>Select Option</option>
+      <option>Option A</option>
+      <option>Option B</option>
+    </select>
+  </div>
+
+  <hr />
+
+  <!-- ─── Tags ─── -->
+  <h2>Tags</h2>
+  <p>Clickable tags (used in tag sidebar):</p>
+  <div class="tags">
+    <span class="tag">#astro</span>
+    <span class="tag">#css</span>
+    <span class="tag active">#active-tag</span>
+    <span class="tag">#webdev</span>
+  </div>
+
+  <p>Display-only tags (used on blog post cards):</p>
+  <div class="tags">
+    <span class="tag-blogsorter">#astro</span>
+    <span class="tag-blogsorter">#css</span>
+    <span class="tag-blogsorter">#webdev</span>
+  </div>
+
+  <p>Tags with counts (used in tag sidebar):</p>
+  <div class="tags">
+    <span class="tag">#astro <span class="tag-count">(4)</span></span>
+    <span class="tag">#css <span class="tag-count">(12)</span></span>
+    <span class="tag">#design <span class="tag-count">(3)</span></span>
+  </div>
+
+  <hr />
+
+  <!-- ─── Blockquote ─── -->
+  <h2>Blockquote</h2>
+  <div class="blockquote">
+    This is a plain blockquote. It uses <code>--bg-secondary</code> as its background and a neutral left border.
+  </div>
+
+  <hr />
+
+  <!-- ─── Callouts ─── -->
+  <h2>Callouts</h2>
+
+  <Callout type="info">
+    This is an <strong>info</strong> callout. Use it for general information or context. Has a link: <a href="#">click here</a>.
+  </Callout>
+
+  <Callout type="success">
+    This is a <strong>success</strong> callout. Use it to confirm something worked or highlight a positive outcome.
+  </Callout>
+
+  <Callout type="warning">
+    This is a <strong>warning</strong> callout. Use it to flag something the reader should be cautious about.
+  </Callout>
+
+  <Callout type="danger">
+    This is a <strong>danger</strong> callout. Use it for destructive actions or critical warnings.
+  </Callout>
+
+  <Callout type="tip">
+    This is a <strong>tip</strong> callout. Use it for helpful hints or best practices.
+  </Callout>
+
+  <Callout type="note">
+    This is a <strong>note</strong> callout. Use it for supplementary information or asides.
+  </Callout>
+
+  <hr />
+
+  <!-- ─── Wave Divider ─── -->
+  <h2>Wave Divider</h2>
+  <div class="wave-container">
+    <div class="wave wave-small"></div>
+    <div class="wave wave-big"></div>
+  </div>
+
+  <hr />
+
+  <!-- ─── Lists ─── -->
+  <h2>Lists</h2>
+  <ul>
+    <li>Unordered list item one</li>
+    <li>Unordered list item two</li>
+    <li>Unordered list item three</li>
+  </ul>
+  <ol>
+    <li>Ordered list item one</li>
+    <li>Ordered list item two</li>
+    <li>Ordered list item three</li>
+  </ol>
+
+  <hr />
+
+  <!-- ─── Color Palette ─── -->
+  <h2>Color Palette</h2>
+
+  {[
+    { name: 'blue',    shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'green',   shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'orange',  shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'red',     shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'pink',    shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'purple',  shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'neutral', shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+  ].map(({ name, shades }) => (
+    <div style="margin-bottom: 0.75rem;">
+      <p style="margin: 0 0 0.35rem; font-family: 'Atkinson Hyperlegible Mono', monospace; font-size: 0.85rem;">{name}</p>
+      <div style="display: flex; gap: 2px;">
+        {shades.map(shade => (
+          <div
+            title={`--${name}-${shade}`}
+            style={`background-color: var(--${name}-${shade}); width: 2rem; height: 2rem; border-radius: 2px; flex-shrink: 0;`}
+          />
+        ))}
+      </div>
+    </div>
+  ))}
+
+  <hr />
+
+  <!-- ─── Theme Tokens ─── -->
+  <h2>Theme Tokens</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+    {[
+      'bg-primary', 'bg-secondary', 'bg-border',
+      'text-normal', 'text-muted', 'text-faint', 'text-heading', 'text-on-accent',
+      'accent', 'accent-hover', 'link-color', 'link-color-hover',
+      'code-bg', 'code-text', 'code-border',
+    ].map(token => (
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <div style={`background-color: var(--${token}); width: 1.5rem; height: 1.5rem; border-radius: 2px; border: 1px solid var(--bg-border); flex-shrink: 0;`} />
+        <code>--{token}</code>
+      </div>
+    ))}
+  </div>
+
+</BaseLayout>
