@@ -228,6 +228,7 @@ html:not(.dark) {
       display: flex;
       flex-direction: column;
       width: 80ch;
+      max-width: 100%;
       min-height: 100vh;
     }
     
