@@ -298,15 +298,18 @@ body {
 
   body .main-content {
     padding: 0rem;
-    }
-
-  .cv-page-title {
-    padding: 1rem;
   }
 
- .wave-container,
-  .blockquote {
-    margin-left: 1rem; 
+  .cv-page-title,
+  .wave-container,
+  .blockquote,
+  .callout-info,
+  .callout-success,
+  .callout-warning,
+  .callout-danger,
+  .callout-tip,
+  .callout-note {
+    margin-left: 1rem;
     margin-right: 1rem;
   }
 }
