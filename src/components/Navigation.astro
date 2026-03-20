@@ -1,13 +1,12 @@
 ---
-const pathname = Astro.url.pathname;
 import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
+const pathname = Astro.url.pathname;
 ---
 <div class="nav-links">
 
 <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
-  <span class="icon-container">
+  <span class="icon-container"> 
     <Home size={"1rem"} class="nav-icon"/>
-    &nbsp;
     Home<span style={{color: "var(--text-muted)"}}></span>
   </span>
 </a>
@@ -15,7 +14,6 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>
   <span class="icon-container">
     <Info size={"1rem"} class="nav-icon"/>
-    &nbsp;
     About
   </span>
 </a>
@@ -23,7 +21,6 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>
   <span class="icon-container">
     <GraduationCap size={"1rem"} class="nav-icon"/>
-    &nbsp;
     CV
   </span>
 </a>
@@ -31,7 +28,6 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>
   <span class="icon-container">
     <Rss size={"1rem"} class="nav-icon"/>
-    &nbsp;
     Blog
   </span>
 </a>
@@ -39,7 +35,6 @@ import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>
   <span class="icon-container">
     <Contact size={"1rem"} class="nav-icon"/>
-    &nbsp;
     Contact
   </span>
 </a>

@@ -188,6 +188,7 @@ html:not(.dark) {
       margin-bottom: 0;
       font-size: 0.85rem;
       color: var(--text-faint);
+      text-align: right;
     }
 
     .icon-container {
@@ -205,7 +206,7 @@ html:not(.dark) {
     header {
       padding: 1rem;
       width: 100%;
-      max-width: 90ch; 
+      max-width: 80ch; 
       margin: 0 auto; 
     }
 
@@ -503,11 +504,13 @@ a[target="_blank"]::after {
 
 /* Active link */
 .nav-links a.active {
-  color: var(--link-color);
+  color: var(--text-heading);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .nav-links a:hover {
-  color: var(--text-muted);
+  color: var(--text-heading);
 }
 
 /* Spacing between stacked links in hamburger menu */
@@ -526,7 +529,7 @@ a[target="_blank"]::after {
 /* Desktop styles */
 @media screen and (min-width: 636px) {
   header {
-    padding: 0;
+    padding: 0 1rem;
   }
 
   .hamburger {
@@ -539,23 +542,7 @@ a[target="_blank"]::after {
     justify-content: flex-start;
     align-items: center;
     width: auto;
-    gap: 0rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .nav-links a {
-    padding: 0.6rem 1rem; /* top/bottom = 0.6rem, left/right = 1rem */
-  }
-
-  /* First link stays left */
-  .nav-links a:first-child {
-    margin-right: auto;
-  }
-
-  /* Other links spaced normally */
-  .nav-links a:not(:first-child) {
-    margin-left: 1rem;
+    gap: 2rem;
   }
 
   .nav-icon {
@@ -579,6 +566,9 @@ a[target="_blank"]::after {
   .about-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+    .nav-links #themeToggle {
+    display: none;
   }
 }
 

@@ -13,10 +13,7 @@ import { Sun, Moon } from "lucide-preact";
 
 <style>
   #themeToggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 100;
+
     border: 0;
     background: none;
     cursor: pointer;
@@ -29,7 +26,7 @@ import { Sun, Moon } from "lucide-preact";
     width: 3.5rem;
     height: 1.75rem;
     border-radius: 2px;
-    background: var(--bg-border);
+    background: var(--bg-secondary);
     padding: 3px;
     transition: background 0.3s ease;
     border: 1px solid var(--bg-border);
@@ -42,8 +39,8 @@ import { Sun, Moon } from "lucide-preact";
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 2px;
-    background: var(--text-normal);
-    color: var(--bg-primary);
+    background: var(--bg-primary);
+    color: var(--text-normal);
     transition: transform 0.3s ease;
     transform: translateX(0);
   }

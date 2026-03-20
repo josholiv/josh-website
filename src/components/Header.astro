@@ -6,19 +6,43 @@ import ThemeIcon from './ThemeIcon.astro';
 
 <header>
   <nav>
-    <Hamburger />
+    <div class="mobile-bar">
+      <Hamburger />
+    </div>
     <Navigation />
-  </nav>
-  <div class="theme-toggle-wrapper">
     <ThemeIcon />
-  </div>
+  </nav>
 </header>
 
 <style>
-  .theme-toggle-wrapper {
-    position: fixed;
-    top: 0.75rem;
-    right: 0.75rem;
-    z-index: 100;
+  nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .mobile-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  @media (max-width: 635px) {
+    nav > :global(#themeToggle) {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  @media (min-width: 636px) {
+    .mobile-bar {
+      display: none;
+    }
+
+    nav > :global(#themeToggle) {
+      margin-left: auto;
+    }
   }
 </style>
