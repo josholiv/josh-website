@@ -79,7 +79,12 @@ if (!isDev) return Astro.redirect('/404');
   <!-- ─── Blockquote ─── -->
   <h2>Blockquote</h2>
   <div class="blockquote">
-    This is a plain blockquote. It uses <code>--bg-secondary</code> as its background and a neutral left border.
+    This is a plain blockquote. It has no background color and uses <code>var(--text-normal)</code> 
+    as its left border color.
+  </div>
+
+  <div class="blockquote">
+    If I make the text inside the blockquote really long, it should wrap and the blockquote should expand vertically to fit the content. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.
   </div>
 
   <hr />

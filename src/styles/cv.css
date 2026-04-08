@@ -10,13 +10,16 @@ html {
   font-size: 1rem;        /* relative but now stable */
 }
 
-.h1-cv, .h2-cv {
+.h2-cv {
+  text-align: center;
+}
+
+.h2-cv, .h3-cv {
   margin: 0;
-  font-weight: normal;
   color: var(--text-heading);
 }
 
-.h2-cv {
+.h3-cv {
   margin-top: 1em;
 }
  
@@ -27,12 +30,9 @@ body {
 .cv-container {
   position: relative;
   width: 100%;
-  padding-top: 4rem;
+  padding-top: 0rem;
   margin: 0;
-  border-radius: 5px;
   box-sizing: border-box;
-  color: var(--text-normal);
-  background: var(--bg-primary);
 }
 
 .section-item {
@@ -147,12 +147,6 @@ body {
   margin-left: 1.5em; /* indent item */
 }
 
-.print-button { 
-  position: absolute;
-  top: 1rem;  /* distance from top inside the container */
-  right: 1rem; /* distance from right inside the container */
-  z-index: 10;
-}
 
 .print-only {
   display: none;
@@ -183,7 +177,7 @@ body {
   }
 }
 
-  .print-button,
+  .btn,
   .cv-page-title,
   .blockquote,
   .wave-container,
@@ -196,7 +190,7 @@ body {
   display: inline;
 } 
 
-  .h1-cv, .subtitle-cv {
+  .h2-cv, .subtitle-cv {
     text-align: center;
   }
 
@@ -222,7 +216,7 @@ body {
     page-break-before: avoid;
   }
 
-  h1, h2, body, body p, body li, body span, body div {
+  h1, h2, h3, body, body p, body li, body span, body div {
     color: black !important;
     font-family: Arial, "Helvetica", "Helvetica Neue", "Segoe UI", sans-serif !important;
   }

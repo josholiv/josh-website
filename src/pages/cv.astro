@@ -34,62 +34,36 @@ function formatDateFull(str) {
 <hr class="rainbow-hr">
 
 <Callout type="tip">
-  To download a PDF, click the <code>Print</code> button and choose <code>Save as PDF</code> from your browser’s print dialog.
+  To download a PDF, select <code class="btn-code">Print</code> and choose <code>Save as PDF</code> (or its equivalent) from your browser’s print dialog.
 </Callout>
 
 
 
  <div class="cv-container">
-  <button id="print-button" class="btn print-button">Print</button>
+  <button id="print-button" class="btn">Print</button>
 
-      <h1 class="h1-cv">{basics.name}</h1>
+      <h2 class="h2-cv">{basics.name}</h2>
 
-      <div class="subtitle-cv">
-        <i>{basics.pronouns}</i>
-      </div>
-
-      <div class="print-header">
-        <h2 class="h2-cv">Personal Information</h2>
-        <hr />
-
-      <h3 class="print-hide">Contact</h3>
-
-      </div>
-      {basics.location.address && (
-        <div>
-          {basics.location.address} <br />
-          {basics.location.city}, {basics.location.postalCode}
-        </div>
-      )}
-      <div>{basics.phone}</div>
+      <div class="print-only">
+  <div class="print-header">
+    <h3 class="h3-cv">Personal Information</h3>
+    <hr />
+  </div>
+  {basics.location.address && (
+    <div>
+      {basics.location.address} <br />
+      {basics.location.city}, {basics.location.postalCode}
+    </div>
+  )}
+  <div>{basics.phone}</div>
+  <div>{basics.email}</div>
+  <div>{basics.altEmail}</div>
+  <div>{basics.url}</div>
+</div>
       
-      <div> 
-        <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
-        <div class="icon-container">
-          <span class="print-hide"><Mail size={"1rem"}/> &nbsp;</span>
-          <span class="print-only">Email:&nbsp;</span>
-          <a href="&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D" 
-          target="_blank">j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om</a>
-        </div>
-
-        <div class="icon-container">
-          <span class="print-hide"><Mail size={"1rem"}/> &nbsp;</span>
-          <span class="print-only">Alt email:&nbsp;</span>
-           <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
-        <a href='mail&#116;&#111;&#58;j&#111;%7&#51;hua%2Eo&#37;&#54;Civier&#64;u&#116;&#100;all&#97;&#115;&#46;%65du'
-        target="_blank">j&#111;s&#104;ua&#46;oli&#118;ie&#114;&#64;u&#116;da&#108;las&#46;edu</span></a>
-        </div>
-      </div>
-      
-      <div class="icon-container">
-          <span class="print-hide"><Rss size={"1rem"}/> &nbsp;</span>
-          <span class="print-only">Website:&nbsp;</span>
-      <a href={basics.url} target="_blank">{basics.url}</a>
-      </div>
-
       <section>
         <div class="print-header">
-        <h2 class="h2-cv">Education</h2>
+        <h3 class="h3-cv">Education</h3>
         <hr />
         </div>
         {education.map(ed => (
@@ -118,7 +92,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2 class="h2-cv">Publications</h2>
+        <h3 class="h3-cv">Publications</h3>
         <hr />
         </div>
           <div>
@@ -145,7 +119,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2 class="h2-cv">Presentations</h2>
+        <h3 class="h3-cv">Presentations</h3>
           <hr/>
           </div>
           <div>
@@ -167,7 +141,7 @@ function formatDateFull(str) {
 
      <section>
       <div class="print-header">
-        <h2 class="h2-cv">Research Experience</h2>
+        <h3 class="h3-cv">Research Experience</h3>
         <hr />
         </div>
         {researchExperience.map(res => (
@@ -198,7 +172,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2 class="h2-cv">Grants &amp; Fellowships</h2>
+        <h3 class="h3-cv">Grants &amp; Fellowships</h3>
         <hr />
         </div>
         {grants.map(g => (
@@ -218,7 +192,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2 class="h2-cv">Honors, Awards &amp; Certificates</h2>
+        <h3 class="h3-cv">Honors, Awards &amp; Certificates</h3>
         <hr />
         </div>
         {awards.map(a => (
@@ -236,7 +210,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-          <h2 class="h2-cv">Service, Work &amp; Activities</h2>
+          <h3 class="h3-cv">Service, Work &amp; Activities</h3>
          <hr />
         </div>
         {service.map(s => (
@@ -258,7 +232,7 @@ function formatDateFull(str) {
 
       <section>
         <div class="print-header">
-        <h2 class="h2-cv">Professional Affiliations</h2>
+        <h3 class="h3-cv">Professional Affiliations</h3>
         <hr />
         </div>
         {affiliations.map(aff => (
@@ -270,7 +244,7 @@ function formatDateFull(str) {
 
    <section>
     <div class="print-header">
-  <h2 class="h2-cv">Skills</h2>
+  <h3 class="h3-cv">Skills</h3>
   <hr />
   </div>
   {skills.map(skillCategory => {

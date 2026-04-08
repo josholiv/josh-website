@@ -96,6 +96,10 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --code-bg:           var(--neutral-950);   /* #101010 */
 --code-text:         var(--neutral-400);   /* #a0a0a0 */
 --code-border:       var(--neutral-600);   /* #616161 */
+--btn-bg:            var(--purple-600);   
+--btn-bg-hover:      var(--purple-500);  
+--btn-border:        var(--neutral-400);   
+--btn-text:          var(--neutral-100);   
 }
 
 /* Light mode: either OS preference OR explicit toggle */
@@ -116,6 +120,10 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     --code-bg:            var(--neutral-200);
     --code-text:          var(--neutral-700);
     --code-border:        var(--neutral-300);
+    --btn-bg:             var(--purple-600);   
+    --btn-bg-hover:       var(--purple-500);   
+    --btn-border:         var(--purple-400);   
+    --btn-text:           var(--neutral-600);   
   }
 }
 
@@ -136,6 +144,10 @@ html:not(.dark) {
   --code-bg:            var(--neutral-200);
   --code-text:          var(--neutral-700);
   --code-border:        var(--neutral-300);
+  --btn-bg:             var(--purple-400);   
+  --btn-bg-hover:       var(--purple-500);   
+  --btn-border:         var(--purple-600);   
+  --btn-text:           var(--neutral-800);   
 
     /* Callout backgrounds */
   .callout-info    { background-color: var(--blue-100); }
@@ -178,7 +190,7 @@ html:not(.dark) {
       background-color: var(--code-bg);
       color: var(--code-text);
       padding: 0rem 0.35rem;
-      border-radius: 2px;
+      border-radius: 5px;
       font-size: 0.9rem;
       border: 1px solid var(--code-border);
     }
@@ -342,20 +354,19 @@ hr {
   );
   background-size: 300% 100%;
   animation: rainbowShift 8s ease infinite;
-  margin: 3rem 0;
+  margin: 0rem 0;
 }
 
 .blockquote {
-  border-left: 4px solid var(--text-normal); /* vertical line */
-  background-color: var(--bg-secondary);
+  border-left: 4px solid var(--text-normal);
   padding-left: 1rem;          /* space between line and content */ 
   padding-right: 1rem;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  margin-left: 0rem;               /* remove default indent */
+  padding-bottom: 0.6rem;
+  padding-top: 0.6rem;
+  margin-left: 0rem;               
   margin-top: 1rem;
-  margin-bottom: 1rem;          /* spacing after blockquote */
-  color: var(--text-normal);    /* slightly muted text color */
+  margin-bottom: 1rem;
+  border-radius: 10px;
 }
 
 /* ─── Callout variants (extend .blockquote) ─── */
@@ -640,11 +651,10 @@ a[target="_blank"]::after {
   margin: 0rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   color:  var(--text-muted);
-  border-radius: 2px;
+  border-radius: 5px;
   padding: 2px 5px;
   font-size: 0.9rem;
-  border: 1px solid;
-  border-color: var(--text-faint);
+  border: 1px solid var(--text-faint);
   position: relative;
   cursor: pointer;
 }
@@ -654,11 +664,11 @@ a[target="_blank"]::after {
   margin: 0rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   color:  var(--text-muted);
-  border-radius: 2px;
+  background-color: var(--bg-primary);
+  border-radius: 5px;
+  border: 1px solid var(--text-faint);
   padding: 2px 5px;
   font-size: 0.9rem;
-  border: 1px solid;
-  border-color: var(--text-faint);
   position: relative;
 }
 
@@ -692,15 +702,21 @@ a.tag, a.tag:visited {
   font-size: 0.8rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   cursor: pointer;
-  background-color: var(--bg-secondary);
-  color: var(--text-normal);
-  border: 1px solid var(--bg-border);
-  border-radius: 2px;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: 1px solid var(--btn-border);
+  border-radius: 5px;
 }
 
 .btn:hover {
-  background-color: var(--bg-border);
+  background-color: var(--btn-bg-hover);
   color: var(--text-heading);
+}
+
+code.btn-code {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border-color: var(--btn-border);
 }
 
 .typewriter-container {
@@ -765,7 +781,7 @@ li.blog-post {
 }
 
 .blog-post a .post-title {
-  text-decoration: underline;
+  color: var(--text-normal);
 }
 
 /* BlogSorter component styles, used on blog.astro */
@@ -773,8 +789,8 @@ li.blog-post {
   .blog-post .post-wrapper {
   display: block;
   margin-bottom: 0rem;
-  border-radius: 2px;
-  padding: 0rem;
+  border-radius: 5px;
+  padding: 0.5rem;
 }
   
   .blog-thumbnail-wrapper {
@@ -833,19 +849,31 @@ li.blog-post {
 
   /* Date on BlogSorter component */
   .pub-date {
-    color: var(--text-normal);
+    color: var(--text-muted);
   }
 
   /* Author on BlogSorter component */
   .post-author {
-    color: var(--text-normal);
+    color: var(--text-muted);
   }
 
    /* Read time on BlogSorter component */
    .post-read-time {
     font-style: italic;
-    color: var(--text-normal);
+    color: var(--text-muted);
   }
+
+  .post-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem;
+  background-color: var(--bg-secondary);
+}
+
+.post-card-link:hover {
+  background-color: var(--bg-border);
+}
 
 @media print {
   header {
@@ -871,8 +899,8 @@ li.blog-post {
   }
 
   .blog-thumbnail-wrapper {
-    width: 9rem;
-    padding-top: 6rem;
+    width: 5rem;
+    padding-top: 5rem;
     margin-right: 1rem;
   }
 

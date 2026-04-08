@@ -10,7 +10,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
   });
 
   const [selectedTags, setSelectedTags] = useState([]);
-  const [showTagsSidebar, setShowTagsSidebar] = useState(true);
+  const [showTagsSidebar, setShowTagsSidebar] = useState(false);
 
   // Check for tag from URL
   useEffect(() => {
@@ -19,6 +19,11 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
     if (tagFromUrl) setSelectedTags([tagFromUrl]);
     else setSelectedTags([]);
   }, []);
+
+  // ensure tags are visible whenever tags are selected, even if the user didn't explicitly click the "Show Tags" button
+    useEffect(() => {
+  if (selectedTags.length > 0) setShowTagsSidebar(true);
+}, [selectedTags]);
 
   // Filter and sort posts whenever sort order, selected tags, or posts change
   useEffect(() => {
@@ -144,7 +149,9 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
           <ul className="blog-list">
             {sortedPosts.map((post) => (
               <li key={post.id} className="blog-post">
-                <div className="post-wrapper">
+                
+                <a href={`/posts/${post.id}/`} className="post-wrapper post-card-link">
+
                   {/* Thumbnail */}
                   {post.data.image?.url && (
                     <div className="blog-thumbnail-wrapper">
@@ -156,18 +163,17 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
                     </div>
                   )}
 
-                <div className="post-text">
+                  <div className="post-text">
         
-                  <div className="post-title">
-                    <a href={`/posts/${post.id}/`}>{post.data.title}</a>
-                  </div>
+                  <div className="post-title">{post.data.title}</div>
+
 
                   {/* Post metadata */}
                   <div
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.5rem',
+                      gap: '0.6rem',
                       flexWrap: 'wrap',
                     }}
                   >
@@ -194,16 +200,16 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
                       <Timer size="1rem" />
                       {post.data.readTime} minute read
                     </span>
-                  </div>
+                </div>
 
                 {/* Tags */}
                 <div
                   className="tags"
                   style={{
-                    marginTop: '0.75rem',
+                    marginTop: '0.5rem',
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: '0.5rem',
+                    gap: '0.6rem',
                     alignItems: 'flex-start',
                   }}
                 >
@@ -214,7 +220,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
                   ))}
                 </div>
               </div>
-            </div>
+            </a>
           </li>
           ))}
         </ul>
