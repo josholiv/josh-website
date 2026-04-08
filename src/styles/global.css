@@ -215,9 +215,12 @@ html:not(.dark) {
     }
 
     header {
-      padding: 1rem;
       width: 100%;
+      background-color: var(--bg-secondary);
       text-transform: uppercase;
+      padding-right: 0.6rem;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
     }
 
     .center-title {
@@ -244,7 +247,7 @@ html:not(.dark) {
     
     .main-content {
       flex: 1; /* This is what makes the footer stick to the bottom when content is short */
-      padding: 1rem;
+      padding: 0rem;
     }
 
 * {
@@ -554,9 +557,6 @@ a[target="_blank"]::after {
 
 /* Desktop styles */
 @media screen and (min-width: 636px) {
-  header {
-    padding: 0 1rem;
-  }
 
   .hamburger {
     display: none;
@@ -568,7 +568,6 @@ a[target="_blank"]::after {
     justify-content: flex-start;
     align-items: center;
     width: auto;
-    gap: 2rem;
   }
 
   .nav-icon {
@@ -595,6 +594,10 @@ a[target="_blank"]::after {
   }
     .nav-links #themeToggle {
     display: none;
+  }
+
+  header {
+    padding: 1rem;
   }
 }
 
@@ -889,6 +892,14 @@ li.blog-post {
   .blog-thumbnail-wrapper {
     display: none;
   }
+
+  .main-content {
+    padding: 0 1rem;
+  }
+
+  header {
+    padding: 1rem
+  }
 }
 
 @media (min-width: 636px) {
@@ -914,5 +925,34 @@ li.blog-post {
 
   .post-wrapper .post-text {
     flex: 1;
+  }
+
+  .nav-links {
+    align-items: flex-end;
+  }
+
+  .nav-links a {
+    padding: 0.4rem 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    /* background-color: var(--bg-secondary); */
+    border-bottom: none;
+    position: relative;
+  }
+
+  .nav-links a:hover {
+    color: var(--text-normal);
+    background-color: var(--bg-border);
+  }
+
+  .nav-links-home a:hover {
+    border-bottom-left-radius: 5px;
+  }
+
+  .nav-links a.active {
+    color: var(--text-heading);
+    background-color: var(--bg-primary);
+    border-left: 1px solid var(--bg-border);
+    border-right: 1px solid var(--bg-border);
   }
 }
