@@ -183,16 +183,16 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
 
                     <span style={{ color: 'var(--text-faint)' }}>|</span>
 
-                    <span className="post-author icon-container-inline">
+                    {/* <span className="post-author icon-container-inline">
                       <User size="1rem" />
                       {post.data.author}
                     </span>
 
-                    <span style={{ color: 'var(--text-faint)' }}>|</span>
+                    <span style={{ color: 'var(--text-faint)' }}>|</span> */}
 
                     <span className="post-read-time icon-container-inline">
                       <Timer size="1rem" />
-                      {post.data.readTime} min read
+                      {post.data.readTime} minute read
                     </span>
                   </div>
 

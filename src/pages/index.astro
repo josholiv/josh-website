@@ -1,10 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import { Info } from "lucide-preact";
-
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogSorter from "../components/BlogSorter.jsx"; 
-import Callout from '../components/Callout.astro';
+import { Image } from 'astro:assets';
+import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 
 const pageTitle = "Josh Olivier - Home";
 
@@ -21,36 +19,32 @@ const recentPosts = allPosts.slice(0, 3); // show the newest 3 blog posts by pub
 
   <h1>JoshOlivier<span class="title-muted">.com</span></h1>  
 
-  <div class="wave-container">
-    <div class="wave wave-small"></div>
-    <div class="wave wave-big"></div>
-  </div>
-
- 
+  <hr class="rainbow-hr">
 
   <h2>Hi, I'm Josh!</h2>
 
-   <Callout type="info">
-    Read more about me on my <a href="/cv/">CV</a> and <a href="/about/">About</a> pages!    
-  </Callout>
+  <Image 
+        src={joshHeadshot} 
+        alt="Josh Olivier" 
+        class="about-pic"
+        loading="eager"
+      />
 
     <p>
 
-      I'm a lab manager in a neuroimaging research lab in Dallas, Texas. 
+      I'm a lab manager in a neuroimaging research lab in Dallas, Texas.
 
       I'm interested in studying how memory, brain structure, and brain function are related and how these relationships change with age.
 
     </p>
-    
-    <p>I also love traveling, 3D printing, triathlons, and tereré 🧉!</p>
-
-  <h2>Latest posts</h2>
+  
+  <!-- <h3>Latest posts</h3>
 
     <BlogSorter  
       posts={recentPosts} 
       client:load 
       showSort={false}
       showTags={false}
-    />
+    /> -->
 
 </BaseLayout>

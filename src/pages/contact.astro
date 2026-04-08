@@ -1,84 +1,56 @@
 ---
 import { Mail, UserCircle, Radio, Contact } from "lucide-preact";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Callout from "../components/Callout.astro";
 
 const pageTitle = "Josh Olivier - Contact";
 ---
+
+<style>
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+</style>
+
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
 
-<h1>Contact me</h1>
+  <h1>Contact me</h1>
 
-  <div class="wave-container">
-    <div class="wave wave-small"></div>
-    <div class="wave wave-big"></div>
-  </div>
+  <hr class="rainbow-hr">
 
- 
 
-<Callout type="info" title="Josh Olivier" icon={Contact}>
-
- <div>
-    I'm always happy to connect with fellow researchers, students, or anyone interested in learning more about my work or neuroimaging research in general. Feel free to reach out via email or connect with me on LinkedIn or Bluesky!
-  </div>
-
-<div class="blockquote">
-
-<div style={{marginBottom: "1rem"}} class="icon-container">
-
-    <Mail size="1rem"/> 
-    <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
-    <a 
-      href='&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D' 
-      target="_blank" 
-      rel="noopener noreferrer" 
-    >
-      j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om
-    </a>
-
-</div>
-
-<div style={{marginBottom: "1rem"}} class="icon-container">
-
-    <Mail size="1rem"/> 
-    <!-- email address link obfuscated using https://www.albionresearch.com/tools/obfuscator -->
-   <a 
-      href='&#109;ai&#108;to&#58;jos%&#54;8ua&#46;%&#54;Fl%69v%69%6&#53;r&#37;40%75%74%64&#97;lla&#115;&#46;&#101;d%75'
-      target="_blank" 
-      rel="noopener noreferrer"  
-    >
-      &#106;&#111;shua&#46;oli&#118;ier&#64;utd&#97;l&#108;&#97;s&#46;&#101;d&#117;
-    </a>
-
-</div>
-
-  
-<div style={{marginBottom: "1rem"}} class="icon-container">
-
-  <UserCircle size={"1rem"}/>
-
-  <a 
-  href="https://linkedin.com/in/joshua-olivier/" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  >
-  LinkedIn
-  </a>
-
-</div>
-
-<div class="icon-container">
-
-  <Radio size={"1rem"}/>
-  <a 
-  href="https://bsky.app/profile/josholivier.bsky.social" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  >
-  Bluesky
-  </a>
-  </div>
-
-</Callout>
+  <h2>Josh Olivier</h2>
+  <ul class="contact-list">
+    <li>
+      <Mail size="1rem"/>
+      <a href='&#109;ailt&#111;&#58;&#106;osh%75%61m&#37;&#54;&#70;li%&#55;6%6&#57;&#101;r%4&#48;g%6&#68;&#37;6&#49;il&#46;c&#111;%6D' rel="noopener noreferrer">
+        j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om
+      </a>
+    </li>
+    <li>
+      <Mail size="1rem"/>
+      <a href='&#109;ai&#108;to&#58;jos%&#54;8ua&#46;%&#54;Fl%69v%69%6&#53;r&#37;40%75%74%64&#97;lla&#115;&#46;&#101;d%75' rel="noopener noreferrer">
+        &#106;&#111;shua&#46;oli&#118;ier&#64;utd&#97;l&#108;&#97;s&#46;&#101;d&#117;
+      </a>
+    </li>
+    <li>
+      <UserCircle size="1rem"/>
+      <a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </li>
+    <li>
+      <Radio size="1rem"/>
+      <a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a>
+    </li>
+  </ul>
 
 </BaseLayout>

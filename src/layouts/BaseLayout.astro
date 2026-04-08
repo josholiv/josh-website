@@ -8,7 +8,6 @@ const { pageTitle, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
 
 <html lang="en">
   <head>
-
     <script is:inline>
       const stored = localStorage?.getItem("theme");
       if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {

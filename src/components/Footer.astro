@@ -13,95 +13,96 @@ import { UserCircle, GraduationCap, Radio, Cog } from "lucide-preact";
     flex-direction: column;
     color: var(--text-normal);
     background-color: var(--bg-secondary);
-    padding: 1rem 0 2rem 0;
+    padding: 1rem 0 1rem 0;
   }
 
   .footer-inner {
-      max-width: 80ch; /* match main page content width */
-      margin: 0 auto;   /* center it horizontally */
-      padding: 0 1rem;
-    }
+    width: 80ch;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
 
   .footer-top {
-    display: flex; /* side-by-side layout for pic + text */
-    padding: 0rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-top h3 {
+    margin: 0;
+    font-style: normal;
   }
 
   .profile-pic {
-    margin-right: 1rem;
-    width: 6rem;
-    height: 6rem;
-    border-radius: 3rem;
-    margin-top: 1.5rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 2px;
+    flex-shrink: 0;
   }
 
-  .footer-text {
-    flex: 1; /* takes up remaining space */
+  .footer-body p {
+    margin-top: 0;
   }
 
   .social-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.1rem;
-    padding: 0rem;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+  }
+
+  .social-container li {
+    display: flex;
+    align-items: center;
+  }
+
+  .social-container li + li::before {
+    content: "|";
+    color: var(--text-faint);
+    margin: 0 0.6rem;
   }
 
   @media (max-width: 635px) {
-    .footer-top {
-      flex-direction: column;
+    .social-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.25rem 0;
     }
-    .profile-pic {
-      margin-right: 0;
-      margin-bottom: 1rem;
+
+    .social-container li + li::before {
+      display: none;
     }
   }
 </style>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-top">
 
+    <div class="footer-top">
       <Image 
         src={joshHeadshot} 
         alt="Josh Olivier" 
         class="profile-pic"
         loading="eager"
       />
-      
-      <div class="footer-text">
-        <h3>Hi, I'm Josh!</h3>
-        <div>I'm a lab manager in a neuroimaging research lab in Dallas, Texas. I'm interested in researching how memory, brain structure, and brain function are related.
-          I also love traveling, 3D printing, and doing triathlons!
-        </div>
-      </div>
+      <h3>Hi, I'm Josh!</h3>
     </div>
 
-    <br>
-    
-    <div class="social-container">
-      
-      <Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky"/> 
-
-        <span style={{ color: 'var(--text-faint)' }}>|</span>
-
-      <Social platform="github.com" username="josholiv" icon={UserCircle} displayName="GitHub" />
-
-        <span style={{ color: 'var(--text-faint)' }}>|</span>
-
-      <Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/> 
-
-        <span style={{ color: 'var(--text-faint)' }}>|</span>
-
-      <Social platform="linkedin.com" username="in/joshua-olivier/" icon={UserCircle} displayName="LinkedIn"/> 
-
-        <span style={{ color: 'var(--text-faint)' }}>|</span>
-
-      <Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD"/>
-
-        <span style={{ color: 'var(--text-faint)' }}>|</span>
-
-      <Social platform="thingiverse.com" username="josholiv" icon={Cog} displayName="Thingiverse" /> 
-      
+    <div class="footer-body">
+      <p>I'm a lab manager in a neuroimaging research lab in Dallas, Texas.</p>
+      <ul class="social-container">
+        <li><Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky"/></li>
+        <li><Social platform="github.com" username="josholiv" icon={UserCircle} displayName="GitHub" /></li>
+        <li><Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD"/></li>
+        <li><Social platform="linkedin.com" username="in/joshua-olivier/" icon={UserCircle} displayName="LinkedIn"/></li>
+        <li><Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/></li>
+        <li><Social platform="thingiverse.com" username="josholiv" icon={Cog} displayName="Thingiverse" /></li>
+      </ul>
     </div>
 
     <p class="copyright">© {new Date().getFullYear()} Josh Olivier</p>
