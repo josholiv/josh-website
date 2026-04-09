@@ -181,6 +181,10 @@ html:not(.dark) {
       margin: 1rem 0;
     }
 
+    h3 {
+      margin: 1rem 0;
+    }
+
     .title-muted {
       color: var(--text-faint);
     }
@@ -217,8 +221,7 @@ html:not(.dark) {
     header {
       width: 100%;
       background-color: var(--bg-secondary);
-      text-transform: uppercase;
-      padding-right: 0.6rem;
+      padding: 0 0.6rem 0 0;
       border-bottom-right-radius: 5px;
       border-bottom-left-radius: 5px;
     }
@@ -249,6 +252,36 @@ html:not(.dark) {
       flex: 1; /* This is what makes the footer stick to the bottom when content is short */
       padding: 0rem;
     }
+
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .indented-icon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0rem 0rem 0rem 1rem;
+  }
+
+  .indented-icon-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
 
 * {
   box-sizing: border-box;
@@ -523,10 +556,8 @@ a[target="_blank"]::after {
 /* Mobile link styles */
 .nav-links a {
   display: block;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
   text-align: left;
-  padding: 0.6rem 0;
-  font-family: 'Noto Sans';
-  font-size: 1rem;
   color: var(--text-normal);
   text-decoration: none;
 }
@@ -534,8 +565,6 @@ a[target="_blank"]::after {
 /* Active link */
 .nav-links a.active {
   color: var(--text-heading);
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 
 .nav-links a:hover {
@@ -598,6 +627,11 @@ a[target="_blank"]::after {
 
   header {
     padding: 1rem;
+    background-color: var(--bg-primary);
+  }
+
+  .nav-container {
+    margin-top: 2rem;
   }
 }
 
@@ -897,9 +931,6 @@ li.blog-post {
     padding: 0 1rem;
   }
 
-  header {
-    padding: 1rem
-  }
 }
 
 @media (min-width: 636px) {
@@ -932,10 +963,9 @@ li.blog-post {
   }
 
   .nav-links a {
-    padding: 0.4rem 0.85rem;
+    padding: 0.6rem 1rem;
     color: var(--text-muted);
     text-decoration: none;
-    /* background-color: var(--bg-secondary); */
     border-bottom: none;
     position: relative;
   }
@@ -952,7 +982,10 @@ li.blog-post {
   .nav-links a.active {
     color: var(--text-heading);
     background-color: var(--bg-primary);
-    border-left: 1px solid var(--bg-border);
-    border-right: 1px solid var(--bg-border);
+  }
+
+  .expanded a {
+    margin-bottom: 0rem;
   }
 }
+

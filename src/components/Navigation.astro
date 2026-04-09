@@ -2,7 +2,7 @@
 import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 const pathname = Astro.url.pathname;
 ---
-
+<div class="nav-container">
 <div class="nav-links">
   <div class="nav-links-home">
   <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
@@ -35,4 +35,6 @@ const pathname = Astro.url.pathname;
       Contact
     </span>
   </a>
+</div>
+
 </div>
