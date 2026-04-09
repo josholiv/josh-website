@@ -7,7 +7,7 @@ import Hardcover from '../components/Hardcover.js';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import ErrorRenderer from "../Error.astro";
 import Callout from '../components/Callout.astro';
-import { Bike, BookOpen, ChessKnight } from "lucide-preact";
+import { Bike, BookOpen, ChessKnight, AudioLines } from "lucide-preact";
 
 const pageTitle = "Josh Olivier - About";
 
@@ -65,9 +65,11 @@ console.log(hardcoverGoals)
 
     <h2>Hi, I'm Josh!</h2>
 
-    <Callout type="note">
-      <a href=https://www.name-coach.com/joshua-olivier target="_blank">Hear me pronounce my name</a>
-    </Callout>
+    <Callout type="warning" icon={AudioLines}>
+  <span slot="title">
+    Hear me <a href="https://www.name-coach.com/joshua-olivier" target="_blank" rel="noopener noreferrer">pronounce my name</a>
+  </span>
+</Callout>
 
     <p>
       I'm a lab manager in a neuroimaging research lab in Dallas, Texas. I'm interested in researching how memory, brain structure, and brain function

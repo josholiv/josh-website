@@ -24,7 +24,7 @@ const Icon = icon ?? variant.icon;
 <div class={`blockquote ${variant.class}`}>
   <div class="callout-title">
     <Icon size={"1rem"} />
-    {title ?? variant.label}
+    <slot name="title">{title ?? variant.label}</slot>
   </div>
   <slot />
 </div>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'preact/hooks';
-import { User, Calendar, Timer, ChevronUp, ChevronDown, X } from "lucide-preact";
+import { Calendar, Timer, ChevronRight, ChevronDown, X } from "lucide-preact";
 import noTagResults from '../assets/no-tag-results.png';
 
 const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = noTagResults.src }) => {
   const [sortOrder, setSortOrder] = useState('newest');
+  const [sortOpen, setSortOpen] = useState(false);
   const [sortedPosts, setSortedPosts] = useState(() => {
-    // Initially sort posts by pubDate
     return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
   });
 
@@ -21,9 +21,9 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
   }, []);
 
   // ensure tags are visible whenever tags are selected, even if the user didn't explicitly click the "Show Tags" button
-    useEffect(() => {
-  if (selectedTags.length > 0) setShowTagsSidebar(true);
-}, [selectedTags]);
+  useEffect(() => {
+    if (selectedTags.length > 0) setShowTagsSidebar(true);
+  }, [selectedTags]);
 
   // Filter and sort posts whenever sort order, selected tags, or posts change
   useEffect(() => {
@@ -43,8 +43,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
 
     setSortedPosts(sorted);
   }, [sortOrder, selectedTags, posts]);
-
-  const handleSortChange = (e) => setSortOrder(e.target.value);
 
   // Tags and counts
   const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
@@ -70,44 +68,68 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
         {(showSort || showTags) && (
           <div style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
             {showTags && (
-             <button
+              <button
                 onClick={() => setShowTagsSidebar(prev => !prev)}
                 className="btn icon-container-inline"
-                >
-                {showTagsSidebar ? "Hide Tags" : "Show Tags"}
-                {showTagsSidebar ? <ChevronUp size="1rem" /> : <ChevronDown size="1rem" />}
+              >
+                Tags
+                <ChevronRight
+                  size="1rem"
+                  style={{
+                    transform: showTagsSidebar ? 'rotate(90deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease',
+                  }}
+                />
               </button>
             )}
 
             {showSort && (
-              <div style={{ display: 'flex', gap: '0.75rem', marginLeft: 'auto' }}>
-                <select
-                  value={sortOrder}
-                  onChange={handleSortChange}
-                  className="btn"
-                >
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                </select>
+              <div style={{ position: 'relative', marginLeft: 'auto' }}>
+                <button
+  className="btn icon-container-inline"
+  onClick={() => setSortOpen(prev => !prev)}
+>
+  {sortOrder === 'newest' ? 'Newest' : 'Oldest'}
+  <ChevronRight
+    size="1rem"
+    style={{
+      transform: sortOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+      transition: 'transform 0.2s ease',
+    }}
+  />
+</button>
+                {sortOpen && (
+  <div className="sort-dropdown">
+    {['newest', 'oldest'].map(option => (
+      <button
+        key={option}
+        className="btn"
+        style={{ borderRadius: 0, width: '100%', boxShadow: 'none' }}
+        onClick={() => { setSortOrder(option); setSortOpen(false); }}
+      >
+        {option.charAt(0).toUpperCase() + option.slice(1)}
+      </button>
+    ))}
+  </div>
+)}
               </div>
             )}
           </div>
         )}
 
-        {/* Tags Sidebar */}
-{showTags && showTagsSidebar && (
-  <aside className={`tags-sidebar show`}>
+        {showTags && (
+  <aside className={`tags-sidebar ${showTagsSidebar ? 'show' : ''}`}>
     {sortedTags.map((tag) => (
       <span
-  key={tag}
-  className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
-  onClick={() => handleTagClick(tag)}
->
-  #{tag}
-  <span className="tag-count">
-    ({posts.filter(post => post.data.tags?.includes(tag)).length})
-  </span>
-</span>
+        key={tag}
+        className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+        onClick={() => handleTagClick(tag)}
+      >
+        #{tag}
+        <span className="tag-count">
+          ({posts.filter(post => post.data.tags?.includes(tag)).length})
+        </span>
+      </span>
     ))}
   </aside>
 )}
@@ -126,30 +148,29 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
         )}
 
         {/* No posts message */}
-          {sortedPosts.length === 0 && selectedTags.length > 0 && (
-            <div style={{ marginTop: '2rem' }}>
-              {noPostsImage && (
-                <img
-                  src={noPostsImage}
-                  alt="No posts found"
-                  style={{ width: '9rem', height: 'auto', marginBottom: '0rem' }}
-                />
-              )}
-              <p style={{ fontWeight: 'bold' }}>
-                There are no posts with that combination of tags :(
-              </p>
-              <i>Try clearing or changing your selection!</i>
-            </div>
-          )}
+        {sortedPosts.length === 0 && selectedTags.length > 0 && (
+          <div style={{ marginTop: '2rem' }}>
+            {noPostsImage && (
+              <img
+                src={noPostsImage}
+                alt="No posts found"
+                style={{ width: '9rem', height: 'auto', marginBottom: '0rem' }}
+              />
+            )}
+            <p style={{ fontWeight: 'bold' }}>
+              There are no posts with that combination of tags :(
+            </p>
+            <i>Try clearing or changing your selection!</i>
+          </div>
+        )}
 
         {/* Posts List */}
-
-          {/*Conditional so the top margin only appears when the controls above it are actually visible*/}
-          <div style={{ marginTop: showSort || showTags ? '2rem' : '0' }}> 
+        {/* Conditional so the top margin only appears when the controls above it are actually visible */}
+        <div style={{ marginTop: showSort || showTags ? '2rem' : '0' }}>
           <ul className="blog-list">
             {sortedPosts.map((post) => (
               <li key={post.id} className="blog-post">
-                
+
                 <a href={`/posts/${post.id}/`} className="post-wrapper post-card-link">
 
                   {/* Thumbnail */}
@@ -164,66 +185,45 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
                   )}
 
                   <div className="post-text">
-        
-                  <div className="post-title">{post.data.title}</div>
 
+                    <div className="post-title">{post.data.title}</div>
 
-                  {/* Post metadata */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.6rem',
-                      flexWrap: 'wrap',
-                    }}
-                  >
-                    <span className="pub-date icon-container-inline">
-                      <Calendar size="1rem" />
-                      {new Date(post.data.pubDate).toLocaleDateString('en-US', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                        timeZone: 'UTC',
-                      })}
-                    </span>
+                    {/* Post metadata */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+                      <span className="pub-date icon-container-inline">
+                        <Calendar size="1rem" />
+                        {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric',
+                          timeZone: 'UTC',
+                        })}
+                      </span>
 
-                    <span style={{ color: 'var(--text-faint)' }}>|</span>
+                      <span style={{ color: 'var(--text-faint)' }}>|</span>
 
-                    {/* <span className="post-author icon-container-inline">
-                      <User size="1rem" />
-                      {post.data.author}
-                    </span>
+                      <span className="post-read-time icon-container-inline">
+                        <Timer size="1rem" />
+                        {post.data.readTime} minute read
+                      </span>
+                    </div>
 
-                    <span style={{ color: 'var(--text-faint)' }}>|</span> */}
-
-                    <span className="post-read-time icon-container-inline">
-                      <Timer size="1rem" />
-                      {post.data.readTime} minute read
-                    </span>
-                </div>
-
-                {/* Tags */}
-                <div
-                  className="tags"
-                  style={{
-                    marginTop: '0.5rem',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '0.6rem',
-                    alignItems: 'flex-start',
-                  }}
-                >
-                  {post.data.tags?.map((tag) => (
-                    <span key={tag} className="tag-blogsorter">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </a>
-          </li>
-          ))}
-        </ul>
+                    {/* Tags */}
+                    <div
+                      className="tags"
+                      style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.6rem', alignItems: 'flex-start' }}
+                    >
+                      {post.data.tags?.map((tag) => (
+                        <span key={tag} className="tag-blogsorter">
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

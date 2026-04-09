@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Callout from '../components/Callout.astro';
+import { Bike } from "lucide-preact";
 
 const isDev = import.meta.env.DEV;
 if (!isDev) return Astro.redirect('/404');
@@ -79,7 +80,7 @@ if (!isDev) return Astro.redirect('/404');
   <!-- ─── Blockquote ─── -->
   <h2>Blockquote</h2>
   <div class="blockquote">
-    This is a plain blockquote. It has no background color and uses <code>var(--text-normal)</code> 
+    This is a plain blockquote. It has no background color and uses <code>var(--bg-secondary)</code> 
     as its left border color.
   </div>
 
@@ -114,6 +115,24 @@ if (!isDev) return Astro.redirect('/404');
 
   <Callout type="note">
     This is a <strong>note</strong> callout. Use it for supplementary information or asides.
+  </Callout>
+
+<hr>
+</h2>
+  <h2>Customizing callouts</h2>
+
+  <Callout type="info" title={`Custom callout`} icon={Bike}>
+    This is a customized callout. I overrode the default title and icon of the <code>info</code> callout with custom properties.
+  </Callout>
+
+  <Callout type="note">
+    <span slot="title">
+      Check out my <a href="/about">about page</a>
+    </span>
+    This callout has a linked title using the named title slot.
+  </Callout>
+
+  <Callout type="tip" title={`You can also create a callout with just a title`}>
   </Callout>
 
   <hr />
