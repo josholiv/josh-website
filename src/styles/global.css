@@ -96,8 +96,8 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --code-bg:           var(--neutral-950);   /* #101010 */
 --code-text:         var(--neutral-400);   /* #a0a0a0 */
 --code-border:       var(--neutral-600);   /* #616161 */
---btn-bg:            var(--purple-600);   
---btn-bg-hover:      var(--purple-500);  
+--btn-bg:            var(--blue-600);   
+--btn-bg-hover:      var(--blue-500);  
 --btn-border:        var(--neutral-400);   
 --btn-text:          var(--neutral-100);   
 }
@@ -120,10 +120,10 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     --code-bg:            var(--neutral-200);
     --code-text:          var(--neutral-700);
     --code-border:        var(--neutral-300);
-    --btn-bg:             var(--purple-600);   
-    --btn-bg-hover:       var(--purple-500);   
-    --btn-border:         var(--purple-400);   
-    --btn-text:           var(--neutral-600);   
+    --btn-bg:            var(--blue-600);   
+    --btn-bg-hover:      var(--blue-500);  
+    --btn-border:        var(--neutral-400);   
+    --btn-text:          var(--neutral-100);     
   }
 }
 
@@ -144,10 +144,10 @@ html:not(.dark) {
   --code-bg:            var(--neutral-200);
   --code-text:          var(--neutral-700);
   --code-border:        var(--neutral-300);
-  --btn-bg:             var(--purple-400);   
-  --btn-bg-hover:       var(--purple-500);   
-  --btn-border:         var(--purple-600);   
-  --btn-text:           var(--neutral-800);   
+  --btn-bg:            var(--blue-600);   
+  --btn-bg-hover:      var(--blue-500);  
+  --btn-border:        var(--neutral-400);   
+  --btn-text:          var(--neutral-100);   
 
     /* Callout backgrounds */
   .callout-info    { background-color: var(--blue-100); }
@@ -183,6 +183,10 @@ html:not(.dark) {
 
     h3 {
       margin: 1rem 0;
+    }
+
+    h3, h4, h5, h6 {
+      color: var(--text-heading);
     }
 
     .title-muted {
@@ -734,20 +738,24 @@ a.tag, a.tag:visited {
 }
     
 .btn {
-  padding: 0.6rem 1rem;
+  padding: 1rem;
   height: 2.25rem;
   font-size: 0.8rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   cursor: pointer;
   background-color: var(--btn-bg);
   color: var(--btn-text);
-  border: 1px solid var(--btn-border);
-  border-radius: 5px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 2px 0 0 var(--blue-500);
 }
 
 .btn:hover {
   background-color: var(--btn-bg-hover);
-  color: var(--text-heading);
+  box-shadow: 0 2px 0 0 var(--blue-400);
 }
 
 code.btn-code {

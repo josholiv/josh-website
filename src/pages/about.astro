@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import TriathlonStats from '../components/TriathlonStats.jsx';
@@ -66,13 +64,6 @@ console.log(hardcoverGoals)
 <hr class="rainbow-hr">
 
     <h2>Hi, I'm Josh!</h2>
-
-    <Image 
-        src={joshHeadshot} 
-        alt="Josh Olivier" 
-        class="about-pic"
-        loading="eager"
-      />
 
     <Callout type="note">
       <a href=https://www.name-coach.com/joshua-olivier target="_blank">Hear me pronounce my name</a>
