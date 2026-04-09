@@ -6,22 +6,22 @@ import { UserCircle, GraduationCap, Radio, Cog } from "lucide-preact";
 ---
 
 <style>
-  footer {
-    display: flex;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    flex-direction: column;
-    color: var(--text-normal);
-    background-color: var(--bg-secondary);
-    padding: 1rem 0 1rem 0;
-  }
+footer {
+  width: 100%;
+  background-color: var(--bg-secondary);
+  color: var(--text-normal);
+  padding: 1rem 0 1rem 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-top: 3rem;
+}
 
-  .footer-inner {
-    width: 80ch;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
+.footer-inner {
+  width: 80ch;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
   .footer-top {
     display: flex;
@@ -94,7 +94,7 @@ import { UserCircle, GraduationCap, Radio, Cog } from "lucide-preact";
     </div>
 
     <div class="footer-body">
-      <p>I'm a lab manager in a neuroimaging research lab in Dallas, Texas.</p>
+      <p>I'm a lab manager in a neuroimaging research lab. Find me around the web:</p>
       <ul class="social-container">
         <li><Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky"/></li>
         <li><Social platform="github.com" username="josholiv" icon={UserCircle} displayName="GitHub" /></li>

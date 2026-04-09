@@ -378,6 +378,7 @@ hr {
 
 .rainbow-hr {
   border: none;
+  margin: 2rem 0;
   height: 2px;
   background: linear-gradient(
     90deg,
@@ -390,7 +391,6 @@ hr {
   );
   background-size: 300% 100%;
   animation: rainbowShift 8s ease infinite;
-  margin: 0rem 0;
 }
 
 .blockquote {
@@ -827,7 +827,7 @@ li.blog-post {
   display: block;
   margin-bottom: 0rem;
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 1rem;
 }
   
   .blog-thumbnail-wrapper {
