@@ -1,8 +1,25 @@
-const HardcoverStats = ({ data }) => {
-  const goals =
-    Array.isArray(data) && data.length > 0
-      ? data
-      : [{ goal: 0, progress: 0 }];
+import { useState, useEffect } from 'preact/hooks';
+
+const HardcoverStats = () => {
+  const [goals, setGoals] = useState([{ goal: 0, progress: 0 }]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/hardcover')
+      .then(r => r.json())
+      .then(result => {
+        if (result.goals) setGoals(result.goals);
+        setLoading(false);
+      })
+      .catch(e => {
+        setError(e.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <table style={{ borderCollapse: 'collapse', marginBottom: '1rem', width: 'auto' }}>

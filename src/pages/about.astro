@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import TriathlonStats from '../components/TriathlonStats.jsx';
-import Hardcover from '../components/Hardcover.js';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import ErrorRenderer from "../Error.astro";
 import Callout from '../components/Callout.astro';
@@ -12,7 +11,7 @@ import { Bike, BookOpen, ChessKnight, AudioLines } from "lucide-preact";
 const pageTitle = "Josh Olivier - About";
 
 // Fetch Strava data
-let data, dailyData, error;
+let data, error;
 
 try {
   const strava = new Strava();
@@ -20,41 +19,6 @@ try {
 } catch (e) {
   error = e.message;
 }
-
-// Fetch Hardcover data
-let hardcoverGoals = [];
-let topGenresAllTime = [];
-let booksThisYear = [];
-let hardcoverError;
-
-try {
-  const hc = new Hardcover();
-  const result = await hc.fetch(); // fetch goals, topGenres, and userBooks
-  console.log("Hardcover result:", result);
-
-  hardcoverGoals = result.goals;
-  topGenresAllTime = result.topGenres; // top 5 genres of all time
-
-  const allBooks = result.userBooks || [];
-  
-  // Books read in the current year
-  const currentYear = new Date().getFullYear();
-  booksThisYear = allBooks
-    .filter(entry => entry.reviewed_at && new Date(entry.reviewed_at).getFullYear() === currentYear)
-    .map(entry => ({
-      title: entry.book?.title || "Untitled",
-      rating: entry.rating ?? null
-    }));
-
-} catch (e) {
-  hardcoverGoals = [];
-  topGenresAllTime = [];
-  booksThisYear = [];
-  hardcoverError = e.message;
-  console.log("Hardcover error:", e);
-}
-
-console.log(hardcoverGoals)
 ---
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
@@ -124,17 +88,13 @@ console.log(hardcoverGoals)
     <p>
   I also enjoy reading. According to my data from <a href="https://hardcover.app/" target="_blank" rel="noopener noreferrer">Hardcover</a>, my top genres are:
 </p>
-<ul>
-  {topGenresAllTime.slice(0, 3).map(g => (
-    <li><strong>{g.genre}</strong></li>
-  ))}
-</ul>
+
 <p>
   Below is the total number of books I've read in {new Date().getFullYear()} and my reading goal for the year.
 </p>
     
 <Callout type="tip" title={`Books read in ${new Date().getFullYear()}`} icon={BookOpen}>
-  <HardcoverStats client:only data={hardcoverGoals} />
+  <HardcoverStats client:only="preact" />
 </Callout>
 
 </BaseLayout>

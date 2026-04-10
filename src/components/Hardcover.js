@@ -1,14 +1,16 @@
 import axios from "axios";
 
-const env = import.meta.env;
+const env = import.meta.env ?? process.env;
 
 export default class Hardcover {
-  constructor() {
-    if (!env.HARDCOVER_API_KEY) {
-      throw new Error("Hardcover API credentials are missing.");
-    }
-    this.apiKey = env.HARDCOVER_API_KEY;
+constructor() {
+  console.log("HARDCOVER_API_KEY:", process.env.HARDCOVER_API_KEY);
+  console.log("import.meta.env:", import.meta.env.HARDCOVER_API_KEY);
+  this.apiKey = process.env.HARDCOVER_API_KEY ?? import.meta.env.HARDCOVER_API_KEY;
+  if (!this.apiKey) {
+    throw new Error("Hardcover API credentials are missing.");
   }
+}
 
   async #fetchData() {
     const currentYear = new Date().getFullYear();
