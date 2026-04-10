@@ -122,15 +122,14 @@ if (!isDev) return Astro.redirect('/404');
     This is a customized callout. I overrode the default title and icon of the <code>info</code> callout with custom properties.
   </Callout>
 
-  <Callout type="note">
+  <Callout type="note"> 
     <span slot="title">
       Check out my <a href="/about">about page</a>
     </span>
     This callout has a linked title using the named title slot.
   </Callout>
 
-  <Callout type="tip" title={`You can also create a callout with just a title`}>
-  </Callout>
+  <Callout type="tip" title={`You can also create a callout with just a title`}></Callout>
 
   <hr />
 

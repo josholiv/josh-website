@@ -1,0 +1,273 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hardcover from '../components/Hardcover.js';
+
+const isDev = import.meta.env.DEV;
+if (!isDev) return Astro.redirect('/404');
+
+let books = [];
+let fetchError;
+
+try {
+  const hc = new Hardcover();
+  const result = await hc.fetch();
+
+  books = (result.userBooks || []).map(entry => ({
+    title: entry.book?.title || "Untitled",
+    cover: entry.book?.image?.url || null,
+    rating: entry.rating ?? null,
+    lastRead: entry.last_read_date ?? null,
+    authors: (entry.book?.contributions || [])
+      .map(c => c.author?.name)
+      .filter(Boolean)
+      .join(", "),
+  })).sort((a, b) => new Date(b.lastRead) - new Date(a.lastRead));
+
+  console.log("Books fetched:", books.length);
+  console.log("First book:", JSON.stringify(books[0]));
+} catch (e) {
+  fetchError = e.message;
+  console.log("Error:", e.message);
+}
+---
+
+<BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} shouldShowTitle={false}>
+
+  <h1>Bookshelf <span class="title-muted">/ dev only</span></h1>
+  <hr />
+
+  {fetchError && <p style="color: red;">Error: {fetchError}</p>}
+
+  <!-- search + rating filter -->
+  <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap;">
+    <input
+      type="text"
+      placeholder="Search by title, author, or year read..."
+      class="book-search"
+      id="bookSearch"
+    />
+
+    <select id="ratingFilter" class="book-search" style="max-width: 160px;">
+      <option value="all">All ratings</option>
+      <option value="5">★★★★★</option>
+      <option value="4">★★★★</option>
+      <option value="3">★★★</option>
+      <option value="2">★★</option>
+      <option value="1">★</option>
+      <option value="unrated">not rated</option>
+    </select>
+  </div>
+
+  <div class="book-grid">
+    {books.map(book => (
+      <div class="book-card" data-rating={book.rating ?? 'none'}>
+        <div class="cover-wrap">
+          {book.cover
+            ? <img src={book.cover} alt={book.title} class="cover-img" />
+            : (
+              <div class="cover-placeholder">
+                <span class="placeholder-title">{book.title}</span>
+                <i class="placeholder-author">{book.authors}</i>
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Hidden but searchable -->
+        <p class="book-title">{book.title}</p>
+        <p class="book-author">{book.authors}</p>
+
+        <div class="stars">
+          {book.rating !== null
+            ? Array.from({ length: 5 }).map((_, i) => {
+                const filled = i < Math.floor(book.rating);
+                const half =
+                  !filled &&
+                  (book.rating - Math.floor(book.rating)) >= 0.5 &&
+                  i === Math.floor(book.rating);
+
+                return (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill={filled ? 'currentColor' : half ? 'url(#half-fill)' : 'none'}
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class={`star ${filled ? 'filled' : half ? 'half' : 'empty'}`}
+                  >
+                    <defs>
+                      <linearGradient id="half-fill">
+                        <stop offset="50%" stop-color="currentColor"/>
+                        <stop offset="50%" stop-color="transparent"/>
+                      </linearGradient>
+                    </defs>
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                );
+              })
+            : <span class="no-rating">not rated</span>
+          }
+        </div>
+
+      {book.lastRead && (
+        <p class="book-year">
+          {new Date(book.lastRead).getFullYear()}
+        </p>
+      )}
+
+      </div>
+    ))}
+  </div>
+
+</BaseLayout>
+
+<style>
+  .book-search {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .book-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .cover-wrap {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.5rem;
+    text-align: left;
+    color: var(--text-muted);
+  }
+
+  .placeholder-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .placeholder-author {
+    font-size: 0.65rem;
+    font-style: italic;
+    color: var(--text-faint);
+  }
+
+  /* Hidden but searchable */
+  .book-title,
+  .book-author {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .book-year {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  margin: 0;
+}
+
+  .stars {
+    display: flex;
+    gap: 1px;
+  }
+
+  .star.filled,
+  .star.half {
+    color: var(--text-muted);
+  }
+
+  .star.empty {
+    color: var(--text-faint);
+  }
+
+  .no-rating {
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    font-style: italic;
+  }
+</style>
+
+<script>
+  const searchInput = document.getElementById('bookSearch');
+  const ratingFilter = document.getElementById('ratingFilter');
+  const books = Array.from(document.querySelectorAll('.book-card'));
+
+  function filterBooks() {
+    const query = searchInput.value.toLowerCase();
+    const ratingValue = ratingFilter.value;
+
+    books.forEach(book => {
+      const title = book.querySelector('.book-title')?.textContent.toLowerCase() || '';
+      const author = book.querySelector('.book-author')?.textContent.toLowerCase() || '';
+      const year = book.querySelector('.book-year')?.textContent || '';
+      const ratingAttr = book.dataset.rating;
+
+      const matchesSearch = title.includes(query) || author.includes(query) || year.includes(query);
+
+      let matchesRating = true;
+
+      if (ratingValue === 'unrated') {
+        matchesRating = ratingAttr === 'none';
+      } else if (ratingValue !== 'all') {
+        const bookRating = parseFloat(ratingAttr);
+        matchesRating = !isNaN(bookRating) && bookRating === parseFloat(ratingValue);
+      }
+
+      book.style.display = (matchesSearch && matchesRating) ? '' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', filterBooks);
+  ratingFilter.addEventListener('change', filterBooks);
+
+  // "/" focus search
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/') {
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+</script>

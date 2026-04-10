@@ -1,16 +1,12 @@
 import axios from "axios";
 
-const env = import.meta.env ?? process.env;
-
 export default class Hardcover {
-constructor() {
-  console.log("HARDCOVER_API_KEY:", process.env.HARDCOVER_API_KEY);
-  console.log("import.meta.env:", import.meta.env.HARDCOVER_API_KEY);
-  this.apiKey = process.env.HARDCOVER_API_KEY ?? import.meta.env.HARDCOVER_API_KEY;
-  if (!this.apiKey) {
-    throw new Error("Hardcover API credentials are missing.");
+  constructor() {
+    this.apiKey = process.env.HARDCOVER_API_KEY ?? import.meta.env.HARDCOVER_API_KEY;
+    if (!this.apiKey) {
+      throw new Error("Hardcover API credentials are missing.");
+    }
   }
-}
 
   async #fetchData() {
     const currentYear = new Date().getFullYear();
@@ -44,11 +40,21 @@ constructor() {
             user_id: { _eq: 29246 }
             status_id: { _eq: 3 }
           }
-        ) { 
+          order_by: { last_read_date: desc }
+        ) {
           rating
+          last_read_date
           book {
             title
             cached_tags
+            image {
+              url
+            }
+          contributions {
+            author {  
+              name
+              }
+            }
           }
         }
       }
@@ -65,6 +71,7 @@ constructor() {
       }
     );
 
+    console.log("Raw API response:", JSON.stringify(response.data));
     return response.data?.data || {};
   }
 
@@ -97,4 +104,4 @@ constructor() {
       userBooks: allBooks,
     };
   }
-} 
+}
