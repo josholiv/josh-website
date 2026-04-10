@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hardcover from '../components/Hardcover.js';
+import Dropdown from '../components/Dropdown.jsx';
 
 const isDev = import.meta.env.DEV;
 if (!isDev) return Astro.redirect('/404');
@@ -34,29 +35,32 @@ try {
 <BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} shouldShowTitle={false}>
 
   <h1>Bookshelf <span class="title-muted">/ dev only</span></h1>
-  <hr />
+  <hr class="rainbow-hr">
 
   {fetchError && <p style="color: red;">Error: {fetchError}</p>}
 
   <!-- search + rating filter -->
-  <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap;">
-    <input
-      type="text"
-      placeholder="Search by title, author, or year read..."
-      class="book-search"
-      id="bookSearch"
-    />
+  <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap; justify-content: space-between;">
+    <div style="position: relative; width: 100%; max-width: 28rem;">
+      <input
+        type="text"
+        placeholder="Search by title, author, or year read..."
+        class="book-search"
+        id="bookSearch"
+      />
+      <kbd class="search-hint">/</kbd>
+    </div>
 
-    <select id="ratingFilter" class="book-search" style="max-width: 160px;">
-      <option value="all">All ratings</option>
-      <option value="5">★★★★★</option>
-      <option value="4">★★★★</option>
-      <option value="3">★★★</option>
-      <option value="2">★★</option>
-      <option value="1">★</option>
-      <option value="unrated">not rated</option>
-    </select>
+    <div style="flex-shrink: 0;">
+      <Dropdown
+        client:load
+        options={['All ratings', '★★★★★', '★★★★', '★★★', '★★', '★', 'Not rated']}
+        defaultOption="All ratings"
+      />
+    </div>
   </div>
+
+  <p class="book-count" id="bookCount"></p>
 
   <div class="book-grid">
     {books.map(book => (
@@ -113,11 +117,11 @@ try {
           }
         </div>
 
-      {book.lastRead && (
-        <p class="book-year">
-          {new Date(book.lastRead).getFullYear()}
-        </p>
-      )}
+        {book.lastRead && (
+          <p class="book-year">
+            {new Date(book.lastRead).getFullYear()}
+          </p>
+        )}
 
       </div>
     ))}
@@ -127,14 +131,49 @@ try {
 
 <style>
   .book-search {
-    width: 100%;
-    max-width: 300px;
+    height: 2.25rem;
     padding: 0.5rem 0.75rem;
-    border-radius: 6px;
-    border: 1px solid var(--border);
+    border-radius: 10px;
+    border: none;
     background: var(--bg-secondary);
-    color: var(--text);
+    color: var(--text-normal);
     font-size: 0.9rem;
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    box-shadow: 0 2px 0 0 var(--btn-text);
+    outline: none;
+    max-width: 28rem;
+    width: 100%;
+  }
+
+  .book-search::placeholder {
+    color: var(--text-faint);
+  }
+
+  .book-search:focus {
+    box-shadow: 0 2px 0 0 var(--btn-text-hover);
+  }
+
+  .search-hint {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    background: var(--bg-primary);
+    border: 1px solid var(--bg-border);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    pointer-events: none;
+    line-height: 1.4;
+  }
+
+  .book-count {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    margin: 1rem 0 0 0;
+    font-family: "Atkinson Hyperlegible Mono", monospace;
   }
 
   .book-grid {
@@ -204,10 +243,10 @@ try {
   }
 
   .book-year {
-  font-size: 0.7rem;
-  color: var(--text-faint);
-  margin: 0;
-}
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    margin: 0;
+  }
 
   .stars {
     display: flex;
@@ -232,12 +271,28 @@ try {
 
 <script>
   const searchInput = document.getElementById('bookSearch');
-  const ratingFilter = document.getElementById('ratingFilter');
+  const searchHint = document.querySelector('.search-hint');
+  const bookCount = document.getElementById('bookCount');
   const books = Array.from(document.querySelectorAll('.book-card'));
+  let currentRating = 'all';
+
+  const ratingMap = {
+    'All ratings': 'all',
+    '★★★★★': '5',
+    '★★★★': '4',
+    '★★★': '3',
+    '★★': '2',
+    '★': '1',
+    'Not rated': 'unrated',
+  };
+
+  function updateCount() {
+    const visible = books.filter(b => b.style.display !== 'none').length;
+    bookCount.textContent = `${visible} of ${books.length} books`;
+  }
 
   function filterBooks() {
     const query = searchInput.value.toLowerCase();
-    const ratingValue = ratingFilter.value;
 
     books.forEach(book => {
       const title = book.querySelector('.book-title')?.textContent.toLowerCase() || '';
@@ -248,26 +303,45 @@ try {
       const matchesSearch = title.includes(query) || author.includes(query) || year.includes(query);
 
       let matchesRating = true;
-
-      if (ratingValue === 'unrated') {
+      if (currentRating === 'unrated') {
         matchesRating = ratingAttr === 'none';
-      } else if (ratingValue !== 'all') {
+      } else if (currentRating !== 'all') {
         const bookRating = parseFloat(ratingAttr);
-        matchesRating = !isNaN(bookRating) && bookRating === parseFloat(ratingValue);
+        matchesRating = !isNaN(bookRating) && bookRating === parseFloat(currentRating);
       }
 
       book.style.display = (matchesSearch && matchesRating) ? '' : 'none';
     });
+
+    updateCount();
   }
 
   searchInput.addEventListener('input', filterBooks);
-  ratingFilter.addEventListener('change', filterBooks);
 
-  // "/" focus search
+  searchInput.addEventListener('focus', () => {
+    searchHint.style.display = 'none';
+    searchInput.setAttribute('placeholder', '');
+  });
+
+  searchInput.addEventListener('blur', () => {
+    if (!searchInput.value) {
+      searchHint.style.display = '';
+      searchInput.setAttribute('placeholder', 'Search by title, author, or year read...');
+    }
+  });
+
+  window.addEventListener('dropdown-select', (e) => {
+    currentRating = ratingMap[e.detail.option] ?? 'all';
+    filterBooks();
+  });
+
   document.addEventListener('keydown', (e) => {
     if (e.key === '/') {
       e.preventDefault();
       searchInput.focus();
     }
   });
+
+  // Set initial count
+  updateCount();
 </script>

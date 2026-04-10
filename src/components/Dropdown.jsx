@@ -18,12 +18,29 @@ const Dropdown = ({ options, defaultOption, onSelect }) => {
   const handleSelect = (option) => {
     setSelected(option);
     onSelect?.(option);
+    window.dispatchEvent(new CustomEvent('dropdown-select', { detail: { option } }));
     setOpen(false);
   };
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }} ref={ref}>
-      <button className="btn icon-container-inline" onClick={() => setOpen(prev => !prev)}>
+
+      {/* Invisible sizer — forces container to width of longest option */}
+      <div aria-hidden="true" style={{ visibility: 'hidden', height: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        {options.map(option => (
+          <button key={option} className="btn icon-container-inline" style={{ width: '100%', justifyContent: 'space-between' }}>
+            {option}
+            <ChevronRight size="1rem" />
+          </button>
+        ))}
+      </div>
+
+      {/* Trigger button */}
+      <button
+        className="btn icon-container-inline"
+        onClick={() => setOpen(prev => !prev)}
+        style={{ width: '100%', justifyContent: 'space-between' }}
+      >
         {selected}
         <ChevronRight
           size="1rem"
@@ -33,13 +50,14 @@ const Dropdown = ({ options, defaultOption, onSelect }) => {
           }}
         />
       </button>
+
       {open && (
-        <div className="sort-dropdown">
+        <div className="sort-dropdown" style={{ width: '100%' }}>
           {options.map(option => (
             <button
               key={option}
               className="btn"
-              style={{ borderRadius: 0, width: '100%', boxShadow: 'none' }}
+              style={{ borderRadius: 0, width: '100%', boxShadow: 'none', justifyContent: 'flex-start' }}
               onClick={() => handleSelect(option)}
             >
               {option}
@@ -47,6 +65,7 @@ const Dropdown = ({ options, defaultOption, onSelect }) => {
           ))}
         </div>
       )}
+
     </div>
   );
 };

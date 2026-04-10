@@ -1,8 +1,10 @@
 ---
 import { User, Calendar, Timer } from "lucide-preact";
 import { getCollection } from "astro:content";
-
 import BaseLayout from './BaseLayout.astro';
+import TOC from '../components/TOC.astro';
+
+const { headings = [] } = Astro.props;
 const { frontmatter } = Astro.props;
 
 const pageUrl = Astro.url.href;
@@ -97,6 +99,8 @@ const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
 
     </div>
   </div>
+
+  <TOC headings={headings} />
 
   <slot />
 

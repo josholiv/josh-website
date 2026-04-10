@@ -1,30 +1,126 @@
 ---
-import { Info, CheckCircle, AlertTriangle, XCircle, Lightbulb, NotebookPen } from "lucide-preact";
+import {
+  Info, CheckCircle, AlertTriangle, XCircle, Lightbulb, NotebookPen,
+  ClipboardList, Flame, Bug, Quote, BookOpen, FlaskConical, HelpCircle,
+  ChevronRight
+} from "lucide-preact";
 
 const variants = {
-  info:    { icon: Info,          label: "Info",    class: "callout-info" },
-  success: { icon: CheckCircle,   label: "Success", class: "callout-success" },
-  warning: { icon: AlertTriangle, label: "Warning", class: "callout-warning" },
-  danger:  { icon: XCircle,       label: "Danger",  class: "callout-danger" },
-  tip:     { icon: Lightbulb,     label: "Tip",     class: "callout-tip" },
-  note:    { icon: NotebookPen,   label: "Note",    class: "callout-note" },
+  info:      { icon: Info,          label: "Info",     class: "callout-info" },
+  success:   { icon: CheckCircle,   label: "Success",  class: "callout-success" },
+  warning:   { icon: AlertTriangle, label: "Warning",  class: "callout-warning" },
+  danger:    { icon: XCircle,       label: "Danger",   class: "callout-danger" },
+  tip:       { icon: Lightbulb,     label: "Tip",      class: "callout-tip" },
+  note:      { icon: NotebookPen,   label: "Note",     class: "callout-note" },
+  check:     { icon: CheckCircle,   label: "Check",    class: "callout-success" },
+  done:      { icon: CheckCircle,   label: "Done",     class: "callout-success" },
+  hint:      { icon: Lightbulb,     label: "Hint",     class: "callout-tip" },
+  important: { icon: Flame,         label: "Important",class: "callout-tip" },
+  caution:   { icon: AlertTriangle, label: "Caution",  class: "callout-warning" },
+  attention: { icon: AlertTriangle, label: "Attention",class: "callout-warning" },
+  error:     { icon: XCircle,       label: "Error",    class: "callout-danger" },
+  failure:   { icon: XCircle,       label: "Failure",  class: "callout-danger" },
+  fail:      { icon: XCircle,       label: "Fail",     class: "callout-danger" },
+  missing:   { icon: XCircle,       label: "Missing",  class: "callout-danger" },
+  todo:      { icon: ClipboardList, label: "Todo",     class: "callout-todo" },
+  example:   { icon: FlaskConical,  label: "Example",  class: "callout-example" },
+  abstract:  { icon: BookOpen,      label: "Abstract", class: "callout-abstract" },
+  summary:   { icon: BookOpen,      label: "Summary",  class: "callout-abstract" },
+  tldr:      { icon: BookOpen,      label: "TL;DR",    class: "callout-abstract" },
+  quote:     { icon: Quote,         label: "Quote",    class: "callout-quote" },
+  cite:      { icon: Quote,         label: "Cite",     class: "callout-quote" },
+  bug:       { icon: Bug,           label: "Bug",      class: "callout-bug" },
+  faq:       { icon: HelpCircle,    label: "FAQ",      class: "callout-faq" },
+  question:  { icon: HelpCircle,    label: "Question", class: "callout-faq" },
+  help:      { icon: HelpCircle,    label: "Help",     class: "callout-faq" },
 };
 
 interface Props {
   type?: keyof typeof variants;
   title?: string;
   icon?: any;
+  collapsible?: boolean;
+  defaultOpen?: boolean;
 }
 
-const { type = "info", title, icon } = Astro.props;
+const { type = "info", title, icon, collapsible = false, defaultOpen = false } = Astro.props;
 const variant = variants[type];
 const Icon = icon ?? variant.icon;
+const hasContent = Astro.slots.has('default');
 ---
 
-<div class={`blockquote ${variant.class}`}>
-  <div class="callout-title">
+<div
+  class={`blockquote ${variant.class} ${collapsible ? 'callout-collapsible' : ''}`}
+  data-collapsible={collapsible}
+  data-open={collapsible ? String(defaultOpen) : undefined}
+>
+  <div class={`callout-title ${!hasContent && !collapsible ? 'callout-title-only' : ''} ${collapsible ? 'callout-title-clickable' : ''}`}>
     <Icon size={"1rem"} />
-    <slot name="title">{title ?? variant.label}</slot>
+    <span>
+      <slot name="title">{title ?? variant.label}</slot>
+    </span>
+    {collapsible && (
+      <span class="callout-chevron">
+        <ChevronRight size={"1rem"} />
+      </span>
+    )}
   </div>
-  <slot />
+
+  {hasContent && (
+    <div class="callout-body">
+      <div class="callout-body-inner">
+        <slot />
+      </div>
+    </div>
+  )}
 </div>
+
+<style>
+  .callout-title-only {
+    margin-bottom: 0;
+  }
+
+  .callout-title-clickable {
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0;
+  }
+
+  .callout-chevron {
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+    transform: rotate(90deg);
+  }
+
+  [data-open="false"] .callout-chevron {
+    transform: rotate(0deg);
+  }
+
+  .callout-body {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.25s ease;
+  }
+
+  [data-open="false"] .callout-body {
+    grid-template-rows: 0fr;
+  }
+
+  .callout-body-inner {
+    overflow: hidden;
+    padding-top: 0.5rem;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-collapsible="true"]').forEach(callout => {
+    const titleEl = callout.querySelector('.callout-title-clickable');
+    if (!titleEl) return;
+
+    titleEl.addEventListener('click', () => {
+      const isOpen = callout.getAttribute('data-open') === 'true';
+      callout.setAttribute('data-open', String(!isOpen));
+    });
+  });
+</script>

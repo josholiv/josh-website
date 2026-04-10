@@ -150,6 +150,12 @@ html:not(.dark) {
   .callout-danger  { background-color: var(--red-100); }
   .callout-tip     { background-color: var(--pink-100); }
   .callout-note    { background-color: var(--purple-100); }
+  .callout-todo     { background-color: var(--blue-100); }
+  .callout-abstract { background-color: var(--green-100); }
+  .callout-example  { background-color: var(--purple-100); }
+  .callout-faq      { background-color: var(--orange-100); }
+  .callout-bug      { background-color: var(--red-100); }
+  .callout-quote    { background-color: var(--neutral-200); }
 }
 
     html {
@@ -222,9 +228,6 @@ html:not(.dark) {
       padding: 0 0.6rem 0 0;
       border-bottom-right-radius: 5px;
       border-bottom-left-radius: 5px;
-      border-bottom: 1px solid var(--bg-border);
-      border-right: 1px solid var(--bg-border);
-      border-left: 1px solid var(--bg-border);
     }
 
     .center-title {
@@ -303,6 +306,90 @@ html:not(.dark) {
     a:visited:hover {
       color: var(--link-color-hover);
     }
+
+/* ─── Table of Contents ─── */
+.toc {
+  background: var(--bg-secondary);
+  border-radius: 2px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.toc-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border: none;
+  color: var(--text-heading);
+  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-chevron {
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+  transform: rotate(90deg);
+}
+
+#toc[data-open="false"] .toc-chevron {
+  transform: rotate(0deg);
+}
+
+.toc-body {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.25s ease, padding-top 0.25s ease;
+  padding-top: 0.5rem;
+}
+
+#toc[data-open="false"] .toc-body {
+  grid-template-rows: 0fr;
+  padding-top: 0;
+}
+
+.toc-body-inner {
+  overflow: hidden;
+}
+
+#toc[data-open="false"] .toc-body-inner {
+  padding-top: 0;
+}
+
+.toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.toc-item a {
+  color: var(--link-color);
+  text-decoration: none;
+  gap: 0.35rem;
+}
+
+.toc-item a svg {
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.toc-item a:hover {
+  color: var(--link-color-hover);
+}
 
 hr {
   border: none;
@@ -441,6 +528,49 @@ hr {
   color: var(--text-normal);
 }
 
+/* ─── New callout variants ─── */
+.callout-todo {
+  border-left-color: var(--blue-400);
+  background-color: var(--blue-900);
+  color: var(--text-normal);
+}
+.callout-todo .callout-title { color: var(--blue-400); }
+
+.callout-abstract {
+  border-left-color: var(--green-400);
+  background-color: var(--green-900);
+  color: var(--text-normal);
+}
+.callout-abstract .callout-title { color: var(--green-400); }
+
+.callout-example {
+  border-left-color: var(--purple-400);
+  background-color: var(--purple-900);
+  color: var(--text-normal);
+}
+.callout-example .callout-title { color: var(--purple-400); }
+
+.callout-faq {
+  border-left-color: var(--orange-400);
+  background-color: var(--orange-900);
+  color: var(--text-normal);
+}
+.callout-faq .callout-title { color: var(--orange-400); }
+
+.callout-bug {
+  border-left-color: var(--red-400);
+  background-color: var(--red-900);
+  color: var(--text-normal);
+}
+.callout-bug .callout-title { color: var(--red-400); }
+
+.callout-quote {
+  border-left-color: var(--neutral-500);
+  background-color: var(--neutral-800);
+  color: var(--text-normal);
+}
+.callout-quote .callout-title { color: var(--neutral-400); }
+
 /* Callout title row */
 .callout-title {
   display: flex;
@@ -462,7 +592,13 @@ hr {
 .callout-warning,
 .callout-danger,
 .callout-tip,
-.callout-note {
+.callout-note,
+.callout-todo,
+.callout-abstract,
+.callout-example,
+.callout-faq,
+.callout-bug,
+.callout-quote {
   border-left-width: 4px;
   border-radius: 10px;
   margin-left: 0;

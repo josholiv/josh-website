@@ -6,6 +6,7 @@ import TriathlonStats from '../components/TriathlonStats.jsx';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import ErrorRenderer from "../Error.astro";
 import Callout from '../components/Callout.astro';
+import TOC from '../components/TOC.astro';
 import { Bike, BookOpen, ChessKnight, AudioLines } from "lucide-preact";
 
 const pageTitle = "Josh Olivier - About";
@@ -27,6 +28,8 @@ try {
 
 <hr class="rainbow-hr">
 
+<TOC />
+
     <h2>Hi, I'm Josh!</h2>
 
     <Callout type="warning" icon={AudioLines}>
@@ -39,6 +42,8 @@ try {
       I'm a lab manager in a neuroimaging research lab in Dallas, Texas. I'm interested in researching how memory, brain structure, and brain function
       are related and how these relationships change with increasing age across the lifespan.
     </p>
+
+    <h2>Hobbies and interests</h2>
     
     <p>
       In my free time, I love traveling, trying new foods, and learning new skills. 

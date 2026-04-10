@@ -1,0 +1,82 @@
+---
+import { CornerDownRight, ChevronRight } from 'lucide-preact';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings?: Heading[];
+  defaultOpen?: boolean;
+}
+
+const { headings = [], defaultOpen = false } = Astro.props;
+const filtered = headings.filter(h => h.depth === 2);
+---
+
+<nav class="toc" id="toc" data-open={String(defaultOpen)}>
+  <button class="toc-title" id="toc-toggle">
+    On this page
+    <span class="toc-chevron">
+      <ChevronRight size="0.85rem" />
+    </span>
+  </button>
+  <div class="toc-body">
+    <div class="toc-body-inner">
+      <ul id="toc-list">
+        {filtered.map(h => (
+          <li class="toc-item">
+            <a href={`#${h.slug}`}>
+              <CornerDownRight size="0.85rem" />
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Collapse toggle
+  const toc = document.getElementById('toc');
+  const toggle = document.getElementById('toc-toggle');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toc.getAttribute('data-open') === 'true';
+    toc.setAttribute('data-open', String(!isOpen));
+  });
+
+  // Auto-populate headings if none were server-rendered
+  const list = document.getElementById('toc-list');
+
+  if (list && list.children.length === 0) {
+    const headings = Array.from(document.querySelectorAll('h2'));
+
+    headings.forEach(h => {
+      if (!h.id) {
+        h.id = h.textContent
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-');
+      }
+
+      const li = document.createElement('li');
+      li.className = 'toc-item';
+
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.style.display = 'inline-flex';
+      a.style.alignItems = 'center';
+      a.style.gap = '0.35rem';
+
+      a.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>${h.textContent}`;
+
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+</script>

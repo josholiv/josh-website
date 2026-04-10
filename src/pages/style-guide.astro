@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Callout from '../components/Callout.astro';
 import Dropdown from '../components/Dropdown.astro';
+import TOC from '../components/TOC.astro';
 import { Bike } from "lucide-preact";
 
 const isDev = import.meta.env.DEV;
@@ -12,7 +13,9 @@ if (!isDev) return Astro.redirect('/404');
 
   <h1>Style Guide <span class="title-muted">/ dev only</span></h1>
 
-  <hr />
+  <hr class="rainbow-hr">
+
+<TOC />
 
   <!-- ─── Typography ─── -->
   <h2>Typography</h2>
@@ -88,35 +91,131 @@ if (!isDev) return Astro.redirect('/404');
   <hr />
 
   <!-- ─── Callouts ─── -->
-  <h2>Callouts</h2>
+    <h2>Callouts</h2>
+
+  <Callout type="note">
+    This is a <strong>note</strong> callout. Use it for supplementary information or asides.
+  </Callout>
 
   <Callout type="info">
     This is an <strong>info</strong> callout. Use it for general information or context. Has a link: <a href="#">click here</a>.
   </Callout>
 
-  <Callout type="success">
-    This is a <strong>success</strong> callout. Use it to confirm something worked or highlight a positive outcome.
-  </Callout>
-
-  <Callout type="warning">
-    This is a <strong>warning</strong> callout. Use it to flag something the reader should be cautious about.
-  </Callout>
-
-  <Callout type="danger">
-    This is a <strong>danger</strong> callout. Use it for destructive actions or critical warnings.
+  <Callout type="todo">
+    This is a <strong>todo</strong> callout. Use it for action items embedded in notes.
   </Callout>
 
   <Callout type="tip">
     This is a <strong>tip</strong> callout. Use it for helpful hints or best practices.
   </Callout>
 
-  <Callout type="note">
-    This is a <strong>note</strong> callout. Use it for supplementary information or asides.
+  <Callout type="hint">
+    This is a <strong>hint</strong> callout. An alias for tip.
+  </Callout>
+
+  <Callout type="important">
+    This is an <strong>important</strong> callout. Another alias for tip.
+  </Callout>
+
+  <Callout type="success">
+    This is a <strong>success</strong> callout. Use it to confirm something worked or highlight a positive outcome.
+  </Callout>
+
+  <Callout type="check">
+    This is a <strong>check</strong> callout. An alias for success.
+  </Callout>
+
+  <Callout type="done">
+    This is a <strong>done</strong> callout. An alias for success.
+  </Callout>
+
+  <Callout type="warning">
+    This is a <strong>warning</strong> callout. Use it to flag something the reader should be cautious about.
+  </Callout>
+
+  <Callout type="caution">
+    This is a <strong>caution</strong> callout. An alias for warning.
+  </Callout>
+
+  <Callout type="attention">
+    This is an <strong>attention</strong> callout. An alias for warning.
+  </Callout>
+
+  <Callout type="danger">
+    This is a <strong>danger</strong> callout. Reserved for serious errors or destructive actions.
+  </Callout>
+
+  <Callout type="error">
+    This is an <strong>error</strong> callout. An alias for danger.
+  </Callout>
+
+  <Callout type="bug">
+    This is a <strong>bug</strong> callout. Useful for known issues in documentation.
+  </Callout>
+
+  <Callout type="failure">
+    This is a <strong>failure</strong> callout. An alias for danger.
+  </Callout>
+
+  <Callout type="fail">
+    This is a <strong>fail</strong> callout. An alias for danger.
+  </Callout>
+
+  <Callout type="missing">
+    This is a <strong>missing</strong> callout. An alias for danger.
+  </Callout>
+
+  <Callout type="quote">
+    This is a <strong>quote</strong> callout. Matches your blockquote style with a neutral border.
+  </Callout>
+
+  <Callout type="cite">
+    This is a <strong>cite</strong> callout. An alias for quote.
+  </Callout>
+
+  <Callout type="abstract">
+    This is an <strong>abstract</strong> callout. Good for summaries at the top of long notes.
+  </Callout>
+
+  <Callout type="summary">
+    This is a <strong>summary</strong> callout. An alias for abstract.
+  </Callout>
+
+  <Callout type="tldr">
+    This is a <strong>tldr</strong> callout. An alias for abstract.
+  </Callout>
+
+  <Callout type="example">
+    This is an <strong>example</strong> callout. Useful for illustrating concepts with sample content.
+  </Callout>
+
+  <Callout type="faq">
+    This is a <strong>faq</strong> callout. Good for anticipated questions.
+  </Callout>
+
+  <Callout type="question">
+    This is a <strong>question</strong> callout. An alias for faq.
+  </Callout>
+
+  <Callout type="help">
+    This is a <strong>help</strong> callout. An alias for faq.
   </Callout>
 
   <hr />
 
   <h2>Customizing callouts</h2>
+
+   <h3>Collapsible callouts</h3>
+
+  <Callout type="note" collapsible defaultOpen={true}>
+    This is a collapsible callout. It's set to be open using <code>defaultOpen={true}</code>.
+  </Callout>
+
+  <Callout type="warning" collapsible>
+    This one starts collapsed, which is the default behavior when using the <code>collapsible</code> prop without specifying <code>defaultOpen</code>.
+  </Callout>
+
+  <h3>Custom titles, icons, and more</h3>
 
   <Callout type="info" title={`Custom callout`} icon={Bike}>
     This is a customized callout. I overrode the default title and icon of the <code>info</code> callout with custom properties.
