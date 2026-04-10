@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Callout from '../components/Callout.astro';
+import Dropdown from '../components/Dropdown.astro';
 import { Bike } from "lucide-preact";
 
 const isDev = import.meta.env.DEV;
@@ -36,17 +37,13 @@ if (!isDev) return Astro.redirect('/404');
 
   <!-- ─── Buttons ─── -->
   <h2>Buttons</h2>
-  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
     <button class="btn">Default Button</button>
     <button class="btn icon-container-inline">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
       With Icon
     </button>
-    <select class="btn">
-      <option>Select Option</option>
-      <option>Option A</option>
-      <option>Option B</option>
-    </select>
+    <Dropdown options={['Option A', 'Option B', 'Option C']} />
   </div>
 
   <hr />
@@ -117,8 +114,8 @@ if (!isDev) return Astro.redirect('/404');
     This is a <strong>note</strong> callout. Use it for supplementary information or asides.
   </Callout>
 
-<hr>
-</h2>
+  <hr />
+
   <h2>Customizing callouts</h2>
 
   <Callout type="info" title={`Custom callout`} icon={Bike}>
@@ -137,11 +134,11 @@ if (!isDev) return Astro.redirect('/404');
 
   <hr />
 
-    <!-- ─── Rainbow Divider ─── -->
-    <h2>Rainbow Divider</h2>
-      <hr class="rainbow-hr">
+  <!-- ─── Rainbow Divider ─── -->
+  <h2>Rainbow Divider</h2>
+  <hr class="rainbow-hr">
 
-      <hr>
+  <hr>
 
   <!-- ─── Wave Divider ─── -->
   <h2>Wave Divider</h2>

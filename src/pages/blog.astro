@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { Info } from "lucide-preact";
+import { ChevronRight } from "lucide-preact";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogSorter from "../components/BlogSorter.jsx"; 
@@ -16,9 +16,13 @@ const allPosts = await getCollection("blog");
 
 <hr class="rainbow-hr">
 
-  <Callout type="tip">
-   Select <code class="btn-code">Show Tags</code> to filter posts by tag. Use the <code class="btn-code">Newest</code> / <code class="btn-code">Oldest</code> dropdown to sort posts chronologically.
-  </Callout>
+<Callout type="tip">
+  <span slot="title">
+    Select <code class="btn-code icon-container-inline" style="font-weight: 400;">Tags <ChevronRight size="1rem"/></code> to filter 
+    and <code class="btn-code icon-container-inline" style="font-weight: 400;">Newest <ChevronRight size="1rem"/></code>
+    to sort posts.
+  </span>
+</Callout>
 
    <div style={{ marginTop: '2rem'}}>
       <BlogSorter posts={allPosts} client:load /> 

@@ -1,0 +1,12 @@
+---
+import DropdownPreact from './Dropdown.jsx';
+
+interface Props {
+  options: string[];
+  defaultOption?: string;
+}
+
+const { options, defaultOption } = Astro.props;
+---
+
+<DropdownPreact options={options} defaultOption={defaultOption} client:load />
