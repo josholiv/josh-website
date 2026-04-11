@@ -1,10 +1,13 @@
 import { defineConfig } from 'astro/config';
 import preact from "@astrojs/preact";
 import expressiveCode from "astro-expressive-code";
-import mdx from '@astrojs/mdx'; 
+import mdx from '@astrojs/mdx';
+import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   site: "https://josholivier.netlify.app/",
+  output: 'server',
+  adapter: netlify(),
   integrations: [
     preact(),
     expressiveCode({

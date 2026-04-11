@@ -27,6 +27,7 @@
     "three": "^0.178.0"
   },
   "devDependencies": {
+    "@astrojs/netlify": "^7.0.6",
     "shiki": "^3.4.0"
   }
 }
