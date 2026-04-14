@@ -6,7 +6,7 @@
     "label": "",
     "image": "",
     "email": "joshuamolivier@gmail.com", 
-    "altEmail": "joshua.olivier@utdallas.edu",
+    "altEmail": "",
     "phone": "",
     "url": "josholivier.com",
     "url2": "https://www.name-coach.com/joshua-olivier",
@@ -15,9 +15,9 @@
       {
         "address": "",
         "postalCode": "",
-        "city": "",
-        "countryCode": "",
-        "region": ""
+        "city": "Dallas",
+        "countryCode": "US",
+        "region": "TX"
       },
     "profiles": [
       {

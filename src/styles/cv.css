@@ -155,10 +155,12 @@ body {
 @media print {
 
   @page {
-    margin-top: 1in;
-    margin-left: 1in;
-    margin-right: 1in;
-    margin-bottom: 1in;
+    margin: 0.5in !important;
+  }
+
+  .page-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .cv-container {
@@ -168,27 +170,43 @@ body {
     margin-bottom: 0 !important;
   }
 
-  @media print {
+  /* Make name bigger in print */
+  .h2-cv {
+    font-size: 18pt !important;
+    font-weight: bold !important;
+    margin-bottom: 0.1in !important;
+  }
+
+  /* Contact info styling for print */
+  .print-contact-info {
+    display: block !important;
+    font-size: 11pt !important;
+    text-align: center;
+    margin-bottom: 0.25in;
+    color: black !important;
+  }
+
   .print-only a {
     display: inline;           
     overflow-wrap: anywhere;   
     word-break: break-word;    /* fallback for older browsers */
     hyphens: none;             /* optional: prevent hyphenation */
   }
-}
 
   .btn,
   .cv-page-title,
   .blockquote,
+  .rainbow-hr, 
   .wave-container,
   .print-name-section,
-  .print-hide {
+  .print-hide,
+  .personal-info-section {
     display: none;  
   }
 
   .print-only {
-  display: inline;
-} 
+    display: inline;
+  } 
 
   .h2-cv, .subtitle-cv {
     text-align: center;
@@ -218,7 +236,7 @@ body {
 
   h1, h2, h3, body, body p, body li, body span, body div {
     color: black !important;
-    font-family: Arial, "Helvetica", "Helvetica Neue", "Segoe UI", sans-serif !important;
+    font-family: Garamond, "Times New Roman", serif !important;
   }
 
   hr {
@@ -296,4 +314,7 @@ body {
     margin-right: 1rem;
   } */
 }
-
+/* Hide contact info on screen, show in print */
+.print-contact-info {
+  display: none;
+}

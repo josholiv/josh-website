@@ -98,28 +98,60 @@ const hasContent = Astro.slots.has('default');
   }
 
   .callout-body {
-    display: grid;
-    grid-template-rows: 1fr;
-    transition: grid-template-rows 0.25s ease;
+    overflow: hidden;
+    transition: height 0.25s ease-in-out;
+    height: auto;
   }
 
-  [data-open="false"] .callout-body {
-    grid-template-rows: 0fr;
+  .callout-collapsible[data-open="false"] .callout-body {
+    height: 0;
   }
 
   .callout-body-inner {
-    overflow: hidden;
     padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.4;
   }
 </style>
 
 <script>
   document.querySelectorAll('[data-collapsible="true"]').forEach(callout => {
     const titleEl = callout.querySelector('.callout-title-clickable');
-    if (!titleEl) return;
+    const body = callout.querySelector('.callout-body');
+    if (!titleEl || !body) return;
+
+    const setClosed = () => {
+      const bodyHeight = body.getBoundingClientRect().height;
+      body.style.height = `${bodyHeight}px`;
+      body.offsetHeight; // force a layout flush before changing height
+      requestAnimationFrame(() => {
+        body.style.height = '0px';
+      });
+    };
+
+    const setOpen = () => {
+      const bodyHeight = body.scrollHeight;
+      body.style.height = `${bodyHeight}px`;
+      const onTransitionEnd = () => {
+        body.style.height = 'auto';
+        body.removeEventListener('transitionend', onTransitionEnd);
+      };
+      body.addEventListener('transitionend', onTransitionEnd);
+    };
+
+    if (callout.getAttribute('data-open') === 'true') {
+      body.style.height = 'auto';
+    } else {
+      body.style.height = '0px';
+    }
 
     titleEl.addEventListener('click', () => {
       const isOpen = callout.getAttribute('data-open') === 'true';
+      if (isOpen) {
+        setClosed();
+      } else {
+        setOpen();
+      }
       callout.setAttribute('data-open', String(!isOpen));
     });
   });

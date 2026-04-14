@@ -33,8 +33,8 @@ function formatDateFull(str) {
 
 <hr class="rainbow-hr">
 
-<Callout type="tip">
-  To download a PDF, select <code class="btn-code">Print</code> and choose <code>Save as PDF</code> (or its equivalent) from your browser’s print dialog.
+<Callout type="tip" title="Download PDF">
+  Click <code class="btn-code">Print</code> and select <code>Save as PDF</code> in your browser’s print dialog.
 </Callout>
 
 
@@ -44,22 +44,10 @@ function formatDateFull(str) {
 
       <h2 class="h2-cv">{basics.name}</h2>
 
-      <div class="print-only">
-  <div class="print-header">
-    <h3 class="h3-cv">Personal Information</h3>
-    <hr />
-  </div>
-  {basics.location.address && (
-    <div>
-      {basics.location.address} <br />
-      {basics.location.city}, {basics.location.postalCode}
-    </div>
-  )}
-  <div>{basics.phone}</div>
-  <div>{basics.email}</div>
-  <div>{basics.altEmail}</div>
-  <div>{basics.url}</div>
-</div>
+      {/* Contact info for print version */}
+      <div class="print-contact-info">
+        {basics.email} • {basics.location.city}, {basics.location.region} • {basics.url}
+      </div>
       
       <section>
         <div class="print-header">
@@ -247,45 +235,35 @@ function formatDateFull(str) {
   <h3 class="h3-cv">Skills</h3>
   <hr />
   </div>
-  {skills.map(skillCategory => {
-    let introText = "";
 
-    switch (skillCategory.category) {
-      case "Software":
-        introText = "Proficiency with the following software:";
-        break;
-      case "Programming":
-        introText = "Experience with the following languages:";
-        break;
-      case "Web Development":
-        introText = "Web development experience with:";
-        break;
-      case "Neuropsychological Tests":
-        introText = "Experience administering and scoring neuropsychological tests with healthy and clinical adult participants (ages 18-85+) in a research setting, including:";
-        break;
-      case "Languages":
-        introText = "Languages spoken:";
-        break;
-      default:
-        introText = "";
-    }
+  {/* Technical Skills */}
+  <div class="skill-group print-section">
+    <h4 class="skill-group-title">Technical Skills</h4>
+    {skills.filter(skillCategory => ["Software", "Programming"].includes(skillCategory.category)).map(skillCategory => {
+      const sortedItems = [...skillCategory.items].sort((a, b) => a.localeCompare(b));
+      const introText = skillCategory.category === "Software" ? "Proficiency with" : "Extensive experience with";
 
-  const listClass = skillCategory.category === "Programming"
-    ? "single-column-list" /* make Programming Languages a single-column list--an exception to the rule */ 
-    : "three-column-list";
+      return (
+        <div class="skill-category" key={skillCategory.category}>
+          <strong>{skillCategory.category}:</strong> {introText} {sortedItems.join(", ")}
+        </div>
+      );
+    })}
+  </div>
 
-  return (
-    <div class="skill-category print-section">
-      <div><strong>{skillCategory.category}</strong></div>
-      <div>{introText}</div>
-      <ul class={listClass}>
-        {skillCategory.items.map(item => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-})}
+  {/* Research Skills */}
+  <div class="skill-group print-section">
+    <h4 class="skill-group-title">Research Skills</h4>
+    {skills.filter(skillCategory => skillCategory.category === "Neuropsychological Tests").map(skillCategory => {
+      const sortedItems = [...skillCategory.items].sort((a, b) => a.localeCompare(b));
+
+      return (
+        <div class="skill-category" key={skillCategory.category}>
+          <div><strong>Neuropsychological Assessment:</strong> Experience administering and scoring neuropsychological tests with healthy and clinical adult research participants (ages 18-85+), including {sortedItems.join(", ")}</div>
+        </div>
+      );
+    })}
+  </div>
 </section>
 
     </div>

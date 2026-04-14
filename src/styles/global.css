@@ -577,7 +577,6 @@ hr {
   align-items: center;
   gap: 0.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
 }
 
 .callout-info    .callout-title { color: var(--blue-400); }
