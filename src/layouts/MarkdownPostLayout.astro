@@ -3,6 +3,7 @@ import { User, Calendar, Timer } from "lucide-preact";
 import { getCollection } from "astro:content";
 import BaseLayout from './BaseLayout.astro';
 import TOC from '../components/TOC.astro';
+import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 
 const { headings = [] } = Astro.props;
 const { frontmatter } = Astro.props;
@@ -154,6 +155,8 @@ const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
   ← <a href="/blog">Back to blog</a>
 
   <div id="copy-toast">Link copied!</div>
+
+  <script set:html={responsiveImagesScript} />
 </BaseLayout>
 
 <style>

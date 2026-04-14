@@ -821,11 +821,12 @@ a[target="_blank"]::after {
 
 .blog-body-pic {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  width: auto;
   height: auto;
+  margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 0rem;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 /* Tag container */
