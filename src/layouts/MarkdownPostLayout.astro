@@ -3,6 +3,7 @@ import { User, Calendar, Timer } from "lucide-preact";
 import { getCollection } from "astro:content";
 import BaseLayout from './BaseLayout.astro';
 import TOC from '../components/TOC.astro';
+import ImageLightbox from '../components/ImageLightbox.jsx';
 import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 
 const { headings = [] } = Astro.props;
@@ -34,6 +35,8 @@ const postsToShow = relatedPosts.length > 0 ? relatedPosts : recentPosts;
 const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
 ---
 <BaseLayout pageTitle={frontmatter.title}>
+
+<ImageLightbox client:load />
 
 <hr class="rainbow-hr">
 
@@ -196,6 +199,90 @@ const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
   #copy-toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+
+  /* Lightbox styles */
+  :global(.lightbox-overlay) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  :global(.lightbox-content) {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  :global(.lightbox-image) {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 0px;
+  }
+
+  :global(.lightbox-close) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    z-index: 1001;
+  }
+
+  :global(.lightbox-close:hover) {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  :global(article img),
+  :global(.prose img) {
+    transition: opacity 0.2s ease;
+  }
+
+  :global(article img:hover),
+  :global(.prose img:hover) {
+    opacity: 0.9;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 </style>
 
