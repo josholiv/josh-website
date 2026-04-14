@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
-import { Calendar, Timer, ChevronRight, X } from "lucide-preact";
+import { Calendar, Timer, ChevronRight, X, XCircle } from "lucide-preact";
 import noTagResults from '../assets/no-tag-results.png';
 import Dropdown from './Dropdown.jsx';
 
@@ -127,18 +127,16 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
 
         {/* No posts message */}
         {sortedPosts.length === 0 && selectedTags.length > 0 && (
-          <div style={{ marginTop: '2rem' }}>
-            {noPostsImage && (
-              <img
-                src={noPostsImage}
-                alt="No posts found"
-                style={{ width: '9rem', height: 'auto', marginBottom: '0rem' }}
-              />
-            )}
-            <p style={{ fontWeight: 'bold' }}>
-              There are no posts with that combination of tags :(
-            </p>
-            <i>Try clearing or changing your selection!</i>
+          <div class="blockquote callout-danger" style={{ marginTop: '2rem' }}>
+            <div class="callout-title" style={{marginBottom: '0.5rem'}}>
+              <XCircle size="1rem" />
+              <span>Missing</span>
+            </div>
+            <div class="callout-body">
+              <div class="callout-body-inner">
+                There are no posts with that combination of tags. Try clearing or changing your selection!
+              </div>
+            </div>
           </div>
         )}
 

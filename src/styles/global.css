@@ -1105,8 +1105,22 @@ li.blog-post {
 }
 
 @media (max-width: 635px) {
+  .blog-post .post-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
   .blog-thumbnail-wrapper {
-    display: none;
+    width: 2.5rem;
+    padding-top: 2.5rem;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .post-wrapper .post-text {
+    flex: 1;
+    min-width: 0;
   }
 
   .main-content {
