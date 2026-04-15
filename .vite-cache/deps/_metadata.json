@@ -1,0 +1,136 @@
+{
+  "hash": "2918ed2a",
+  "configHash": "4b2dcaf6",
+  "lockfileHash": "af846a80",
+  "browserHash": "c57b0664",
+  "optimized": {
+    "three": {
+      "src": "../../node_modules/three/build/three.module.js",
+      "file": "three.js",
+      "fileHash": "7ae00f66",
+      "needsInterop": false
+    },
+    "three/examples/jsm/loaders/STLLoader": {
+      "src": "../../node_modules/three/examples/jsm/loaders/STLLoader.js",
+      "file": "three_examples_jsm_loaders_STLLoader.js",
+      "fileHash": "8a064886",
+      "needsInterop": false
+    },
+    "lucide-preact": {
+      "src": "../../node_modules/lucide-preact/dist/esm/lucide-preact.js",
+      "file": "lucide-preact.js",
+      "fileHash": "f7256342",
+      "needsInterop": false
+    },
+    "preact": {
+      "src": "../../node_modules/preact/dist/preact.module.js",
+      "file": "preact.js",
+      "fileHash": "baea3028",
+      "needsInterop": false
+    },
+    "preact/hooks": {
+      "src": "../../node_modules/preact/hooks/dist/hooks.module.js",
+      "file": "preact_hooks.js",
+      "fileHash": "4ebf0635",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "ca7df055",
+      "needsInterop": false
+    },
+    "@astrojs/preact/server.js": {
+      "src": "../../node_modules/@astrojs/preact/dist/server.js",
+      "file": "@astrojs_preact_server__js.js",
+      "fileHash": "2e408dae",
+      "needsInterop": false
+    },
+    "@astrojs/preact/client-dev.js": {
+      "src": "../../node_modules/@astrojs/preact/dist/client-dev.js",
+      "file": "@astrojs_preact_client-dev__js.js",
+      "fileHash": "fa8cab33",
+      "needsInterop": false
+    },
+    "preact/jsx-runtime": {
+      "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
+      "file": "preact_jsx-runtime.js",
+      "fileHash": "b6803cc9",
+      "needsInterop": false
+    },
+    "preact/jsx-dev-runtime": {
+      "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
+      "file": "preact_jsx-dev-runtime.js",
+      "fileHash": "e0ec9623",
+      "needsInterop": false
+    },
+    "preact/debug": {
+      "src": "../../node_modules/preact/debug/dist/debug.module.js",
+      "file": "preact_debug.js",
+      "fileHash": "b2aad9e0",
+      "needsInterop": false
+    },
+    "preact/devtools": {
+      "src": "../../node_modules/preact/devtools/dist/devtools.module.js",
+      "file": "preact_devtools.js",
+      "fileHash": "19ab97e9",
+      "needsInterop": false
+    },
+    "astro > aria-query": {
+      "src": "../../node_modules/aria-query/lib/index.js",
+      "file": "astro___aria-query.js",
+      "fileHash": "3a39080f",
+      "needsInterop": true
+    },
+    "astro > axobject-query": {
+      "src": "../../node_modules/axobject-query/lib/index.js",
+      "file": "astro___axobject-query.js",
+      "fileHash": "3da37b4e",
+      "needsInterop": true
+    },
+    "astro > html-escaper": {
+      "src": "../../node_modules/html-escaper/esm/index.js",
+      "file": "astro___html-escaper.js",
+      "fileHash": "8bd97c2a",
+      "needsInterop": false
+    },
+    "@astrojs/preact/client.js": {
+      "src": "../../node_modules/@astrojs/preact/dist/client.js",
+      "file": "@astrojs_preact_client__js.js",
+      "fileHash": "e0ac31a8",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "signals.module-2VT4M3ZS": {
+      "file": "signals__module-2VT4M3ZS.js"
+    },
+    "chunk-DLS465IX": {
+      "file": "chunk-DLS465IX.js"
+    },
+    "chunk-QA35XZSB": {
+      "file": "chunk-QA35XZSB.js"
+    },
+    "chunk-3Q75X6VN": {
+      "file": "chunk-3Q75X6VN.js"
+    },
+    "chunk-B5NHREWE": {
+      "file": "chunk-B5NHREWE.js"
+    },
+    "chunk-54ZLWM2P": {
+      "file": "chunk-54ZLWM2P.js"
+    },
+    "chunk-ZEIKIQYP": {
+      "file": "chunk-ZEIKIQYP.js"
+    },
+    "chunk-V4UUEOLZ": {
+      "file": "chunk-V4UUEOLZ.js"
+    },
+    "chunk-EJ5P4D46": {
+      "file": "chunk-EJ5P4D46.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
+}

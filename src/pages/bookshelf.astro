@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hardcover from '../components/Hardcover.js';
+// import Hardcover from '../components/Hardcover.js';
 import Dropdown from '../components/Dropdown.jsx';
 
 const isDev = import.meta.env.DEV;
@@ -10,9 +10,18 @@ let books = [];
 let fetchError;
 
 try {
-  const hc = new Hardcover();
-  const result = await hc.fetch();
-
+  let apiUrl = '';
+  if (typeof Astro !== 'undefined' && Astro.request) {
+    // Server-side: construct absolute URL
+    const { protocol, host } = new URL(Astro.request.url);
+    apiUrl = `${protocol}//${host}/api/hardcover`;
+  } else {
+    // Client-side: use relative URL
+    apiUrl = '/api/hardcover';
+  }
+  const res = await fetch(apiUrl);
+  if (!res.ok) throw new Error('Failed to fetch book data');
+  const result = await res.json();
   books = (result.userBooks || []).map(entry => ({
     title: entry.book?.title || "Untitled",
     cover: entry.book?.image?.url || null,
@@ -23,12 +32,8 @@ try {
       .filter(Boolean)
       .join(", "),
   })).sort((a, b) => new Date(b.lastRead) - new Date(a.lastRead));
-
-  console.log("Books fetched:", books.length);
-  console.log("First book:", JSON.stringify(books[0]));
 } catch (e) {
   fetchError = e.message;
-  console.log("Error:", e.message);
 }
 ---
 
@@ -67,7 +72,18 @@ try {
       <div class="book-card" data-rating={book.rating ?? 'none'}>
         <div class="cover-wrap">
           {book.cover
-            ? <img src={book.cover} alt={book.title} class="cover-img" />
+            ? (
+              <div class="cover-hover-wrap">
+                <img src={book.cover} alt={book.title} class="cover-img" />
+                <div class="cover-overlay">
+                  <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
+                  <div class="cover-overlay-text">
+                    <span class="placeholder-title">{book.title}</span>
+                    <i class="placeholder-author">{book.authors}</i>
+                  </div>
+                </div>
+              </div>
+            )
             : (
               <div class="cover-placeholder">
                 <span class="placeholder-title">{book.title}</span>
@@ -218,14 +234,75 @@ try {
   }
 
   .placeholder-title {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: 500;
   }
 
   .placeholder-author {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     font-style: italic;
-    color: var(--text-faint);
+    color: var(--text-normal);
+  }
+
+  .cover-hover-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cover-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    overflow: hidden;
+  }
+
+  .cover-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    z-index: 1;
+  }
+
+  .cover-hover-wrap:hover .cover-overlay {
+    opacity: 1;
+  }
+
+  .cover-bg-blur {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px) brightness(0.5);
+    transform: scale(1.5);
+    z-index: 0;
+  }
+
+  .cover-overlay-text {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+
+  .cover-overlay-text .placeholder-title {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  }
+
+  .cover-overlay-text .placeholder-author {
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   }
 
   /* Hidden but searchable */

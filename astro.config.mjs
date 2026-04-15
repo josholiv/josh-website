@@ -16,8 +16,23 @@ export default defineConfig({
     mdx()
   ],
   vite: {
+    cacheDir: './.vite-cache',
     optimizeDeps: {
-      include: ['three', 'three/examples/jsm/loaders/STLLoader'],
+      include: [
+        'three',
+        'three/examples/jsm/loaders/STLLoader',
+        'lucide-preact',
+        'preact',
+        'preact/hooks',
+        'axios',
+      ],
+      exclude: [],
+      noDiscovery: true,
+    },
+    server: {
+      watch: {
+        ignored: ['**/.venv/**'],
+      },
     },
     resolve: {
       alias: {
