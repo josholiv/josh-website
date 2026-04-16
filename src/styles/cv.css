@@ -217,6 +217,7 @@ body {
   }
 
   .btn,
+  #print-button,
   .cv-page-title,
   .blockquote,
   .rainbow-hr, 
@@ -224,7 +225,7 @@ body {
   .print-name-section,
   .print-hide,
   .personal-info-section {
-    display: none;  
+    display: none !important;  
   }
 
   .print-only {
