@@ -4,7 +4,7 @@ export const prerender = false;
 
 const CACHE_TTL_SECONDS = 24 * 60 * 60;
 
-export async function GET({ request }) {
+export async function GET({ request, locals }) {
   const cache = caches.default;
 
   try {
@@ -17,7 +17,7 @@ export async function GET({ request }) {
   }
 
   try {
-    const hc = new Hardcover();
+    const hc = new Hardcover(locals.runtime?.env ?? {});
     const result = await hc.fetch();
 
     const response = new Response(JSON.stringify(result), {

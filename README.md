@@ -14,7 +14,13 @@ I deploy my site via [Cloudflare Pages](https://pages.cloudflare.com/).
 	- Build output directory: `dist`
 3. Add your environment variables in Pages settings:
 	- `HARDCOVER_API_KEY`
+	- `STRAVA_CLIENT_ID`
+	- `STRAVA_CLIENT_SECRET`
+	- `STRAVA_REFRESH_TOKEN`
+	- `STRAVA_TIMEFRAME` (`recent`, `ytd`, or `all`)
 4. Deploy.
+
+Set these in both `Production` and `Preview` environments if you want API-powered widgets to work on preview deployments.
 
 For local Cloudflare Pages simulation:
 

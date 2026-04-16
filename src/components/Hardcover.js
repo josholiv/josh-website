@@ -1,7 +1,7 @@
 export default class Hardcover {
-  constructor() {
+  constructor(runtimeEnv = {}) {
     const processApiKey = typeof process !== "undefined" ? process.env?.HARDCOVER_API_KEY : undefined;
-    this.apiKey = processApiKey ?? import.meta.env.HARDCOVER_API_KEY;
+    this.apiKey = runtimeEnv.HARDCOVER_API_KEY ?? processApiKey ?? import.meta.env.HARDCOVER_API_KEY;
     if (!this.apiKey) {
       throw new Error("Hardcover API credentials are missing.");
     }

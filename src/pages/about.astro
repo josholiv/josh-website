@@ -15,7 +15,7 @@ const pageTitle = "Josh Olivier - About";
 let data, error;
 
 try {
-  const strava = new Strava();
+  const strava = new Strava(Astro.locals.runtime?.env ?? {});
   data = await strava.fetch(); 
 } catch (e) {
   error = e instanceof Error ? e.message : String(e);

@@ -1,4 +1,3 @@
-const env = import.meta.env;
 const REQUEST_TIMEOUT_MS = 8000;
 
 const periods = ["recent", "ytd", "all"];
@@ -13,12 +12,19 @@ const validate = (key, allowed, value) => {
 };
 
 export default class Strava {
-  constructor() {
-    if (!env.STRAVA_CLIENT_ID || !env.STRAVA_CLIENT_SECRET || !env.STRAVA_REFRESH_TOKEN) {
+  constructor(runtimeEnv = {}) {
+    this.env = {
+      STRAVA_CLIENT_ID: runtimeEnv.STRAVA_CLIENT_ID ?? import.meta.env.STRAVA_CLIENT_ID,
+      STRAVA_CLIENT_SECRET: runtimeEnv.STRAVA_CLIENT_SECRET ?? import.meta.env.STRAVA_CLIENT_SECRET,
+      STRAVA_REFRESH_TOKEN: runtimeEnv.STRAVA_REFRESH_TOKEN ?? import.meta.env.STRAVA_REFRESH_TOKEN,
+      STRAVA_TIMEFRAME: runtimeEnv.STRAVA_TIMEFRAME ?? import.meta.env.STRAVA_TIMEFRAME,
+    };
+
+    if (!this.env.STRAVA_CLIENT_ID || !this.env.STRAVA_CLIENT_SECRET || !this.env.STRAVA_REFRESH_TOKEN) {
       throw new Error("Strava API credentials are missing.");
     }
 
-    this.period = validate("period", periods, env.STRAVA_TIMEFRAME || "ytd");
+    this.period = validate("period", periods, this.env.STRAVA_TIMEFRAME || "ytd");
   }
 
   async #refreshToken() {
@@ -28,10 +34,10 @@ export default class Strava {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        client_id: env.STRAVA_CLIENT_ID,
-        client_secret: env.STRAVA_CLIENT_SECRET,
+        client_id: this.env.STRAVA_CLIENT_ID,
+        client_secret: this.env.STRAVA_CLIENT_SECRET,
         grant_type: "refresh_token",
-        refresh_token: env.STRAVA_REFRESH_TOKEN,
+        refresh_token: this.env.STRAVA_REFRESH_TOKEN,
       }),
     });
 
