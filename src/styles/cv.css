@@ -23,6 +23,10 @@ html {
   margin-top: 1em;
   margin-bottom: 0;
 }
+
+.cv-container .print-header hr {
+  margin-top: 0;
+}
  
 body {
   font-size: 1rem;
