@@ -6,16 +6,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "cf:dev": "astro build && wrangler pages dev ./dist",
+    "cf:deploy": "astro build && wrangler pages deploy dist",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.0",
     "@astrojs/preact": "^5.0.0",
     "@astrojs/rss": "^4.0.17",
-    "@netlify/functions": "^3.0.1",
     "astro": "^6.0.3",
     "astro-expressive-code": "^0.41.7",
-    "axios": "^1.8.3",
     "cheerio": "^1.0.0-rc.12",
     "font-color-contrast": "^11.1.0",
     "lodash-es": "^4.17.21",
@@ -27,7 +27,8 @@
     "three": "^0.178.0"
   },
   "devDependencies": {
-    "@astrojs/netlify": "^7.0.6",
-    "shiki": "^3.4.0"
+    "@astrojs/cloudflare": "^13.1.10",
+    "shiki": "^3.4.0",
+    "wrangler": "^4.61.1"
   }
 }

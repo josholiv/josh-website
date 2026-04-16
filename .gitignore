@@ -2,6 +2,7 @@
 dist/
 # generated types
 .astro/
+.vite-cache/
 
 # dependencies
 node_modules/
@@ -27,6 +28,10 @@ pnpm-debug.log*
 .idea/
 # Local Netlify folder
 .netlify
+
+# Cloudflare local files
+.wrangler/
+.dev.vars*
 
 # vs code settings
 .vscode

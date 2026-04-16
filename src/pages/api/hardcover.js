@@ -1,36 +1,36 @@
 import Hardcover from '../../components/Hardcover.js';
-import fs from 'fs';
-import path from 'path';
 
 export const prerender = false;
 
-const CACHE_PATH = path.resolve(process.cwd(), 'src/data/hardcover_cache.json');
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_TTL_SECONDS = 24 * 60 * 60;
 
-export async function GET() {
-  let cached = null;
+export async function GET({ request }) {
+  const cache = caches.default;
+
   try {
-    if (fs.existsSync(CACHE_PATH)) {
-      const raw = fs.readFileSync(CACHE_PATH, 'utf-8');
-      cached = JSON.parse(raw);
-      if (Date.now() - cached.timestamp < CACHE_TTL) {
-        return new Response(JSON.stringify(cached.data), {
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
     }
   } catch (e) {
-    // Ignore cache errors, fallback to API
+    // Ignore cache read errors and continue to live fetch.
   }
 
   const hc = new Hardcover();
   const result = await hc.fetch();
-  try {
-    fs.writeFileSync(CACHE_PATH, JSON.stringify({ timestamp: Date.now(), data: result }), 'utf-8');
-  } catch (e) {
-    // Ignore cache write errors
-  }
-  return new Response(JSON.stringify(result), {
-    headers: { 'Content-Type': 'application/json' }
+
+  const response = new Response(JSON.stringify(result), {
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}`
+    }
   });
+
+  try {
+    await cache.put(request, response.clone());
+  } catch (e) {
+    // Ignore cache write errors and return live response.
+  }
+
+  return response;
 }

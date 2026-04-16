@@ -1,6 +1,5 @@
-import axios from "axios";
-
 const env = import.meta.env;
+const REQUEST_TIMEOUT_MS = 8000;
 
 const periods = ["recent", "ytd", "all"];
 
@@ -23,26 +22,68 @@ export default class Strava {
   }
 
   async #refreshToken() {
-    const { data } = await axios.post("https://www.strava.com/api/v3/oauth/token", {
-      client_id: env.STRAVA_CLIENT_ID,
-      client_secret: env.STRAVA_CLIENT_SECRET,
-      grant_type: "refresh_token",
-      refresh_token: env.STRAVA_REFRESH_TOKEN,
+    const response = await this.#fetchWithTimeout("https://www.strava.com/api/v3/oauth/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        client_id: env.STRAVA_CLIENT_ID,
+        client_secret: env.STRAVA_CLIENT_SECRET,
+        grant_type: "refresh_token",
+        refresh_token: env.STRAVA_REFRESH_TOKEN,
+      }),
     });
+
+    if (!response.ok) {
+      throw new Error(`Failed to refresh Strava token: ${response.status}`);
+    }
+
+    const data = await response.json();
     return data.access_token;
+  }
+
+  async #fetchWithTimeout(url, options = {}) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    try {
+      return await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+    } catch (error) {
+      if (error?.name === "AbortError") {
+        throw new Error(`Strava request timed out after ${REQUEST_TIMEOUT_MS}ms`);
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeoutId);
+    }
   }
 
   async #getAthleteStats() {
     const token = await this.#refreshToken();
-    const { data: { id, profile } } = await axios.get(
-      "https://www.strava.com/api/v3/athlete",
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    const athleteRes = await this.#fetchWithTimeout("https://www.strava.com/api/v3/athlete", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-    const { data } = await axios.get(
-      `https://www.strava.com/api/v3/athletes/${id}/stats`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    if (!athleteRes.ok) {
+      throw new Error(`Failed to fetch Strava athlete: ${athleteRes.status}`);
+    }
+
+    const athleteData = await athleteRes.json();
+    const { id, profile } = athleteData;
+
+    const statsRes = await this.#fetchWithTimeout(`https://www.strava.com/api/v3/athletes/${id}/stats`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!statsRes.ok) {
+      throw new Error(`Failed to fetch Strava stats: ${statsRes.status}`);
+    }
+
+    const data = await statsRes.json();
 
     return {
       id,

@@ -1,6 +1,5 @@
 ---
 import Social from './social.astro';
-import { Image } from 'astro:assets';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 import { UserCircle, GraduationCap, Radio, Cog } from "lucide-preact";
 ---
@@ -84,9 +83,9 @@ footer {
   <div class="footer-inner">
 
     <div class="footer-top">
-      <Image 
-        src={joshHeadshot} 
-        alt="Josh Olivier" 
+      <img
+        src={joshHeadshot.src}
+        alt="Josh Olivier"
         class="profile-pic"
         loading="eager"
       />

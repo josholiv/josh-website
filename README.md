@@ -4,7 +4,34 @@ I created my site ([josholivier.com](https://josholivier.com/)) by following the
 
 Originally, I just meant for this site to be a basic landing page for my CV, but as I worked through the tutorial I warmed up to the idea of making it into a blog as well. Now, I use it to post things related to my work projects and hobbies. 
 
-I deploy my site via [Netlify](https://www.netlify.com/).
+I deploy my site via [Cloudflare Pages](https://pages.cloudflare.com/).
+
+## Deploying on Cloudflare Pages
+
+1. In Cloudflare, create a new Pages project and connect this repo.
+2. Use the following build settings:
+	- Build command: `npm run build`
+	- Build output directory: `dist`
+3. Add your environment variables in Pages settings:
+	- `HARDCOVER_API_KEY`
+4. Deploy.
+
+For local Cloudflare Pages simulation:
+
+```bash
+npm install
+npm run cf:dev
+```
+
+For manual CLI deploy:
+
+```bash
+npm run cf:deploy
+```
+
+### Notes about API caching
+
+The `GET /api/hardcover` endpoint now uses Cloudflare's edge cache (24-hour TTL) instead of writing cache files to disk. This is compatible with Cloudflare's runtime.
 
 
 ## Resources

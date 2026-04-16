@@ -2,12 +2,12 @@ import { defineConfig } from 'astro/config';
 import preact from "@astrojs/preact";
 import expressiveCode from "astro-expressive-code";
 import mdx from '@astrojs/mdx';
-import netlify from '@astrojs/netlify';
+import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  site: "https://josholivier.netlify.app/",
+  site: "https://josholivier.com/",
   output: 'server',
-  adapter: netlify(),
+  adapter: cloudflare(),
   integrations: [
     preact(),
     expressiveCode({
@@ -24,7 +24,6 @@ export default defineConfig({
         'lucide-preact',
         'preact',
         'preact/hooks',
-        'axios',
       ],
       exclude: [],
       noDiscovery: true,

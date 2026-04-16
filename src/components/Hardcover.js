@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default class Hardcover {
   constructor() {
     this.apiKey = process.env.HARDCOVER_API_KEY ?? import.meta.env.HARDCOVER_API_KEY;
@@ -60,19 +58,22 @@ export default class Hardcover {
       }
     `;
 
-    const response = await axios.post(
-      "https://api.hardcover.app/v1/graphql",
-      { query },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${this.apiKey}`,
-        },
-      }
-    );
+    const response = await fetch("https://api.hardcover.app/v1/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify({ query }),
+    });
 
-    console.log("Raw API response:", JSON.stringify(response.data));
-    return response.data?.data || {};
+    if (!response.ok) {
+      throw new Error(`Hardcover API request failed: ${response.status}`);
+    }
+
+    const payload = await response.json();
+    console.log("Raw API response:", JSON.stringify(payload));
+    return payload?.data || {};
   }
 
   async fetch() {
