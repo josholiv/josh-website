@@ -7,7 +7,13 @@ const HardcoverStats = () => {
 
   useEffect(() => {
     fetch('/api/hardcover')
-      .then(r => r.json())
+      .then(async r => {
+        const payload = await r.json().catch(() => ({}));
+        if (!r.ok) {
+          throw new Error(payload?.error || `Hardcover API request failed (${r.status})`);
+        }
+        return payload;
+      })
       .then(result => {
         if (result.goals) setGoals(result.goals);
         setLoading(false);
