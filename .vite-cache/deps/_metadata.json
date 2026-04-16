@@ -1,118 +1,109 @@
 {
-  "hash": "2918ed2a",
-  "configHash": "4b2dcaf6",
+  "hash": "a75702b9",
+  "configHash": "94a2f25a",
   "lockfileHash": "af846a80",
-  "browserHash": "c57b0664",
+  "browserHash": "203ede7a",
   "optimized": {
     "three": {
       "src": "../../node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "7ae00f66",
+      "fileHash": "1311ac56",
       "needsInterop": false
     },
     "three/examples/jsm/loaders/STLLoader": {
       "src": "../../node_modules/three/examples/jsm/loaders/STLLoader.js",
       "file": "three_examples_jsm_loaders_STLLoader.js",
-      "fileHash": "8a064886",
+      "fileHash": "ee50acf9",
       "needsInterop": false
     },
     "lucide-preact": {
       "src": "../../node_modules/lucide-preact/dist/esm/lucide-preact.js",
       "file": "lucide-preact.js",
-      "fileHash": "f7256342",
+      "fileHash": "bef711a6",
       "needsInterop": false
     },
     "preact": {
       "src": "../../node_modules/preact/dist/preact.module.js",
       "file": "preact.js",
-      "fileHash": "baea3028",
+      "fileHash": "47ff71aa",
       "needsInterop": false
     },
     "preact/hooks": {
       "src": "../../node_modules/preact/hooks/dist/hooks.module.js",
       "file": "preact_hooks.js",
-      "fileHash": "4ebf0635",
+      "fileHash": "d0ea8f14",
       "needsInterop": false
     },
     "axios": {
       "src": "../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "ca7df055",
+      "fileHash": "777e5fbd",
       "needsInterop": false
     },
     "@astrojs/preact/server.js": {
       "src": "../../node_modules/@astrojs/preact/dist/server.js",
       "file": "@astrojs_preact_server__js.js",
-      "fileHash": "2e408dae",
+      "fileHash": "0a9770af",
       "needsInterop": false
     },
     "@astrojs/preact/client-dev.js": {
       "src": "../../node_modules/@astrojs/preact/dist/client-dev.js",
       "file": "@astrojs_preact_client-dev__js.js",
-      "fileHash": "fa8cab33",
+      "fileHash": "a06e4a8e",
       "needsInterop": false
     },
     "preact/jsx-runtime": {
       "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
       "file": "preact_jsx-runtime.js",
-      "fileHash": "b6803cc9",
+      "fileHash": "3f70b1e9",
       "needsInterop": false
     },
     "preact/jsx-dev-runtime": {
       "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
       "file": "preact_jsx-dev-runtime.js",
-      "fileHash": "e0ec9623",
+      "fileHash": "53effa59",
       "needsInterop": false
     },
     "preact/debug": {
       "src": "../../node_modules/preact/debug/dist/debug.module.js",
       "file": "preact_debug.js",
-      "fileHash": "b2aad9e0",
+      "fileHash": "eb456f3d",
       "needsInterop": false
     },
     "preact/devtools": {
       "src": "../../node_modules/preact/devtools/dist/devtools.module.js",
       "file": "preact_devtools.js",
-      "fileHash": "19ab97e9",
+      "fileHash": "bcf51a8c",
       "needsInterop": false
     },
     "astro > aria-query": {
       "src": "../../node_modules/aria-query/lib/index.js",
       "file": "astro___aria-query.js",
-      "fileHash": "3a39080f",
+      "fileHash": "aecf5061",
       "needsInterop": true
     },
     "astro > axobject-query": {
       "src": "../../node_modules/axobject-query/lib/index.js",
       "file": "astro___axobject-query.js",
-      "fileHash": "3da37b4e",
+      "fileHash": "3f7e2d35",
       "needsInterop": true
     },
     "astro > html-escaper": {
       "src": "../../node_modules/html-escaper/esm/index.js",
       "file": "astro___html-escaper.js",
-      "fileHash": "8bd97c2a",
+      "fileHash": "930db0b4",
       "needsInterop": false
     },
     "@astrojs/preact/client.js": {
       "src": "../../node_modules/@astrojs/preact/dist/client.js",
       "file": "@astrojs_preact_client__js.js",
-      "fileHash": "e0ac31a8",
+      "fileHash": "2e069072",
       "needsInterop": false
     }
   },
   "chunks": {
     "signals.module-2VT4M3ZS": {
       "file": "signals__module-2VT4M3ZS.js"
-    },
-    "chunk-DLS465IX": {
-      "file": "chunk-DLS465IX.js"
-    },
-    "chunk-QA35XZSB": {
-      "file": "chunk-QA35XZSB.js"
-    },
-    "chunk-3Q75X6VN": {
-      "file": "chunk-3Q75X6VN.js"
     },
     "chunk-B5NHREWE": {
       "file": "chunk-B5NHREWE.js"
@@ -123,8 +114,17 @@
     "chunk-ZEIKIQYP": {
       "file": "chunk-ZEIKIQYP.js"
     },
+    "chunk-DLS465IX": {
+      "file": "chunk-DLS465IX.js"
+    },
     "chunk-V4UUEOLZ": {
       "file": "chunk-V4UUEOLZ.js"
+    },
+    "chunk-3Q75X6VN": {
+      "file": "chunk-3Q75X6VN.js"
+    },
+    "chunk-QA35XZSB": {
+      "file": "chunk-QA35XZSB.js"
     },
     "chunk-EJ5P4D46": {
       "file": "chunk-EJ5P4D46.js"

@@ -8,20 +8,71 @@ import Callout from '../components/Callout.astro';
 const pageTitle = "Josh Olivier - CV";
 const { basics, education, publications, presentations, researchExperience, grants, awards, service, affiliations, skills } = cv;
 
-function formatDate(str) {
+function formatDate(str: string | undefined, month: 'short' | 'long' = 'short') {
   if (!str) return '';
   const d = new Date(str);
-  return `${d.toLocaleString('default', { month: 'short' })} ${d.getFullYear()}`;
+  return `${d.toLocaleString('default', { month })} ${d.getFullYear()}`;
 }
 
-function formatDateFull(str) {
+function formatDateFull(str: string | undefined) {
   if (!str) return '';
   const d = new Date(str);
   return d.toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+function formatMonthYear(str: string | undefined) {
+  if (!str) return '';
+  const d = new Date(str);
+  return d.toLocaleDateString('default', { year: 'numeric', month: 'long' });
+}
+
+function renderResponsiveDate(str: string | undefined) {
+  if (!str) return '';
+  return `<span class="date-short">${formatDate(str, 'short')}</span><span class="date-long">${formatDate(str, 'long')}</span>`;
+}
+
+function renderResponsiveDateRange(startDate?: string, endDate?: string) {
+  if (!startDate) return '';
+
+  const shortStart = formatDate(startDate, 'short');
+  const longStart = formatDate(startDate, 'long');
+
+  if (!endDate) {
+    return `<span class="date-short">${shortStart}</span><span class="date-long">${longStart}</span>`;
+  }
+
+  const shortEnd = formatDate(endDate, 'short');
+  const longEnd = formatDate(endDate, 'long');
+
+  return `<span class="date-short">${shortStart}–${shortEnd}</span><span class="date-long">${longStart}–${longEnd}</span>`;
+}
+
+function formatStudyType(studyType: string | undefined) {
+  const degreeMap: Record<string, string> = {
+    BS: 'B.S.',
+    BA: 'B.A.',
+    MS: 'M.S.',
+    MA: 'M.A.',
+    PhD: 'Ph.D.'
+  };
+
+  return studyType ? degreeMap[studyType] ?? studyType : '';
+}
+
+function formatEducationSummary(ed: { studyType?: string; area?: string; startDate?: string; endDate?: string }) {
+  const degree = [formatStudyType(ed.studyType), ed.area ? `in ${ed.area}` : ''].filter(Boolean).join(' ');
+  const dateText = ed.endDate
+    ? formatMonthYear(ed.endDate)
+    : ed.startDate
+      ? `Expected start ${formatMonthYear(ed.startDate)}`
+      : '';
+
+  return [degree, dateText].filter(Boolean).join(' • ');
+}
 ---
 <script>
-  document.getElementById('print-button').addEventListener('click', function() {
+  const printButton = document.getElementById('print-button');
+  printButton?.addEventListener('click', function() {
     window.print(); 
   });
 </script>
@@ -55,21 +106,21 @@ function formatDateFull(str) {
         <hr />
         </div>
         {education.map(ed => (
-          <div key={ed.institution} class="section-item item-entry">
+          <div class="section-item item-entry">
             <div class="item-header">
-              <div>{ed.studyType}, {ed.area}, {ed.institution} {ed.score && <span>(GPA: {ed.score})</span>} {/* show GPA only if listed in cv.json */}
-              </div>
-              <span class="date-range">{formatDate(ed.startDate)} – {formatDate(ed.endDate)}</span>
+              <div><strong>{ed.institution}</strong></div>
+              <span class="date-range">{ed.location}</span>
             </div>
-            <div class="indent-item-simple">
+            <div>
+            <div><i>{formatEducationSummary(ed)} {ed.score && <span>(GPA: {ed.score})</span>}</i></div> {/* show GPA only if listed in cv.json */}
             
             {ed.advisor && <div>Advisor: {ed.advisor}</div>} {/* show advisor only if listed in cv.json */}
             
             {ed.courses && ed.courses.length > 0 && ( /* show coursework only if listed in cv.json */
                 <div class="indent-item"><i>Relevant coursework:</i></div> 
                 <ul class="two-column-list">
-                  {ed.courses.map((course, index) => (
-                    <li key={index}>{course}</li>
+                  {ed.courses.map((course) => (
+                    <li>{course}</li>
                   ))}
                 </ul>
             )}
@@ -87,20 +138,15 @@ function formatDateFull(str) {
             {publications.map(pub => (
               <div class="reference-entry print-section">
                 <Fragment set:html={`${pub.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')}`} />
-                ({pub.year}). {pub.name}. <em>{pub.publisher}</em>. 
+                ({pub.year}). {pub.name}. <em>{pub.publisher}</em>.
 
-{/* Print: show the full URL */}
                 <span class="print-only"><a href={pub.url} target="_blank" rel="noopener noreferrer">{pub.url}</a></span>
 
-                {/* Desktop/website: show only the icon */}
                 <a href={pub.url} target="_blank" rel="noopener noreferrer" class="print-hide">
                 </a>
-                
-                </div>
-
+              </div>
+            ))}
           </div>
-          ))}
-        </div>
         <div class="footnote">*These authors have contributed equally to this work and share first authorship</div>
         <div class="footnote">**These authors jointly supervised this work and share senior authorship</div>
       </section>
@@ -122,9 +168,7 @@ function formatDateFull(str) {
               </div>
             ))}
           </div>
-        <div></br>
         <div class="footnote">*Presenter</div>
-        </div>
       </section>
 
      <section>
@@ -135,22 +179,22 @@ function formatDateFull(str) {
         {researchExperience.map(res => (
           <div class="section-item item-entry print-section">
             <div class="item-header">
-              <div><strong>{res.lab}</strong></div>
+              <div><strong>{res.lab} • {res.institution}</strong></div>
               <span class="date-range">
-                {res.startDate
-                  ? `${formatDate(res.startDate)} – ${res.endDate ? formatDate(res.endDate) : 'Present'}` 
-                  : ''} {/* if startDate contains a date and endDate is blank, show Present as the endDate */}
+                {res.startDate && res.endDate ? (
+                  <Fragment set:html={renderResponsiveDateRange(res.startDate, res.endDate)} />
+                ) : res.startDate ? (
+                  <Fragment set:html={renderResponsiveDate(res.startDate)} />
+                ) : ''} {/* if startDate contains a date and endDate is blank, show only the start date */}
               </span>
             </div>
             <div>
-            <div>{res.institution}</div>
-            <div>Mentor: {res.mentor}</div>
-            <div>Title: {res.title}</div>
+            <div><i>{res.title} • Mentor: {res.mentor}</i></div>
             </div>
             {res.duties && res.duties.length > 0 && ( /* show duties only if listed in cv.json */
                 <ul>
-                  {res.duties.map((duty, index) => (
-                    <li key={index}>{duty}</li>
+                  {res.duties.map((duty) => (
+                    <li>{duty}</li>
                   ))}
                 </ul>
             )}
@@ -167,7 +211,7 @@ function formatDateFull(str) {
           <div class="section-item item-entry print-section">
             <div class="item-header">
               <div><strong>{g.title}</strong></div>
-              <span>{formatDate(g.date)}</span>
+              <span class="date-range"><Fragment set:html={renderResponsiveDate(g.date)} /></span>
             </div>
             <div>
             {g.awarder}
@@ -187,7 +231,7 @@ function formatDateFull(str) {
           <div class="section-item item-entry print-section">
             <div class="item-header">
               <div><strong>{a.title}</strong></div>
-              <span>{formatDate(a.date)}</span>
+              <span class="date-range"><Fragment set:html={renderResponsiveDate(a.date)} /></span>
             </div>
             <div>{a.awarder}
             <div>{a.summary}</div>
@@ -195,6 +239,39 @@ function formatDateFull(str) {
           </div>
         ))}
       </section>
+
+         <section>
+    <div class="print-header">
+  <h3 class="h3-cv">Skills</h3>
+  <hr />
+  </div>
+
+  {/* Technical Skills */}
+  <div class="skill-group print-section">
+    {skills.filter(skillCategory => ["Software", "Programming"].includes(skillCategory.category)).map(skillCategory => {
+      const sortedItems = [...skillCategory.items].sort((a, b) => a.localeCompare(b));
+
+      return (
+        <div class="skill-category">
+          <strong>{skillCategory.category}:</strong> {sortedItems.join(", ")}
+        </div>
+      );
+    })}
+  </div>
+
+  {/* Research Skills */}
+  <div class="skill-group print-section">
+    {skills.filter(skillCategory => skillCategory.category === "Neuropsychological Tests").map(skillCategory => {
+      const sortedItems = [...skillCategory.items].sort((a, b) => a.localeCompare(b));
+
+      return (
+        <div class="skill-category">
+          <div><strong>Neuropsychological Tests:</strong> {sortedItems.join(", ")}</div>
+        </div>
+      );
+    })}
+  </div>
+</section>
 
       <section>
         <div class="print-header">
@@ -206,9 +283,11 @@ function formatDateFull(str) {
             <div class="item-header">
               <div><strong>{s.title}</strong></div>
               <span class="date-range">
-                {s.startDate
-                  ? `${formatDate(s.startDate)} – ${s.endDate ? formatDate(s.endDate) : 'Present'}` 
-                  : ''} {/* if startDate contains a date and endDate is blank, show Present as the endDate */}
+                {s.startDate && s.endDate ? (
+                  <Fragment set:html={renderResponsiveDateRange(s.startDate, s.endDate)} />
+                ) : s.startDate ? (
+                  <Fragment set:html={renderResponsiveDate(s.startDate)} />
+                ) : ''} {/* if startDate contains a date and endDate is blank, show only the start date */}
               </span>
             </div>
             <div>{s.organization}
@@ -229,42 +308,6 @@ function formatDateFull(str) {
           ))
         ))}
       </section> 
-
-   <section>
-    <div class="print-header">
-  <h3 class="h3-cv">Skills</h3>
-  <hr />
-  </div>
-
-  {/* Technical Skills */}
-  <div class="skill-group print-section">
-    <h4 class="skill-group-title">Technical Skills</h4>
-    {skills.filter(skillCategory => ["Software", "Programming"].includes(skillCategory.category)).map(skillCategory => {
-      const sortedItems = [...skillCategory.items].sort((a, b) => a.localeCompare(b));
-      const introText = skillCategory.category === "Software" ? "Proficiency with" : "Extensive experience with";
-
-      return (
-        <div class="skill-category" key={skillCategory.category}>
-          <strong>{skillCategory.category}:</strong> {introText} {sortedItems.join(", ")}
-        </div>
-      );
-    })}
-  </div>
-
-  {/* Research Skills */}
-  <div class="skill-group print-section">
-    <h4 class="skill-group-title">Research Skills</h4>
-    {skills.filter(skillCategory => skillCategory.category === "Neuropsychological Tests").map(skillCategory => {
-      const sortedItems = [...skillCategory.items].sort((a, b) => a.localeCompare(b));
-
-      return (
-        <div class="skill-category" key={skillCategory.category}>
-          <div><strong>Neuropsychological Assessment:</strong> Experience administering and scoring neuropsychological tests with healthy and clinical adult research participants (ages 18-85+), including {sortedItems.join(", ")}</div>
-        </div>
-      );
-    })}
-  </div>
-</section>
 
     </div>
   </body>

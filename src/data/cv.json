@@ -30,7 +30,21 @@
 
   "education": [
     {
+      "institution": "University of California, Riverside",
+      "location": "Riverside, CA",
+      "url": "",
+      "area": "Psychology",
+      "studyType": "PhD",
+      "startDate": "2026-08-03",
+      "endDate": "",
+      "score": "",
+      "advisor": "Dr. Halle Dimsdale-Zucker",
+      "courses": [
+      ]
+    },
+    {
       "institution": "Brigham Young University",
+      "location": "Provo, UT",
       "url": "",
       "area": "Psychology",
       "studyType": "BS",
@@ -186,55 +200,54 @@
   "researchExperience": [
     {
       "lab": "Functional Neuroimaging of Memory Lab",
-      "institution": "University of Texas at Dallas",
-      "mentor": "Michael Rugg, PhD",
-      "title": "Lab Manager/Research Assistant II",
+      "institution": "UT Dallas",
+      "mentor": "Dr. Michael Rugg",
+      "title": "Lab Manager / Research Assistant II",
       "startDate": "2024-04-15",
       "endDate": "",
       "duties": [
-        "Conducted independent research projects examining cognitive and neural aging",
         "Managed daily activities of 4-6 research assistant staff",
-        "Oversaw training of 3 new staff and 6 new volunteer research assistants",
-        "Coordinated subject recruitment and public outreach efforts"
+        "Coordinated subject recruitment and public outreach efforts",
+        "Oversaw training of 3 new staff and 7 volunteer research assistants"
       ]
     },
      {
       "lab": "Functional Neuroimaging of Memory Lab",
-      "institution": "University of Texas at Dallas",
-      "mentor": "Michael Rugg, PhD",
+      "institution": "UT Dallas",
+      "mentor": "Dr. Michael Rugg",
       "title": "Research Assistant I",
       "startDate": "2021-06-21",
       "endDate": "2024-04-14",
       "duties": [
+        "Assisted in training 4 staff and 5 volunteer research assistants",
         "Conducted independent research projects examining cognitive and neural aging",
-        "Collected, processed, and analyzed task-based fMRI and neuropsychological test data",
-        "Assisted in training 4 new staff and 5 new volunteer research assistants"
+        "Collected, processed, and analyzed task-based fMRI and neuropsychological test data"
       ]
     },
      {
       "lab": "Nielsen Brain & Behavior Lab",
       "institution": "Brigham Young University",
-      "mentor": "Jared Nielsen, PhD",
+      "mentor": "Dr. Jared Nielsen",
       "title": "Research Assistant",
       "startDate": "2018-08-31",
       "endDate": "2021-04-22",
       "duties": [
-        "Conducted independent research project examining visual perception and social anxiousness",
         "Developed visual stimuli and co-designed experimental task",
-        "Collected and analyzed data from behavioral and cognitive measures"
+        "Collected and analyzed data from behavioral and cognitive measures",
+        "Conducted independent research project on visual perception and social anxiousness"
       ]
     },
      {
       "lab": "Ladle Lab",
       "institution": "Johns Hopkins University School of Medicine",
-      "mentor": "Brian Ladle, MD, PhD",
-      "title": "Research Assistant/Oncology Staff",
+      "mentor": "Dr. Brian Ladle",
+      "title": "Research Assistant / Oncology Staff",
       "startDate": "05-15-2018",
       "endDate": "07-15-2018",
       "duties": [
-        "Conducted research examining effectiveness of histone deacetylase inhibitors on osteosarcoma cells",
-        "Applied molecular techniques including DNA and RNA isolation, cDNA synthesis, PCR, and qPCR",
-        "Isolated immune tissue from mice tumor samples"
+        "Isolated immune tissue from mice tumor samples",
+        "Applied DNA and RNA isolation, cDNA synthesis, PCR, and qPCR",
+        "Examined effectiveness of histone deacetylase inhibitors on osteosarcoma cells"
       ]
     }
   ],

@@ -2,7 +2,7 @@
 import { Sun, Moon } from "lucide-preact";
 ---
 
-<button id="themeToggle" aria-label="Toggle theme" role="switch">
+<button id="themeToggle" aria-label="Toggle theme (Alt+Shift+D)" title="Toggle theme (Alt+Shift+D)" role="switch">
   <span id="track">
     <span id="thumb">
       <Sun id="sun-icon" size={14} />
@@ -84,5 +84,13 @@ import { Sun, Moon } from "lucide-preact";
   }
 
   document.getElementById("themeToggle")?.addEventListener("click", handleToggleClick);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.altKey && e.shiftKey && e.code === "KeyD") {
+      e.preventDefault();
+      handleToggleClick();
+    }
+  });
+
   document.documentElement.classList.remove("theme-loading");
 </script>

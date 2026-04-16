@@ -55,8 +55,11 @@ body {
   margin-bottom: 0.6rem;
 }
 
+.item-entry ul {
+  margin-top: 0;
+}
+
 .my-name {
-  color: var(--text-heading);
   font-weight: 700;
 }
 
@@ -75,6 +78,24 @@ body {
 .date-range {
   white-space: nowrap;
   font-weight: normal;
+}
+
+.date-long {
+  display: none;
+}
+
+.date-short {
+  display: inline;
+}
+
+@media (min-width: 636px) {
+  .date-short {
+    display: none;
+  }
+
+  .date-long {
+    display: inline;
+  }
 }
 
 .single-column-list {
@@ -172,9 +193,9 @@ body {
 
   /* Make name bigger in print */
   .h2-cv {
-    font-size: 18pt !important;
+    font-size: 20pt !important;
     font-weight: bold !important;
-    margin-bottom: 0.1in !important;
+    margin-bottom: 0 !important;
   }
 
   /* Contact info styling for print */
@@ -182,15 +203,17 @@ body {
     display: block !important;
     font-size: 11pt !important;
     text-align: center;
-    margin-bottom: 0.25in;
+    margin-top: 0 !important;
+    /* margin-bottom: -0.1in !important; */
     color: black !important;
   }
 
-  .print-only a {
-    display: inline;           
-    overflow-wrap: anywhere;   
-    word-break: break-word;    /* fallback for older browsers */
-    hyphens: none;             /* optional: prevent hyphenation */
+  .print-only {
+    display: none !important;
+  }
+
+  .reference-entry {
+    margin-bottom: 0.6rem;
   }
 
   .btn,
@@ -205,8 +228,8 @@ body {
   }
 
   .print-only {
-    display: inline;
-  } 
+    display: none !important;
+  }
 
   .h2-cv, .subtitle-cv {
     text-align: center;
