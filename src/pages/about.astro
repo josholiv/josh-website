@@ -8,6 +8,7 @@ import ErrorRenderer from "../Error.astro";
 import Callout from '../components/Callout.astro';
 import TOC from '../components/TOC.astro';
 import { Bike, BookOpen, ChessKnight, AudioLines } from "lucide-preact";
+import { env } from "cloudflare:workers";
 
 const pageTitle = "Josh Olivier - About";
 
@@ -15,7 +16,7 @@ const pageTitle = "Josh Olivier - About";
 let data, error;
 
 try {
-  const strava = new Strava(Astro.locals.runtime?.env ?? {});
+  const strava = new Strava(env);
   data = await strava.fetch(); 
 } catch (e) {
   error = e instanceof Error ? e.message : String(e);

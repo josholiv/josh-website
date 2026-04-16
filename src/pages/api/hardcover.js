@@ -1,10 +1,11 @@
 import Hardcover from '../../components/Hardcover.js';
+import { env } from "cloudflare:workers";
 
 export const prerender = false;
 
 const CACHE_TTL_SECONDS = 24 * 60 * 60;
 
-export async function GET({ request, locals }) {
+export async function GET({ request }) {
   const cache = caches.default;
 
   try {
@@ -17,7 +18,7 @@ export async function GET({ request, locals }) {
   }
 
   try {
-    const hc = new Hardcover(locals.runtime?.env ?? {});
+    const hc = new Hardcover(env);
     const result = await hc.fetch();
 
     const response = new Response(JSON.stringify(result), {

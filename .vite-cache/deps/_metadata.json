@@ -1,106 +1,109 @@
 {
-  "hash": "cacac3c5",
-  "configHash": "50612f18",
+  "hash": "5199a934",
+  "configHash": "2844288d",
   "lockfileHash": "bb1154c9",
-  "browserHash": "6bd57f44",
+  "browserHash": "5bd33148",
   "optimized": {
     "three": {
       "src": "../../node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "4b058f1d",
+      "fileHash": "6e68cf26",
       "needsInterop": false
     },
     "three/examples/jsm/loaders/STLLoader": {
       "src": "../../node_modules/three/examples/jsm/loaders/STLLoader.js",
       "file": "three_examples_jsm_loaders_STLLoader.js",
-      "fileHash": "4696e09c",
+      "fileHash": "1fe3868d",
       "needsInterop": false
     },
     "lucide-preact": {
       "src": "../../node_modules/lucide-preact/dist/esm/lucide-preact.js",
       "file": "lucide-preact.js",
-      "fileHash": "b0085d6d",
+      "fileHash": "e1840a6c",
       "needsInterop": false
     },
     "preact": {
       "src": "../../node_modules/preact/dist/preact.module.js",
       "file": "preact.js",
-      "fileHash": "4257d148",
+      "fileHash": "7cf7c96f",
       "needsInterop": false
     },
     "preact/hooks": {
       "src": "../../node_modules/preact/hooks/dist/hooks.module.js",
       "file": "preact_hooks.js",
-      "fileHash": "411ea5cd",
+      "fileHash": "94841fb3",
       "needsInterop": false
     },
     "@astrojs/preact/server.js": {
       "src": "../../node_modules/@astrojs/preact/dist/server.js",
       "file": "@astrojs_preact_server__js.js",
-      "fileHash": "3cc4b262",
+      "fileHash": "a58e5dd6",
       "needsInterop": false
     },
     "preact/jsx-runtime": {
       "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
       "file": "preact_jsx-runtime.js",
-      "fileHash": "695552e6",
+      "fileHash": "919db379",
       "needsInterop": false
     },
     "preact/jsx-dev-runtime": {
       "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
       "file": "preact_jsx-dev-runtime.js",
-      "fileHash": "908b21ad",
+      "fileHash": "9db8078e",
       "needsInterop": false
     },
     "preact/debug": {
       "src": "../../node_modules/preact/debug/dist/debug.module.js",
       "file": "preact_debug.js",
-      "fileHash": "24c05fa4",
+      "fileHash": "853b4112",
       "needsInterop": false
     },
     "preact/devtools": {
       "src": "../../node_modules/preact/devtools/dist/devtools.module.js",
       "file": "preact_devtools.js",
-      "fileHash": "c0e8f732",
+      "fileHash": "3dbac2ad",
       "needsInterop": false
     },
     "astro > aria-query": {
       "src": "../../node_modules/aria-query/lib/index.js",
       "file": "astro___aria-query.js",
-      "fileHash": "8f98b3a0",
+      "fileHash": "ba2f13f8",
       "needsInterop": true
     },
     "astro > axobject-query": {
       "src": "../../node_modules/axobject-query/lib/index.js",
       "file": "astro___axobject-query.js",
-      "fileHash": "a5d5c6a0",
+      "fileHash": "ef639be6",
       "needsInterop": true
     },
     "astro > html-escaper": {
       "src": "../../node_modules/html-escaper/esm/index.js",
       "file": "astro___html-escaper.js",
-      "fileHash": "3d09e234",
+      "fileHash": "dc35a5bf",
       "needsInterop": false
     },
     "astro/runtime/client/dev-toolbar/entrypoint.js": {
       "src": "../../node_modules/astro/dist/runtime/client/dev-toolbar/entrypoint.js",
       "file": "astro_runtime_client_dev-toolbar_entrypoint__js.js",
-      "fileHash": "ea603309",
+      "fileHash": "be4bc6f8",
       "needsInterop": false
     },
     "@astrojs/preact/client.js": {
       "src": "../../node_modules/@astrojs/preact/dist/client.js",
       "file": "@astrojs_preact_client__js.js",
-      "fileHash": "92600213",
+      "fileHash": "72fdba06",
       "needsInterop": false
     }
   },
   "chunks": {
-    "audit-S6NJ7GGY": {
-      "file": "audit-S6NJ7GGY.js"
+    "astro-7O6VT7HE": {
+      "file": "astro-7O6VT7HE.js"
     },
-    "xray-J5JHFX4Z": {
-      "file": "xray-J5JHFX4Z.js"
+    "audit-WHIWU365": {
+      "file": "audit-WHIWU365.js"
+    },
+    "xray-GYCBE2XS": {
+      "file": "xray-GYCBE2XS.js"
     },
     "chunk-CN3GUJYK": {
       "file": "chunk-CN3GUJYK.js"
@@ -108,44 +111,41 @@
     "settings-6IKC4ZQF": {
       "file": "settings-6IKC4ZQF.js"
     },
-    "toolbar-FNGMR3TU": {
-      "file": "toolbar-FNGMR3TU.js"
+    "chunk-VWQQRESG": {
+      "file": "chunk-VWQQRESG.js"
+    },
+    "toolbar-ERBRFVMH": {
+      "file": "toolbar-ERBRFVMH.js"
     },
     "ui-library-USINB66E": {
       "file": "ui-library-USINB66E.js"
     },
-    "signals.module-2VT4M3ZS": {
-      "file": "signals__module-2VT4M3ZS.js"
-    },
-    "chunk-4Y3AIMI7": {
-      "file": "chunk-4Y3AIMI7.js"
+    "chunk-455OVRXP": {
+      "file": "chunk-455OVRXP.js"
     },
     "chunk-TYZJYNUF": {
       "file": "chunk-TYZJYNUF.js"
     },
+    "chunk-NMRFGD2L": {
+      "file": "chunk-NMRFGD2L.js"
+    },
     "chunk-56RH3MDJ": {
       "file": "chunk-56RH3MDJ.js"
     },
-    "chunk-54ZLWM2P": {
-      "file": "chunk-54ZLWM2P.js"
-    },
-    "astro-7O6VT7HE": {
-      "file": "astro-7O6VT7HE.js"
-    },
-    "chunk-VWQQRESG": {
-      "file": "chunk-VWQQRESG.js"
-    },
-    "chunk-455OVRXP": {
-      "file": "chunk-455OVRXP.js"
+    "chunk-4Y3AIMI7": {
+      "file": "chunk-4Y3AIMI7.js"
     },
     "chunk-67B4T67F": {
       "file": "chunk-67B4T67F.js"
     },
-    "chunk-QA35XZSB": {
-      "file": "chunk-QA35XZSB.js"
+    "signals.module-2VT4M3ZS": {
+      "file": "signals__module-2VT4M3ZS.js"
     },
     "chunk-DLS465IX": {
       "file": "chunk-DLS465IX.js"
+    },
+    "chunk-QA35XZSB": {
+      "file": "chunk-QA35XZSB.js"
     },
     "chunk-V4UUEOLZ": {
       "file": "chunk-V4UUEOLZ.js"
@@ -153,11 +153,11 @@
     "chunk-3Q75X6VN": {
       "file": "chunk-3Q75X6VN.js"
     },
+    "chunk-54ZLWM2P": {
+      "file": "chunk-54ZLWM2P.js"
+    },
     "chunk-EJ5P4D46": {
       "file": "chunk-EJ5P4D46.js"
-    },
-    "chunk-NMRFGD2L": {
-      "file": "chunk-NMRFGD2L.js"
     },
     "chunk-G3PMV62Z": {
       "file": "chunk-G3PMV62Z.js"
