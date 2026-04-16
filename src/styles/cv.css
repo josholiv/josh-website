@@ -21,11 +21,6 @@ html {
 
 .h3-cv {
   margin-top: 1em;
-  margin-bottom: 0;
-}
-
-.cv-container .print-header hr {
-  margin-top: 0;
 }
  
 body {
@@ -239,6 +234,14 @@ body {
 
   .h2-cv, .subtitle-cv {
     text-align: center;
+  }
+
+  .h3-cv {
+    margin-bottom: 0 !important;
+  }
+
+  .print-header hr {
+    margin-top: 0 !important;
   }
 
    /* Keep section content together */
