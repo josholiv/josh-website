@@ -1,106 +1,115 @@
 {
-  "hash": "5199a934",
-  "configHash": "2844288d",
+  "hash": "3e873dfc",
+  "configHash": "732e02b8",
   "lockfileHash": "bb1154c9",
-  "browserHash": "5bd33148",
+  "browserHash": "2dc869c8",
   "optimized": {
     "three": {
       "src": "../../node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "6e68cf26",
+      "fileHash": "3ee70f8c",
       "needsInterop": false
     },
     "three/examples/jsm/loaders/STLLoader": {
       "src": "../../node_modules/three/examples/jsm/loaders/STLLoader.js",
       "file": "three_examples_jsm_loaders_STLLoader.js",
-      "fileHash": "1fe3868d",
-      "needsInterop": false
-    },
-    "lucide-preact": {
-      "src": "../../node_modules/lucide-preact/dist/esm/lucide-preact.js",
-      "file": "lucide-preact.js",
-      "fileHash": "e1840a6c",
+      "fileHash": "4dd8a675",
       "needsInterop": false
     },
     "preact": {
       "src": "../../node_modules/preact/dist/preact.module.js",
       "file": "preact.js",
-      "fileHash": "7cf7c96f",
+      "fileHash": "10b78262",
       "needsInterop": false
     },
     "preact/hooks": {
       "src": "../../node_modules/preact/hooks/dist/hooks.module.js",
       "file": "preact_hooks.js",
-      "fileHash": "94841fb3",
-      "needsInterop": false
-    },
-    "@astrojs/preact/server.js": {
-      "src": "../../node_modules/@astrojs/preact/dist/server.js",
-      "file": "@astrojs_preact_server__js.js",
-      "fileHash": "a58e5dd6",
-      "needsInterop": false
-    },
-    "preact/jsx-runtime": {
-      "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
-      "file": "preact_jsx-runtime.js",
-      "fileHash": "919db379",
-      "needsInterop": false
-    },
-    "preact/jsx-dev-runtime": {
-      "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
-      "file": "preact_jsx-dev-runtime.js",
-      "fileHash": "9db8078e",
-      "needsInterop": false
-    },
-    "preact/debug": {
-      "src": "../../node_modules/preact/debug/dist/debug.module.js",
-      "file": "preact_debug.js",
-      "fileHash": "853b4112",
+      "fileHash": "37ab8b3f",
       "needsInterop": false
     },
     "preact/devtools": {
       "src": "../../node_modules/preact/devtools/dist/devtools.module.js",
       "file": "preact_devtools.js",
-      "fileHash": "3dbac2ad",
+      "fileHash": "cb0f3f4b",
+      "needsInterop": false
+    },
+    "@astrojs/preact/server.js": {
+      "src": "../../node_modules/@astrojs/preact/dist/server.js",
+      "file": "@astrojs_preact_server__js.js",
+      "fileHash": "32b01658",
+      "needsInterop": false
+    },
+    "@astrojs/preact/client-dev.js": {
+      "src": "../../node_modules/@astrojs/preact/dist/client-dev.js",
+      "file": "@astrojs_preact_client-dev__js.js",
+      "fileHash": "30e2cd0b",
+      "needsInterop": false
+    },
+    "preact/jsx-runtime": {
+      "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
+      "file": "preact_jsx-runtime.js",
+      "fileHash": "cadb3a96",
+      "needsInterop": false
+    },
+    "preact/jsx-dev-runtime": {
+      "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
+      "file": "preact_jsx-dev-runtime.js",
+      "fileHash": "dbbd5d01",
+      "needsInterop": false
+    },
+    "preact/debug": {
+      "src": "../../node_modules/preact/debug/dist/debug.module.js",
+      "file": "preact_debug.js",
+      "fileHash": "b53b1f2a",
       "needsInterop": false
     },
     "astro > aria-query": {
       "src": "../../node_modules/aria-query/lib/index.js",
       "file": "astro___aria-query.js",
-      "fileHash": "ba2f13f8",
+      "fileHash": "732db1f4",
       "needsInterop": true
     },
     "astro > axobject-query": {
       "src": "../../node_modules/axobject-query/lib/index.js",
       "file": "astro___axobject-query.js",
-      "fileHash": "ef639be6",
+      "fileHash": "19d8f871",
       "needsInterop": true
     },
     "astro > html-escaper": {
       "src": "../../node_modules/html-escaper/esm/index.js",
       "file": "astro___html-escaper.js",
-      "fileHash": "dc35a5bf",
+      "fileHash": "5780d3bb",
       "needsInterop": false
     },
     "astro/runtime/client/dev-toolbar/entrypoint.js": {
       "src": "../../node_modules/astro/dist/runtime/client/dev-toolbar/entrypoint.js",
       "file": "astro_runtime_client_dev-toolbar_entrypoint__js.js",
-      "fileHash": "be4bc6f8",
+      "fileHash": "b7da0c23",
       "needsInterop": false
     },
     "@astrojs/preact/client.js": {
       "src": "../../node_modules/@astrojs/preact/dist/client.js",
       "file": "@astrojs_preact_client__js.js",
-      "fileHash": "72fdba06",
+      "fileHash": "dd405b0d",
+      "needsInterop": false
+    },
+    "lucide-preact": {
+      "src": "../../node_modules/lucide-preact/dist/esm/lucide-preact.js",
+      "file": "lucide-preact.js",
+      "fileHash": "4f06f53c",
       "needsInterop": false
     }
   },
   "chunks": {
+    "signals.module-2VT4M3ZS": {
+      "file": "signals__module-2VT4M3ZS.js"
+    },
     "astro-7O6VT7HE": {
       "file": "astro-7O6VT7HE.js"
     },
-    "audit-WHIWU365": {
-      "file": "audit-WHIWU365.js"
+    "audit-S6ZTMK5J": {
+      "file": "audit-S6ZTMK5J.js"
     },
     "xray-GYCBE2XS": {
       "file": "xray-GYCBE2XS.js"
@@ -126,11 +135,11 @@
     "chunk-TYZJYNUF": {
       "file": "chunk-TYZJYNUF.js"
     },
-    "chunk-NMRFGD2L": {
-      "file": "chunk-NMRFGD2L.js"
-    },
     "chunk-56RH3MDJ": {
       "file": "chunk-56RH3MDJ.js"
+    },
+    "chunk-NMRFGD2L": {
+      "file": "chunk-NMRFGD2L.js"
     },
     "chunk-4Y3AIMI7": {
       "file": "chunk-4Y3AIMI7.js"
@@ -138,23 +147,26 @@
     "chunk-67B4T67F": {
       "file": "chunk-67B4T67F.js"
     },
-    "signals.module-2VT4M3ZS": {
-      "file": "signals__module-2VT4M3ZS.js"
-    },
     "chunk-DLS465IX": {
       "file": "chunk-DLS465IX.js"
     },
     "chunk-QA35XZSB": {
       "file": "chunk-QA35XZSB.js"
     },
+    "chunk-B5NHREWE": {
+      "file": "chunk-B5NHREWE.js"
+    },
+    "chunk-ZEIKIQYP": {
+      "file": "chunk-ZEIKIQYP.js"
+    },
+    "chunk-54ZLWM2P": {
+      "file": "chunk-54ZLWM2P.js"
+    },
     "chunk-V4UUEOLZ": {
       "file": "chunk-V4UUEOLZ.js"
     },
     "chunk-3Q75X6VN": {
       "file": "chunk-3Q75X6VN.js"
-    },
-    "chunk-54ZLWM2P": {
-      "file": "chunk-54ZLWM2P.js"
     },
     "chunk-EJ5P4D46": {
       "file": "chunk-EJ5P4D46.js"
