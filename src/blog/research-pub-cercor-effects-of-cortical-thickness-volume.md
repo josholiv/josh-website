@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-paper-cercor2025/cercor35.jpg'
     alt: 'paper icon'
-tags: ["papers", "neuroscience"]
+tags: ["science"]
 readTime: '1'
 ---
 <h2>New paper in <i>Cerebral Cortex</i></h2>

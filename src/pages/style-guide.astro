@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Callout from '../components/Callout.astro';
 import Dropdown from '../components/Dropdown.astro';
 import TOC from '../components/TOC.astro';
-import { Bike } from "lucide-preact";
+import { Bike, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe } from "lucide-preact";
 
 const isDev = import.meta.env.DEV;
 if (!isDev) return Astro.redirect('/404');
@@ -55,24 +55,24 @@ if (!isDev) return Astro.redirect('/404');
   <h2>Tags</h2>
   <p>Clickable tags (used in tag sidebar):</p>
   <div class="tags">
-    <span class="tag">#astro</span>
-    <span class="tag">#css</span>
-    <span class="tag active">#active-tag</span>
-    <span class="tag">#webdev</span>
+    <span class="tag tag-theme-3dprinting"><CogIcon size="0.9rem" class="tag-icon" /> <span>3Dprinting</span></span>
+    <span class="tag tag-theme-science"><Dna size="0.9rem" class="tag-icon" /> <span>science</span></span>
+    <span class="tag tag-theme-blog active"><Rss size="0.9rem" class="tag-icon" /> <span>blog</span></span>
+    <span class="tag tag-theme-code"><CodeIcon size="0.9rem" class="tag-icon" /> <span>code</span></span>
   </div>
 
   <p>Display-only tags (used on blog post cards):</p>
   <div class="tags">
-    <span class="tag-blogsorter">#astro</span>
-    <span class="tag-blogsorter">#css</span>
-    <span class="tag-blogsorter">#webdev</span>
+    <span class="tag-blogsorter tag-theme-travel"><MapIcon size="0.9rem" class="tag-icon" /> <span>travel</span></span>
+    <span class="tag-blogsorter tag-theme-triathlon"><SportShoe size="0.9rem" class="tag-icon" /> <span>triathlon</span></span>
+    <span class="tag-blogsorter tag-theme-code"><CodeIcon size="0.9rem" class="tag-icon" /> <span>code</span></span>
   </div>
 
   <p>Tags with counts (used in tag sidebar):</p>
   <div class="tags">
-    <span class="tag">#astro <span class="tag-count">(4)</span></span>
-    <span class="tag">#css <span class="tag-count">(12)</span></span>
-    <span class="tag">#design <span class="tag-count">(3)</span></span>
+    <span class="tag tag-theme-3dprinting"><CogIcon size="0.9rem" class="tag-icon" /> <span>3Dprinting</span> <span class="tag-count">(4)</span></span>
+    <span class="tag tag-theme-science"><Dna size="0.9rem" class="tag-icon" /> <span>science</span> <span class="tag-count">(12)</span></span>
+    <span class="tag tag-theme-travel"><MapIcon size="0.9rem" class="tag-icon" /> <span>travel</span> <span class="tag-count">(3)</span></span>
   </div>
 
   <hr />
@@ -95,6 +95,10 @@ if (!isDev) return Astro.redirect('/404');
 
   <Callout type="note">
     This is a <strong>note</strong> callout. Use it for supplementary information or asides.
+  </Callout>
+
+  <Callout type="example">
+    This is an <strong>example</strong> callout. Useful for illustrating concepts with sample content.
   </Callout>
 
   <Callout type="info">
@@ -141,6 +145,18 @@ if (!isDev) return Astro.redirect('/404');
     This is an <strong>attention</strong> callout. An alias for warning.
   </Callout>
 
+  <Callout type="faq">
+    This is a <strong>faq</strong> callout. Good for anticipated questions.
+  </Callout>
+
+  <Callout type="question">
+    This is a <strong>question</strong> callout. An alias for faq.
+  </Callout>
+
+  <Callout type="help">
+    This is a <strong>help</strong> callout. An alias for faq.
+  </Callout>
+
   <Callout type="danger">
     This is a <strong>danger</strong> callout. Reserved for serious errors or destructive actions.
   </Callout>
@@ -173,6 +189,10 @@ if (!isDev) return Astro.redirect('/404');
     This is a <strong>cite</strong> callout. An alias for quote.
   </Callout>
 
+  <Callout type="code">
+    This is a <strong>code</strong> callout. It uses the neutral gray treatment like quote, but with a code icon.
+  </Callout>
+
   <Callout type="abstract">
     This is an <strong>abstract</strong> callout. Good for summaries at the top of long notes.
   </Callout>
@@ -183,22 +203,6 @@ if (!isDev) return Astro.redirect('/404');
 
   <Callout type="tldr">
     This is a <strong>tldr</strong> callout. An alias for abstract.
-  </Callout>
-
-  <Callout type="example">
-    This is an <strong>example</strong> callout. Useful for illustrating concepts with sample content.
-  </Callout>
-
-  <Callout type="faq">
-    This is a <strong>faq</strong> callout. Good for anticipated questions.
-  </Callout>
-
-  <Callout type="question">
-    This is a <strong>question</strong> callout. An alias for faq.
-  </Callout>
-
-  <Callout type="help">
-    This is a <strong>help</strong> callout. An alias for faq.
   </Callout>
 
   <hr />
@@ -272,6 +276,7 @@ if (!isDev) return Astro.redirect('/404');
     { name: 'red',     shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'pink',    shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'purple',  shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'cyan',    shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'neutral', shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
   ].map(({ name, shades }) => (
     <div style="margin-bottom: 0.75rem;">
@@ -297,6 +302,7 @@ if (!isDev) return Astro.redirect('/404');
       'text-normal', 'text-muted', 'text-faint', 'text-heading', 'text-on-accent',
       'accent', 'accent-hover', 'link-color', 'link-color-hover',
       'code-bg', 'code-text', 'code-border',
+      'btn-text', 'btn-text-hover',
     ].map(token => (
       <div style="display: flex; align-items: center; gap: 0.5rem;">
         <div style={`background-color: var(--${token}); width: 1.5rem; height: 1.5rem; border-radius: 2px; border: 1px solid var(--bg-border); flex-shrink: 0;`} />

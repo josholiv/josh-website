@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import { ChevronRight } from "lucide-preact";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogSorter from "../components/BlogSorter.jsx"; 
@@ -18,8 +17,7 @@ const allPosts = await getCollection("blog");
 
 <Callout type="tip">
   <span slot="title">
-    Select <code class="btn-code">Tags</code> to filter 
-    and <code class="btn-code">Newest</code> to sort posts.
+    Select <code># Tags</code> to filter posts by topic
   </span>
 </Callout>
 

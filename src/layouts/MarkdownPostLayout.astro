@@ -1,5 +1,5 @@
 ---
-import { User, Calendar, Timer } from "lucide-preact";
+import { User, Calendar, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe } from "lucide-preact";
 import { getCollection } from "astro:content";
 import BaseLayout from './BaseLayout.astro';
 import TOC from '../components/TOC.astro';
@@ -13,6 +13,8 @@ const pageUrl = Astro.url.href;
 const pageTitle = frontmatter.title;
 
 const allPosts = await getCollection("blog");
+
+const dateValue = (date: string | Date) => new Date(date).getTime();
 
 const relatedPosts = allPosts
   .filter(post =>
@@ -28,11 +30,21 @@ const relatedPosts = allPosts
 
 const recentPosts = allPosts
   .filter(post => post.data.title !== frontmatter.title)
-  .sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate))
+  .sort((a, b) => dateValue(b.data.pubDate) - dateValue(a.data.pubDate))
   .slice(0, 3);
 
 const postsToShow = relatedPosts.length > 0 ? relatedPosts : recentPosts;
 const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
+const getTagThemeClass = (tag: string) => `tag-theme-${tag.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const tagIcons = {
+  '3dprinting': CogIcon,
+  science: Dna,
+  blog: Rss,
+  code: CodeIcon,
+  travel: MapIcon,
+  triathlon: SportShoe,
+};
+const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof tagIcons] ?? null;
 ---
 <BaseLayout pageTitle={frontmatter.title}>
 
@@ -57,16 +69,20 @@ const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
 
     <div class="post-read-time" style="display: inline-flex; align-items: center; gap: 0.3rem;">
       <Timer size="1rem" />
-      <i>{frontmatter.readTime} minute read
+      <i>{frontmatter.readTime} minute read</i>
     </div>
   </div>
 
   <div style="margin-bottom: 2rem" class="tags">
-    {frontmatter.tags.map((tag: string) => (
-      <a href={`/blog?tag=${tag}`} class="tag" role="button">
-      #{tag}
-     </a>
-    ))}
+    {frontmatter.tags.map((tag: string) => {
+      const TagIcon = getTagIcon(tag);
+      return (
+        <a href={`/blog?tag=${tag}`} class={`tag ${getTagThemeClass(tag)}`} role="button">
+          {TagIcon ? <TagIcon size="0.9rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+          <span>{tag}</span>
+        </a>
+      );
+    })}
   </div>
 
   <!-- ─── Share ─── -->
@@ -143,9 +159,15 @@ const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
                   </span>
                 </div>
                 <div class="tags" style="margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                  {post.data.tags?.map(tag => (
-                    <span class="tag-blogsorter">#{tag}</span>
-                  ))}
+                  {post.data.tags?.map(tag => {
+                    const TagIcon = getTagIcon(tag);
+                    return (
+                      <span class={`tag-blogsorter ${getTagThemeClass(tag)}`}>
+                        {TagIcon ? <TagIcon size="0.9rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+                        <span>{tag}</span>
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             </a>
@@ -295,6 +317,7 @@ const sectionTitle = relatedPosts.length > 0 ? 'Related Posts' : 'Recent Posts';
   const checkIcon = `<polyline points="20 6 9 17 4 12"/>`;
 
   btn?.addEventListener('click', async () => {
+    if (!icon || !toast) return;
     await navigator.clipboard.writeText(window.location.href);
     icon.innerHTML = checkIcon;
     btn.classList.add('copied');

@@ -1,7 +1,28 @@
 import { useState, useEffect } from 'preact/hooks';
-import { Calendar, Timer, ChevronRight, X, XCircle } from "lucide-preact";
+import { Calendar, Timer, X, XCircle, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
 import noTagResults from '../assets/no-tag-results.png';
-import Dropdown from './Dropdown.jsx';
+
+const tagIcons = {
+  '3dprinting': Cog,
+  science: Dna,
+  blog: Rss,
+  code: CodeIcon,
+  travel: MapIcon,
+  triathlon: SportShoe,
+};
+
+const getTagThemeClass = (tag = '') => `tag-theme-${tag.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const getTagIcon = (tag = '') => tagIcons[tag.toLowerCase()] ?? null;
+
+const renderTagLabel = (tag) => {
+  const TagIcon = getTagIcon(tag);
+  return (
+    <>
+      {TagIcon ? <TagIcon size="0.9rem" className="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+      <span>{tag}</span>
+    </>
+  );
+};
 
 const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = noTagResults.src }) => {
   const [sortOrder, setSortOrder] = useState('newest');
@@ -10,7 +31,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
   });
 
   const [selectedTags, setSelectedTags] = useState([]);
-  const [showTagsSidebar, setShowTagsSidebar] = useState(false);
+  const [shuffleKey, setShuffleKey] = useState(0);
 
   // Check for tag from URL
   useEffect(() => {
@@ -19,11 +40,6 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
     if (tagFromUrl) setSelectedTags([tagFromUrl]);
     else setSelectedTags([]);
   }, []);
-
-  // ensure tags are visible whenever tags are selected, even if the user didn't explicitly click the "Show Tags" button
-  useEffect(() => {
-    if (selectedTags.length > 0) setShowTagsSidebar(true);
-  }, [selectedTags]);
 
   // Filter and sort posts whenever sort order, selected tags, or posts change
   useEffect(() => {
@@ -36,13 +52,33 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
     }
 
     const sorted = [...filteredPosts].sort((a, b) => {
-      const dateA = new Date(a.data.pubDate);
-      const dateB = new Date(b.data.pubDate);
-      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+      switch (sortOrder) {
+        case 'oldest':
+          return new Date(a.data.pubDate) - new Date(b.data.pubDate);
+        case 'shortest':
+          return (a.data.readTime ?? 0) - (b.data.readTime ?? 0);
+        case 'longest':
+          return (b.data.readTime ?? 0) - (a.data.readTime ?? 0);
+        case 'a → z':
+          return a.data.title.localeCompare(b.data.title);
+        case 'z → a':
+          return b.data.title.localeCompare(a.data.title);
+        case 'random':
+          return 0; // shuffle handled below
+        default: // newest
+          return new Date(b.data.pubDate) - new Date(a.data.pubDate);
+      }
     });
 
+    if (sortOrder === 'random') {
+      for (let i = sorted.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [sorted[i], sorted[j]] = [sorted[j], sorted[i]];
+      }
+    }
+
     setSortedPosts(sorted);
-  }, [sortOrder, selectedTags, posts]);
+  }, [sortOrder, selectedTags, posts, shuffleKey]);
 
   // Tags and counts
   const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
@@ -64,84 +100,106 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
     <div className="blog-layout">
       <div className="blog-content">
 
-        {/* Sort & Tag Toggle */}
-        {(showSort || showTags) && (
-          <div style={{ marginBottom: '0.75rem', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-            {showTags && (
-              <button
-                onClick={() => setShowTagsSidebar(prev => !prev)}
-                className="btn icon-container-inline"
-              >
-                Tags
-                <ChevronRight
-                  size="1rem"
-                  style={{
-                    transform: showTagsSidebar ? 'rotate(90deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.2s ease',
-                  }}
-                />
-              </button>
-            )}
-
-            {showSort && (
-              <div style={{ marginLeft: 'auto' }}>
-                <Dropdown
-                  options={['Newest', 'Oldest']}
-                  defaultOption="Newest"
-                  onSelect={(option) => setSortOrder(option.toLowerCase())}
-                />
-              </div>
-            )}
-          </div>
-        )}
-
+        {/* Tags */}
         {showTags && (
-          <aside className={`tags-sidebar ${showTagsSidebar ? 'show' : ''}`}>
+          <div className="tags-bar">
             {sortedTags.map((tag) => (
               <span
                 key={tag}
-                className={`tag ${selectedTags.includes(tag) ? 'active' : ''}`}
+                className={`tag ${getTagThemeClass(tag)} ${selectedTags.includes(tag) ? 'active' : ''}`}
                 onClick={() => handleTagClick(tag)}
               >
-                #{tag}
+                {renderTagLabel(tag)}
                 <span className="tag-count">
                   ({posts.filter(post => post.data.tags?.includes(tag)).length})
                 </span>
               </span>
             ))}
-          </aside>
+            {selectedTags.length > 0 && (
+              <button
+                onClick={() => setSelectedTags([])}
+                className="btn icon-container-inline"
+                aria-label="Clear tags"
+              >
+                <X size="1rem" /> Clear
+              </button>
+            )}
+          </div>
         )}
 
-        {/* Clear tags button */}
-        {selectedTags.length > 0 && (
-          <p>
+        {showSort && (
+          <div className="sort-bar">
             <button
-              onClick={() => setSelectedTags([])}
-              className="btn icon-container-inline"
-              aria-label="Clear tags"
+              className={`btn sort-icon-btn ${sortOrder === 'newest' ? 'active' : ''}`}
+              onClick={() => setSortOrder('newest')}
+              aria-label="Sort newest first"
+              title="Newest first"
             >
-              <X size="1rem" /> Clear Tags
+              <CalendarArrowDown size="1rem" />
             </button>
-          </p>
+            <button
+              className={`btn sort-icon-btn ${sortOrder === 'oldest' ? 'active' : ''}`}
+              onClick={() => setSortOrder('oldest')}
+              aria-label="Sort oldest first"
+              title="Oldest first"
+            >
+              <CalendarArrowUp size="1rem" />
+            </button>
+            <button
+              className={`btn sort-icon-btn ${sortOrder === 'shortest' ? 'active' : ''}`}
+              onClick={() => setSortOrder('shortest')}
+              aria-label="Sort by shortest read time"
+              title="Shortest read time"
+            >
+              <ClockArrowDown size="1rem" />
+            </button>
+            <button
+              className={`btn sort-icon-btn ${sortOrder === 'longest' ? 'active' : ''}`}
+              onClick={() => setSortOrder('longest')}
+              aria-label="Sort by longest read time"
+              title="Longest read time"
+            >
+              <ClockArrowUp size="1rem" />
+            </button>
+            <button
+              className={`btn sort-icon-btn ${sortOrder === 'a → z' ? 'active' : ''}`}
+              onClick={() => setSortOrder('a → z')}
+              aria-label="Sort A to Z"
+              title="A → Z"
+            >
+              <ArrowDownAZ size="1rem" />
+            </button>
+            <button
+              className={`btn sort-icon-btn ${sortOrder === 'z → a' ? 'active' : ''}`}
+              onClick={() => setSortOrder('z → a')}
+              aria-label="Sort Z to A"
+              title="Z → A"
+            >
+              <ArrowUpAZ size="1rem" />
+            </button>
+            <button
+              className={`btn sort-icon-btn ${sortOrder === 'random' ? 'active' : ''}`}
+              onClick={() => { setSortOrder('random'); setShuffleKey(k => k + 1); }}
+              aria-label="Randomize order"
+              title="Shuffle"
+            >
+              <Shuffle size="1rem" />
+            </button>
+          </div>
         )}
 
         {/* No posts message */}
         {sortedPosts.length === 0 && selectedTags.length > 0 && (
           <div class="blockquote callout-danger" style={{ marginTop: '2rem' }}>
-            <div class="callout-title" style={{marginBottom: '0.5rem'}}>
+            <div class="callout-title">
               <XCircle size="1rem" />
-              <span>Missing</span>
-            </div>
-            <div class="callout-body">
-              <div class="callout-body-inner">
-                There are no posts with that combination of tags. Try clearing or changing your selection!
-              </div>
+              <span>No posts with that combination of <code># Tags</code></span>
             </div>
           </div>
         )}
 
         {/* Posts List */}
-        <div style={{ marginTop: showSort || showTags ? '2rem' : '0' }}>
+        <div>
           <ul className="blog-list">
             {sortedPosts.map((post) => (
               <li key={post.id} className="blog-post">
@@ -185,8 +243,8 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
                       style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.6rem', alignItems: 'flex-start' }}
                     >
                       {post.data.tags?.map((tag) => (
-                        <span key={tag} className="tag-blogsorter">
-                          #{tag}
+                        <span key={tag} className={`tag-blogsorter ${getTagThemeClass(tag)}`}>
+                          {renderTagLabel(tag)}
                         </span>
                       ))}
                     </div>

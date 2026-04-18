@@ -70,6 +70,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
   return [degree, dateText].filter(Boolean).join(' • ');
 }
 ---
+
 <script>
   const printButton = document.getElementById('print-button');
   printButton?.addEventListener('click', function() {
@@ -84,11 +85,11 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
 <hr class="rainbow-hr">
 
-<Callout type="tip" title="Download PDF">
-  Click <code class="btn-code">Print</code> and select <code>Save as PDF</code> in your browser’s print dialog.
+<Callout type="tip" >
+  <span slot="title">
+    To download PDF, click <code class="btn-code">Print</code>, then <code>Print as PDF</code> using your browser’s print dialog.
+  </span>
 </Callout>
-
-
 
  <div class="cv-container">
   <button id="print-button" class="btn">Print</button>

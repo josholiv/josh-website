@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-1/black-sand-beach.jpg'
     alt: 'Me at Punaluʻu Black Sand Beach, Hawaii'
-tags: ["blog"]
+tags: ["blog", "hello"]
 readTime: '3'
 ---
 ## Hello, my name is Josh! But I'd be surprised

@@ -6,7 +6,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-3/yoyo-stand-1.jpg'
     alt: '3D printed yoyo display stand holding three yoyos'
-tags: ["3Dprinting", "yoyos"]
+tags: ["3Dprinting"]
 readTime: '3'
 ---
 ## An age-old problem

@@ -1,7 +1,7 @@
 ---
 import {
   Info, CheckCircle, AlertTriangle, XCircle, Lightbulb, NotebookPen,
-  ClipboardList, Flame, Bug, Quote, BookOpen, FlaskConical, HelpCircle,
+  ClipboardList, Flame, Bug, Quote, Code, FlaskConical, HelpCircle,
   ChevronRight
 } from "lucide-preact";
 
@@ -23,10 +23,11 @@ const variants = {
   fail:      { icon: XCircle,       label: "Fail",     class: "callout-danger" },
   missing:   { icon: XCircle,       label: "Missing",  class: "callout-danger" },
   todo:      { icon: ClipboardList, label: "Todo",     class: "callout-todo" },
+  code:      { icon: Code,          label: "Code",     class: "callout-code" },
   example:   { icon: FlaskConical,  label: "Example",  class: "callout-example" },
-  abstract:  { icon: BookOpen,      label: "Abstract", class: "callout-abstract" },
-  summary:   { icon: BookOpen,      label: "Summary",  class: "callout-abstract" },
-  tldr:      { icon: BookOpen,      label: "TL;DR",    class: "callout-abstract" },
+  abstract:  { icon: ClipboardList, label: "Abstract", class: "callout-abstract" },
+  summary:   { icon: ClipboardList, label: "Summary",  class: "callout-abstract" },
+  tldr:      { icon: ClipboardList, label: "TL;DR",    class: "callout-abstract" },
   quote:     { icon: Quote,         label: "Quote",    class: "callout-quote" },
   cite:      { icon: Quote,         label: "Cite",     class: "callout-quote" },
   bug:       { icon: Bug,           label: "Bug",      class: "callout-bug" },
@@ -86,9 +87,19 @@ const hasContent = Astro.slots.has('default');
     margin-bottom: 0;
   }
 
+  .callout-title :global(svg) {
+    flex: 0 0 auto;
+  }
+
+  .callout-title > span:not(.callout-chevron) {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
   .callout-chevron {
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
     transition: transform 0.2s ease;
     transform: rotate(90deg);
   }
@@ -116,8 +127,8 @@ const hasContent = Astro.slots.has('default');
 
 <script>
   document.querySelectorAll('[data-collapsible="true"]').forEach(callout => {
-    const titleEl = callout.querySelector('.callout-title-clickable');
-    const body = callout.querySelector('.callout-body');
+    const titleEl = callout.querySelector('.callout-title-clickable') as HTMLElement | null;
+    const body = callout.querySelector('.callout-body') as HTMLElement | null;
     if (!titleEl || !body) return;
 
     const setClosed = () => {

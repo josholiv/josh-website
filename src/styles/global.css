@@ -1,7 +1,8 @@
 /* accessible color palette with consistent luminance generated with:
-https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblue%233399ff%2Cneutral%23000000%2Cpurple%239933ff%2Cred%23ff0000%2Cpink%23ff3399&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true */
+https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblue%233399ff%2Cneutral%23000000%2Cpurple%239933ff%2Cred%23ff0000%2Cpink%23ff3399%2Ccyan%233bdbed&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true
+*/
 
-   :root {
+:root {
 --green-050: #e6f9e6;
 --green-100: #c9f2c9;
 --green-200: #a9eaa9;
@@ -79,6 +80,17 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --pink-800: #4a0f2d;
 --pink-900: #320a1e;
 --pink-950: #200613;
+--cyan-050: #ddf9fc;
+--cyan-100: #b6f2f8;
+--cyan-200: #87e9f4;
+--cyan-300: #4cdeef;
+--cyan-400: #2fafbd;
+--cyan-500: #258b96;
+--cyan-600: #1d6b74;
+--cyan-700: #154c53;
+--cyan-800: #0c2b2e;
+--cyan-900: #081c1f;
+--cyan-950: #051213;
 
 /* ─── Theme tokens (default: dark theme) ─── */
 --bg-primary:        var(--neutral-900);   /* #191919 */
@@ -151,11 +163,12 @@ html:not(.dark) {
   .callout-tip     { background-color: var(--pink-100); }
   .callout-note    { background-color: var(--purple-100); }
   .callout-todo     { background-color: var(--blue-100); }
-  .callout-abstract { background-color: var(--green-100); }
+  .callout-abstract { background-color: var(--cyan-100); }
   .callout-example  { background-color: var(--purple-100); }
   .callout-faq      { background-color: var(--orange-100); }
   .callout-bug      { background-color: var(--red-100); }
   .callout-quote    { background-color: var(--neutral-200); }
+  .callout-code     { background-color: var(--neutral-200); }
 }
 
     html {
@@ -549,11 +562,11 @@ hr {
 .callout-todo .callout-title { color: var(--blue-400); }
 
 .callout-abstract {
-  border-left-color: var(--green-400);
-  background-color: var(--green-900);
+  border-left-color: var(--cyan-400);
+  background-color: var(--cyan-900);
   color: var(--text-normal);
 }
-.callout-abstract .callout-title { color: var(--green-400); }
+.callout-abstract .callout-title { color: var(--cyan-400); }
 
 .callout-example {
   border-left-color: var(--purple-400);
@@ -583,6 +596,13 @@ hr {
 }
 .callout-quote .callout-title { color: var(--neutral-400); }
 
+.callout-code {
+  border-left-color: var(--neutral-500);
+  background-color: var(--neutral-800);
+  color: var(--text-normal);
+}
+.callout-code .callout-title { color: var(--neutral-400); }
+
 /* Callout title row */
 .callout-title {
   display: flex;
@@ -597,6 +617,7 @@ hr {
 .callout-danger  .callout-title { color: var(--red-400); }
 .callout-tip     .callout-title { color: var(--pink-400); }
 .callout-note    .callout-title { color: var(--purple-400); }
+.callout-code    .callout-title { color: var(--neutral-400); }
 
 .callout-info,
 .callout-success,
@@ -609,7 +630,8 @@ hr {
 .callout-example,
 .callout-faq,
 .callout-bug,
-.callout-quote {
+.callout-quote,
+.callout-code {
   border-left-width: 4px;
   border-radius: 10px;
   margin-left: 0;
@@ -853,13 +875,16 @@ a[target="_blank"]::after {
 .tag {
   margin: 0rem;
   font-family: "Ubuntu Mono", monospace;
-  color:  var(--link-color);
+  color:  var(--text-normal);
   border-radius: 7px;
-  padding: .3rem 0.5rem;
+  padding: .4rem 0.6rem;
   font-size: 1rem;
   background-color: var(--bg-secondary);
   position: relative;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 /* Individual tag styling on BlogSorter component (just for show, with no cursor or hover effects!) */
@@ -868,33 +893,114 @@ a[target="_blank"]::after {
   font-family: "Ubuntu Mono", monospace;
   color:  var(--text-normal);
   background-color: var(--bg-primary);
-  border-radius: 5px;
-  padding: .1rem 0.3rem;
+  border-radius: 7px;
+  padding: .4rem 0.6rem;
   font-size: 1rem;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tag-icon {
+  flex: 0 0 auto;
+}
+
+.tag[class*="tag-theme-"],
+.tag-blogsorter[class*="tag-theme-"] {
+  font-family: "Ubuntu Mono", monospace;
+
+}
+
+.tag-theme-3dprinting {
+  background-color: var(--orange-700);
+  color: var(--orange-050) !important;
+}
+
+.tag-theme-science {
+  background-color: var(--green-700);
+  color: var(--green-050) !important;
+}
+
+.tag-theme-blog {
+  background-color: var(--purple-700);
+  color: var(--purple-050) !important;
+}
+
+.tag-theme-code {
+  background-color: var(--cyan-700);
+  color: var(--cyan-050) !important;
+}
+
+.tag-theme-travel {
+  background-color: var(--blue-700);
+  color: var(--blue-050) !important;
+}
+
+.tag-theme-triathlon {
+  background-color: var(--red-700);
+  color: var(--red-050) !important;
+}
+
+.tag[class*="tag-theme-"] .tag-count {
+  color: inherit;
+  opacity: 0.8;
+}
+
+.tag[class*="tag-theme-"].active,
+.tag[class*="tag-theme-"]:hover {
+  box-shadow: 0 0 0 1px currentColor inset;
+}
+
+html:not(.dark) .tag-theme-3dprinting {
+  background-color: var(--orange-100);
+  color: var(--orange-700) !important;
+}
+
+html:not(.dark) .tag-theme-science {
+  background-color: var(--green-100);
+  color: var(--green-700) !important;
+}
+
+html:not(.dark) .tag-theme-blog {
+  background-color: var(--purple-100);
+  color: var(--purple-700) !important;
+}
+
+html:not(.dark) .tag-theme-code {
+  background-color: var(--cyan-100);
+  color: var(--cyan-700) !important;
+}
+
+html:not(.dark) .tag-theme-travel {
+  background-color: var(--blue-100);
+  color: var(--blue-700) !important;
+}
+
+html:not(.dark) .tag-theme-triathlon {
+  background-color: var(--red-100);
+  color: var(--red-700) !important;
 }
 
 a.tag, a.tag:visited {
   text-decoration: none;
-  display: inline-block;
-  color: var(--link-color) !important;
-  border-color: var(--bg-secondary) !important;
+  display: inline-flex;
+  color: inherit !important;
 }
 
 /* Count next to the tag */
 .tag-count {
-  color: var(--text-faint);
   font-family: "Ubuntu Mono", monospace;
   font-size: 1rem;
   margin-left: 0.3rem;
 }
 
 /* Styling for when the tag is active */
-.tag.active {
+.tag.active:not([class*="tag-theme-"]) {
   background-color: var(--bg-border);
 }
 
-.tag:hover {
+.tag:hover:not([class*="tag-theme-"]) {
   background-color: var(--bg-border);
 }
     
@@ -1036,18 +1142,32 @@ li.blog-post {
   flex-direction: column;
 }
 
-.tags-sidebar {
+.tags-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 1rem;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
-.tags-sidebar.show {
-  max-height: 12rem; /* Will need to increase this value if more tags are added */
+.sort-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.sort-icon-btn {
+  padding: 0.4rem;
+  line-height: 1;
+  color: var(--text-faint);
+}
+
+.sort-icon-btn.active {
+  color: var(--text-primary);
+  background-color: var(--bg-border);
+  box-shadow: 0 2px 0 0 var(--text-primary);
 }
 
 .sort-dropdown {
@@ -1060,18 +1180,6 @@ li.blog-post {
   border-radius: 10px;
   overflow: hidden;
   z-index: 10;
-  animation: dropdown-in 0.15s ease forwards;
-}
-
-@keyframes dropdown-in {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .sort-dropdown .btn:hover {
@@ -1150,8 +1258,8 @@ li.blog-post {
   }
 
   .blog-thumbnail-wrapper {
-    width: 5rem;
-    padding-top: 5rem;
+    width: 5.5rem;
+    padding-top: 5.5rem;
     margin-right: 1rem;
   }
 
