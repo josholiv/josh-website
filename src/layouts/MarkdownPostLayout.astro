@@ -140,14 +140,14 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   
   <Callout type="important" icon={LibraryBig}> 
     <span slot="title">
-      Check out more books on my <a href="/bookshelf">bookshelf</a>
+      Check out my <a href="/bookshelf">bookshelf</a> for more books I've read recently
     </span>
   </Callout>
     </div>
   )}
 
   {postsToShow.length > 0 && (
-    <div>
+    <div style="margin-top: 2rem;">
       <hr />
       <h2>{sectionTitle}</h2>
       <ul class="blog-list">
