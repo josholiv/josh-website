@@ -1,5 +1,5 @@
 ---
-import { User, Calendar, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
+import { User, Calendar, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, LibraryBig } from "lucide-preact";
 import { getCollection } from "astro:content";
 import BaseLayout from './BaseLayout.astro';
 import TOC from '../components/TOC.astro';
@@ -135,8 +135,19 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
   <slot />
 
+  {frontmatter.tags?.includes("books") && (
+    <div>
+  
+  <Callout type="important" icon={LibraryBig}> 
+    <span slot="title">
+      Check out more books on my <a href="/bookshelf">bookshelf</a>
+    </span>
+  </Callout>
+    </div>
+  )}
+
   {postsToShow.length > 0 && (
-    <div style="margin-top: 3rem;">
+    <div>
       <hr />
       <h2>{sectionTitle}</h2>
       <ul class="blog-list">
