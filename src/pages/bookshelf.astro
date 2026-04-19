@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-// import Hardcover from '../components/Hardcover.js';
+import Hardcover from '../components/Hardcover.js';
 import Dropdown from '../components/Dropdown.jsx';
 import { getCollection } from 'astro:content';
+import { env } from 'cloudflare:workers';
 
 let books = [];
 let fetchError;
@@ -16,18 +17,8 @@ for (const post of allPosts) {
 }
 
 try {
-  let apiUrl = '';
-  if (typeof Astro !== 'undefined' && Astro.request) {
-    // Server-side: construct absolute URL
-    const { protocol, host } = new URL(Astro.request.url);
-    apiUrl = `${protocol}//${host}/api/hardcover`;
-  } else {
-    // Client-side: use relative URL
-    apiUrl = '/api/hardcover';
-  }
-  const res = await fetch(apiUrl);
-  if (!res.ok) throw new Error('Failed to fetch book data');
-  const result = await res.json();
+  const hc = new Hardcover(env);
+  const result = await hc.fetch();
   books = (result.userBooks || []).map(entry => ({
     title: entry.book?.title || "Untitled",
     cover: entry.book?.image?.url || null,
