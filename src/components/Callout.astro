@@ -1,27 +1,27 @@
 ---
 import {
-  Info, CheckCircle, AlertTriangle, XCircle, Lightbulb, NotebookPen,
+  Info, Check, AlertTriangle, X, Lightbulb, NotebookPen,
   ClipboardList, Flame, Bug, Quote, Code, FlaskConical, HelpCircle,
-  ChevronRight
+  ChevronRight, Zap
 } from "lucide-preact";
 
 const variants = {
   info:      { icon: Info,          label: "Info",     class: "callout-info" },
-  success:   { icon: CheckCircle,   label: "Success",  class: "callout-success" },
+  success:   { icon: Check,         label: "Success",  class: "callout-success" },
   warning:   { icon: AlertTriangle, label: "Warning",  class: "callout-warning" },
-  danger:    { icon: XCircle,       label: "Danger",   class: "callout-danger" },
+  danger:    { icon: Zap,           label: "Danger",   class: "callout-danger" },
   tip:       { icon: Lightbulb,     label: "Tip",      class: "callout-tip" },
   note:      { icon: NotebookPen,   label: "Note",     class: "callout-note" },
-  check:     { icon: CheckCircle,   label: "Check",    class: "callout-success" },
-  done:      { icon: CheckCircle,   label: "Done",     class: "callout-success" },
+  check:     { icon: Check,         label: "Check",    class: "callout-success" },
+  done:      { icon: Check,         label: "Done",     class: "callout-success" },
   hint:      { icon: Lightbulb,     label: "Hint",     class: "callout-tip" },
   important: { icon: Flame,         label: "Important",class: "callout-tip" },
   caution:   { icon: AlertTriangle, label: "Caution",  class: "callout-warning" },
   attention: { icon: AlertTriangle, label: "Attention",class: "callout-warning" },
-  error:     { icon: XCircle,       label: "Error",    class: "callout-danger" },
-  failure:   { icon: XCircle,       label: "Failure",  class: "callout-danger" },
-  fail:      { icon: XCircle,       label: "Fail",     class: "callout-danger" },
-  missing:   { icon: XCircle,       label: "Missing",  class: "callout-danger" },
+  error:     { icon: Zap,           label: "Error",    class: "callout-danger" },
+  failure:   { icon: X,             label: "Failure",  class: "callout-danger" },
+  fail:      { icon: X,             label: "Fail",     class: "callout-danger" },
+  missing:   { icon: X,             label: "Missing",  class: "callout-danger" },
   todo:      { icon: ClipboardList, label: "Todo",     class: "callout-todo" },
   code:      { icon: Code,          label: "Code",     class: "callout-code" },
   example:   { icon: FlaskConical,  label: "Example",  class: "callout-example" },
@@ -56,7 +56,7 @@ const hasContent = Astro.slots.has('default');
   data-open={collapsible ? String(defaultOpen) : undefined}
 >
   <div class={`callout-title ${!hasContent && !collapsible ? 'callout-title-only' : ''} ${collapsible ? 'callout-title-clickable' : ''}`}>
-    <Icon size={"1rem"} />
+    <Icon size={"1.1rem"} />
     <span>
       <slot name="title">{title ?? variant.label}</slot>
     </span>

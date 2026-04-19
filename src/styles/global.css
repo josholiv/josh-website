@@ -922,7 +922,12 @@ a[target="_blank"]::after {
   color: var(--green-050) !important;
 }
 
-.tag-theme-blog {
+.tag-theme-books {
+  background-color: var(--pink-700);
+  color: var(--pink-050) !important;
+}
+
+.tag-theme-blogging {
   background-color: var(--purple-700);
   color: var(--purple-050) !important;
 }
@@ -962,7 +967,12 @@ html:not(.dark) .tag-theme-science {
   color: var(--green-700) !important;
 }
 
-html:not(.dark) .tag-theme-blog {
+html:not(.dark) .tag-theme-books {
+  background-color: var(--pink-100);
+  color: var(--pink-700) !important;
+}
+
+html:not(.dark) .tag-theme-blogging {
   background-color: var(--purple-100);
   color: var(--purple-700) !important;
 }
@@ -985,7 +995,6 @@ html:not(.dark) .tag-theme-triathlon {
 a.tag, a.tag:visited {
   text-decoration: none;
   display: inline-flex;
-  color: inherit !important;
 }
 
 /* Count next to the tag */

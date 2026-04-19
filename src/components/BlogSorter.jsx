@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'preact/hooks';
-import { Calendar, Timer, X, XCircle, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
+import { Calendar, Timer, X, XCircle, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
 import noTagResults from '../assets/no-tag-results.png';
 
 const tagIcons = {
   '3dprinting': Cog,
   science: Dna,
-  blog: Rss,
+  blogging: Rss,
   code: CodeIcon,
   travel: MapIcon,
   triathlon: SportShoe,
+  books: Book,
 };
 
 const getTagThemeClass = (tag = '') => `tag-theme-${tag.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;

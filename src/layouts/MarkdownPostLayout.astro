@@ -1,8 +1,10 @@
 ---
-import { User, Calendar, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe } from "lucide-preact";
+import { User, Calendar, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
 import { getCollection } from "astro:content";
 import BaseLayout from './BaseLayout.astro';
 import TOC from '../components/TOC.astro';
+import Callout from '../components/Callout.astro';
+import BookRating from '../components/BookRating.jsx';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 
@@ -39,10 +41,11 @@ const getTagThemeClass = (tag: string) => `tag-theme-${tag.toLowerCase().replace
 const tagIcons = {
   '3dprinting': CogIcon,
   science: Dna,
-  blog: Rss,
+  blogging: Rss,
   code: CodeIcon,
   travel: MapIcon,
   triathlon: SportShoe,
+  books: Book,
 };
 const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof tagIcons] ?? null;
 ---
@@ -121,6 +124,14 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   </div>
 
   <TOC headings={headings} />
+
+  {frontmatter.tags?.includes("books") && (
+    <Callout type="danger" title="Warning: may contain spoilers!" />
+  )}
+
+  {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
+    <BookRating client:load bookTitle={frontmatter.bookTitle} />
+  )}
 
   <slot />
 
