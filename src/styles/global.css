@@ -1170,13 +1170,19 @@ li.blog-post {
 .sort-icon-btn {
   padding: 0.4rem;
   line-height: 1;
-  color: var(--text-faint);
+  color: var(--btn-text);
 }
 
 .sort-icon-btn.active {
-  color: var(--text-primary);
-  background-color: var(--bg-border);
-  box-shadow: 0 2px 0 0 var(--text-primary);
+  background-color: var(--pink-700);
+  color: var(--pink-050);
+  box-shadow: 0 2px 0 0 var(--pink-400);
+}
+
+html:not(.dark) .sort-icon-btn.active {
+  background-color: var(--pink-100);
+  color: var(--pink-700);
+  box-shadow: 0 2px 0 0 var(--pink-300);
 }
 
 .sort-dropdown {
@@ -1193,6 +1199,11 @@ li.blog-post {
 
 .sort-dropdown .btn:hover {
   background-color: var(--bg-border);
+}
+
+.dropdown-chevron {
+  display: flex;
+  align-items: center;
 }
 
 .blog-content {

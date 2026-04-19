@@ -26,13 +26,13 @@ const TriathlonStats = ({ data, error }) => {
   };
 
   const unitLabel = unit === "miles"  ? "miles"
-                  : unit === "km"     ? "km"
-                  : unit === "fields" ? "football fields"
+                  : unit === "km"     ? "kilometers"
+                  : unit === "fields" ? "American football fields"
                   : "% Earth → Moon";
 
   const sports = [
     { label: "Swimming", km: swimDistanceKm },
-    { label: "Biking",   km: rideDistanceKm },
+    { label: "Cycling",   km: rideDistanceKm },
     { label: "Running",  km: runDistanceKm  },
   ];
 
@@ -49,12 +49,12 @@ const TriathlonStats = ({ data, error }) => {
     {sports.map(({ label, km }) => (
       <tr key={label}>
         <td style={{ fontWeight: 'bold', paddingRight: '2rem' }}>{label}</td>
-        <td style={{ fontFamily: 'Atkinson Hyperlegible Mono', color: 'var(--text-normal)' }}>{getDistance(km)}</td>
+        <code><td style={{ fontFamily: "Ubuntu Mono", color: 'var(--text-normal)' }}>{getDistance(km)}</td></code>
       </tr>
     ))}
   </tbody>
 </table>
-      <button onClick={toggleUnit} className="btn">Change Unit</button>
+      <button onClick={toggleUnit} className="btn">Change unit</button>
     </div>
   );
 };

@@ -39,7 +39,7 @@ const ChessStats: FunctionalComponent = () => {
         {modes.map(({ label, rating }) => (
           <tr key={label}>
             <td style={{ fontWeight: 'bold', paddingRight: '2rem' }}>{label}</td>
-            <td style={{ fontFamily: 'Atkinson Hyperlegible Mono', color: 'var(--text-normal)' }}>{rating ?? '–'}</td>
+            <code><td style={{ fontFamily: 'Ubuntu Mono', color: 'var(--text-normal)' }}>{rating ?? '–'}</td></code>
           </tr>
         ))}
       </tbody>

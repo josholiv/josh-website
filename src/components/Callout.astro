@@ -57,14 +57,14 @@ const hasContent = Astro.slots.has('default');
 >
   <div class={`callout-title ${!hasContent && !collapsible ? 'callout-title-only' : ''} ${collapsible ? 'callout-title-clickable' : ''}`}>
     <Icon size={"1.1rem"} />
-    <span>
+    <span style="display: flex; align-items: center; gap: 0.4rem;">
       <slot name="title">{title ?? variant.label}</slot>
+      {collapsible && (
+        <span class="callout-chevron">
+          <ChevronRight size={"1.1rem"} />
+        </span>
+      )}
     </span>
-    {collapsible && (
-      <span class="callout-chevron">
-        <ChevronRight size={"1rem"} />
-      </span>
-    )}
   </div>
 
   {hasContent && (

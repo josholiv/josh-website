@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'preact/hooks';
-import { ArrowDownUp } from 'lucide-preact';
+import { ChevronRight } from 'lucide-preact';
 
 const Dropdown = ({ options, defaultOption, onSelect, icon }) => {
   const [open, setOpen] = useState(false);
@@ -24,14 +24,13 @@ const Dropdown = ({ options, defaultOption, onSelect, icon }) => {
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }} ref={ref}>
-
       {/* Invisible sizer — forces container to width of longest option */}
       {!icon && (
         <div aria-hidden="true" style={{ visibility: 'hidden', height: 0, overflow: 'hidden', pointerEvents: 'none' }}>
           {options.map(option => (
             <button key={option} className="btn icon-container-inline" style={{ width: '100%', justifyContent: 'space-between' }}>
               {option}
-              <ArrowDownUp size="1rem" />
+              <ChevronRight style={{ transform: 'rotate(90deg)' }} size="1.1rem" />
             </button>
           ))}
         </div>
@@ -43,7 +42,7 @@ const Dropdown = ({ options, defaultOption, onSelect, icon }) => {
         onClick={() => setOpen(prev => !prev)}
         style={{ width: '100%', justifyContent: 'space-between' }}
       >
-        {icon ? icon : <>{selected} <ArrowDownUp size="1rem" /></>}
+        {icon ? icon : <>{selected} <ChevronRight style={{ transform: 'rotate(90deg)' }} size="1.1rem" /></>}
       </button>
 
       {open && (
@@ -60,7 +59,6 @@ const Dropdown = ({ options, defaultOption, onSelect, icon }) => {
           ))}
         </div>
       )}
-
     </div>
   );
 };

@@ -38,8 +38,8 @@ const HardcoverStats = () => {
       <tbody>
         {goals.map((g, i) => (
           <tr key={i}>
-            <td style={{ fontFamily: 'Atkinson Hyperlegible Mono', paddingRight: '2rem' }}>{g.goal}</td>
-            <td style={{ fontFamily: 'Atkinson Hyperlegible Mono' }}>{g.progress}</td>
+            <td style={{ fontWeight: 'bold', paddingRight: '2rem'  }}>{g.goal}</td>
+            <code><td style={{ fontFamily: 'Ubuntu Mono' }}>{g.progress}</td></code>
           </tr>
         ))}
       </tbody>

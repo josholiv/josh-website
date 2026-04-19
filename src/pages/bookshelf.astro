@@ -2,12 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 // import Hardcover from '../components/Hardcover.js';
 import Dropdown from '../components/Dropdown.jsx';
-
-const isDev = import.meta.env.DEV;
-if (!isDev) return Astro.redirect('/404');
+import { getCollection } from 'astro:content';
 
 let books = [];
 let fetchError;
+
+const allPosts = await getCollection('blog');
+const reviewMap = new Map();
+for (const post of allPosts) {
+  if (post.data.tags?.includes('books') && post.data.bookTitle) {
+    reviewMap.set(post.data.bookTitle.toLowerCase(), `/posts/${post.id}/`);
+  }
+}
 
 try {
   let apiUrl = '';
@@ -31,6 +37,7 @@ try {
       .map(c => c.author?.name)
       .filter(Boolean)
       .join(", "),
+    reviewUrl: reviewMap.get((entry.book?.title || '').toLowerCase()) || null,
   })).sort((a, b) => new Date(b.lastRead) - new Date(a.lastRead));
 } catch (e) {
   fetchError = e.message;
@@ -39,14 +46,14 @@ try {
 
 <BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} shouldShowTitle={false}>
 
-  <h1>Bookshelf <span class="title-muted">/ dev only</span></h1>
+  <h1>Bookshelf</h1>
   <hr class="rainbow-hr">
 
   {fetchError && <p style="color: red;">Error: {fetchError}</p>}
 
   <!-- search + rating filter -->
   <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap; justify-content: space-between;">
-    <div style="position: relative; width: 100%; max-width: 28rem;">
+    <div style="position: relative; width: 100%; max-width: 24rem;">
       <input
         type="text"
         placeholder="Search by title, author, or year read..."
@@ -56,11 +63,12 @@ try {
       <kbd class="search-hint">/</kbd>
     </div>
 
-    <div style="flex-shrink: 0;">
+    <div style="display: flex; gap: 0.75rem; flex-shrink: 0; align-items: center;">
+      <button class="btn" id="reviewFilterBtn" aria-pressed="false">Has review</button>
       <Dropdown
         client:load
-        options={['All ratings', '★★★★★', '★★★★', '★★★', '★★', '★', 'Not rated']}
-        defaultOption="All ratings"
+        options={['★ — ★★★★★', '★★★★★', '★★★★', '★★★', '★★', '★', 'Not rated']}
+        defaultOption="★ — ★★★★★"
       />
     </div>
   </div>
@@ -69,20 +77,31 @@ try {
 
   <div class="book-grid">
     {books.map(book => (
-      <div class="book-card" data-rating={book.rating ?? 'none'}>
+      <div class="book-card" data-rating={book.rating ?? 'none'} data-has-review={book.reviewUrl ? 'true' : 'false'}>
         <div class="cover-wrap">
           {book.cover
             ? (
-              <div class="cover-hover-wrap">
-                <img src={book.cover} alt={book.title} class="cover-img" />
-                <div class="cover-overlay">
-                  <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
-                  <div class="cover-overlay-text">
-                    <span class="placeholder-title">{book.title}</span>
-                    <i class="placeholder-author">{book.authors}</i>
+              book.reviewUrl
+                ? <a href={book.reviewUrl} class="cover-hover-wrap">
+                    <img src={book.cover} alt={book.title} class="cover-img" />
+                    <div class="cover-overlay">
+                      <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
+                      <div class="cover-overlay-text">
+                        <span class="placeholder-title">{book.title}</span>
+                        <i class="placeholder-author">{book.authors}</i>
+                      </div>
+                    </div>
+                  </a>
+                : <div class="cover-hover-wrap">
+                    <img src={book.cover} alt={book.title} class="cover-img" />
+                    <div class="cover-overlay">
+                      <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
+                      <div class="cover-overlay-text">
+                        <span class="placeholder-title">{book.title}</span>
+                        <i class="placeholder-author">{book.authors}</i>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
             )
             : (
               <div class="cover-placeholder">
@@ -132,6 +151,10 @@ try {
             : <span class="no-rating">not rated</span>
           }
         </div>
+
+        {book.reviewUrl && (
+          <a href={book.reviewUrl} class="tag-blogsorter tag-theme-books review-badge">see review</a>
+        )}
 
         {book.lastRead && (
           <p class="book-year">
@@ -344,6 +367,31 @@ try {
     color: var(--text-faint);
     font-style: italic;
   }
+
+  .review-badge {
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
+    text-decoration: none;
+    padding: 0.2rem 0.5rem;
+  }
+
+  #reviewFilterBtn.active {
+    background-color: var(--pink-700);
+    color: var(--pink-050);
+    box-shadow: 0 2px 0 0 var(--pink-400);
+  }
+
+  html:not(.dark) #reviewFilterBtn.active {
+    background-color: var(--pink-100);
+    color: var(--pink-700);
+    box-shadow: 0 2px 0 0 var(--pink-300);
+  }
+
+  a.cover-hover-wrap {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
 </style>
 
 <script>
@@ -351,10 +399,12 @@ try {
   const searchHint = document.querySelector('.search-hint');
   const bookCount = document.getElementById('bookCount');
   const books = Array.from(document.querySelectorAll('.book-card'));
+  const reviewFilterBtn = document.getElementById('reviewFilterBtn');
   let currentRating = 'all';
+  let filterReview = false;
 
   const ratingMap = {
-    'All ratings': 'all',
+    '★ — ★★★★★': 'all',
     '★★★★★': '5',
     '★★★★': '4',
     '★★★': '3',
@@ -376,6 +426,7 @@ try {
       const author = book.querySelector('.book-author')?.textContent.toLowerCase() || '';
       const year = book.querySelector('.book-year')?.textContent || '';
       const ratingAttr = book.dataset.rating;
+      const hasReview = book.dataset.hasReview === 'true';
 
       const matchesSearch = title.includes(query) || author.includes(query) || year.includes(query);
 
@@ -387,7 +438,9 @@ try {
         matchesRating = !isNaN(bookRating) && bookRating === parseFloat(currentRating);
       }
 
-      book.style.display = (matchesSearch && matchesRating) ? '' : 'none';
+      const matchesReview = !filterReview || hasReview;
+
+      book.style.display = (matchesSearch && matchesRating && matchesReview) ? '' : 'none';
     });
 
     updateCount();
@@ -409,6 +462,13 @@ try {
 
   window.addEventListener('dropdown-select', (e) => {
     currentRating = ratingMap[e.detail.option] ?? 'all';
+    filterBooks();
+  });
+
+  reviewFilterBtn?.addEventListener('click', () => {
+    filterReview = !filterReview;
+    reviewFilterBtn.setAttribute('aria-pressed', String(filterReview));
+    reviewFilterBtn.classList.toggle('active', filterReview);
     filterBooks();
   });
 
