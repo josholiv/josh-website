@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import cv from '../data/cv.json';
 import '../styles/cv.css'
 import Callout from '../components/Callout.astro';
+import TOC from '../components/TOC.astro';
+
 
 const pageTitle = "Josh Olivier - CV";
 const { basics, education, publications, presentations, researchExperience, grants, awards, service, affiliations, skills } = cv;
@@ -84,9 +86,11 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
 <hr class="rainbow-hr">
 
+<TOC />
+
 <Callout type="tip" >
   <span slot="title">
-    To save as PDF, select <code class="btn-code">Print</code> → <code>Print as PDF</code>
+    For PDF, select <code class="btn-code">Print</code> → <code>Print as PDF</code>
   </span>
 </Callout>
 

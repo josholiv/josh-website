@@ -9,6 +9,7 @@ import ErrorRenderer from "../Error.astro";
 import Callout from '../components/Callout.astro';
 import TOC from '../components/TOC.astro';
 import { AudioLines, ExternalLink } from "lucide-preact";
+import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 import { env } from "cloudflare:workers";
 
 const pageTitle = "Josh Olivier - About";
@@ -113,16 +114,27 @@ try {
 
     <h2>Hobbies and other stuff</h2>
     
+    <h3>Traveling</h3>
+
     <p>
-      Apart from research work, I have a lot of hobbies, including traveling, trying new foods, and learning new skills. 
+      Apart from research work, I have many hobbies, including traveling, trying new foods, and learning new skills. 
       I learned Portuguese after spending some time living in 
       <a href="https://en.wikipedia.org/wiki/Amazonas_(Brazilian_state)" target="_blank" rel="noopener noreferrer">Amazonas, Brazil</a>, 
-      where, I enjoyed eating lots of 
+      where I enjoyed eating lots of 
       <a href="https://en.wikipedia.org/wiki/Tambaqui" target="_blank" rel="noopener noreferrer">tambaqui</a>,
       <a href="https://en.wikipedia.org/wiki/Tacac%C3%A1" target="_blank" rel="noopener noreferrer">tacacá</a>, 
       and <a href="https://en.wikipedia.org/wiki/A%C3%A7a%C3%AD" target="_blank" rel="noopener noreferrer">açaí</a>—some of the best food on Earth. 
-      Brazil is also my favorite place to travel, and I try to explore a new region of the country each time I visit.
+      Brazil is my favorite place to travel, and I try to explore a new region of the country each time I visit. For example, 
+      I recently visited <a href="/posts/trip-to-lençóis-maranhenses-national-park/">Lençóis Maranhenses National Park</a>, 
+      one of the most beautiful places I've ever been.
     </p>
+
+<figure class="img-figure">
+  <img src="/images/blog/post-6/post-6-01.jpg" alt="Lagoon and sand dune at Lençóis Maranhenses National Park, in Maranhão, Brazil" class="blog-body-pic">
+  <figcaption class="img-caption">One of the many lagoons at Lençóis Maranhenses National Park, in Maranhão, Brazil</figcaption>
+</figure>
+
+    <h3>3D printing and triathlons</h3>
 
     <p>
       Some of my other hobbies include <a href="/blog/?tag=3Dprinting">tinkering with my 3D printer</a> and doing <a href="/blog/?tag=triathlon">triathlons</a>.
@@ -133,16 +145,7 @@ try {
 <TriathlonStats client:load data={data} error={error} />
   <ErrorRenderer error={error} />
 
-      <p>
-
-        I also like playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
-        Here are my current ratings on <a href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">Chess.com</a> for three categories of 
-        <a href="https://www.chess.com/terms/blitz-chess#speed" target="_blank" rel="noopener noreferrer">speed chess</a>:
-        
-      </p>
-
-  <ChessStats client:load />
-
+<h3>Reading</h3>
 
 <p>
   I also enjoy reading, and I'm trying to read more consistently. Below is the total number of books I've read in <code>{new Date().getFullYear()}</code>, 
@@ -199,4 +202,15 @@ ratings I've given and reviews I've written.
 I'll continue updating this list over time. 
 And if you notice any gaps, please feel free to <a href="/contact">let me know</a>! I’m always looking for new book recommendations.</p>
 
+<h3>Chess</h3>
+
+      <p>
+        I also like playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
+        Here are my current ratings on <a href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">Chess.com</a> for three categories of 
+        <a href="https://www.chess.com/terms/blitz-chess#speed" target="_blank" rel="noopener noreferrer">speed chess</a>:
+      </p>
+
+  <ChessStats client:load />
+
+  <script set:html={responsiveImagesScript} />
 </BaseLayout>

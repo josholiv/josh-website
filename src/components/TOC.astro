@@ -13,7 +13,16 @@ interface Props {
 }
 
 const { headings = [], defaultOpen = false } = Astro.props;
-const filtered = headings.filter(h => h.depth === 2);
+
+type HeadingGroup = { h2: Heading; h3s: Heading[] };
+const grouped: HeadingGroup[] = [];
+for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
+  if (h.depth === 2) {
+    grouped.push({ h2: h, h3s: [] });
+  } else if (grouped.length > 0) {
+    grouped[grouped.length - 1].h3s.push(h);
+  }
+}
 ---
 
 <nav class="toc" id="toc" data-open={String(defaultOpen)}>
@@ -26,12 +35,23 @@ const filtered = headings.filter(h => h.depth === 2);
   <div class="toc-body">
     <div class="toc-body-inner">
       <ul id="toc-list">
-        {filtered.map(h => (
+        {grouped.map(({ h2, h3s }) => (
           <li class="toc-item">
-            <a href={`#${h.slug}`}>
-              <CornerDownRight size="0.85rem" />
-              {h.text}
+            <a href={`#${h2.slug}`}>
+              {h2.text}
             </a>
+            {h3s.length > 0 && (
+              <ul class="toc-sublist">
+                {h3s.map(h3 => (
+                  <li class="toc-subitem">
+                    <a href={`#${h3.slug}`}>
+                      <CornerDownRight size="0.85rem" />
+                      {h3.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
@@ -49,11 +69,35 @@ const filtered = headings.filter(h => h.depth === 2);
     toc.setAttribute('data-open', String(!isOpen));
   });
 
+  // Start open when floating (wide screen)
+  if (toc && window.matchMedia('(min-width: 1300px)').matches) {
+    toc.setAttribute('data-open', 'true');
+  }
+
+  // Active heading highlight
+  function updateActive() {
+    const headings = Array.from(document.querySelectorAll('main h2, main h3')) as HTMLElement[];
+    let activeId = headings[0]?.id ?? null;
+    for (const h of headings) {
+      if (h.getBoundingClientRect().top <= 100) activeId = h.id;
+    }
+    document.querySelectorAll('#toc-list a').forEach(a => a.classList.remove('toc-active'));
+    if (activeId) {
+      document.querySelector(`#toc-list a[href="#${CSS.escape(activeId)}"]`)?.classList.add('toc-active');
+    }
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+
   // Auto-populate headings if none were server-rendered
   const list = document.getElementById('toc-list');
 
   if (list && list.children.length === 0) {
-    const headings = Array.from(document.querySelectorAll('h2'));
+    const headings = Array.from(document.querySelectorAll('main h2, main h3'));
+    let currentH2Li: HTMLLIElement | null = null;
+    let currentSublist: HTMLUListElement | null = null;
+
+    const cornerDownRightSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>`;
 
     headings.forEach(h => {
       if (!h.id) {
@@ -64,19 +108,40 @@ const filtered = headings.filter(h => h.depth === 2);
           .replace(/\s+/g, '-');
       }
 
-      const li = document.createElement('li');
-      li.className = 'toc-item';
+      if (h.tagName === 'H2') {
+        const li = document.createElement('li');
+        li.className = 'toc-item';
 
-      const a = document.createElement('a');
-      a.href = `#${h.id}`;
-      a.style.display = 'inline-flex';
-      a.style.alignItems = 'center';
-      a.style.gap = '0.35rem';
+        const a = document.createElement('a');
+        a.href = `#${h.id}`;
+        a.textContent = h.textContent;
 
-      a.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>${h.textContent}`;
+        li.appendChild(a);
+        list.appendChild(li);
+        currentH2Li = li;
+        currentSublist = null;
+      } else if (h.tagName === 'H3' && currentH2Li) {
+        if (!currentSublist) {
+          currentSublist = document.createElement('ul');
+          currentSublist.className = 'toc-sublist';
+          currentH2Li.appendChild(currentSublist);
+        }
 
-      li.appendChild(a);
-      list.appendChild(li);
+        const li = document.createElement('li');
+        li.className = 'toc-subitem';
+
+        const a = document.createElement('a');
+        a.href = `#${h.id}`;
+        a.style.display = 'inline-flex';
+        a.style.alignItems = 'flex-start';
+        a.style.gap = '0.35rem';
+        a.innerHTML = `${cornerDownRightSvg}${h.textContent}`;
+
+        li.appendChild(a);
+        currentSublist.appendChild(li);
+      }
     });
   }
+
+  updateActive();
 </script>

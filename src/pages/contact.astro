@@ -1,6 +1,8 @@
 ---
-import { Mail, UserCircle, Radio } from "lucide-preact";
+import { Mail, UserCircle, Radio, GraduationCap, Cog } from "lucide-preact";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TOC from '../components/TOC.astro';
+
 
 const pageTitle = "Josh Olivier - Contact";
 ---
@@ -13,8 +15,12 @@ const pageTitle = "Josh Olivier - Contact";
 
   <hr class="rainbow-hr">
 
+  <TOC />
 
-  <h2>Josh Olivier</h2>
+  <h2>Email</h2>
+  
+  <p>The best way to reach me is via email:</p>
+
   <ul class="contact-list">
     <li>
       <Mail size="1rem"/>
@@ -22,14 +28,38 @@ const pageTitle = "Josh Olivier - Contact";
         j&#111;shuamolivi&#101;r&#64;gmail&#46;&#99;om
       </a>
     </li>
+</ul>
+
+<h2>Other platforms</h2>
+
+<p>Find me on other platforms around the web!</p>
+
+<ul class="contact-list">
+    <li>
+      <GraduationCap size="1rem"/>
+      <a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer">ORCiD</a>
+    </li>
     <li>
       <UserCircle size="1rem"/>
-      <a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer">GitHub</a>
     </li>
     <li>
       <Radio size="1rem"/>
       <a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a>
     </li>
+    <li>
+      <UserCircle size="1rem"/>
+      <a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </li>
+    <li>
+      <Cog size="1rem"/>
+      <a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer">Thingiverse</a>
+    </li>
+    <li>
+      <GraduationCap size="1rem"/>
+      <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+    </li>
+
   </ul>
 
 </BaseLayout>

@@ -2,7 +2,9 @@
 import { getCollection } from "astro:content";
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogSorter from '../components/BlogSorter.jsx';
-import { Info, GraduationCap, Rss, Contact, Compass } from "lucide-preact";
+import { Info, GraduationCap, Rss, Contact } from "lucide-preact";
+import TOC from '../components/TOC.astro';
+
 
 
 const pageTitle = "Josh Olivier - Home";
@@ -21,6 +23,8 @@ const recentPosts = allPosts.slice(0, 5); // show the newest 3 blog posts by pub
   <h1>josholivier<span class="title-muted">.com</span></h1>
 
   <hr class="rainbow-hr">
+
+  <TOC />
 
 
   <h2>Hi, I'm Josh!</h2>

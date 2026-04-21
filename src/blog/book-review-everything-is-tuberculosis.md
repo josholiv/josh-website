@@ -11,6 +11,8 @@ readTime: '2'
 bookTitle: 'Everything Is Tuberculosis: The History and Persistence of Our Deadliest Infection'
 ---
 
+## Review
+
 *Everything Is Tuberculosis: The History and Persistence of Our Deadliest Infection* by John Green was a quick and enjoyable read. It's full of interesting facts about the prevalence and history of tuberculosis, including many that I was previously unaware of. The overall aim of the book, to draw attention to the fact that we, as a society, have the capabilities to eradicate tuberculosis across the world completely, is noble. 
 
 However, as I neared the end of the book, I found it a bit repetitive. Green makes the same points over and over about flaws and failures of the healthcare system, big pharma, and society as a whole. His points are valid and often impossible to argue against, but to me, the message might have been clearer and more impactful if it had been more succinct. 

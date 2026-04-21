@@ -22,7 +22,7 @@ In this study, we examined how structural brain measures (specifically whole-bra
 
   For a quick summary and visuals from the paper, check out my [original post on Bluesky](https://bsky.app/profile/josholivier.bsky.social/post/3lxaoerzakc2n).
 
-<h2>Our main findings</h2>
+<h2>Main findings</h2>
 
 We found that whole-brain cortical volume predicted reinstatement strength in both parahippocampal and medial place areas. In other words, individuals with greater cortical volume showed stronger reinstatement of scene-related activity.
 
