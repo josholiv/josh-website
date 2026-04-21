@@ -46,14 +46,17 @@ try {
 
   <!-- search + rating filter -->
   <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap; justify-content: space-between;">
-    <div style="position: relative; width: 100%; max-width: 16rem;">
-      <input
-        type="text"
-        placeholder="Search..."
-        class="book-search"
-        id="bookSearch"
-      />
-      <kbd class="search-hint">/</kbd>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <div style="position: relative;">
+        <input
+          type="text"
+          placeholder="Search..."
+          class="book-search"
+          id="bookSearch"
+        />
+        <kbd class="search-hint">/</kbd>
+      </div>
+      <p class="book-count" id="bookCount" style="margin: 0; white-space: nowrap;"></p>
     </div>
 
     <div style="display: flex; gap: 0.75rem; flex-shrink: 0; align-items: center;">
@@ -65,8 +68,6 @@ try {
       />
     </div>
   </div>
-
-  <p class="book-count" id="bookCount"></p>
 
   <div class="book-grid">
     {books.map(book => (
@@ -488,7 +489,7 @@ try {
     });
 
     updateCount();
-  }
+  } 
 
   searchInput.addEventListener('input', filterBooks);
 

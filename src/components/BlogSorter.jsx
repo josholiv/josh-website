@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useRef } from 'preact/hooks';
 import { Calendar, Timer, X, XCircle, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
 
 const tagIcons = {
@@ -24,7 +24,7 @@ const renderTagLabel = (tag) => {
   );
 };
 
-const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
+const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true }) => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [sortedPosts, setSortedPosts] = useState(() => {
     return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
@@ -32,6 +32,9 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
 
   const [selectedTags, setSelectedTags] = useState([]);
   const [shuffleKey, setShuffleKey] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchFocused, setSearchFocused] = useState(false);
+  const searchRef = useRef(null);
 
   // Check for tag from URL
   useEffect(() => {
@@ -41,13 +44,33 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
     else setSelectedTags([]);
   }, []);
 
-  // Filter and sort posts whenever sort order, selected tags, or posts change
+  // '/' keyboard shortcut to focus search
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === '/' && document.activeElement !== searchRef.current) {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, []);
+
+  // Filter and sort posts whenever sort order, selected tags, search query, or posts change
   useEffect(() => {
     let filteredPosts = posts;
 
     if (selectedTags.length > 0) {
       filteredPosts = posts.filter((post) =>
         selectedTags.every((tag) => post.data.tags?.includes(tag))
+      );
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      filteredPosts = filteredPosts.filter((post) =>
+        post.data.title.toLowerCase().includes(q) ||
+        post.data.tags?.some((tag) => tag.toLowerCase().includes(q))
       );
     }
 
@@ -78,7 +101,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
     }
 
     setSortedPosts(sorted);
-  }, [sortOrder, selectedTags, posts, shuffleKey]);
+  }, [sortOrder, selectedTags, searchQuery, posts, shuffleKey]);
 
   // Tags and counts
   const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
@@ -128,73 +151,95 @@ const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
           </div>
         )}
 
-        {showSort && (
-          <div className="sort-bar">
-            <button
-              className={`btn sort-icon-btn ${sortOrder === 'newest' ? 'active' : ''}`}
-              onClick={() => setSortOrder('newest')}
-              aria-label="Sort newest first"
-              title="Newest first"
-            >
-              <CalendarArrowDown size="1rem" />
-            </button>
-            <button
-              className={`btn sort-icon-btn ${sortOrder === 'oldest' ? 'active' : ''}`}
-              onClick={() => setSortOrder('oldest')}
-              aria-label="Sort oldest first"
-              title="Oldest first"
-            >
-              <CalendarArrowUp size="1rem" />
-            </button>
-            <button
-              className={`btn sort-icon-btn ${sortOrder === 'shortest' ? 'active' : ''}`}
-              onClick={() => setSortOrder('shortest')}
-              aria-label="Sort by shortest read time"
-              title="Shortest read time"
-            >
-              <ClockArrowDown size="1rem" />
-            </button>
-            <button
-              className={`btn sort-icon-btn ${sortOrder === 'longest' ? 'active' : ''}`}
-              onClick={() => setSortOrder('longest')}
-              aria-label="Sort by longest read time"
-              title="Longest read time"
-            >
-              <ClockArrowUp size="1rem" />
-            </button>
-            <button
-              className={`btn sort-icon-btn ${sortOrder === 'a → z' ? 'active' : ''}`}
-              onClick={() => setSortOrder('a → z')}
-              aria-label="Sort A to Z"
-              title="A → Z"
-            >
-              <ArrowDownAZ size="1rem" />
-            </button>
-            <button
-              className={`btn sort-icon-btn ${sortOrder === 'z → a' ? 'active' : ''}`}
-              onClick={() => setSortOrder('z → a')}
-              aria-label="Sort Z to A"
-              title="Z → A"
-            >
-              <ArrowUpAZ size="1rem" />
-            </button>
-            <button
-              className={`btn sort-icon-btn ${sortOrder === 'random' ? 'active' : ''}`}
-              onClick={() => { setSortOrder('random'); setShuffleKey(k => k + 1); }}
-              aria-label="Randomize order"
-              title="Shuffle"
-            >
-              <Shuffle size="1rem" />
-            </button>
+        {/* Search + sort row */}
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {showSearch && (
+              <div style={{ position: 'relative' }}>
+                <input
+                  ref={searchRef}
+                  type="text"
+                  placeholder={searchFocused ? '' : 'Search...'}
+                  className="blog-search"
+                  value={searchQuery}
+                  onInput={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => { if (!searchQuery) setSearchFocused(false); }}
+                />
+                {!searchFocused && <kbd className="blog-search-kbd">/</kbd>}
+              </div>
+            )}
+            {showSearch && <span className="blog-count" style={{ margin: 0, whiteSpace: 'nowrap' }}>{sortedPosts.length} of {posts.length} posts</span>}
           </div>
-        )}
+
+          {showSort && (
+            <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
+              <button
+                className={`btn sort-icon-btn ${sortOrder === 'newest' ? 'active' : ''}`}
+                onClick={() => setSortOrder('newest')}
+                aria-label="Sort newest first"
+                title="Newest first"
+              >
+                <CalendarArrowDown size="1rem" />
+              </button>
+              <button
+                className={`btn sort-icon-btn ${sortOrder === 'oldest' ? 'active' : ''}`}
+                onClick={() => setSortOrder('oldest')}
+                aria-label="Sort oldest first"
+                title="Oldest first"
+              >
+                <CalendarArrowUp size="1rem" />
+              </button>
+              <button
+                className={`btn sort-icon-btn ${sortOrder === 'shortest' ? 'active' : ''}`}
+                onClick={() => setSortOrder('shortest')}
+                aria-label="Sort by shortest read time"
+                title="Shortest read time"
+              >
+                <ClockArrowDown size="1rem" /> 
+              </button>
+              <button
+                className={`btn sort-icon-btn ${sortOrder === 'longest' ? 'active' : ''}`}
+                onClick={() => setSortOrder('longest')}
+                aria-label="Sort by longest read time"
+                title="Longest read time"
+              >
+                <ClockArrowUp size="1rem" />
+              </button>
+              <button
+                className={`btn sort-icon-btn ${sortOrder === 'a → z' ? 'active' : ''}`}
+                onClick={() => setSortOrder('a → z')}
+                aria-label="Sort A to Z"
+                title="A → Z"
+              >
+                <ArrowDownAZ size="1rem" />
+              </button>
+              <button
+                className={`btn sort-icon-btn ${sortOrder === 'z → a' ? 'active' : ''}`}
+                onClick={() => setSortOrder('z → a')}
+                aria-label="Sort Z to A"
+                title="Z → A"
+              >
+                <ArrowUpAZ size="1rem" />
+              </button>
+              <button
+                className={`btn sort-icon-btn ${sortOrder === 'random' ? 'active' : ''}`}
+                onClick={() => { setSortOrder('random'); setShuffleKey(k => k + 1); }}
+                aria-label="Randomize order"
+                title="Shuffle"
+              >
+                <Shuffle size="1rem" />
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* No posts message */}
-        {sortedPosts.length === 0 && selectedTags.length > 0 && (
+        {sortedPosts.length === 0 && (selectedTags.length > 0 || searchQuery.trim()) && (
           <div class="blockquote callout-danger" style={{ marginTop: '2rem' }}>
             <div class="callout-title">
               <XCircle size="1rem" />
-              <span>No posts with that combination of <code># Tags</code></span>
+              <span>No posts matching your search{selectedTags.length > 0 ? ' and ' : ''}{selectedTags.length > 0 && <><code># Tags</code> combination</>}</span>
             </div>
           </div>
         )}

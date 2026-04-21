@@ -110,6 +110,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --code-border:       var(--neutral-600);   /* #616161 */ 
 --btn-text:          var(--purple-400);   
 --btn-text-hover:    var(--purple-300);
+--btn-bg-hover:      var(--purple-700);
 }
 
 /* Light mode: either OS preference OR explicit toggle */
@@ -130,8 +131,9 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     --code-bg:            var(--neutral-200);
     --code-text:          var(--neutral-700);
     --code-border:        var(--neutral-300);
-    --btn-text:          var(--purple-600);   
-    --btn-text-hover:    var(--purple-500);    
+    --btn-text:           var(--purple-600);   
+    --btn-text-hover:     var(--purple-500);    
+    --btn-bg-hover:       var(--purple-100);
   }
 }
 
@@ -154,6 +156,7 @@ html:not(.dark) {
   --code-border:        var(--neutral-300);
   --btn-text:          var(--purple-600);   
   --btn-text-hover:    var(--purple-500);  
+  --btn-bg-hover:      var(--purple-100);
 
     /* Callout backgrounds */
   .callout-info    { background-color: var(--blue-100); }
@@ -299,6 +302,7 @@ html:not(.dark) {
 
   .indented-icon-list {
     display: flex;
+    font-size: 1rem;
     flex-direction: column;
     gap: 0.4rem;
     list-style: none;
@@ -309,7 +313,7 @@ html:not(.dark) {
   .indented-icon-list li {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.5rem;
   }
 
 * {
@@ -765,9 +769,10 @@ a[target="_blank"]::after {
 .social-link {
     display: inline-flex;
     align-items: center;
-    font-family: "Noto Sans", sans-serif;
+    font-family: "Atkinson Hyperlegible Mono", monospace;
     font-size: 1rem;
     font-weight: 400;
+    letter-spacing: -0.05em;
   }
 
 /* Desktop styles */
@@ -954,7 +959,7 @@ a[target="_blank"]::after {
 
 .tag[class*="tag-theme-"].active,
 .tag[class*="tag-theme-"]:hover {
-  box-shadow: 0 0 0 1px currentColor inset;
+  box-shadow: 0 0 0 2px currentColor inset;
 }
 
 html:not(.dark) .tag-theme-3dprinting {
@@ -1030,7 +1035,6 @@ a.tag, a.tag:visited {
 
 .btn:hover {
   background-color: var(--btn-bg-hover);
-  box-shadow: 0 2px 0 0 var(--btn-text-hover);
   color: var(--btn-text-hover);
 }
 
@@ -1156,7 +1160,7 @@ li.blog-post {
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .sort-bar {
@@ -1174,15 +1178,15 @@ li.blog-post {
 }
 
 .sort-icon-btn.active {
-  background-color: var(--pink-700);
-  color: var(--pink-050);
-  box-shadow: 0 2px 0 0 var(--pink-400);
+  background-color: var(--purple-700);
+  color: var(--purple-050);
+  box-shadow: 0 0 0 2px currentColor inset;
 }
 
 html:not(.dark) .sort-icon-btn.active {
-  background-color: var(--pink-100);
-  color: var(--pink-700);
-  box-shadow: 0 2px 0 0 var(--pink-300);
+  background-color: var(--purple-100);
+  color: var(--purple-700);
+  box-shadow: 0 0 0 2px currentColor inset;
 }
 
 .sort-dropdown {
@@ -1208,6 +1212,52 @@ html:not(.dark) .sort-icon-btn.active {
 
 .blog-content {
   width: 100%;
+}
+
+.blog-search {
+  height: 2.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--bg-secondary);
+  color: var(--text-normal);
+  font-size: 0.9rem;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
+  box-shadow: none;
+  outline: none;
+  max-width: 28rem;
+  width: 100%;
+}
+
+.blog-search::placeholder {
+  color: var(--text-faint);
+}
+
+.blog-search:focus {
+  border: 2px solid var(--btn-text-hover);
+}
+
+.blog-search-kbd {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  background: var(--bg-primary);
+  border: 1px solid var(--bg-border);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+.blog-count {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  margin: 0.5rem 0 0.75rem 0;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
 }
 
   /* Title on BlogSorter component */

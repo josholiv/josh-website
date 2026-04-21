@@ -15,12 +15,6 @@ const allPosts = await getCollection("blog");
 
 <hr class="rainbow-hr">
 
-<Callout type="tip">
-  <span slot="title">
-    Select <code># Tags</code> to filter posts
-  </span>
-</Callout>
-
    <div style={{ marginTop: '2rem'}}>
       <BlogSorter posts={allPosts} client:load /> 
    </div>
