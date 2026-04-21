@@ -4,10 +4,11 @@ import ChessStats from '../components/chesscom.tsx';
 import Strava from "../components/strava.js";
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import HardcoverStats from '../components/HardcoverStats.jsx';
+import Hardcover from '../components/Hardcover.js';
 import ErrorRenderer from "../Error.astro";
 import Callout from '../components/Callout.astro';
 import TOC from '../components/TOC.astro';
-import { AudioLines } from "lucide-preact";
+import { AudioLines, ExternalLink } from "lucide-preact";
 import { env } from "cloudflare:workers";
 
 const pageTitle = "Josh Olivier - About";
@@ -17,10 +18,29 @@ let data, error;
 
 try {
   const strava = new Strava(env);
-  data = await strava.fetch(); 
+  data = await strava.fetch();
 } catch (e) {
   error = e instanceof Error ? e.message : String(e);
 }
+
+let recentBooks: { title: string; cover: string | null; authors: string; hardcoverUrl: string | null }[] = [];
+try {
+  const hc = new Hardcover(env);
+  const result = await hc.fetch();
+  recentBooks = (result.userBooks || [])
+    .map((entry: any) => ({
+      title: entry.book?.title || "Untitled",
+      cover: entry.book?.image?.url || null,
+      lastRead: entry.last_read_date ?? null,
+      authors: (entry.book?.contributions || [])
+        .map((c: any) => c.author?.name)
+        .filter(Boolean)
+        .join(", "),
+      hardcoverUrl: entry.book?.slug ? `https://hardcover.app/books/${entry.book.slug}` : null,
+    }))
+    .sort((a: any, b: any) => new Date(b.lastRead).getTime() - new Date(a.lastRead).getTime())
+    .slice(0, 10);
+} catch (_) {}
 ---
 
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
@@ -133,8 +153,50 @@ try {
 <HardcoverStats client:only="preact" />
 
 <p>
-Take a look at my <a href="/bookshelf">bookshelf</a> to see the books I've read recently, along with my ratings and reviews I've written. 
-I’m working on reading more thoughtfully and getting into the habit of capturing my reflections as I go, so I'll continue updating this list over time. 
-And if you notice any gaps, please feel free to <a href="/contact">let me know</a>! I’m always looking for new book recommendations. 
+Below are the last few books I've read—check out my <a href="/bookshelf">bookshelf</a> to see more, along with and any 
+ratings I've given and reviews I've written.
+</p>
+
+{recentBooks.length > 0 && (
+  <div class="recent-books-grid">
+    {recentBooks.map(book => (
+      <div class="rb-card">
+        <div class="rb-cover-area">
+          <div class="rb-cover-wrap">
+            {book.cover
+              ? (
+                <a href={book.hardcoverUrl || '#'} class="rb-cover-hover-wrap" target="_blank" rel="noopener noreferrer" aria-label={`View ${book.title} on Hardcover`}>
+                  <img src={book.cover} alt={book.title} class="rb-cover-img" />
+                  <div class="rb-cover-overlay">
+                    <img src={book.cover} alt="" class="rb-cover-bg-blur" aria-hidden="true" />
+                    <div class="rb-cover-overlay-text">
+                      <span class="rb-title">{book.title}</span>
+                      <i class="rb-author">{book.authors}</i>
+                    </div>
+                  </div>
+                </a>
+              )
+              : (
+                <div class="rb-cover-placeholder">
+                  <span class="rb-title">{book.title}</span>
+                  <i class="rb-author">{book.authors}</i>
+                </div>
+              )
+            }
+          </div>
+          {book.hardcoverUrl && (
+            <a href={book.hardcoverUrl} class="rb-hardcover-badge" target="_blank" rel="noopener noreferrer" aria-label={`View ${book.title} on Hardcover`}>
+              View on Hardcover <ExternalLink size={10}/>
+            </a>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
+<p>I’m working on reading more thoughtfully and getting into the habit of capturing my reflections as I go, so 
+I'll continue updating this list over time. 
+And if you notice any gaps, please feel free to <a href="/contact">let me know</a>! I’m always looking for new book recommendations.</p>
 
 </BaseLayout>

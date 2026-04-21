@@ -1376,3 +1376,175 @@ html:not(.dark) .sort-icon-btn.active {
   }
 }
 
+  .recent-books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .rb-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rb-cover-area {
+    position: relative;
+    width: 100%;
+  }
+
+  .rb-cover-wrap {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .rb-cover-area:hover .rb-cover-wrap {
+    box-shadow: 0 0 0 2px var(--purple-600);
+  }
+
+  html:not(.dark) .rb-cover-area:hover .rb-cover-wrap {
+    box-shadow: 0 0 0 2px var(--purple-500);
+  }
+
+  .rb-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .rb-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.5rem;
+    color: var(--text-muted);
+  }
+
+  .rb-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .rb-author {
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--text-normal);
+  }
+
+  .rb-cover-hover-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a.rb-cover-hover-wrap::after {
+    display: none;
+  }
+
+  .rb-cover-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    overflow: hidden;
+  }
+
+  .rb-cover-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+    z-index: 1;
+  }
+
+  .rb-cover-hover-wrap:hover .rb-cover-overlay {
+    opacity: 1;
+  }
+
+  .rb-cover-bg-blur {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px) brightness(0.5);
+    transform: scale(1.5);
+    z-index: 0;
+  }
+
+  .rb-cover-overlay-text {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+
+  .rb-cover-overlay-text .rb-title {
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+
+  .rb-cover-overlay-text .rb-author {
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+
+  .rb-hardcover-badge {
+    position: absolute;
+    top: 100%;
+    left: -2px;
+    right: -2px;
+    z-index: 10;
+    background: var(--purple-600);
+    color: var(--purple-050);
+    font-size: 0.65rem;
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0 0 7px 7px;
+    letter-spacing: 0.03em;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0s ease, transform 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a.rb-hardcover-badge::after {
+    display: none;
+  }
+
+  html:not(.dark) .rb-hardcover-badge {
+    background: var(--purple-500);
+    color: var(--purple-950);
+  }
+
+  .rb-cover-area:hover .rb-hardcover-badge {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+@media (max-width: 639px) {
+  .recent-books-grid .rb-card:nth-child(10) {
+    display: none;
+  }
+}
