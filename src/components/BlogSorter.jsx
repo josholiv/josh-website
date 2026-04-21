@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Calendar, Timer, X, XCircle, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
-import noTagResults from '../assets/no-tag-results.png';
 
 const tagIcons = {
   '3dprinting': Cog,
@@ -25,7 +24,7 @@ const renderTagLabel = (tag) => {
   );
 };
 
-const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = noTagResults.src }) => {
+const BlogSorter = ({ posts, showSort = true, showTags = true }) => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [sortedPosts, setSortedPosts] = useState(() => {
     return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
@@ -119,10 +118,11 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, noPostsImage = no
             {selectedTags.length > 0 && (
               <button
                 onClick={() => setSelectedTags([])}
-                className="btn icon-container-inline"
+                className="tag"
+                style={{ color: 'var(--red-400)', border: 'none' }}
                 aria-label="Clear tags"
               >
-                <X size="1rem" /> Clear
+                <X size="0.9rem" />
               </button>
             )}
           </div>
