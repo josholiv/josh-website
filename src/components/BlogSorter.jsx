@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
-import { Calendar, Timer, X, XCircle, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
+import { Calendar, Timer, X, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
 
 const tagIcons = {
   '3dprinting': Cog,
@@ -238,8 +238,14 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
         {sortedPosts.length === 0 && (selectedTags.length > 0 || searchQuery.trim()) && (
           <div class="blockquote callout-danger" style={{ marginTop: '2rem' }}>
             <div class="callout-title">
-              <XCircle size="1rem" />
-              <span>No posts matching your search{selectedTags.length > 0 ? ' and ' : ''}{selectedTags.length > 0 && <><code># Tags</code> combination</>}</span>
+              <X size="1rem" />
+              <span>
+                {searchQuery.trim() && selectedTags.length > 0
+                  ? <>No posts matching your search and <code># Tags</code> combination</>
+                  : searchQuery.trim()
+                  ? 'No posts matching your search'
+                  : <>No posts matching those <code># Tags</code></>}
+              </span>
             </div>
           </div>
         )}
