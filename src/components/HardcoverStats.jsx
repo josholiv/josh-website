@@ -39,7 +39,7 @@ const HardcoverStats = () => {
         {goals.map((g, i) => (
           <tr key={i}>
             <td style={{ fontWeight: 'bold', paddingRight: '2rem'  }}>{g.goal}</td>
-            <code><td style={{ fontFamily: 'Ubuntu Mono' }}>{g.progress}</td></code>
+            <td style={{ fontFamily: 'Ubuntu Mono' }}>{g.progress}</td>
           </tr>
         ))}
       </tbody>

@@ -49,7 +49,7 @@ const TriathlonStats = ({ data, error }) => {
     {sports.map(({ label, km }) => (
       <tr key={label}>
         <td style={{ fontWeight: 'bold', paddingRight: '2rem' }}>{label}</td>
-        <code><td style={{ fontFamily: "Ubuntu Mono", color: 'var(--text-normal)' }}>{getDistance(km)}</td></code>
+        <td style={{ fontFamily: "Ubuntu Mono", color: 'var(--text-normal)' }}>{getDistance(km)}</td>
       </tr>
     ))}
   </tbody>
