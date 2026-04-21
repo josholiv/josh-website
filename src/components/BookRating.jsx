@@ -3,8 +3,8 @@ import { useState, useEffect } from 'preact/hooks';
 const Star = ({ filled, half }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
+    width="24"
+    height="24"
     viewBox="0 0 24 24"
     fill={filled ? 'currentColor' : half ? 'url(#half-fill-blog)' : 'none'}
     stroke="currentColor"
@@ -30,7 +30,7 @@ const BookRating = ({ bookTitle }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/hardcover')
+    fetch(`/api/hardcover?title=${encodeURIComponent(bookTitle)}`)
       .then(async r => {
         const payload = await r.json().catch(() => ({}));
         if (!r.ok) throw new Error(payload?.error || `API error (${r.status})`);

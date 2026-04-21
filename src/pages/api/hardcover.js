@@ -6,12 +6,20 @@ export const prerender = false;
 const CACHE_TTL_SECONDS = 24 * 60 * 60;
 
 export async function GET({ request }) {
-  const cache = caches.default;
+  const requestedTitle = new URL(request.url).searchParams.get('title');
+  const cacheKey = new Request(new URL('/api/hardcover', request.url).toString());
 
+  let cache;
   try {
-    const cachedResponse = await cache.match(request);
+    cache = caches.default;
+    const cachedResponse = await cache.match(cacheKey);
     if (cachedResponse) {
-      return cachedResponse;
+      if (!requestedTitle) return cachedResponse;
+      const payload = await cachedResponse.clone().json();
+      const hasTitle = payload.userBooks?.some(
+        b => b.book?.title?.toLowerCase() === requestedTitle.toLowerCase()
+      );
+      if (hasTitle) return cachedResponse;
     }
   } catch (e) {
     // Ignore cache read errors and continue to live fetch.
@@ -29,7 +37,7 @@ export async function GET({ request }) {
     });
 
     try {
-      await cache.put(request, response.clone());
+      await cache.put(cacheKey, response.clone());
     } catch (e) {
       // Ignore cache write errors and return live response.
     }

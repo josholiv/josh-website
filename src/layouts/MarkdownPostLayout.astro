@@ -125,24 +125,21 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
   <TOC headings={headings} />
 
-  {frontmatter.tags?.includes("books") && (
-    <Callout type="danger" title="Warning: may contain spoilers!" />
-  )}
+ 
 
   {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
     <BookRating client:load bookTitle={frontmatter.bookTitle} />
+  )}
+
+   {frontmatter.tags?.includes("books") && (
+    <Callout type="danger" title="Warning: may contain spoilers!" />
   )}
 
   <slot />
 
   {frontmatter.tags?.includes("books") && (
     <div>
-  
-  <Callout type="important" icon={LibraryBig}> 
-    <span slot="title">
-      Check out my <a href="/bookshelf">bookshelf</a> for more books I've read recently
-    </span>
-  </Callout>
+      → For more books I've read recently, check out my <a href="/bookshelf">bookshelf</a>
     </div>
   )}
 
