@@ -4,6 +4,7 @@ import Hardcover from '../components/Hardcover.js';
 import Dropdown from '../components/Dropdown.jsx';
 import { getCollection } from 'astro:content';
 import { env } from 'cloudflare:workers';
+import { ExternalLink } from "lucide-preact";
 
 let books = [];
 let fetchError;
@@ -29,6 +30,7 @@ try {
       .filter(Boolean)
       .join(", "),
     reviewUrl: reviewMap.get((entry.book?.title || '').toLowerCase()) || null,
+    hardcoverUrl: entry.book?.slug ? `https://hardcover.app/books/${entry.book.slug}` : null,
   })).sort((a, b) => new Date(b.lastRead) - new Date(a.lastRead));
 } catch (e) {
   fetchError = e.message;
@@ -44,10 +46,10 @@ try {
 
   <!-- search + rating filter -->
   <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap; justify-content: space-between;">
-    <div style="position: relative; width: 100%; max-width: 24rem;">
+    <div style="position: relative; width: 100%; max-width: 16rem;">
       <input
         type="text"
-        placeholder="Search by title, author, or year read..."
+        placeholder="Search..."
         class="book-search"
         id="bookSearch"
       />
@@ -69,38 +71,32 @@ try {
   <div class="book-grid">
     {books.map(book => (
       <div class="book-card" data-rating={book.rating ?? 'none'} data-has-review={book.reviewUrl ? 'true' : 'false'}>
-        <div class="cover-wrap">
-          {book.cover
-            ? (
-              book.reviewUrl
-                ? <a href={book.reviewUrl} class="cover-hover-wrap">
-                    <img src={book.cover} alt={book.title} class="cover-img" />
-                    <div class="cover-overlay">
-                      <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
-                      <div class="cover-overlay-text">
-                        <span class="placeholder-title">{book.title}</span>
-                        <i class="placeholder-author">{book.authors}</i>
-                      </div>
-                    </div>
-                  </a>
-                : <div class="cover-hover-wrap">
-                    <img src={book.cover} alt={book.title} class="cover-img" />
-                    <div class="cover-overlay">
-                      <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
-                      <div class="cover-overlay-text">
-                        <span class="placeholder-title">{book.title}</span>
-                        <i class="placeholder-author">{book.authors}</i>
-                      </div>
+        <div class="cover-area">
+          <div class="cover-wrap">
+            {book.cover
+              ? (
+                <a href={book.hardcoverUrl || '#'} class="cover-hover-wrap" target="_blank" rel="noopener noreferrer" aria-label={`View ${book.title} on Hardcover`}>
+                  <img src={book.cover} alt={book.title} class="cover-img" />
+                  <div class="cover-overlay">
+                    <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
+                    <div class="cover-overlay-text">
+                      <span class="placeholder-title">{book.title}</span>
+                      <i class="placeholder-author">{book.authors}</i>
                     </div>
                   </div>
-            )
-            : (
-              <div class="cover-placeholder">
-                <span class="placeholder-title">{book.title}</span>
-                <i class="placeholder-author">{book.authors}</i>
-              </div>
-            )
-          }
+                </a>
+              )
+              : (
+                <div class="cover-placeholder">
+                  <span class="placeholder-title">{book.title}</span>
+                  <i class="placeholder-author">{book.authors}</i>
+                </div>
+              )
+            }
+          </div>
+          {book.hardcoverUrl && (
+            <a href={book.hardcoverUrl} class="hardcover-badge" target="_blank" rel="noopener noreferrer" aria-label={`View ${book.title} on Hardcover`}>View on Hardcover <ExternalLink size={10}/></a>
+          )}
         </div>
 
         <!-- Hidden but searchable -->
@@ -220,11 +216,25 @@ try {
     gap: 0.4rem;
   }
 
+  .cover-area {
+    position: relative;
+    width: 100%;
+  }
+
   .cover-wrap {
     width: 100%;
     aspect-ratio: 2 / 3;
     border-radius: 2px;
     overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .cover-area:hover .cover-wrap {
+    box-shadow: 0 0 0 2px var(--purple-600);
+  }
+
+    html:not(.dark) .cover-area:hover .cover-wrap {
+    box-shadow: 0 0 0 2px var(--purple-500);
   }
 
   .cover-img {
@@ -319,6 +329,44 @@ try {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   }
 
+  .hardcover-badge {
+    position: absolute;
+    top: 100%;
+    left: -2px;
+    right: -2px;
+    z-index: 10;
+    background: var(--purple-600);
+    color: var(--purple-050);
+    font-size: 0.65rem;
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0 0 7px 7px;
+    letter-spacing: 0.03em;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0s ease, transform 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a.hardcover-badge::after {
+    display: none;
+  }
+
+  html:not(.dark) .hardcover-badge {
+    background: var(--purple-500);
+    color: var(--purple-950);
+  }
+
+  .cover-area:hover .hardcover-badge {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Hidden but searchable */
   .book-title,
   .book-author {
@@ -378,10 +426,15 @@ try {
     box-shadow: 0 2px 0 0 var(--pink-300);
   }
 
-  a.cover-hover-wrap {
+  .cover-hover-wrap {
     display: block;
     text-decoration: none;
     color: inherit;
+  }
+
+  /* suppress the global a[target="_blank"]::after icon inside the cover */
+  a.cover-hover-wrap::after {
+    display: none;
   }
 </style>
 
@@ -447,7 +500,7 @@ try {
   searchInput.addEventListener('blur', () => {
     if (!searchInput.value) {
       searchHint.style.display = '';
-      searchInput.setAttribute('placeholder', 'Search by title, author, or year read...');
+      searchInput.setAttribute('placeholder', 'Search...');
     }
   });
 

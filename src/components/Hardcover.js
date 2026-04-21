@@ -45,6 +45,7 @@ export default class Hardcover {
           last_read_date
           book {
             title
+            slug
             cached_tags
             image {
               url
