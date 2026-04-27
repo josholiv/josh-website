@@ -13,6 +13,9 @@ const { frontmatter } = Astro.props;
 
 const pageUrl = Astro.url.href;
 const pageTitle = frontmatter.title;
+const titleHtml = (frontmatter.tags?.includes('books') && frontmatter.bookTitle)
+  ? `Book review: <em>${frontmatter.bookTitle}</em>`
+  : undefined;
 
 const allPosts = await getCollection("blog");
 
@@ -49,7 +52,7 @@ const tagIcons = {
 };
 const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof tagIcons] ?? null;
 ---
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout pageTitle={frontmatter.title} titleHtml={titleHtml}>
 
 <ImageLightbox client:load />
 
@@ -139,7 +142,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
   {frontmatter.tags?.includes("books") && (
     <div>
-      <i>→ See more books I've read on my <a href="/bookshelf">bookshelf</a></i>
+      <i>→ see more books I've read on my <a href="/bookshelf">bookshelf</a></i>
     </div>
   )}
 
@@ -161,7 +164,11 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
                 </div>
               )}
               <div class="post-text">
-                <div class="post-title">{post.data.title}</div>
+                <div class="post-title">
+                  {(post.data.tags?.includes('books') && post.data.bookTitle)
+                    ? <span>Book review: <em>{post.data.bookTitle}</em></span>
+                    : post.data.title}
+                </div>
                 <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
                   <span class="pub-date icon-container-inline">
                     <Calendar size="1rem" />
@@ -177,7 +184,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
                     {post.data.readTime} min
                   </span>
                 </div>
-                <div class="tags" style="margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                <div class="tags" style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
                   {post.data.tags?.map(tag => {
                     const TagIcon = getTagIcon(tag);
                     return (

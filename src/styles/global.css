@@ -180,7 +180,7 @@ html:not(.dark) {
       overflow-y: scroll; /* Always reserve space for the scrollbar */
     }
 
-    h1, h2 {
+    h1 {
       color: var(--text-heading);
       font-family: "DM Serif Text", serif;
     }
@@ -191,17 +191,11 @@ html:not(.dark) {
       margin: 2rem 0;
     }
 
-    h2 {
-      font-weight: 200;
-      font-size: 2rem;
+    h2, h3 {
       margin: 1rem 0;
     }
 
-    h3 {
-      margin: 1rem 0;
-    }
-
-    h3, h4, h5, h6 {
+    h2, h3, h4, h5, h6 {
       color: var(--text-heading);
     }
 
@@ -665,7 +659,7 @@ blockquote {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .callout-info    .callout-title { color: var(--blue-400); }
@@ -1196,23 +1190,20 @@ li.blog-post {
 }
   
   .blog-thumbnail-wrapper {
-  position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .blog-list {
-  padding-left: 0; 
+  padding-left: 0;
   list-style: none;
 }
 
 .blog-thumbnail {
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
-  object-position: center;
   border-radius: 2px;
 }
 
@@ -1331,10 +1322,15 @@ html:not(.dark) .sort-icon-btn.active {
   font-family: "Atkinson Hyperlegible Mono", monospace;
 }
 
+  .post-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
   /* Title on BlogSorter component */
   .post-title {
-    margin-bottom: 0.5rem;
-    font-weight: 700;
+    margin-bottom: 0;
   }
 
   /* Date on BlogSorter component */
@@ -1375,9 +1371,7 @@ html:not(.dark) .sort-icon-btn.active {
 
   .blog-thumbnail-wrapper {
     width: 2.5rem;
-    padding-top: 2.5rem;
     margin-right: 0.75rem;
-    flex-shrink: 0;
   }
 
   .post-wrapper .post-text {
@@ -1395,8 +1389,7 @@ html:not(.dark) .sort-icon-btn.active {
   }
 
   .blog-thumbnail-wrapper {
-    width: 5.5rem;
-    padding-top: 5.5rem;
+    width: 4.5rem;
     margin-right: 1rem;
   }
 

@@ -1,5 +1,5 @@
 ---
-title: 'Book review — Everything Is Tuberculosis: The History and Persistence of Our Deadliest Infection'
+title: 'Book review: Everything Is Tuberculosis: The History and Persistence of Our Deadliest Infection'
 pubDate: 2026-04-20
 description: 'My review of Everything Is Tuberculosis: The History and Persistence of Our Deadliest Infection by John Green.'
 author: 'Josh Olivier'

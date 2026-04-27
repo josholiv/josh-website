@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const { pageTitle, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
 ---
 
 <html lang="en">
@@ -55,7 +55,9 @@ const { pageTitle, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
       <Header />
       <main class="main-content">
          {shouldShowTitle && (
-          <h1 class={shouldCenterTitle ? 'center-title' : ''}>{pageTitle}</h1>
+          <h1 class={shouldCenterTitle ? 'center-title' : ''}>
+            {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
+          </h1>
         )}
         <slot />
       </main>

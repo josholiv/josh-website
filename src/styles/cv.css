@@ -175,6 +175,10 @@ body {
 
 @media print {
 
+  .toc {
+    display: none !important;
+  }
+
   @page {
     margin: 0.5in !important;
   }

@@ -14,6 +14,13 @@ const tagIcons = {
 const getTagThemeClass = (tag = '') => `tag-theme-${tag.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 const getTagIcon = (tag = '') => tagIcons[tag.toLowerCase()] ?? null;
 
+const renderPostTitle = (post) => {
+  if (post.data.tags?.includes('books') && post.data.bookTitle) {
+    return <span>Book review: <em>{post.data.bookTitle}</em></span>;
+  }
+  return post.data.title;
+};
+
 const renderTagLabel = (tag) => {
   const TagIcon = getTagIcon(tag);
   return (
@@ -270,7 +277,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
 
                   <div className="post-text">
 
-                    <div className="post-title">{post.data.title}</div>
+                    <div className="post-title">{renderPostTitle(post)}</div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
                       <span className="pub-date icon-container-inline">
@@ -292,7 +299,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
 
                     <div
                       className="tags"
-                      style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.6rem', alignItems: 'flex-start' }}
+                      style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', alignItems: 'flex-start' }}
                     >
                       {post.data.tags?.map((tag) => (
                         <span key={tag} className={`tag-blogsorter ${getTagThemeClass(tag)}`}>

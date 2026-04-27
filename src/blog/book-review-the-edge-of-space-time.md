@@ -1,5 +1,5 @@
 ---
-title: 'Book review — The Edge of Space-Time: Particles, Poetry, and the Cosmic Dream Boogie'
+title: 'Book review: The Edge of Space-Time: Particles, Poetry, and the Cosmic Dream Boogie'
 pubDate: 2026-04-19
 description: 'My review of The Edge of Space-Time: Particles, Poetry, and the Cosmic Dream Boogie by Chanda Prescod-Weinstein.'
 author: 'Josh Olivier'
