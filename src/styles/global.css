@@ -95,6 +95,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 /* ─── Theme tokens (default: dark theme) ─── */
 --bg-primary:        var(--neutral-900);   /* #191919 */
 --bg-secondary:      var(--neutral-800);   /* #272727 */
+--bg-tertiary:       var(--neutral-700);   /* #454545 */
 --bg-border:         var(--neutral-700);   /* #454545 */
 --text-normal:       var(--neutral-400);   /* #a0a0a0 */
 --text-muted:        var(--neutral-500);   /* #7e7e7e */
@@ -118,6 +119,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
   :root:not(.dark) {
     --bg-primary:         var(--neutral-050);
     --bg-secondary:       var(--neutral-100);
+    --bg-tertiary:        var(--neutral-200);
     --bg-border:          var(--neutral-300);
     --text-normal:        var(--neutral-600);
     --text-muted:         var(--neutral-500);
@@ -141,6 +143,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 html:not(.dark) {
   --bg-primary:         var(--neutral-050);
   --bg-secondary:       var(--neutral-100);
+  --bg-tertiary:        var(--neutral-200);
   --bg-border:          var(--neutral-300);
   --text-normal:        var(--neutral-600);
   --text-muted:         var(--neutral-500);
@@ -1022,7 +1025,6 @@ figure.img-figure .blog-body-pic {
   opacity: 0.8;
 }
 
-.tag[class*="tag-theme-"].active,
 .tag[class*="tag-theme-"]:hover {
   box-shadow: 0 0 0 2px currentColor inset;
 }
@@ -1204,7 +1206,152 @@ li.blog-post {
   width: 100%;
   aspect-ratio: 2 / 3;
   object-fit: cover;
+  border-radius: 3px;
+}
+
+/* BookRating component cover + Hardcover hover badge */
+.book-cover-area {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  line-height: 0;
+}
+
+.book-cover-link {
+  position: relative;
+  display: flex;
+  text-decoration: none;
   border-radius: 2px;
+  transition: box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+a.book-cover-link::after {
+  display: none;
+}
+
+.book-cover-area:hover .book-cover-link {
+  box-shadow: 0 0 0 2px var(--purple-600);
+}
+
+html:not(.dark) .book-cover-area:hover .book-cover-link {
+  box-shadow: 0 0 0 2px var(--purple-500);
+}
+
+.book-cover-img {
+  display: block;
+  max-width: 150px;
+  border-radius: 2px;
+}
+
+.book-cover-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  overflow: hidden;
+}
+
+.book-cover-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+.book-cover-link:hover .book-cover-overlay {
+  opacity: 1;
+}
+
+.book-cover-blur {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px) brightness(0.5);
+  transform: scale(1.5);
+  z-index: 0;
+}
+
+.book-cover-overlay-text {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
+  line-height: 1.3;
+}
+
+.book-cover-overlay-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.book-cover-overlay-author {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.book-cover-badge {
+  position: absolute;
+  top: 100%;
+  left: -2px;
+  right: -2px;
+  z-index: 10;
+  background: var(--purple-600);
+  font-size: 0.65rem;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0 0 7px 7px;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0s ease, transform 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a.book-cover-badge,
+a.book-cover-badge:visited,
+a.book-cover-badge:hover,
+a.book-cover-badge:visited:hover {
+  color: var(--purple-050);
+}
+
+a.book-cover-badge::after {
+  display: none;
+}
+
+html:not(.dark) .book-cover-badge {
+  background: var(--purple-500);
+}
+
+html:not(.dark) a.book-cover-badge,
+html:not(.dark) a.book-cover-badge:visited,
+html:not(.dark) a.book-cover-badge:hover,
+html:not(.dark) a.book-cover-badge:visited:hover {
+  color: var(--purple-950);
+}
+
+.book-cover-area:hover .book-cover-badge {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .show-tags-toggle {
@@ -1242,13 +1389,11 @@ li.blog-post {
 .sort-icon-btn.active {
   background-color: var(--purple-700);
   color: var(--purple-050);
-  box-shadow: 0 0 0 2px currentColor inset;
 }
 
 html:not(.dark) .sort-icon-btn.active {
   background-color: var(--purple-100);
   color: var(--purple-700);
-  box-shadow: 0 0 0 2px currentColor inset;
 }
 
 .sort-dropdown {
@@ -1349,7 +1494,7 @@ html:not(.dark) .sort-icon-btn.active {
 }
 
 .post-card-link:hover {
-  background-color: var(--bg-border);
+  background-color: var(--bg-tertiary);
 }
 
 @media print {
@@ -1371,7 +1516,8 @@ html:not(.dark) .sort-icon-btn.active {
 
   .blog-thumbnail-wrapper {
     width: 2.5rem;
-    margin-right: 0.75rem;
+    order: 2;
+    margin-left: 0.75rem;
   }
 
   .post-wrapper .post-text {
@@ -1389,8 +1535,9 @@ html:not(.dark) .sort-icon-btn.active {
   }
 
   .blog-thumbnail-wrapper {
-    width: 4.5rem;
-    margin-right: 1rem;
+    width: 3.75rem;
+    order: 2;
+    margin-left: 1rem;
   }
 
   .post-title,

@@ -14,7 +14,7 @@ const { frontmatter } = Astro.props;
 const pageUrl = Astro.url.href;
 const pageTitle = frontmatter.title;
 const titleHtml = (frontmatter.tags?.includes('books') && frontmatter.bookTitle)
-  ? `Book review: <em>${frontmatter.bookTitle}</em>`
+  ? `Book review: <em>${frontmatter.bookTitleShort ?? frontmatter.bookTitle}</em>`
   : undefined;
 
 const allPosts = await getCollection("blog");
@@ -128,15 +128,15 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
   <TOC headings={headings} />
 
- 
+    {frontmatter.tags?.includes("books") && (
+    <Callout type="warning" title="Warning: contains spoilers!" />
+  )}
 
   {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
     <BookRating client:load bookTitle={frontmatter.bookTitle} />
   )}
 
-   {frontmatter.tags?.includes("books") && (
-    <Callout type="danger" title="Warning: may contain spoilers!" />
-  )}
+
 
   <slot />
 
@@ -166,7 +166,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
               <div class="post-text">
                 <div class="post-title">
                   {(post.data.tags?.includes('books') && post.data.bookTitle)
-                    ? <span>Book review: <em>{post.data.bookTitle}</em></span>
+                    ? <span>Book review: <em>{post.data.bookTitleShort ?? post.data.bookTitle}</em></span>
                     : post.data.title}
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
@@ -203,7 +203,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
     </div>
   )}
 
-  ← <a href="/blog">Back to blog</a>
+  ← <a href="/blog">back to blog</a>
 
   <div id="copy-toast">Link copied!</div>
 

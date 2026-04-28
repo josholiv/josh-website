@@ -1,5 +1,5 @@
 ---
-title: 'New paper! Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information.'
+title: 'New paper on cortical volume, age, and scene memory'
 pubDate: 2025-08-26
 description: 'Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information.'
 author: 'Josh Olivier'

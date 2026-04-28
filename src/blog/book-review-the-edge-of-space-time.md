@@ -9,6 +9,7 @@ image:
 tags: ["books", "science"]
 readTime: '2'
 bookTitle: 'The Edge of Space-Time: Particles, Poetry, and the Cosmic Dream Boogie'
+bookTitleShort: 'The Edge of Space-Time'
 ---
 
 ## Review

@@ -16,7 +16,7 @@ const getTagIcon = (tag = '') => tagIcons[tag.toLowerCase()] ?? null;
 
 const renderPostTitle = (post) => {
   if (post.data.tags?.includes('books') && post.data.bookTitle) {
-    return <span>Book review: <em>{post.data.bookTitle}</em></span>;
+    return <span>Book review: <em>{post.data.bookTitleShort ?? post.data.bookTitle}</em></span>;
   }
   return post.data.title;
 };

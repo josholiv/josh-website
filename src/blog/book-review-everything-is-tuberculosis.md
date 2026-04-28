@@ -9,6 +9,7 @@ image:
 tags: ["books"]
 readTime: '2'
 bookTitle: 'Everything Is Tuberculosis: The History and Persistence of Our Deadliest Infection'
+bookTitleShort: 'Everything Is Tuberculosis'
 ---
 
 ## Review
