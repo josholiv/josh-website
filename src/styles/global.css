@@ -497,12 +497,13 @@ hr {
 .wave-small {
   background: linear-gradient(
     90deg,
-    var(--red-400),
-    var(--orange-400),
+    var(--red-800),
+    var(--orange-800),
     var(--green-400),
-    var(--blue-400),
-    var(--purple-400),
-    var(--pink-400)
+    var(--cyan-800),
+    var(--blue-800),
+    var(--purple-800),
+    var(--pink-800)
   );
   background-size: 300% 300%; /* expand gradient to allow smooth animation */
 
@@ -517,6 +518,20 @@ hr {
   
   top: 8px;
   animation: wave-scroll-small 40s linear infinite, rainbowShift 20s ease infinite;
+}
+
+html:not(.dark) .wave-small {
+  background: linear-gradient(
+    90deg,
+    var(--red-300),
+    var(--orange-300),
+    var(--green-400),
+    var(--cyan-300),
+    var(--blue-300),
+    var(--purple-300),
+    var(--pink-300)
+  );
+  background-size: 300% 300%;
 }
 
 /* big wave */
@@ -552,12 +567,28 @@ hr {
   height: 2px;
   background: linear-gradient(
     90deg,
-    var(--red-400),
-    var(--orange-400),
+    var(--red-800),
+    var(--orange-800),
     var(--green-400),
-    var(--blue-400),
-    var(--purple-400),
-    var(--pink-400)
+    var(--cyan-800),
+    var(--blue-800),
+    var(--purple-800),
+    var(--pink-800)
+  );
+  background-size: 300% 100%;
+  animation: rainbowShift 8s ease infinite;
+}
+
+html:not(.dark) .rainbow-hr {
+  background: linear-gradient(
+    90deg,
+    var(--red-300),
+    var(--orange-300),
+    var(--green-400),
+    var(--cyan-300),
+    var(--blue-300),
+    var(--purple-300),
+    var(--pink-300)
   );
   background-size: 300% 100%;
   animation: rainbowShift 8s ease infinite;
@@ -740,49 +771,33 @@ a[target="_blank"]::after {
 
 .hamburger {
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-normal);
 }
 
-/* Hamburger Lines with Rainbow Gradient Animation */
-.hamburger .line {
+.hamburger:hover {
+  color: var(--text-heading);
+}
+
+.hamburger-icon {
   display: block;
-  width: 28px;
-  height: 5px;
-  margin-bottom: 5px;
-  border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--red-400),
-    var(--orange-400),
-    var(--green-400),
-    var(--blue-400),
-    var(--purple-400),
-    var(--pink-400)
-  );
-  background-size: 300% 300%;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-  animation: rainbowShift 8s ease infinite;
-  will-change: background-position;
 }
 
-/* Open state */
-.hamburger.open .line {
-  background: var(--text-normal); /* gray */
-  animation: none;
-  border-radius: 0px;
+.hamburger-icon-close {
+  display: none;
 }
 
-.hamburger.open .line1 {
-  transform: rotate(45deg) translate(7px, 7px);
+.hamburger.open .hamburger-icon-menu {
+  display: none;
 }
 
-.hamburger.open .line2 {
-  opacity: 0;
-}
-
-.hamburger.open .line3 {
-  transform: rotate(-45deg) translate(7px, -7px);
+.hamburger.open .hamburger-icon-close {
+  display: block;
 }
 
 /* Mobile: nav links hidden by default */
@@ -792,9 +807,10 @@ a[target="_blank"]::after {
   width: 100%;
 }
 
-/* Expanded mobile menu */
-.nav-links.expanded {
+.nav-links-inner {
   display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 /* Mobile link styles */
@@ -815,11 +831,6 @@ a[target="_blank"]::after {
   color: var(--text-heading);
 }
 
-/* Spacing between stacked links in hamburger menu */
-.expanded a {
-  margin-bottom: 0.8rem;
-}
-
 .social-link {
     display: inline-flex;
     align-items: center;
@@ -837,8 +848,13 @@ a[target="_blank"]::after {
   }
 
   .nav-links {
-    display: flex !important;
-    flex-direction: row !important;
+    display: block !important;
+    width: auto;
+  }
+
+  .nav-links-inner {
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     width: auto;
@@ -862,6 +878,49 @@ a[target="_blank"]::after {
 }
 
 @media (max-width: 639px) {
+  .nav-links-inner {
+    gap: 0.8rem;
+  }
+
+  .nav-links {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.3s ease, opacity 0.12s ease-out;
+    pointer-events: none;
+  }
+
+  .nav-links.expanded {
+    display: grid;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transition: grid-template-rows 0.3s ease, opacity 0.22s ease-in;
+    pointer-events: auto;
+    position: relative;
+    padding-bottom: 0.6rem;
+  }
+
+  .nav-links-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  header {
+    position: relative;
+  }
+
+  header.mobile-menu-open::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 50vw);
+    bottom: 0;
+    width: 100vw;
+    height: 1px;
+    background-color: var(--text-faint);
+    opacity: 0.35;
+  }
+
   .about-header {
     flex-direction: column;
     align-items: flex-start;
@@ -1546,8 +1605,9 @@ html:not(.dark) .sort-icon-btn.active {
 
   .blog-thumbnail-wrapper {
     width: 3.75rem;
-    order: 2;
-    margin-left: 1rem;
+    order: 0;
+    margin-right: 1rem;
+    margin-left: 0;
   }
 
   .post-title,

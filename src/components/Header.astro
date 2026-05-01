@@ -8,6 +8,9 @@ import ThemeIcon from './ThemeIcon.astro';
     <nav>
       <div class="mobile-bar">
         <Hamburger />
+        <a href="/" class="mobile-site-title">
+          <span class="mobile-site-title-main">josholivier</span><span class="mobile-site-title-domain">.com</span>
+        </a>
       </div>
       <Navigation />
       <ThemeIcon />
@@ -25,10 +28,45 @@ import ThemeIcon from './ThemeIcon.astro';
   .mobile-bar {
     display: flex;
     align-items: center;
+    gap: 0;
+    position: relative;
     width: 100%;
   }
 
+  .mobile-site-title {
+    font-family: "DM Serif Text", serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    margin-left: 1.2rem;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--text-muted);
+  }
+
+  .mobile-site-title-main {
+    color: inherit;
+  }
+
+  .mobile-site-title-domain {
+    color: var(--bg-secondary);
+  }
+
+  .mobile-site-title:hover,
+  .mobile-site-title:active,
+  .mobile-site-title:visited,
+  .mobile-site-title:visited:hover,
+  .mobile-site-title:visited:active,
+  .mobile-site-title:focus,
+  .mobile-site-title:focus-visible {
+    color: var(--text-muted);
+  }
+
   @media (max-width: 639px) {
+    .mobile-bar {
+      padding-right: 2.75rem;
+    }
+
     nav > :global(#themeToggle) {
       position: absolute;
       top: 0;

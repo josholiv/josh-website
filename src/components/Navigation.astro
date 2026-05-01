@@ -4,6 +4,7 @@ const pathname = Astro.url.pathname;
 ---
 <div class="nav-container">
 <div class="nav-links">
+  <div class="nav-links-inner">
   <div class="nav-links-home">
   <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
     <span class="icon-container">
@@ -35,6 +36,7 @@ const pathname = Astro.url.pathname;
       Contact
     </span>
   </a>
+  </div>
 </div>
 
 </div>
