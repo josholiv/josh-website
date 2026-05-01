@@ -160,8 +160,8 @@ try {
   .book-search {
     height: 2.25rem;
     padding: 0.5rem 0.75rem;
-    border-radius: 10px;
-    border: none;
+    border-radius: var(--control-radius);
+    border: 1px solid var(--bg-border);
     background: var(--bg-secondary);
     color: var(--text-normal);
     font-size: 0.9rem;
@@ -177,7 +177,7 @@ try {
   }
 
   .book-search:focus {
-    border: 2px solid var(--btn-text-hover);
+    border-color: var(--bg-border);
   }
 
   .search-hint {
@@ -416,13 +416,13 @@ try {
   }
 
   #reviewFilterBtn.active {
-    background-color: var(--purple-700);
-    color: var(--pink-050);
+    background-color: var(--neutral-700);
+    color: var(--text-normal);
   }
 
   html:not(.dark) #reviewFilterBtn.active {
     background-color: var(--purple-100);
-    color: var(--pink-700);
+    color: var(--text-normal);
   }
 
   .cover-hover-wrap {

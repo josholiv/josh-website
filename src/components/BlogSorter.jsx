@@ -149,7 +149,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
               <button
                 onClick={() => setSelectedTags([])}
                 className="tag"
-                style={{ color: 'var(--red-400)', border: 'none' }}
+                style={{ color: 'var(--red-400)' }}
                 aria-label="Clear tags"
               >
                 <X size="0.9rem" />

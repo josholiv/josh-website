@@ -51,7 +51,7 @@ const Dropdown = ({ options, defaultOption, onSelect, icon }) => {
             <button
               key={option}
               className="btn"
-              style={{ borderRadius: 0, width: '100%', boxShadow: 'none', justifyContent: 'flex-start' }}
+              style={{ width: '100%', boxShadow: 'none', justifyContent: 'flex-start' }}
               onClick={() => handleSelect(option)}
             >
               {option}

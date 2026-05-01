@@ -1,5 +1,5 @@
 ---
-import { CornerDownRight, ChevronRight } from 'lucide-preact';
+import { ChevronRight } from 'lucide-preact';
 
 interface Heading {
   depth: number;
@@ -44,10 +44,7 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
               <ul class="toc-sublist">
                 {h3s.map(h3 => (
                   <li class="toc-subitem">
-                    <a href={`#${h3.slug}`}>
-                      <CornerDownRight size="0.85rem" />
-                      {h3.text}
-                    </a>
+                    <a href={`#${h3.slug}`}>{h3.text}</a>
                   </li>
                 ))}
               </ul>
@@ -65,29 +62,81 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
   const toggle = document.getElementById('toc-toggle');
 
   toggle?.addEventListener('click', () => {
+    if (!toc) return;
     const isOpen = toc.getAttribute('data-open') === 'true';
     toc.setAttribute('data-open', String(!isOpen));
   });
 
-  // Start open when floating (wide screen)
-  if (toc && window.matchMedia('(min-width: 1300px)').matches) {
-    toc.setAttribute('data-open', 'true');
-  }
-
   // Active heading highlight
-  function updateActive() {
-    const headings = Array.from(document.querySelectorAll('main h2, main h3')) as HTMLElement[];
-    let activeId = headings[0]?.id ?? null;
-    for (const h of headings) {
-      if (h.getBoundingClientRect().top <= 100) activeId = h.id;
+  const headingEls = Array.from(document.querySelectorAll('main h2, main h3')) as HTMLElement[];
+
+  // When the user clicks a TOC link we pin that heading as active and
+  // keep it pinned until they make a deliberate scroll gesture.
+  let pinnedId: string | null = null;
+
+  function clearPin() {
+    if (!pinnedId) return;
+    pinnedId = null;
+    pickActive();
+  }
+
+  // Use event delegation so it works for both server-rendered and
+  // dynamically auto-populated links.
+  document.getElementById('toc-list')?.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (href?.startsWith('#')) {
+      pinnedId = href.slice(1);
+      setActive(pinnedId);
     }
+  });
+
+  // Release the pin only on genuine user scroll input, not the
+  // programmatic scroll caused by the anchor jump.
+  window.addEventListener('wheel', clearPin, { passive: true });
+  window.addEventListener('touchstart', clearPin, { passive: true });
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowUp','ArrowDown','PageUp','PageDown',' ','Home','End'].includes(e.key)) clearPin();
+  });
+
+  function setActive(id: string | null) {
     document.querySelectorAll('#toc-list a').forEach(a => a.classList.remove('toc-active'));
-    if (activeId) {
-      document.querySelector(`#toc-list a[href="#${CSS.escape(activeId)}"]`)?.classList.add('toc-active');
+    if (id) {
+      document.querySelector(`#toc-list a[href="#${CSS.escape(id)}"]`)?.classList.add('toc-active');
     }
   }
 
-  window.addEventListener('scroll', updateActive, { passive: true });
+  function pickActive() {
+    // If the user clicked a TOC link, keep that item highlighted until
+    // they scroll deliberately.
+    if (pinnedId) {
+      setActive(pinnedId);
+      return;
+    }
+
+    // Special case: at the very bottom of the page, the last heading wins.
+    const atBottom =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
+    if (atBottom && headingEls.length > 0) {
+      setActive(headingEls[headingEls.length - 1].id);
+      return;
+    }
+
+    // Otherwise, the active heading is the last one whose top edge has
+    // scrolled above a small threshold near the top of the viewport.
+    const threshold = 120;
+    let activeId: string | null = headingEls[0]?.id ?? null;
+    for (const h of headingEls) {
+      if (h.getBoundingClientRect().top <= threshold) {
+        activeId = h.id;
+      }
+    }
+    setActive(activeId);
+  }
+
+  window.addEventListener('scroll', pickActive, { passive: true });
+  window.addEventListener('resize', pickActive, { passive: true });
 
   // Auto-populate headings if none were server-rendered
   const list = document.getElementById('toc-list');
@@ -96,8 +145,6 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
     const headings = Array.from(document.querySelectorAll('main h2, main h3'));
     let currentH2Li: HTMLLIElement | null = null;
     let currentSublist: HTMLUListElement | null = null;
-
-    const cornerDownRightSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>`;
 
     headings.forEach(h => {
       if (!h.id) {
@@ -132,10 +179,7 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
 
         const a = document.createElement('a');
         a.href = `#${h.id}`;
-        a.style.display = 'inline-flex';
-        a.style.alignItems = 'flex-start';
-        a.style.gap = '0.35rem';
-        a.innerHTML = `${cornerDownRightSvg}${h.textContent}`;
+        a.textContent = h.textContent;
 
         li.appendChild(a);
         currentSublist.appendChild(li);
@@ -143,5 +187,6 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
     });
   }
 
-  updateActive();
+  // Re-run after auto-populating so newly added headings are immediately highlighted.
+  pickActive();
 </script>
