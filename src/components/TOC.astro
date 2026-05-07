@@ -1,5 +1,5 @@
 ---
-import { ChevronRight } from 'lucide-preact';
+import { ChevronRight, List } from 'lucide-preact';
 
 interface Heading {
   depth: number;
@@ -27,6 +27,7 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
 
 <nav class="toc" id="toc" data-open={String(defaultOpen)}>
   <button class="toc-title" id="toc-toggle">
+    <List size="1rem" />
     On this page
     <span class="toc-chevron">
       <ChevronRight size="1.1rem" />

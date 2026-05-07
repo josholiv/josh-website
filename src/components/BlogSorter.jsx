@@ -251,7 +251,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
                   ? <>No posts matching your search and <code># Tags</code> combination</>
                   : searchQuery.trim()
                   ? 'No posts matching your search'
-                  : <>No posts matching those <code># Tags</code></>}
+                  : <>No posts found </>}
               </span>
             </div>
           </div>
