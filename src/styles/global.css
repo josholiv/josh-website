@@ -190,14 +190,14 @@ html:not(.dark) {
       font-family: "DM Serif Text", serif;
       line-height: 1.2;
       letter-spacing: -0.02em;
-      font-weight: 700;
+      font-weight: 400;
       font-size: 3rem;
       margin: 2rem 0 0.5rem;
     }
 
     h2 {
       color: var(--text-heading);
-      font-weight: 400;
+      font-weight: 700;
       line-height: 1.3;
     }
 
@@ -205,6 +205,10 @@ html:not(.dark) {
       color: var(--text-normal);
       font-weight: 700;
       line-height: 1.3;
+    }
+
+    h3, h5 {
+      font-style: italic;
     }
 
     .title-muted {
@@ -346,7 +350,7 @@ html:not(.dark) {
   border-radius: 5px;
   padding: 0.75rem 1rem;
   margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .toc-title {
@@ -357,9 +361,9 @@ html:not(.dark) {
   user-select: none;
   background: none;
   border: none;
-  color: var(--text-heading);
+  color: var(--button-text);
   font-family: "Atkinson Hyperlegible Mono", monospace;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -383,7 +387,7 @@ html:not(.dark) {
   display: grid;
   grid-template-rows: 1fr;
   transition: grid-template-rows 0.25s ease, padding-top 0.25s ease;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
 }
 
 #toc[data-open="false"] .toc-body {
@@ -435,21 +439,22 @@ html:not(.dark) {
 
 .toc-sublist {
   list-style: none;
-  display: inline-flex;
-  padding: 0;
-  margin: 0 0 0 1.1rem;
+  padding: 0 0 0 0.75rem;
+  margin: 0.1rem 0 0 1.1rem;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  border-left: 1px solid var(--bg-border);
 }
 
 .toc-subitem a {
   display: inline-flex;
   align-items: flex-start;
   gap: 0.3rem;
-  margin-left: 1rem;
   color: var(--text-faint);
   text-decoration: none;
+  position: relative;
+  padding-left: 0.75rem;
 }
 
 .toc-subitem a svg {
@@ -625,7 +630,7 @@ blockquote {
   color: var(--text-muted);
   padding-left: 0.6rem;
   padding-right: 1rem;
-  margin-left: 1rem;
+  margin-left: 0;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -678,42 +683,42 @@ blockquote {
   background-color: var(--blue-900);
   color: var(--text-normal);
 }
-.callout-todo .callout-title { color: var(--blue-500); }
+.callout-todo .callout-title { color: var(--blue-400); }
 
 .callout-abstract {
   border-left-color: var(--cyan-400);
   background-color: var(--cyan-900);
   color: var(--text-normal);
 }
-.callout-abstract .callout-title { color: var(--cyan-500); }
+.callout-abstract .callout-title { color: var(--cyan-400); }
 
 .callout-example {
   border-left-color: var(--purple-400);
   background-color: var(--purple-900);
   color: var(--text-normal);
 }
-.callout-example .callout-title { color: var(--purple-500); }
+.callout-example .callout-title { color: var(--purple-400); }
 
 .callout-faq {
   border-left-color: var(--orange-400);
   background-color: var(--orange-900);
   color: var(--text-normal);
 }
-.callout-faq .callout-title { color: var(--orange-500); }
+.callout-faq .callout-title { color: var(--orange-400); }
 
 .callout-bug {
   border-left-color: var(--red-400);
   background-color: var(--red-900);
   color: var(--text-normal);
 }
-.callout-bug .callout-title { color: var(--red-500); }
+.callout-bug .callout-title { color: var(--red-400); }
 
 .callout-quote {
-  border-left-color: var(--neutral-500);
+  border-left-color: var(--neutral-400);
   background-color: var(--neutral-800);
   color: var(--text-normal);
 }
-.callout-quote .callout-title { color: var(--neutral-500); }
+.callout-quote .callout-title { color: var(--neutral-400); }
 
 .callout-code {
   border-left-color: var(--neutral-500);
@@ -730,13 +735,13 @@ blockquote {
   font-weight: 400;
 }
 
-.callout-info    .callout-title { color: var(--blue-500); }
-.callout-success .callout-title { color: var(--green-500); }
-.callout-warning .callout-title { color: var(--orange-500); }
-.callout-danger  .callout-title { color: var(--red-500); }
-.callout-tip     .callout-title { color: var(--pink-500); }
-.callout-note    .callout-title { color: var(--purple-500); }
-.callout-code    .callout-title { color: var(--neutral-500); }
+.callout-info    .callout-title { color: var(--blue-400); }
+.callout-success .callout-title { color: var(--green-400); }
+.callout-warning .callout-title { color: var(--orange-400); }
+.callout-danger  .callout-title { color: var(--red-400); }
+.callout-tip     .callout-title { color: var(--pink-400); }
+.callout-note    .callout-title { color: var(--purple-400); }
+.callout-code    .callout-title { color: var(--neutral-400); }
 
 .callout-info,
 .callout-success,
@@ -1615,7 +1620,7 @@ html:not(.dark) .sort-icon-btn.active {
   }
 
   .blog-thumbnail-wrapper {
-    width: 2.5rem;
+    width: 4rem;
     order: 0;
     margin-right: 1rem;
     margin-left: 0;

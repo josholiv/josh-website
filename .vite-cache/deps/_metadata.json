@@ -1,103 +1,103 @@
 {
-  "hash": "18b8948e",
-  "configHash": "f895ac6d",
+  "hash": "faeb36fc",
+  "configHash": "14d83cb3",
   "lockfileHash": "c6c00d65",
-  "browserHash": "181e7f76",
+  "browserHash": "6631d354",
   "optimized": {
     "three": {
       "src": "../../node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "61fd5f1a",
+      "fileHash": "88a5e653",
       "needsInterop": false
     },
     "three/examples/jsm/loaders/STLLoader": {
       "src": "../../node_modules/three/examples/jsm/loaders/STLLoader.js",
       "file": "three_examples_jsm_loaders_STLLoader.js",
-      "fileHash": "7c764789",
+      "fileHash": "f12cbd54",
       "needsInterop": false
     },
     "preact": {
       "src": "../../node_modules/preact/dist/preact.module.js",
       "file": "preact.js",
-      "fileHash": "4cf95973",
+      "fileHash": "cc55f697",
       "needsInterop": false
     },
     "preact/hooks": {
       "src": "../../node_modules/preact/hooks/dist/hooks.module.js",
       "file": "preact_hooks.js",
-      "fileHash": "56993a3f",
+      "fileHash": "dd6c31ae",
       "needsInterop": false
     },
     "preact/devtools": {
       "src": "../../node_modules/preact/devtools/dist/devtools.module.js",
       "file": "preact_devtools.js",
-      "fileHash": "f60052fb",
+      "fileHash": "bcead412",
       "needsInterop": false
     },
     "@astrojs/preact/server.js": {
       "src": "../../node_modules/@astrojs/preact/dist/server.js",
       "file": "@astrojs_preact_server__js.js",
-      "fileHash": "547cff42",
+      "fileHash": "3ed39a79",
       "needsInterop": false
     },
     "@astrojs/preact/client-dev.js": {
       "src": "../../node_modules/@astrojs/preact/dist/client-dev.js",
       "file": "@astrojs_preact_client-dev__js.js",
-      "fileHash": "71c92af6",
+      "fileHash": "29af3013",
       "needsInterop": false
     },
     "preact/jsx-runtime": {
       "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
       "file": "preact_jsx-runtime.js",
-      "fileHash": "8f348dcd",
+      "fileHash": "5bd045cb",
       "needsInterop": false
     },
     "preact/jsx-dev-runtime": {
       "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.module.js",
       "file": "preact_jsx-dev-runtime.js",
-      "fileHash": "af207127",
+      "fileHash": "d75cc5b3",
       "needsInterop": false
     },
     "preact/debug": {
       "src": "../../node_modules/preact/debug/dist/debug.module.js",
       "file": "preact_debug.js",
-      "fileHash": "283c2ab6",
+      "fileHash": "e3776c92",
       "needsInterop": false
     },
     "astro > aria-query": {
       "src": "../../node_modules/aria-query/lib/index.js",
       "file": "astro___aria-query.js",
-      "fileHash": "49ed526e",
+      "fileHash": "312775aa",
       "needsInterop": true
     },
     "astro > axobject-query": {
       "src": "../../node_modules/axobject-query/lib/index.js",
       "file": "astro___axobject-query.js",
-      "fileHash": "b13c089d",
+      "fileHash": "0ee4dd03",
       "needsInterop": true
     },
     "astro > html-escaper": {
       "src": "../../node_modules/html-escaper/esm/index.js",
       "file": "astro___html-escaper.js",
-      "fileHash": "968c30ce",
+      "fileHash": "58563569",
       "needsInterop": false
     },
     "astro/runtime/client/dev-toolbar/entrypoint.js": {
       "src": "../../node_modules/astro/dist/runtime/client/dev-toolbar/entrypoint.js",
       "file": "astro_runtime_client_dev-toolbar_entrypoint__js.js",
-      "fileHash": "382abded",
+      "fileHash": "7fcaa186",
       "needsInterop": false
     },
     "@astrojs/preact/client.js": {
       "src": "../../node_modules/@astrojs/preact/dist/client.js",
       "file": "@astrojs_preact_client__js.js",
-      "fileHash": "a707cbb1",
+      "fileHash": "98f8ec9e",
       "needsInterop": false
     },
     "lucide-preact": {
       "src": "../../node_modules/lucide-preact/dist/esm/lucide-preact.js",
       "file": "lucide-preact.js",
-      "fileHash": "c711d7af",
+      "fileHash": "1e74903e",
       "needsInterop": false
     }
   },
