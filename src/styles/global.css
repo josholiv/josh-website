@@ -165,17 +165,17 @@ html:not(.dark) {
   --control-radius:    10px;
 
     /* Callout backgrounds */
-  .callout-info    { background-color: var(--blue-100); }
-  .callout-success { background-color: var(--green-100); }
-  .callout-warning { background-color: var(--orange-100); }
-  .callout-danger  { background-color: var(--red-100); }
-  .callout-tip     { background-color: var(--pink-100); }
-  .callout-note    { background-color: var(--purple-100); }
-  .callout-todo     { background-color: var(--blue-100); }
-  .callout-abstract { background-color: var(--cyan-100); }
-  .callout-example  { background-color: var(--purple-100); }
-  .callout-faq      { background-color: var(--orange-100); }
-  .callout-bug      { background-color: var(--red-100); }
+  .callout-info    { background-color: var(--blue-200); }
+  .callout-success { background-color: var(--green-200); }
+  .callout-warning { background-color: var(--orange-200); }
+  .callout-danger  { background-color: var(--red-200); }
+  .callout-tip     { background-color: var(--pink-200); }
+  .callout-note    { background-color: var(--purple-200); }
+  .callout-todo     { background-color: var(--blue-200); }
+  .callout-abstract { background-color: var(--cyan-200); }
+  .callout-example  { background-color: var(--purple-200); }
+  .callout-faq      { background-color: var(--orange-200); }
+  .callout-bug      { background-color: var(--red-200); }
   .callout-quote    { background-color: var(--neutral-200); }
   .callout-code     { background-color: var(--neutral-200); }
 }
@@ -622,6 +622,7 @@ html:not(.dark) .rainbow-hr {
 .blockquote,
 blockquote {
   border-left: 4px solid var(--bg-secondary);
+  color: var(--text-muted);
   padding-left: 0.6rem;
   padding-right: 1rem;
   margin-left: 1rem;
@@ -630,6 +631,10 @@ blockquote {
 }
 
 /* ─── Callout variants (extend .blockquote) ─── */
+
+[class*="callout-"].blockquote {
+  padding-left: 1.2rem;
+}
 
 .callout-info {
   border-left-color: var(--blue-400);
@@ -673,49 +678,49 @@ blockquote {
   background-color: var(--blue-900);
   color: var(--text-normal);
 }
-.callout-todo .callout-title { color: var(--blue-400); }
+.callout-todo .callout-title { color: var(--blue-500); }
 
 .callout-abstract {
   border-left-color: var(--cyan-400);
   background-color: var(--cyan-900);
   color: var(--text-normal);
 }
-.callout-abstract .callout-title { color: var(--cyan-400); }
+.callout-abstract .callout-title { color: var(--cyan-500); }
 
 .callout-example {
   border-left-color: var(--purple-400);
   background-color: var(--purple-900);
   color: var(--text-normal);
 }
-.callout-example .callout-title { color: var(--purple-400); }
+.callout-example .callout-title { color: var(--purple-500); }
 
 .callout-faq {
   border-left-color: var(--orange-400);
   background-color: var(--orange-900);
   color: var(--text-normal);
 }
-.callout-faq .callout-title { color: var(--orange-400); }
+.callout-faq .callout-title { color: var(--orange-500); }
 
 .callout-bug {
   border-left-color: var(--red-400);
   background-color: var(--red-900);
   color: var(--text-normal);
 }
-.callout-bug .callout-title { color: var(--red-400); }
+.callout-bug .callout-title { color: var(--red-500); }
 
 .callout-quote {
   border-left-color: var(--neutral-500);
   background-color: var(--neutral-800);
   color: var(--text-normal);
 }
-.callout-quote .callout-title { color: var(--neutral-400); }
+.callout-quote .callout-title { color: var(--neutral-500); }
 
 .callout-code {
   border-left-color: var(--neutral-500);
   background-color: var(--neutral-800);
   color: var(--text-normal);
 }
-.callout-code .callout-title { color: var(--neutral-400); }
+.callout-code .callout-title { color: var(--neutral-500); }
 
 /* Callout title row */
 .callout-title {
@@ -725,13 +730,13 @@ blockquote {
   font-weight: 400;
 }
 
-.callout-info    .callout-title { color: var(--blue-400); }
-.callout-success .callout-title { color: var(--green-400); }
-.callout-warning .callout-title { color: var(--orange-400); }
-.callout-danger  .callout-title { color: var(--red-400); }
-.callout-tip     .callout-title { color: var(--pink-400); }
-.callout-note    .callout-title { color: var(--purple-400); }
-.callout-code    .callout-title { color: var(--neutral-400); }
+.callout-info    .callout-title { color: var(--blue-500); }
+.callout-success .callout-title { color: var(--green-500); }
+.callout-warning .callout-title { color: var(--orange-500); }
+.callout-danger  .callout-title { color: var(--red-500); }
+.callout-tip     .callout-title { color: var(--pink-500); }
+.callout-note    .callout-title { color: var(--purple-500); }
+.callout-code    .callout-title { color: var(--neutral-500); }
 
 .callout-info,
 .callout-success,
@@ -746,8 +751,8 @@ blockquote {
 .callout-bug,
 .callout-quote,
 .callout-code {
-  border-left-width: 4px;
-  border-radius: 10px;
+  border-left-width: 0px;
+  border-radius: 7px;
   margin-left: 0;
   padding-bottom: 0.6rem;
   padding-top: 0.6rem;
