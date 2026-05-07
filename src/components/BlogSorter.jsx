@@ -260,7 +260,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
         {/* Posts List */}
         <div>
           <ul className="blog-list">
-            {sortedPosts.map((post) => (
+            {sortedPosts.map((post, index) => (
               <li key={post.id} className="blog-post">
 
                 <a href={`/posts/${post.id}/`} className="post-wrapper post-card-link">
@@ -271,6 +271,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
                         src={post.data.image.url}
                         alt={post.data.image.alt || post.data.title}
                         className="blog-thumbnail"
+                        loading={index < 4 ? "eager" : "lazy"}
                       />
                     </div>
                   )}

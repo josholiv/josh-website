@@ -25,41 +25,114 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
 }
 ---
 
-<nav class="toc" id="toc" data-open={String(defaultOpen)}>
-  <button class="toc-title" id="toc-toggle">
-    <List size="0.9rem" />
-    On this page
-    <span class="toc-chevron">
-      <ChevronRight size="0.9rem" />
-    </span>
-  </button>
-  <div class="toc-body">
-    <div class="toc-body-inner">
-      <ul id="toc-list">
-        {grouped.map(({ h2, h3s }) => (
-          <li class="toc-item">
-            <a href={`#${h2.slug}`}>
-              {h2.text}
-            </a>
-            {h3s.length > 0 && (
-              <ul class="toc-sublist">
-                {h3s.map(h3 => (
-                  <li class="toc-subitem">
-                    <a href={`#${h3.slug}`}>{h3.text}</a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
+<div class="toc-panel">
+  <a href="/" class="toc-site-title">
+    <span class="toc-site-title-main">josholivier</span><span class="toc-site-title-domain">.com</span>
+  </a>
+
+  <nav class="toc" id="toc" data-open={String(defaultOpen)}>
+    <button class="toc-title" id="toc-toggle">
+      <List size="0.9rem" />
+      On this page
+      <span class="toc-chevron">
+        <ChevronRight size="0.9rem" />
+      </span>
+    </button>
+    <div class="toc-body">
+      <div class="toc-body-inner">
+        <ul id="toc-list">
+          {grouped.map(({ h2, h3s }) => (
+            <li class="toc-item">
+              <a href={`#${h2.slug}`}>
+                {h2.text}
+              </a>
+              {h3s.length > 0 && (
+                <ul class="toc-sublist">
+                  {h3s.map(h3 => (
+                    <li class="toc-subitem">
+                      <a href={`#${h3.slug}`}>{h3.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
+
+<style>
+  .toc-site-title {
+    display: none;
+    font-family: "DM Serif Text", serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--text-heading);
+    margin-bottom: 3rem;
+    margin-left: 0.3rem;
+  }
+
+  .toc-site-title-main {
+    color: inherit;
+  }
+
+  .toc-site-title-domain {
+    color: var(--text-faint);
+  }
+
+  .toc-site-title:hover,
+  .toc-site-title:active,
+  .toc-site-title:visited,
+  .toc-site-title:visited:hover,
+  .toc-site-title:focus,
+  .toc-site-title:focus-visible {
+    color: var(--text-heading);
+  }
+
+  @media (min-width: 1300px) {
+    .toc-panel {
+      position: fixed;
+      top: 2rem;
+      left: calc(50% - 35ch - 9.75rem - 8rem);
+      width: 14rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toc-site-title {
+      display: block;
+    }
+
+    :global(#toc) {
+      position: static;
+      top: auto;
+      left: auto;
+      width: auto;
+      margin-bottom: 0;
+      max-height: calc(100vh - 2rem - 1.45rem - 0.5rem);
+      overflow-y: auto;
+    }
+  }
+</style>
 
 <script>
-  // Collapse toggle
+  // Set open state based on screen width; wide = open, mobile = closed.
   const toc = document.getElementById('toc');
+
+  function applyDefaultOpen() {
+    if (!toc) return;
+    toc.setAttribute('data-open', String(window.innerWidth >= 1300));
+  }
+
+  applyDefaultOpen();
+  window.addEventListener('resize', applyDefaultOpen, { passive: true });
+
+  // Collapse toggle
   const toggle = document.getElementById('toc-toggle');
 
   toggle?.addEventListener('click', () => {

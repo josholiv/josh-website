@@ -1,7 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import Social from './social.astro';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 import { UserCircle, GraduationCap, Radio, Cog } from "lucide-preact";
+
+const { imageLoading = 'lazy' } = Astro.props;
 ---
 
 <style>
@@ -83,11 +86,11 @@ footer {
   <div class="footer-inner">
 
     <div class="footer-top">
-      <img
-        src={joshHeadshot.src}
+      <Image
+        src={joshHeadshot}
         alt="Josh Olivier"
         class="profile-pic"
-        loading="eager"
+        loading={imageLoading}
       />
       <p><strong>Hi, I'm Josh!</strong> <br/>I'm a lab manager in a neuroimaging research lab.</p>
     </div>

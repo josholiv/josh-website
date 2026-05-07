@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerImageLoading = 'lazy' } = Astro.props;
 ---
 
 <html lang="en">
@@ -57,7 +57,7 @@ const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true } = Astr
         )}
         <slot />
       </main>
-      <Footer />
+      <Footer imageLoading={footerImageLoading} />
     </div>
     <script>
       import "../scripts/menu.js";

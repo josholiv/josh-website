@@ -1311,7 +1311,8 @@ li.blog-post {
   overflow: hidden;
 }
 
-a.book-cover-link::after {
+a.book-cover-link::after,
+a.no-external-icon::after {
   display: none;
 }
 

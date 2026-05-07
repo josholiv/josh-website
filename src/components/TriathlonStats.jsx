@@ -1,8 +1,25 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 
-const TriathlonStats = ({ data, error }) => {
+const TriathlonStats = () => {
   const units = ["miles", "km", "fields", "moon%"];
   const [unit, setUnit] = useState("miles");
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/strava')
+      .then(async r => {
+        const payload = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(payload?.error || `Strava API request failed (${r.status})`);
+        return payload;
+      })
+      .then(result => { setData(result); setLoading(false); })
+      .catch(e => { setError(e.message); setLoading(false); });
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   const toggleUnit = () => {
     setUnit(prevUnit => {
