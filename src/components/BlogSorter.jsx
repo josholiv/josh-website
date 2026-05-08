@@ -31,7 +31,7 @@ const renderTagLabel = (tag) => {
   );
 };
 
-const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true }) => {
+const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true, lazyLoadAll = false }) => {
   const [sortOrder, setSortOrder] = useState('newest');
   const [sortedPosts, setSortedPosts] = useState(() => {
     return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
@@ -263,7 +263,15 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
             {sortedPosts.map((post, index) => (
               <li key={post.id} className="blog-post">
 
-                <a href={`/posts/${post.id}/`} className="post-wrapper post-card-link">
+                <a
+                  href={`/posts/${post.id}/`}
+                  className="post-wrapper post-card-link"
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                  }}
+                >
 
                   {post.data.image?.url && (
                     <div className="blog-thumbnail-wrapper">
@@ -271,7 +279,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
                         src={post.data.image.url}
                         alt={post.data.image.alt || post.data.title}
                         className="blog-thumbnail"
-                        loading={index < 4 ? "eager" : "lazy"}
+                        loading={lazyLoadAll ? "lazy" : (index < 4 ? "eager" : "lazy")}
                       />
                     </div>
                   )}

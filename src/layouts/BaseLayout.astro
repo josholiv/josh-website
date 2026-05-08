@@ -61,6 +61,40 @@ const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerI
     </div>
     <script>
       import "../scripts/menu.js";
+
+      // Wrap the last word of every external link in a no-break span so the
+      // icon (applied via .ext-link-tail::after) always stays with the last word.
+      const SKIP = ['book-cover-link', 'no-external-icon', 'book-cover-badge',
+                    'rb-cover-hover-wrap', 'rb-hardcover-badge', 'btn'];
+
+      document.querySelectorAll('a[target="_blank"]').forEach(link => {
+        if (SKIP.some(cls => link.classList.contains(cls))) return;
+        if (link.querySelector('.ext-link-tail')) return;
+
+        const walker = document.createTreeWalker(link, NodeFilter.SHOW_TEXT);
+        let lastTextNode = null;
+        let node;
+        while ((node = walker.nextNode())) {
+          if (node.textContent.trim()) lastTextNode = node;
+        }
+        if (!lastTextNode) return;
+
+        const text = lastTextNode.textContent;
+        const lastSpaceIdx = text.lastIndexOf(' ');
+
+        const tail = document.createElement('span');
+        tail.className = 'ext-link-tail';
+
+        if (lastSpaceIdx >= 0) {
+          tail.textContent = text.slice(lastSpaceIdx + 1);
+          lastTextNode.textContent = text.slice(0, lastSpaceIdx + 1);
+        } else {
+          tail.textContent = text;
+          lastTextNode.textContent = '';
+        }
+
+        link.appendChild(tail);
+      });
     </script>
   </body>
   </html>

@@ -27,8 +27,8 @@ const recentPosts = allPosts.slice(0, 5); // show the newest 3 blog posts by pub
   <TOC />
 
   <p>
-      I'm an incoming Psychology PhD student at the University of California, Riverside and I currently work as a lab manager in the
-      <a href="https://fnim.utdallas.edu/" target="_blank" rel="noopener noreferrer">Functional Neuroimaging of Memory Lab</a> at the University of Texas at Dallas.
+      I'm an incoming Psychology PhD student at the University of California, Riverside and I currently work as lab manager
+      of a neuroimaging lab at the University of Texas at Dallas.
   </p>
 
   <p>
@@ -44,12 +44,28 @@ const recentPosts = allPosts.slice(0, 5); // show the newest 3 blog posts by pub
 
 <h2>Explore</h2>
 
-<ul class="icon-list">
-  <li><Info size="1rem"/><a href="/about">About</a>
-  <li><GraduationCap size="1rem"/><a href="/cv">CV</a>
-  <li><Rss size="1rem"/><a href="/blog">Blog</a>
-  <li><Contact size="1rem"/><a href="/contact">Contact</a></li>
-</ul>
+<div class="explore-grid">
+  <a href="/about" class="explore-card">
+    <span class="explore-card-icon"><Info size="2rem" /></span>
+    <span class="explore-card-title">About</span>
+    <span class="explore-card-desc">My background, research interests, and what I'm up to.</span>
+  </a>
+  <a href="/cv" class="explore-card">
+    <span class="explore-card-icon"><GraduationCap size="2rem" /></span>
+    <span class="explore-card-title">CV</span>
+    <span class="explore-card-desc">My academic and professional history.</span>
+  </a>
+  <a href="/blog" class="explore-card">
+    <span class="explore-card-icon"><Rss size="2rem" /></span>
+    <span class="explore-card-title">Blog</span>
+    <span class="explore-card-desc">Posts on research, travel, triathlons, and 3D printing.</span>
+  </a>
+  <a href="/contact" class="explore-card">
+    <span class="explore-card-icon"><Contact size="2rem" /></span>
+    <span class="explore-card-title">Contact</span>
+    <span class="explore-card-desc">Get in touch or connect with me on social media.</span>
+  </a>
+</div>
 
   <h2>Latest posts</h2>
 
@@ -59,8 +75,19 @@ const recentPosts = allPosts.slice(0, 5); // show the newest 3 blog posts by pub
       showSort={false}
       showTags={false}
       showSearch={false}
+      lazyLoadAll={true}
     />
 
     → <a href="/blog">more posts</a>
 
 </BaseLayout>
+
+<script>
+  document.querySelectorAll('.explore-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    });
+  });
+</script>

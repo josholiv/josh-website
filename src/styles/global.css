@@ -102,8 +102,8 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
 --text-faint:        var(--neutral-600);   /* #616161 */
 --text-on-accent:    var(--neutral-050);   /* #f3f3f3 */
 --text-heading:      var(--neutral-300);   /* #f3f3f3 */
---accent:            var(--blue-400);      /* #48a4ff */
---accent-hover:      var(--blue-300);      /* #a1d0ff */
+--accent:            var(--cyan-400);      /* #48a4ff */
+--accent-hover:      var(--cyan-200);      /* #a1d0ff */
 --link-color:        var(--cyan-400);      /* #48a4ff */
 --link-color-hover:  var(--cyan-200);      /* #bcdeff */
 --code-bg:           var(--neutral-800);   /* #272727 */
@@ -127,8 +127,8 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     --text-faint:         var(--neutral-400);
     --text-on-accent:     var(--neutral-950);
     --text-heading:       var(--neutral-700);
-    --accent:             var(--blue-600);
-    --accent-hover:       var(--blue-700);
+    --accent:             var(--cyan-600);
+    --accent-hover:       var(--cyan-700);
     --link-color:         var(--cyan-600);
     --link-color-hover:   var(--cyan-700);
     --code-bg:            var(--neutral-200);
@@ -152,8 +152,8 @@ html:not(.dark) {
   --text-faint:         var(--neutral-400);
   --text-on-accent:     var(--neutral-950);
   --text-heading:       var(--neutral-700);
-  --accent:             var(--blue-600);
-  --accent-hover:       var(--blue-700);
+  --accent:             var(--cyan-600);
+  --accent-hover:       var(--cyan-700);
   --link-color:         var(--cyan-600);
   --link-color-hover:   var(--cyan-700);
   --code-bg:            var(--neutral-200);
@@ -340,6 +340,7 @@ html:not(.dark) {
 
     a {
       color: var(--link-color);
+      overflow-wrap: break-word;
     }
 
     a:hover {
@@ -773,19 +774,26 @@ blockquote {
   padding-top: 0.6rem;
 }
 
-/* Add external link Lucide icon automatically after every link with `target=" _blank"` */
-a[target="_blank"] {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.05rem;
+/* Add external link Lucide icon automatically after every link with `target="_blank"` */
+a[target="_blank"]:not(.btn) {
+  display: inline;
 }
 
-a[target="_blank"]::after {
-  content: "";
-  width: 0.8rem;
-  height: 0.8rem;
-  background-color: var(--text-faint);
+.ext-link-tail {
+  display: inline;
+  white-space: nowrap;
+}
 
+.ext-link-tail::after {
+  content: "";
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-left: 0.15rem;
+  vertical-align: middle;
+  position: relative;
+  top: -0.05em;
+  background-color: var(--link-color);
   mask-image: url("/icons/external-link.svg");
   mask-size: contain;
   mask-repeat: no-repeat;
@@ -795,6 +803,10 @@ a[target="_blank"]::after {
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
+}
+
+a:hover .ext-link-tail::after {
+  background-color: var(--link-color-hover);
 }
 
   li::marker {
@@ -879,10 +891,7 @@ a[target="_blank"]::after {
 .social-link {
     display: inline-flex;
     align-items: center;
-    font-family: "Atkinson Hyperlegible Mono", monospace;
     font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: -0.05em;
   }
 
 /* Desktop styles */
@@ -909,6 +918,10 @@ a[target="_blank"]::after {
     display: none;
   }
 
+}
+
+.nav-icon {
+  color: var(--text-faint);
 }
 
 .about-header {
@@ -1455,6 +1468,108 @@ html:not(.dark) a.book-cover-badge:visited:hover {
   margin-right: auto; /* Push everything else to the right */
 }
 
+/* ─── Explore cards ─── */
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.explore-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  background-color: var(--bg-secondary);
+  border-radius: 7px;
+  text-decoration: none;
+  color: var(--text-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.explore-card::before,
+.post-card-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+    540px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.045),
+    transparent 70%
+  );
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+html:not(.dark) .explore-card::before,
+html:not(.dark) .post-card-link::before {
+  background: radial-gradient(
+    540px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 0, 0, 0.065),
+    transparent 70%
+  );
+}
+
+.explore-card:hover::before,
+.post-card-link:hover::before {
+  opacity: 1;
+}
+
+/* Film grain overlay */
+.explore-card::after,
+.post-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+}
+
+.explore-card:hover {
+  color: var(--text-normal);
+}
+
+.explore-card:visited {
+  color: var(--text-normal);
+}
+
+.explore-card:visited:hover {
+  color: var(--text-normal);
+}
+
+.explore-card-icon {
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+
+.explore-card-title {
+  font-weight: 700;
+  color: var(--text-heading);
+  font-size: 1rem;
+}
+
+.explore-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .explore-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .blog-layout {
   display: flex;
   flex-direction: column;
@@ -1587,10 +1702,12 @@ html:not(.dark) .sort-icon-btn.active {
   color: inherit;
   padding: 0.5rem;
   background-color: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
 }
 
 .post-card-link:hover {
-  background-color: var(--bg-tertiary);
+  color: inherit;
 }
 
 @media print {
