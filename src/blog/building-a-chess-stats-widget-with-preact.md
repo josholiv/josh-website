@@ -26,7 +26,7 @@ The chess stats widget is a responsive, card-style component built with [Preact]
 - A minimalist, chessboard-themed background
 - Color-coded stat cards for easy visual parsing
 
-Here’s a quick preview (showing Magnus Carlsen's stats, not mine 😅):
+Here’s a quick preview (showing Magnus Carlsen's stats):
 
 <img src="/images/blog/post-5/preview.jpg" alt="Chess.com stats widget preview" class="blog-body-pic" />
 

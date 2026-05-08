@@ -229,12 +229,22 @@ html:not(.dark) {
     .expressive-code pre code {
       background-color: transparent !important;
       border: none !important;
-      padding: 0 !important;
       border-radius: 0 !important;
     }
 
     .expressive-code .frame.is-terminal .header {
       display: none !important;
+    }
+
+    /* Clip the copy button to the frame so it doesn't overflow on short blocks */
+    .expressive-code .frame {
+      overflow: hidden;
+    }
+
+    /* Restore top border-radius on terminal frames since we hide the header */
+    .expressive-code .frame.is-terminal pre {
+      border-top-left-radius: var(--header-border-radius) !important;
+      border-top-right-radius: var(--header-border-radius) !important;
     }
 
     .copyright {
@@ -1013,7 +1023,7 @@ a[target="_blank"]::after {
   height: auto;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  border-radius: 2px;
+  border-radius: 7px;
 }
 
 figure.img-figure {
@@ -1084,37 +1094,37 @@ figure.img-figure .blog-body-pic {
 }
 
 .tag-theme-3dprinting {
-  background-color: var(--orange-700);
+  background-color: var(--orange-800);
   color: var(--orange-050) !important;
 }
 
 .tag-theme-science {
-  background-color: var(--green-700);
+  background-color: var(--green-800);
   color: var(--green-050) !important;
 }
 
 .tag-theme-books {
-  background-color: var(--pink-700);
+  background-color: var(--pink-800);
   color: var(--pink-050) !important;
 }
 
 .tag-theme-blogging {
-  background-color: var(--purple-700);
+  background-color: var(--purple-800);
   color: var(--purple-050) !important;
 }
 
 .tag-theme-code {
-  background-color: var(--cyan-700);
+  background-color: var(--cyan-800);
   color: var(--cyan-050) !important;
 }
 
 .tag-theme-travel {
-  background-color: var(--blue-700);
+  background-color: var(--blue-800);
   color: var(--blue-050) !important;
 }
 
 .tag-theme-triathlon {
-  background-color: var(--red-700);
+  background-color: var(--red-800);
   color: var(--red-050) !important;
 }
 
@@ -1129,37 +1139,37 @@ figure.img-figure .blog-body-pic {
 }
 
 html:not(.dark) .tag-theme-3dprinting {
-  background-color: var(--orange-100);
+  background-color: var(--orange-200);
   color: var(--orange-700) !important;
 }
 
 html:not(.dark) .tag-theme-science {
-  background-color: var(--green-100);
+  background-color: var(--green-200);
   color: var(--green-700) !important;
 }
 
 html:not(.dark) .tag-theme-books {
-  background-color: var(--pink-100);
+  background-color: var(--pink-200);
   color: var(--pink-700) !important;
 }
 
 html:not(.dark) .tag-theme-blogging {
-  background-color: var(--purple-100);
+  background-color: var(--purple-200);
   color: var(--purple-700) !important;
 }
 
 html:not(.dark) .tag-theme-code {
-  background-color: var(--cyan-100);
+  background-color: var(--cyan-200);
   color: var(--cyan-700) !important;
 }
 
 html:not(.dark) .tag-theme-travel {
-  background-color: var(--blue-100);
+  background-color: var(--blue-200);
   color: var(--blue-700) !important;
 }
 
 html:not(.dark) .tag-theme-triathlon {
-  background-color: var(--red-100);
+  background-color: var(--red-200);
   color: var(--red-700) !important;
 }
 
