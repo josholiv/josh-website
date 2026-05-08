@@ -242,13 +242,14 @@ body {
 
   .h3-cv {
     margin-bottom: 0 !important;
+    font-style: normal;
   }
 
   .print-header hr {
     margin-top: 0 !important;
   }
 
-   /* Keep section content together */
+   /* Keep section content together */ 
   .print-section {
     break-inside: avoid;       /* modern */
     page-break-inside: avoid;  /* fallback */
