@@ -34,6 +34,16 @@ body {
   box-sizing: border-box;
 }
 
+.cv-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cv-title-row #print-button {
+  margin-top: 1.5rem;
+}
+
 .section-item {
   margin-bottom: 0.6em;
 }
@@ -221,6 +231,7 @@ body {
 
   .btn,
   #print-button,
+  .cv-title-row,
   .cv-page-title,
   .blockquote,
   .rainbow-hr, 

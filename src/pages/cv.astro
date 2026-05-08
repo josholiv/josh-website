@@ -82,14 +82,16 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 <BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false}>
 
 <main>
-<h1 class="cv-page-title">CV</h1>
+<div class="cv-title-row">
+  <h1 class="cv-page-title">CV</h1>
+  <button id="print-button" class="btn">Print</button>
+</div>
 
 <hr class="rainbow-hr">
 
 <TOC />
 
  <div class="cv-container">
-  <button id="print-button" class="btn">Print</button>
 
       <h2 class="h2-cv">{basics.name}</h2>
 
