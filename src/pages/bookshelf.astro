@@ -223,6 +223,7 @@ try {
   }
 
   .cover-wrap {
+    position: relative;
     width: 100%;
     aspect-ratio: 2 / 3;
     border-radius: 2px;
@@ -270,9 +271,8 @@ try {
   }
 
   .cover-hover-wrap {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 0;
   }
 
   .cover-overlay {
@@ -321,11 +321,13 @@ try {
   }
 
   .cover-overlay-text .placeholder-title {
+    font-size: 0.7rem;
     color: rgba(255, 255, 255, 0.95);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   }
 
   .cover-overlay-text .placeholder-author {
+    font-size: 0.6rem;
     color: rgba(255, 255, 255, 0.7);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   }
@@ -339,23 +341,17 @@ try {
     background: var(--purple-600);
     color: var(--purple-050);
     font-size: 0.65rem;
-    font-family: "Atkinson Hyperlegible Mono", monospace;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.3rem;
     padding: 0.25rem 0.5rem;
     border-radius: 0 0 7px 7px;
-    letter-spacing: 0.03em;
     opacity: 0;
     transform: translateY(-5px);
     transition: opacity 0s ease, transform 0.2s ease;
     cursor: pointer;
     text-decoration: none;
-  }
-
-  a.hardcover-badge::after {
-    display: none;
   }
 
   html:not(.dark) .hardcover-badge {

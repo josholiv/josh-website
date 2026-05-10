@@ -65,7 +65,8 @@ const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerI
       // Wrap the last word of every external link in a no-break span so the
       // icon (applied via .ext-link-tail::after) always stays with the last word.
       const SKIP = ['book-cover-link', 'no-external-icon', 'book-cover-badge',
-                    'rb-cover-hover-wrap', 'rb-hardcover-badge', 'btn', 'social-link'];
+                    'rb-cover-hover-wrap', 'rb-hardcover-badge', 'btn', 'social-link',
+                    'hardcover-badge', 'cover-hover-wrap'];
 
       document.querySelectorAll('a[target="_blank"]').forEach(link => {
         if (SKIP.some(cls => link.classList.contains(cls))) return;
