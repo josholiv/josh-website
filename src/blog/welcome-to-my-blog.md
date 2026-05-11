@@ -1,6 +1,7 @@
 ---
 title: 'Welcome to my blog!'
 pubDate: 2025-04-01
+dateModified: 2025-04-01
 description: 'A brief introduction to my blog and the topics I plan to explore—from neuroscience and coding to hobbies like triathlon and 3D printing.'
 author: 'Josh Olivier'
 image:

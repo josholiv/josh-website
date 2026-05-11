@@ -1,13 +1,14 @@
 ---
 title: 'New paper on cortical volume, age, and scene memory'
 pubDate: 2025-08-26
+dateModified: 2025-08-26
 description: 'Effects of cortical thickness, volume, and memory performance on age differences in neural reinstatement of scene information.'
 author: 'Josh Olivier'
 image:
     url: '/images/blog/post-paper-cercor2025/cercor35.jpg'
     alt: 'paper icon'
 tags: ["science"]
-readTime: '1'
+readTime: '2'
 ---
 <h2>New paper in <i>Cerebral Cortex</i></h2>
 

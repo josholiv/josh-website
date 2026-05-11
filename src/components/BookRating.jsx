@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'preact/hooks';
-import { ExternalLink } from 'lucide-preact';
 
 const Star = ({ filled, half }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="14"
-    height="14"
     viewBox="0 0 24 24"
     fill={filled ? 'currentColor' : half ? 'url(#half-fill-blog)' : 'none'}
     stroke="currentColor"
@@ -13,6 +10,7 @@ const Star = ({ filled, half }) => (
     stroke-linecap="round"
     stroke-linejoin="round"
     class={`star ${filled ? 'filled' : half ? 'half' : 'empty'}`}
+    style={{ flex: 1, minWidth: 0, display: 'block', height: 'auto', aspectRatio: '1 / 1' }}
   >
     <defs>
       <linearGradient id="half-fill-blog">
@@ -64,59 +62,26 @@ const BookRating = ({ bookTitle }) => {
   if (loading) return <p style={{ color: 'var(--text-muted)' }}>Loading rating...</p>;
   if (error || (rating === null && !coverUrl)) return null;
 
-  const coverImg = coverUrl && (
-    <img
-      src={coverUrl}
-      alt={bookTitle}
-      class="book-cover-img"
-    />
-  );
-
   return (
     <div class="book-rating-section" style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
       {coverUrl && (
-        hardcoverUrl
-          ? (
-            <div class="book-cover-area">
-              <a
-                href={hardcoverUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="book-cover-link"
-                aria-label={`View ${bookTitle} on Hardcover`}
-              >
-                {coverImg}
-                <div class="book-cover-overlay">
-                  <img src={coverUrl} alt="" class="book-cover-blur" aria-hidden="true" />
-                  <div class="book-cover-overlay-text">
-                    <span class="book-cover-overlay-title">{bookTitle}</span>
-                    <i class="book-cover-overlay-author">{authors}</i>
-                  </div>
-                </div>
-              </a>
-              <a
-                href={hardcoverUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="book-cover-badge"
-                aria-label={`View ${bookTitle} on Hardcover`}
-              >
-                View on Hardcover <ExternalLink size={10} />
-              </a>
-            </div>
-          )
-          : <div style={{ marginBottom: '0.75rem' }}>{coverImg}</div>
+        <div style={{ marginBottom: '0.75rem' }}>
+          <img
+            src={coverUrl}
+            alt={bookTitle}
+            class="book-cover-img"
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
       )}
       {rating !== null && (
-        <>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', width: '100%', padding: '0 0.5rem', boxSizing: 'border-box', gap: '0.25rem' }}>
             {Array.from({ length: 5 }).map((_, i) => {
               const filled = i < Math.floor(rating);
               const half = !filled && (rating - Math.floor(rating)) >= 0.5 && i === Math.floor(rating);
               return <Star key={i} filled={filled} half={half} />;
             })}
-          </div>
-        </>
+        </div>
       )}
     </div>
   );

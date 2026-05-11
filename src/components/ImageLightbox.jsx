@@ -56,17 +56,31 @@ export default function ImageLightbox() {
             attachListeners();
           }
 
+          // Use event delegation so dynamically-injected images (e.g. book covers
+          // rendered by async Preact components) are handled without needing to
+          // re-scan the DOM after they mount.
           function attachListeners() {
-            // Attach to post content images and markdown images
-            const images = document.querySelectorAll('main img, article img, .prose img');
-            
-            images.forEach(img => {
-              img.style.cursor = 'pointer';
-              img.addEventListener('click', (e) => {
-                e.preventDefault();
-                openLightbox(img.src, img.alt);
-              });
+            document.addEventListener('click', (e) => {
+              const img = e.target.closest('img');
+              if (!img) return;
+              if (!img.closest('main, article, .prose')) return;
+              e.preventDefault();
+              openLightbox(img.src, img.alt);
             });
+
+            // Set cursor on already-present images; MutationObserver handles late arrivals.
+            const setCursor = (root) => {
+              root.querySelectorAll('main img, article img, .prose img').forEach(img => {
+                img.style.cursor = 'pointer';
+              });
+            };
+            setCursor(document);
+
+            const observer = new MutationObserver((mutations) => {
+              mutations.forEach(m => m.addedNodes.forEach(node => {
+                if (node.nodeType === 1) setCursor(node);
+              }));
+            });            observer.observe(document.body, { childList: true, subtree: true });
           }
         })();
       `}

@@ -1,6 +1,7 @@
 ---
 title: '3D printing a TPU brain from an MRI scan'
 pubDate: 2025-11-23
+dateModified: 2025-11-23
 description: "I've printed my brain before, but this time I made it squishy (with TPU)."
 author: 'Josh Olivier'
 image:

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
-import { Calendar, Timer, X, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, CalendarArrowDown, CalendarArrowUp, ClockArrowDown, ClockArrowUp, ArrowDownAZ, ArrowUpAZ, Shuffle } from "lucide-preact";
+import { CalendarPlus, CalendarClock, Timer, X, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
 
 const tagIcons = {
   '3dprinting': Cog,
@@ -83,6 +83,8 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
 
     const sorted = [...filteredPosts].sort((a, b) => {
       switch (sortOrder) {
+        case 'recently-updated':
+          return new Date(b.data.dateModified ?? b.data.pubDate) - new Date(a.data.dateModified ?? a.data.pubDate);
         case 'oldest':
           return new Date(a.data.pubDate) - new Date(b.data.pubDate);
         case 'shortest':
@@ -180,63 +182,27 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
           </div>
 
           {showSort && (
-            <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
-              <button
-                className={`btn sort-icon-btn ${sortOrder === 'newest' ? 'active' : ''}`}
-                onClick={() => setSortOrder('newest')}
-                aria-label="Sort newest first"
-                title="Newest first"
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
+              {/* <label htmlFor="blog-sort-select" style={{ fontSize: '0.85rem', color: 'var(--text-faint)', whiteSpace: 'nowrap' }}>Sort by</label> */}
+              <select
+                id="blog-sort-select"
+                className="sort-select"
+                value={sortOrder}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === 'random') setShuffleKey(k => k + 1);
+                  setSortOrder(val);
+                }}
               >
-                <CalendarArrowDown size="1rem" />
-              </button>
-              <button
-                className={`btn sort-icon-btn ${sortOrder === 'oldest' ? 'active' : ''}`}
-                onClick={() => setSortOrder('oldest')}
-                aria-label="Sort oldest first"
-                title="Oldest first"
-              >
-                <CalendarArrowUp size="1rem" />
-              </button>
-              <button
-                className={`btn sort-icon-btn ${sortOrder === 'shortest' ? 'active' : ''}`}
-                onClick={() => setSortOrder('shortest')}
-                aria-label="Sort by shortest read time"
-                title="Shortest read time"
-              >
-                <ClockArrowDown size="1rem" /> 
-              </button>
-              <button
-                className={`btn sort-icon-btn ${sortOrder === 'longest' ? 'active' : ''}`}
-                onClick={() => setSortOrder('longest')}
-                aria-label="Sort by longest read time"
-                title="Longest read time"
-              >
-                <ClockArrowUp size="1rem" />
-              </button>
-              <button
-                className={`btn sort-icon-btn ${sortOrder === 'a → z' ? 'active' : ''}`}
-                onClick={() => setSortOrder('a → z')}
-                aria-label="Sort A to Z"
-                title="A → Z"
-              >
-                <ArrowDownAZ size="1rem" />
-              </button>
-              <button
-                className={`btn sort-icon-btn ${sortOrder === 'z → a' ? 'active' : ''}`}
-                onClick={() => setSortOrder('z → a')}
-                aria-label="Sort Z to A"
-                title="Z → A"
-              >
-                <ArrowUpAZ size="1rem" />
-              </button>
-              <button
-                className={`btn sort-icon-btn ${sortOrder === 'random' ? 'active' : ''}`}
-                onClick={() => { setSortOrder('random'); setShuffleKey(k => k + 1); }}
-                aria-label="Randomize order"
-                title="Shuffle"
-              >
-                <Shuffle size="1rem" />
-              </button>
+                <option value="newest">Newest → oldest</option>
+                <option value="oldest">Oldest → newest</option>
+                <option value="recently-updated">Last updated</option>
+                <option value="shortest">Shortest read</option>
+                <option value="longest">Longest read</option>
+                <option value="a → z">A → Z</option>
+                <option value="z → a">Z → A</option>
+                <option value="random">Random</option>
+              </select>
             </div>
           )}
         </div>
@@ -290,7 +256,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
                       <span className="pub-date icon-container-inline">
-                        <Calendar size="1rem" />
+                        <CalendarPlus size="1rem" />
                         {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                           month: 'long',
                           year: 'numeric',
@@ -298,11 +264,25 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
                         })}
                       </span>
 
-                      <span style={{ color: 'var(--text-faint)' }}>|</span>
+                      {post.data.dateModified && (
+                        <>
+                          <span style={{ color: 'var(--bg-border)' }}>|</span>
+                          <span className="pub-date icon-container-inline">
+                            <CalendarClock size="1rem" />
+                            Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', {
+                              month: 'long',
+                              year: 'numeric',
+                              timeZone: 'UTC',
+                            })}
+                          </span>
+                        </>
+                      )}
+
+                      <span style={{ color: 'var(--bg-border)' }}>|</span>
 
                       <span className="post-read-time icon-container-inline">
                         <Timer size="1rem" />
-                        {post.data.readTime} min
+                        {post.data.readTime} minute read
                       </span>
                     </div>
 

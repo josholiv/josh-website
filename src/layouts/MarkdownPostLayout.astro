@@ -1,5 +1,5 @@
 ---
-import { User, Calendar, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, LibraryBig } from "lucide-preact";
+import { User, CalendarPlus, CalendarClock, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, LibraryBig } from "lucide-preact";
 import { getCollection } from "astro:content";
 import BaseLayout from './BaseLayout.astro';
 import TOC from '../components/TOC.astro';
@@ -62,20 +62,30 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
     <div class="post-author" style="display: inline-flex; align-items: center; gap: 0.3rem;">
       <User size="1rem" />
-      <a href="/about">{frontmatter.author}</a>
+      By <a href="/about">{frontmatter.author}</a>
     </div>
 
     <div class="pub-date" style="display: inline-flex; align-items: center; gap: 0.3rem;">
-      <Calendar size="1rem" />
-      {frontmatter.pubDate.toLocaleDateString('en-US', { 
+      <CalendarPlus size="1rem" />
+      Posted {frontmatter.pubDate.toLocaleDateString('en-US', { 
         year: 'numeric', 
         month: 'long', 
         timeZone: 'UTC'})}
     </div>
 
+    {frontmatter.dateModified && (
+      <div class="pub-date" style="display: inline-flex; align-items: center; gap: 0.3rem;">
+        <CalendarClock size="1rem" />
+        Updated {frontmatter.dateModified.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          timeZone: 'UTC'})}
+      </div>
+    )}
+
     <div class="post-read-time" style="display: inline-flex; align-items: center; gap: 0.3rem;">
       <Timer size="1rem" />
-      <i>{frontmatter.readTime} minute read</i>
+      {frontmatter.readTime} minute read
     </div>
   </div>
 
@@ -128,21 +138,21 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
   <TOC headings={headings} />
 
-    {frontmatter.tags?.includes("books") && (
-    <Callout type="warning" title="Warning: contains spoilers!" />
-  )}
+ 
 
   {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
     <BookRating client:load bookTitle={frontmatter.bookTitle} />
   )}
 
-
+   {frontmatter.tags?.includes("books") && (
+    <Callout type="warning" title="Warning: contains spoilers!" />
+  )}
 
   <slot />
 
   {frontmatter.tags?.includes("books") && (
     <div>
-      <i>→ see more books I've read on my <a href="/bookshelf">bookshelf</a></i>
+      → check out my <a href="/bookshelf">bookshelf</a> for more books I've read recently!
     </div>
   )}
 
@@ -171,7 +181,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
                   <span class="pub-date icon-container-inline">
-                    <Calendar size="1rem" />
+                    <CalendarPlus size="1rem" />
                     {new Date(post.data.pubDate).toLocaleDateString('en-US', {
                       month: 'long',
                       year: 'numeric',
@@ -247,90 +257,6 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   #copy-toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-  }
-
-  /* Lightbox styles */
-  :global(.lightbox-overlay) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-
-  :global(.lightbox-content) {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  :global(.lightbox-image) {
-    max-width: 100%;
-    max-height: 85vh;
-    object-fit: contain;
-    border-radius: 0px;
-  }
-
-  :global(.lightbox-close) {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    border: none;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 0.3rem 0.5rem;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    z-index: 1001;
-  }
-
-  :global(.lightbox-close:hover) {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
-  :global(article img),
-  :global(.prose img) {
-    transition: opacity 0.2s ease;
-  }
-
-  :global(article img:hover),
-  :global(.prose img:hover) {
-    opacity: 0.9;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes zoomIn {
-    from {
-      transform: scale(0.9);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
   }
 </style>
 

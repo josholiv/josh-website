@@ -4,6 +4,7 @@ import ChessStats from '../components/chesscom.tsx';
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import RecentBooks from '../components/RecentBooks.jsx';
+import ImageLightbox from '../components/ImageLightbox.jsx';
 import { Image } from 'astro:assets';
 import TOC from '../components/TOC.astro';
 import responsiveImagesScript from '../scripts/responsive-images.js?raw';
@@ -21,13 +22,7 @@ const pageTitle = "Josh Olivier - About";
 
 <TOC />
 
-    <h2>I'm Josh Olivier</h2>
-
-    <!-- <Callout type="tip" icon={AudioLines}>
-  <span slot="title">
-    Hear me <a href="https://www.name-coach.com/joshua-olivier" target="_blank" rel="noopener noreferrer">pronounce my name</a>
-  </span>
-</Callout> -->
+    <h2>I'm Josh!</h2>
 
       <p>
         I'm an incoming Psychology PhD student at the University of California, Riverside, and I've spent the last few years working as 
@@ -145,5 +140,6 @@ And if you notice any gaps, please feel free to <a href="/contact">let me know</
 
   <ChessStats client:load />
 
+  <ImageLightbox client:load />
   <script set:html={responsiveImagesScript} />
 </BaseLayout>

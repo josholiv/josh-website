@@ -1,6 +1,7 @@
 ---
 title: 'Trip to Lençóis Maranhenses National Park'
 pubDate: 2025-08-25
+dateModified: 2025-08-25
 description: 'I checked off a major bucket list item by visiting the unreal Lençóis Maranhenses National Park in Maranhão, Brazil.'
 author: 'Josh Olivier'
 image:

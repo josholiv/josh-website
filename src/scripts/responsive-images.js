@@ -39,6 +39,10 @@ const resizeImagesByAspectRatio = () => {
       }
       
       img.style.maxWidth = maxWidth;
+      const figure = img.closest('figure.img-figure');
+      if (figure) {
+        figure.style.maxWidth = maxWidth;
+      }
     };
     
     // If image is already loaded
