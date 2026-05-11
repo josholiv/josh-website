@@ -1752,18 +1752,13 @@ html:not(.dark) .sort-icon-btn.active {
 
 .lightbox-content {
   position: relative;
-  width: calc(100vw - 2rem);
-  height: calc(100vh - 2rem);
+  display: inline-flex;
   max-width: calc(100vw - 2rem);
   max-height: calc(100vh - 2rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .lightbox-image {
-  width: 100%;
-  height: 100%;
+  display: block;
   max-width: calc(100vw - 2rem);
   max-height: calc(100vh - 2rem);
   object-fit: contain;
@@ -1772,8 +1767,6 @@ html:not(.dark) .sort-icon-btn.active {
 
 @media (max-width: 639px) {
   .lightbox-content {
-    width: 100vw;
-    height: 100vh;
     max-width: 100vw;
     max-height: 100vh;
   }
