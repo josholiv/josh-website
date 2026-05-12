@@ -1,6 +1,20 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
+// Load .env file manually so credentials never need to be typed in the terminal
+const envPath = join(process.cwd(), ".env");
+if (existsSync(envPath)) {
+  for (const line of readFileSync(envPath, "utf-8").split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIdx = trimmed.indexOf("=");
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const value = trimmed.slice(eqIdx + 1).trim();
+    if (!(key in process.env)) process.env[key] = value;
+  }
+}
+
 // ── Configuration ──────────────────────────────────────────────────────────────
 const BASE_URL = "https://josholivier.com"; // Your deployed site URL
 const CF_API = "https://api.cloudflare.com/client/v4/accounts";
