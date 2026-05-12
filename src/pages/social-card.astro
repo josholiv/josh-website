@@ -2,7 +2,6 @@
 export const prerender = false;
 
 const title = Astro.url.searchParams.get("title") || "Josh Olivier";
-const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [];
 ---
 
 <html>
@@ -29,8 +28,34 @@ const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [
         overflow: hidden;
       }
 
+      /* Large glow circle — most prominent at title area */
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 32% 68%, rgba(172, 208, 212, 0.18) 0%, rgba(172, 208, 212, 0.08) 42%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Film grain overlay */
+      body::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.4;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 200px 200px;
+        mix-blend-mode: overlay;
+        z-index: 10;
+      }
+
       /* ── Left column ── */
       .left {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -65,44 +90,31 @@ const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [
         line-height: 1.12;
         color: #f3f3f3;
         max-width: 700px;
-      }
-
-      .tags {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-
-      .tag {
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        padding: 4px 14px;
-        border-radius: 20px;
-        background: #272727;
-        color: #2fafbd;
-        border: 1px solid rgba(47, 175, 189, 0.4);
+        position: relative;
       }
 
       /* ── Right column — stacked color bars ── */
       .right {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        gap: 10px;
-        padding: 48px 48px 48px 0;
+        justify-content: space-between;
+        padding: 56px 48px 56px 0;
       }
 
       .bar-row {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 12px;
         justify-content: flex-end;
       }
 
       .bar {
-        height: 14px;
-        border-radius: 3px;
+        height: 16px;
+        border-radius: 1px;
         flex-shrink: 0;
+        opacity: 0.45;
       }
 
       /* Short accent bar + longer dark bar per row */
@@ -135,12 +147,6 @@ const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [
       </div>
 
       <div class="title">{title}</div>
-
-      <div class="tags">
-        {tags.map((tag) => (
-          <span class="tag">#{tag}</span>
-        ))}
-      </div>
     </div>
 
     <!-- Right column: stacked bar pairs using site tag colors -->
