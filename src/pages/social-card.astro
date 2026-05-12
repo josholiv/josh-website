@@ -2,14 +2,15 @@
 export const prerender = false;
 
 const title = Astro.url.searchParams.get("title") || "Josh Olivier";
-const author = Astro.url.searchParams.get("author") || "Josh Olivier";
-const description = Astro.url.searchParams.get("description") || "";
 const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [];
 ---
 
 <html>
   <head>
     <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
       * {
         margin: 0;
@@ -21,89 +22,49 @@ const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [
         width: 1200px;
         height: 630px;
         background: #191919;
-        color: #cbcbcb;
-        font-family: system-ui, -apple-system, sans-serif;
-        display: flex;
-        flex-direction: column;
-        padding: 56px 64px 56px 64px;
+        font-family: "Inter", sans-serif;
+        display: grid;
+        grid-template-columns: 1fr 260px;
         position: relative;
         overflow: hidden;
       }
 
-      /* Decorative circle in background */
-      body::before {
-        content: "";
-        position: absolute;
-        right: -120px;
-        top: -120px;
-        width: 480px;
-        height: 480px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(47,175,189,0.12) 0%, transparent 70%);
-        pointer-events: none;
+      /* ── Left column ── */
+      .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 56px 64px 56px 80px;
       }
 
-      .rainbow-bar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 6px;
-        background: linear-gradient(
-          to right,
-          #33cc33,
-          #3399ff,
-          #9933ff,
-          #ff3399,
-          #ff9900
-        );
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brain-circuit-icon {
+        color: #454545;
+        flex-shrink: 0;
       }
 
       .site-name {
-        font-size: 18px;
-        color: #2fafbd;
-        letter-spacing: 0.06em;
-        text-transform: lowercase;
-        margin-bottom: auto;
-        font-weight: 500;
+        font-family: "DM Serif Text", serif;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1;
       }
 
-      .content {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
+      .site-name-main { color: #f3f3f3; }
+      .site-name-domain { color: #454545; }
 
       .title {
-        font-size: 58px;
+        font-family: "Inter", sans-serif;
+        font-size: 64px;
         font-weight: 700;
-        line-height: 1.15;
+        line-height: 1.12;
         color: #f3f3f3;
-        max-width: 960px;
-      }
-
-      .description {
-        font-size: 22px;
-        color: #7e7e7e;
-        line-height: 1.45;
-        max-width: 860px;
-      }
-
-      .footer {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-
-      .author {
-        font-size: 20px;
-        color: #a0a0a0;
-      }
-
-      .separator {
-        color: #454545;
-        font-size: 20px;
+        max-width: 700px;
       }
 
       .tags {
@@ -113,38 +74,132 @@ const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [
       }
 
       .tag {
-        font-size: 15px;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
         padding: 4px 14px;
         border-radius: 20px;
         background: #272727;
         color: #2fafbd;
-        border: 1px solid rgba(47, 175, 189, 0.5);
+        border: 1px solid rgba(47, 175, 189, 0.4);
       }
+
+      /* ── Right column — stacked color bars ── */
+      .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 48px 48px 48px 0;
+      }
+
+      .bar-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .bar {
+        height: 14px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+
+      /* Short accent bar + longer dark bar per row */
+      .bar-accent { background: var(--c); }
+      .bar-dark   { background: #272727; }
     </style>
   </head>
   <body>
-    <div class="rainbow-bar"></div>
+    <!-- Left column -->
+    <div class="left">
+      <div class="header">
+        <svg class="brain-circuit-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
+          <path d="M9 13a4.5 4.5 0 0 0 3-4"/>
+          <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/>
+          <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/>
+          <path d="M6 18a4 4 0 0 1-1.967-.516"/>
+          <path d="M12 13h4"/>
+          <path d="M12 18h6a2 2 0 0 1 2 2v1"/>
+          <path d="M12 8h8"/>
+          <path d="M16 8V5a2 2 0 0 1 2-2"/>
+          <circle cx="16" cy="13" r=".5"/>
+          <circle cx="18" cy="3" r=".5"/>
+          <circle cx="20" cy="21" r=".5"/>
+          <circle cx="20" cy="8" r=".5"/>
+        </svg>
+        <div class="site-name">
+          <span class="site-name-main">josholivier</span><span class="site-name-domain">.com</span>
+        </div>
+      </div>
 
-    <div class="site-name">josholivier.com</div>
-
-    <div class="content">
       <div class="title">{title}</div>
 
-      {description && <div class="description">{description}</div>}
+      <div class="tags">
+        {tags.map((tag) => (
+          <span class="tag">#{tag}</span>
+        ))}
+      </div>
+    </div>
 
-      <div class="footer">
-        <span class="author">by {author}</span>
-
-        {tags.length > 0 && (
-          <>
-            <span class="separator">·</span>
-            <div class="tags">
-              {tags.map((tag) => (
-                <span class="tag">#{tag}</span>
-              ))}
-            </div>
-          </>
-        )}
+    <!-- Right column: stacked bar pairs using site tag colors -->
+    <div class="right">
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#2eb82e; width:52px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#2eb82e; width:36px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#a0a0a0; width:64px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#a0a0a0; width:44px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#616161; width:80px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#616161; width:56px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#454545; width:96px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#2fafbd; width:72px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#2fafbd; width:48px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#48a4ff; width:60px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#c184ff; width:40px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#ff6bb5; width:68px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#ffc062; width:52px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar bar-accent" style="--c:#ff7474; width:84px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
       </div>
     </div>
   </body>
