@@ -8,7 +8,9 @@
     "preview": "astro preview",
     "cf:dev": "astro build && wrangler pages dev ./dist",
     "cf:deploy": "astro build && wrangler pages deploy dist",
-    "astro": "astro"
+    "astro": "astro",
+    "og:generate": "npx tsx scripts/generate-social-cards.ts",
+    "og:regenerate": "npx tsx scripts/generate-social-cards.ts --force"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.0",

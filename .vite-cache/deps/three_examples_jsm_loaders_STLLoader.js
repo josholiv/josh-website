@@ -8,7 +8,7 @@ import {
   SRGBColorSpace,
   Vector3
 } from "./chunk-DLS465IX.js";
-import "./chunk-G3PMV62Z.js";
+import "./chunk-5WRI5ZAA.js";
 
 // node_modules/three/examples/jsm/loaders/STLLoader.js
 var STLLoader = class extends Loader {

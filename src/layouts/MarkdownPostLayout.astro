@@ -8,7 +8,7 @@ import BookRating from '../components/BookRating.jsx';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 
-const { headings = [] } = Astro.props;
+const { headings = [], slug } = Astro.props;
 const { frontmatter } = Astro.props;
 
 const pageUrl = Astro.url.href;
@@ -52,7 +52,13 @@ const tagIcons = {
 };
 const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof tagIcons] ?? null;
 ---
-<BaseLayout pageTitle={frontmatter.title} titleHtml={titleHtml}>
+<BaseLayout
+  pageTitle={frontmatter.title}
+  titleHtml={titleHtml}
+  description={frontmatter.description}
+  ogImage={slug ? `/social-cards/${slug}.png` : undefined}
+  ogType="article"
+>
 
 <ImageLightbox client:load />
 

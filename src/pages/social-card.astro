@@ -1,0 +1,151 @@
+---
+export const prerender = false;
+
+const title = Astro.url.searchParams.get("title") || "Josh Olivier";
+const author = Astro.url.searchParams.get("author") || "Josh Olivier";
+const description = Astro.url.searchParams.get("description") || "";
+const tags = Astro.url.searchParams.get("tags")?.split(",").filter(Boolean) ?? [];
+---
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        background: #191919;
+        color: #cbcbcb;
+        font-family: system-ui, -apple-system, sans-serif;
+        display: flex;
+        flex-direction: column;
+        padding: 56px 64px 56px 64px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Decorative circle in background */
+      body::before {
+        content: "";
+        position: absolute;
+        right: -120px;
+        top: -120px;
+        width: 480px;
+        height: 480px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(47,175,189,0.12) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .rainbow-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(
+          to right,
+          #33cc33,
+          #3399ff,
+          #9933ff,
+          #ff3399,
+          #ff9900
+        );
+      }
+
+      .site-name {
+        font-size: 18px;
+        color: #2fafbd;
+        letter-spacing: 0.06em;
+        text-transform: lowercase;
+        margin-bottom: auto;
+        font-weight: 500;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .title {
+        font-size: 58px;
+        font-weight: 700;
+        line-height: 1.15;
+        color: #f3f3f3;
+        max-width: 960px;
+      }
+
+      .description {
+        font-size: 22px;
+        color: #7e7e7e;
+        line-height: 1.45;
+        max-width: 860px;
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .author {
+        font-size: 20px;
+        color: #a0a0a0;
+      }
+
+      .separator {
+        color: #454545;
+        font-size: 20px;
+      }
+
+      .tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        font-size: 15px;
+        padding: 4px 14px;
+        border-radius: 20px;
+        background: #272727;
+        color: #2fafbd;
+        border: 1px solid rgba(47, 175, 189, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rainbow-bar"></div>
+
+    <div class="site-name">josholivier.com</div>
+
+    <div class="content">
+      <div class="title">{title}</div>
+
+      {description && <div class="description">{description}</div>}
+
+      <div class="footer">
+        <span class="author">by {author}</span>
+
+        {tags.length > 0 && (
+          <>
+            <span class="separator">·</span>
+            <div class="tags">
+              {tags.map((tag) => (
+                <span class="tag">#{tag}</span>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  </body>
+</html>

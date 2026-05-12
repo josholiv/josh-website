@@ -3,7 +3,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerImageLoading = 'lazy' } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerImageLoading = 'lazy', description, ogImage, ogType = 'website' } = Astro.props;
+
+const siteUrl = 'https://josholivier.com';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefined;
 ---
 
 <html lang="en">
@@ -35,6 +39,23 @@ const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerI
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+
+    {description && <meta name="description" content={description} />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    {description && <meta property="og:description" content={description} />}
+    {ogImageAbsolute && <meta property="og:image" content={ogImageAbsolute} />}
+    {ogImageAbsolute && <meta property="og:image:width" content="1200" />}
+    {ogImageAbsolute && <meta property="og:image:height" content="630" />}
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content={ogImageAbsolute ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    {description && <meta name="twitter:description" content={description} />}
+    {ogImageAbsolute && <meta name="twitter:image" content={ogImageAbsolute} />}
   </head>
 
   <!-- Google tag (gtag.js) -->
