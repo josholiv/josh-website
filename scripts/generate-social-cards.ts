@@ -24,11 +24,11 @@ const POSTS_DIR = "src/blog"; // Directory containing your markdown posts
 /** Static site pages to generate OG images for. */
 const STATIC_PAGES: Array<{ slug: string; title: string; description: string }> = [
   { slug: "home",      title: "Josh Olivier",      description: "" },
-  { slug: "about",     title: "About me",     description: "My background, research interests, and what I'm up to" },
-  { slug: "blog",      title: "Blog",      description: "My digital garden, with posts on research, travel, triathlons, and 3D printing" },
-  { slug: "bookshelf", title: "Bookshelf", description: "A collection of books I've read" },
-  { slug: "cv",        title: "CV",        description: "My academic and professional history" },
-  { slug: "contact",  title: "Contact me",   description: "Get in touch or connect with me on social media" },
+  { slug: "about",     title: "About me",     description: "My background, research interests, and what I'm up to." },
+  { slug: "blog",      title: "Blog",      description: "My digital garden, with posts on research, travel, triathlons, 3D printing, and more." },
+  { slug: "bookshelf", title: "Bookshelf", description: "A collection of books I've read." },
+  { slug: "cv",        title: "CV",        description: "My academic and professional history." },
+  { slug: "contact",  title: "Contact me",   description: "Get in touch or connect with me on social media." },
 ];
 
 interface Post {
@@ -42,8 +42,15 @@ interface Post {
 
 /** Extract a frontmatter field value from raw markdown content. */
 function getFrontmatterField(content: string, field: string): string | null {
-  const match = content.match(new RegExp(`^${field}:\\s*['\"]?([^'\"\n]+)['\"]?`, "m"));
-  return match ? match[1].trim() : null;
+  // Match double-quoted value (allows apostrophes inside)
+  const dq = content.match(new RegExp(`^${field}:\\s*"([^"\\n]+)"`, "m"));
+  if (dq) return dq[1].trim();
+  // Match single-quoted value (allows double quotes inside)
+  const sq = content.match(new RegExp(`^${field}:\\s*'([^'\\n]+)'`, "m"));
+  if (sq) return sq[1].trim();
+  // Unquoted value
+  const uq = content.match(new RegExp(`^${field}:\\s*([^\\n'"]+)`, "m"));
+  return uq ? uq[1].trim() : null;
 }
 
 /** Extract a YAML array field (e.g. tags: ["foo", "bar"]) from raw markdown. */
