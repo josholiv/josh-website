@@ -136,7 +136,7 @@ https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblu
     --code-border:        var(--neutral-300);
     --btn-text:           var(--text-normal);
     --btn-text-hover:     var(--text-normal);
-    --btn-bg-hover:       var(--purple-100);
+    --btn-bg-hover:       var(--neutral-300);
     --control-radius:     10px;
   }
 }
@@ -161,7 +161,7 @@ html:not(.dark) {
   --code-border:        var(--neutral-300);
   --btn-text:          var(--text-normal);
   --btn-text-hover:    var(--text-normal);
-  --btn-bg-hover:      var(--purple-100);
+  --btn-bg-hover:      var(--neutral-300);
   --control-radius:    10px;
 
     /* Callout backgrounds */
@@ -1320,7 +1320,8 @@ li.blog-post {
 /* BookRating component cover */
 .book-cover-img {
   display: block;
-  max-width: 150px;
+  width: calc(4 * 3rem + 3 * 0.5rem);
+  max-width: 100%;
   border-radius: 2px;
   cursor: pointer;
 }

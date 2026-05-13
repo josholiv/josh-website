@@ -1,6 +1,8 @@
 ---
 import { User, CalendarPlus, CalendarClock, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, LibraryBig } from "lucide-preact";
+import { Image } from 'astro:assets';
 import { getCollection } from "astro:content";
+import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 import BaseLayout from './BaseLayout.astro';
 import TOC from '../components/TOC.astro';
 import Callout from '../components/Callout.astro';
@@ -64,36 +66,29 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
 <hr class="rainbow-hr">
 
-  <div style="display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem;">
+  <div class="post-meta" style="margin-bottom: 1rem;">
 
-    <div class="post-author" style="display: inline-flex; align-items: center; gap: 0.3rem;">
-      <User size="1rem" />
-      By <a href="/about">{frontmatter.author}</a>
+    <div class="post-author post-meta-item">
+      <Image src={joshHeadshot} alt="Josh Olivier" width={24} height={24} style="width:1.5rem;height:1.5rem;border-radius:50%;flex-shrink:0;pointer-events:none;" data-no-lightbox />
+      <span style="display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+        <a href="/about">{frontmatter.author}</a> on
+        {frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
+      </span>
     </div>
 
-    <div class="pub-date" style="display: inline-flex; align-items: center; gap: 0.3rem;">
-      <CalendarPlus size="1rem" />
-      Posted {frontmatter.pubDate.toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        timeZone: 'UTC'})}
-    </div>
-
-    {frontmatter.dateModified && (
-      <div class="pub-date" style="display: inline-flex; align-items: center; gap: 0.3rem;">
+    {frontmatter.dateModified && new Date(frontmatter.dateModified).toDateString() !== new Date(frontmatter.pubDate).toDateString() && (
+      <div class="pub-date post-meta-item">
         <CalendarClock size="1rem" />
-        Updated {frontmatter.dateModified.toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          timeZone: 'UTC'})}
+        Updated {frontmatter.dateModified.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
       </div>
     )}
 
-    <div class="post-read-time" style="display: inline-flex; align-items: center; gap: 0.3rem;">
+    <div class="post-read-time post-meta-item">
       <Timer size="1rem" />
       {frontmatter.readTime} minute read
     </div>
   </div>
+
 
   <div style="margin-bottom: 2rem" class="tags">
     {frontmatter.tags.map((tag: string) => {
@@ -227,6 +222,35 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 </BaseLayout>
 
 <style>
+  /* Post meta: stack vertically on small screens */
+  .post-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .post-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* On wide screens: lay out inline with | separators */
+  @media (min-width: 750px) {
+    .post-meta {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+    }
+
+    .post-meta-item + .post-meta-item::before {
+      content: "|";
+      color: var(--text-faint);
+      margin: 0 0.6rem;
+    }
+  }
+
   a.share-btn::after {
     display: none;
   }
@@ -239,9 +263,9 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
     color: var(--btn-text-hover);
   }
 
-  #copy-link-btn.copied {
+  button#copy-link-btn.copied {
     color: var(--green-400);
-    box-shadow: 0 2px 0 0 var(--green-400);
+    border: 1px solid var(--green-400);
   }
 
   #copy-toast {

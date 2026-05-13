@@ -64,6 +64,7 @@ export default function ImageLightbox() {
               const img = e.target.closest('img');
               if (!img) return;
               if (!img.closest('main, article, .prose')) return;
+              if (img.dataset.noLightbox !== undefined) return;
               e.preventDefault();
               openLightbox(img.src, img.alt);
             });

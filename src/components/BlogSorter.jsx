@@ -264,7 +264,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
                         })}
                       </span>
 
-                      {post.data.dateModified && (
+                      {post.data.dateModified && new Date(post.data.dateModified).toDateString() !== new Date(post.data.pubDate).toDateString() && (
                         <>
                           <span style={{ color: 'var(--bg-border)' }}>|</span>
                           <span className="pub-date icon-container-inline">
