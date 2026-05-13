@@ -1,7 +1,9 @@
 ---
 export const prerender = false;
 
-const title = Astro.url.searchParams.get("title") || "Josh Olivier";
+const title = Astro.url.searchParams.get("title") || "Title goes here Title goes here Title goes here Title goes here";
+const bookTitle = Astro.url.searchParams.get("bookTitle") || "";
+const description = Astro.url.searchParams.get("description") || "Description goes here Description goes here Description goes here Description goes  Description goes here";
 ---
 
 <html>
@@ -83,12 +85,28 @@ const title = Astro.url.searchParams.get("title") || "Josh Olivier";
       .site-name-main { color: #f3f3f3; }
       .site-name-domain { color: #454545; }
 
+      .title-group {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
       .title {
-        font-family: "Inter", sans-serif;
+        font-family: "DM Serif Text", serif;
         font-size: 64px;
-        font-weight: 700;
+        font-weight: 400;
         line-height: 1.12;
         color: #f3f3f3;
+        max-width: 700px;
+        position: relative;
+      }
+
+      .description {
+        font-family: "Inter", sans-serif;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #a0a0a0;
         max-width: 700px;
         position: relative;
       }
@@ -108,6 +126,7 @@ const title = Astro.url.searchParams.get("title") || "Josh Olivier";
         align-items: center;
         gap: 12px;
         justify-content: flex-end;
+        filter: blur(var(--blur, 0px));
       }
 
       .bar {
@@ -146,65 +165,95 @@ const title = Astro.url.searchParams.get("title") || "Josh Olivier";
         </div>
       </div>
 
-      <div class="title">{title}</div>
+      <div class="title-group">
+        {bookTitle
+          ? <div class="title">Book review: <em>{bookTitle}</em></div>
+          : <div class="title">{title}</div>
+        }
+        {description && <div class="description">{description}</div>}
+      </div>
     </div>
 
     <!-- Right column: stacked bar pairs using site tag colors -->
     <div class="right">
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#2eb82e; width:52px;"></div>
+      <div class="bar-row" style="--blur:5px;">
+        <div class="bar bar-accent" style="--c:#ff7474; width:52px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#2eb82e; width:36px;"></div>
+      <div class="bar-row" style="--blur:4.5px;">
+        <div class="bar bar-accent" style="--c:#ff7474; width:36px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#a0a0a0; width:64px;"></div>
+      <div class="bar-row" style="--blur:4px;">
+        <div class="bar bar-accent" style="--c:#ffc062; width:64px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#a0a0a0; width:44px;"></div>
+      <div class="bar-row" style="--blur:3.5px;">
+        <div class="bar bar-accent" style="--c:#ffc062; width:44px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#616161; width:80px;"></div>
+      <div class="bar-row" style="--blur:3px;">
+        <div class="bar bar-accent" style="--c:#a0a0a0; width:76px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#616161; width:56px;"></div>
+      <div class="bar-row" style="--blur:2.7px;">
+        <div class="bar bar-accent" style="--c:#a0a0a0; width:56px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#454545; width:96px;"></div>
+      <div class="bar-row" style="--blur:2.4px;">
+        <div class="bar bar-accent" style="--c:#616161; width:88px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
+      <div class="bar-row" style="--blur:2.2px;">
+        <div class="bar bar-accent" style="--c:#616161; width:64px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row" style="--blur:2px;">
+        <div class="bar bar-accent" style="--c:#454545; width:100px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row" style="--blur:1.8px;">
+        <div class="bar bar-accent" style="--c:#454545; width:72px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row" style="--blur:1.7px;">
+        <div class="bar bar-accent" style="--c:#2eb82e; width:80px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row" style="--blur:1.6px;">
+        <div class="bar bar-accent" style="--c:#2eb82e; width:56px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row" style="--blur:1.7px;">
+        <div class="bar bar-accent" style="--c:#2fafbd; width:96px;"></div>
+        <div class="bar bar-dark" style="width:120px;"></div>
+      </div>
+      <div class="bar-row" style="--blur:1.6px;">
         <div class="bar bar-accent" style="--c:#2fafbd; width:72px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#2fafbd; width:48px;"></div>
+      <div class="bar-row" style="--blur:1.6px;">
+        <div class="bar bar-accent" style="--c:#48a4ff; width:48px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
+      <div class="bar-row" style="--blur:1.8px;">
         <div class="bar bar-accent" style="--c:#48a4ff; width:60px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
+      <div class="bar-row" style="--blur:2.2px;">
         <div class="bar bar-accent" style="--c:#c184ff; width:40px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#ff6bb5; width:68px;"></div>
+      <div class="bar-row" style="--blur:2.5px;">
+        <div class="bar bar-accent" style="--c:#c184ff; width:68px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#ffc062; width:52px;"></div>
+      <div class="bar-row" style="--blur:3.5px;">
+        <div class="bar bar-accent" style="--c:#ff6bb5; width:52px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
-      <div class="bar-row">
-        <div class="bar bar-accent" style="--c:#ff7474; width:84px;"></div>
+      <div class="bar-row" style="--blur:4.5px;">
+        <div class="bar bar-accent" style="--c:#ff6bb5; width:84px;"></div>
         <div class="bar bar-dark" style="width:120px;"></div>
       </div>
     </div>

@@ -22,13 +22,13 @@ const OUTPUT_DIR = "public/social-cards"; // Output directory for generated imag
 const POSTS_DIR = "src/blog"; // Directory containing your markdown posts
 
 /** Static site pages to generate OG images for. */
-const STATIC_PAGES: Array<{ slug: string; title: string }> = [
-  { slug: "home",       title: "Josh Olivier — Home" },
-  { slug: "about",      title: "Josh Olivier — About" },
-  { slug: "blog",       title: "Josh Olivier — Blog" },
-  { slug: "bookshelf",  title: "Josh Olivier — Bookshelf" },
-  { slug: "cv",         title: "Josh Olivier — CV" },
-  { slug: "contact",    title: "Josh Olivier — Contact" },
+const STATIC_PAGES: Array<{ slug: string; title: string; description: string }> = [
+  { slug: "home",      title: "Josh Olivier",      description: "" },
+  { slug: "about",     title: "About me",     description: "My background, research interests, and what I'm up to" },
+  { slug: "blog",      title: "Blog",      description: "My digital garden, with posts on research, travel, triathlons, and 3D printing" },
+  { slug: "bookshelf", title: "Bookshelf", description: "A collection of books I've read" },
+  { slug: "cv",        title: "CV",        description: "My academic and professional history" },
+  { slug: "contact",  title: "Contact me",   description: "Get in touch or connect with me on social media" },
 ];
 
 interface Post {
@@ -36,6 +36,7 @@ interface Post {
   title: string;
   author?: string;
   description?: string;
+  bookTitle?: string;
   tags?: string[];
 }
 
@@ -69,8 +70,9 @@ function readPosts(): Post[] {
     const title = getFrontmatterField(raw, "title") ?? slug;
     const author = getFrontmatterField(raw, "author") ?? undefined;
     const description = getFrontmatterField(raw, "description") ?? undefined;
+    const bookTitle = getFrontmatterField(raw, "bookTitle") ?? undefined;
     const tags = getFrontmatterArray(raw, "tags");
-    return { slug, title, author, description, tags };
+    return { slug, title, author, description, bookTitle, tags };
   });
 }
 
@@ -129,9 +131,9 @@ async function main() {
 
   // Build unified list: static pages first, then blog posts
   const posts = readPosts();
-  const items: Array<{ slug: string; title: string }> = [
+  const items: Array<{ slug: string; title: string; description: string; bookTitle?: string }> = [
     ...STATIC_PAGES,
-    ...posts.map((p) => ({ slug: p.slug, title: p.title })),
+    ...posts.map((p) => ({ slug: p.slug, title: p.title, description: p.description ?? "", bookTitle: p.bookTitle })),
   ];
 
   console.log(`Found ${STATIC_PAGES.length} pages + ${posts.length} posts to process\n`);
@@ -153,6 +155,8 @@ async function main() {
     }
 
     const params = new URLSearchParams({ title: item.title });
+    if (item.description) params.set("description", item.description);
+    if (item.bookTitle) params.set("bookTitle", item.bookTitle);
     const url = `${BASE_URL}/social-card?${params}`;
 
     try {
