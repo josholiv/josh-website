@@ -13,6 +13,10 @@ import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 const { headings = [], slug } = Astro.props;
 const { frontmatter } = Astro.props;
 
+const tocHeadings = frontmatter.tags?.includes("books")
+  ? [{ depth: 2, slug: "review", text: "Review" }, ...headings]
+  : headings;
+
 const pageUrl = Astro.url.href;
 const pageTitle = frontmatter.title;
 const titleHtml = (frontmatter.tags?.includes('books') && frontmatter.bookTitle)
@@ -137,16 +141,20 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
     </div>
   </div>
 
-  <TOC headings={headings} />
+  <TOC headings={tocHeadings} />
 
  
 
-  {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
-    <BookRating client:load bookTitle={frontmatter.bookTitle} />
+  {frontmatter.tags?.includes("books") && (
+    <h2 id="review">Review</h2>
   )}
 
-   {frontmatter.tags?.includes("books") && (
+  {frontmatter.tags?.includes("books") && (
     <Callout type="warning" title="Warning: contains spoilers!" />
+  )}
+
+  {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
+    <BookRating client:load bookTitle={frontmatter.bookTitle} />
   )}
 
   <slot />
