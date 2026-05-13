@@ -2,7 +2,7 @@
 export const prerender = false;
 
 const title = Astro.url.searchParams.get("title") || "Title goes here";
-const bookTitle = Astro.url.searchParams.get("bookTitle") || "";
+const bookTitle = (Astro.url.searchParams.get("bookTitle") || "").split(":")[0].trim();
 const description = Astro.url.searchParams.get("description") || "";
 ---
 
@@ -25,7 +25,7 @@ const description = Astro.url.searchParams.get("description") || "";
         background: #191919;
         font-family: "Inter", sans-serif;
         display: grid;
-        grid-template-columns: 1fr 260px;
+        grid-template-columns: 1fr;
         position: relative;
         overflow: hidden;
       }
@@ -34,7 +34,7 @@ const description = Astro.url.searchParams.get("description") || "";
       .glow {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 100% 0%, #ddf9fc 10%, #1d6b74 24%, #154c53 28%, #0c2b2e 37%, #081c1f 50%, transparent 55%);
+        background: radial-gradient(circle at 100% 20%, #ddf9fc 10%, #1d6b74 24%, #154c53 28%, #0c2b2e 37%, #081c1f 50%, transparent 55%);
         pointer-events: none;
         z-index: 0;
         filter: blur(90px);
@@ -93,52 +93,24 @@ const description = Astro.url.searchParams.get("description") || "";
 
       .title {
         font-family: "DM Serif Text", serif;
-        font-size: 64px;
+        font-size: 80px;
         font-weight: 400;
         line-height: 1.12;
         color: #f3f3f3;
-        max-width: 700px;
+        max-width: 900px;
         position: relative;
       }
 
       .description {
         font-family: "Inter", sans-serif;
-        font-size: 22px;
+        font-size: 28px;
         font-weight: 400;
         line-height: 1.5;
         color: #a0a0a0;
-        max-width: 700px;
+        max-width: 900px;
         position: relative;
       }
 
-      /* ── Right column — stacked color bars ── */
-      .right {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 56px 48px 56px 0;
-      }
-
-      .bar-row {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        justify-content: flex-end;
-        filter: blur(var(--blur, 0px));
-      }
-
-      .bar {
-        height: 16px;
-        border-radius: 1px;
-        flex-shrink: 0;
-        opacity: 0.45;
-      }
-
-      /* Short accent bar + longer dark bar per row */
-      .bar-accent { background: var(--c); }
-      .bar-dark   { background: #272727; }
     </style>
   </head>
   <body>
@@ -172,90 +144,6 @@ const description = Astro.url.searchParams.get("description") || "";
           : <div class="title">{title}</div>
         }
         {description && <div class="description">{description}</div>}
-      </div>
-    </div>
-
-    <!-- Right column: stacked bar pairs using site tag colors -->
-    <div class="right">
-      <div class="bar-row" style="--blur:7px;">
-        <div class="bar bar-accent" style="--c:#ff7474; width:52px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:6.5px;">
-        <div class="bar bar-accent" style="--c:#ff7474; width:36px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:6px;">
-        <div class="bar bar-accent" style="--c:#ffc062; width:64px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:5.5px;">
-        <div class="bar bar-accent" style="--c:#ffc062; width:44px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:5px;">
-        <div class="bar bar-accent" style="--c:#a0a0a0; width:76px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:4.7px;">
-        <div class="bar bar-accent" style="--c:#a0a0a0; width:56px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:4.4px;">
-        <div class="bar bar-accent" style="--c:#616161; width:88px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:4.2px;">
-        <div class="bar bar-accent" style="--c:#616161; width:64px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:4px;">
-        <div class="bar bar-accent" style="--c:#454545; width:100px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:3.8px;">
-        <div class="bar bar-accent" style="--c:#454545; width:72px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:3.7px;">
-        <div class="bar bar-accent" style="--c:#2eb82e; width:80px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:3.6px;">
-        <div class="bar bar-accent" style="--c:#2eb82e; width:56px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:3.7px;">
-        <div class="bar bar-accent" style="--c:#2fafbd; width:96px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:3.6px;">
-        <div class="bar bar-accent" style="--c:#2fafbd; width:72px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:3.6px;">
-        <div class="bar bar-accent" style="--c:#48a4ff; width:48px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:3.8px;">
-        <div class="bar bar-accent" style="--c:#48a4ff; width:60px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:4.2px;">
-        <div class="bar bar-accent" style="--c:#c184ff; width:40px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:4.5px;">
-        <div class="bar bar-accent" style="--c:#c184ff; width:68px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:5.5px;">
-        <div class="bar bar-accent" style="--c:#ff6bb5; width:52px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
-      </div>
-      <div class="bar-row" style="--blur:6.5px;">
-        <div class="bar bar-accent" style="--c:#ff6bb5; width:84px;"></div>
-        <div class="bar bar-dark" style="width:120px;"></div>
       </div>
     </div>
   </body>
