@@ -23,12 +23,12 @@ const POSTS_DIR = "src/blog"; // Directory containing your markdown posts
 
 /** Static site pages to generate OG images for. */
 const STATIC_PAGES: Array<{ slug: string; title: string; description: string }> = [
-  { slug: "home",      title: "Josh Olivier",      description: "Incoming PhD student, triathlete, and 3D printing enthusiast." },
-  { slug: "about",     title: "About me",     description: "My background, research interests, and what I'm up to." },
-  { slug: "blog",      title: "Blog",      description: "My digital garden, with posts on research, travel, triathlons, 3D printing, and more." },
-  { slug: "bookshelf", title: "Bookshelf", description: "A collection of books I've read." },
-  { slug: "cv",        title: "CV",        description: "My academic and professional history." },
-  { slug: "contact",  title: "Contact me",   description: "Get in touch or connect with me on social media." },
+  { slug: "home",      title: "Josh Olivier",      description: "Incoming PhD student, amateur triathlete, and 3D printing enthusiast." },
+  { slug: "about",     title: "Josh Olivier - About me",     description: "My background, research interests, and what I'm up to." },
+  { slug: "blog",      title: "Josh Olivier -Blog",      description: "My digital garden, with posts on research, travel, triathlons, 3D printing, and more." },
+  { slug: "bookshelf", title: "Josh Olivier - Bookshelf", description: "A collection of books I've read." },
+  { slug: "cv",        title: "Josh Olivier - CV",        description: "My academic and professional history." },
+  { slug: "contact",  title: "Josh Olivier - Contact me",   description: "Get in touch or connect with me on social media." },
 ];
 
 interface Post {
@@ -162,8 +162,13 @@ async function main() {
     }
 
     const params = new URLSearchParams({ title: item.title });
-    if (item.description) params.set("description", item.description);
     if (item.bookTitle) params.set("bookTitle", item.bookTitle);
+    if (item.description) {
+      const desc = item.bookTitle
+        ? item.description.replace(item.bookTitle, `<em>${item.bookTitle}</em>`)
+        : item.description;
+      params.set("description", desc);
+    }
     const url = `${BASE_URL}/social-card?${params}`;
 
     try {
