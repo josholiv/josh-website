@@ -23,7 +23,7 @@ const POSTS_DIR = "src/blog"; // Directory containing your markdown posts
 
 /** Static site pages to generate OG images for. */
 const STATIC_PAGES: Array<{ slug: string; title: string; description: string }> = [
-  { slug: "home",      title: "Josh Olivier",      description: "" },
+  { slug: "home",      title: "Josh Olivier",      description: "Incoming PhD student, triathlete, and 3D printing enthusiast." },
   { slug: "about",     title: "About me",     description: "My background, research interests, and what I'm up to." },
   { slug: "blog",      title: "Blog",      description: "My digital garden, with posts on research, travel, triathlons, 3D printing, and more." },
   { slug: "bookshelf", title: "Bookshelf", description: "A collection of books I've read." },
