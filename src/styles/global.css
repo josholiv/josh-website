@@ -1039,7 +1039,9 @@ a[target="_blank"]:not(.book-cover-link):not(.no-external-icon):not(.book-cover-
     width: 100%;
     grid-template-rows: 0fr;
     opacity: 0;
-    transition: grid-template-rows 0.3s ease, opacity 0.12s ease-out;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: grid-template-rows 0.3s ease, opacity 0.12s ease-out, padding 0.3s ease;
     pointer-events: none;
   }
 
@@ -1047,9 +1049,10 @@ a[target="_blank"]:not(.book-cover-link):not(.no-external-icon):not(.book-cover-
     display: grid;
     grid-template-rows: 1fr;
     opacity: 1;
-    transition: grid-template-rows 0.3s ease, opacity 0.22s ease-in;
+    transition: grid-template-rows 0.3s ease, opacity 0.22s ease-in, padding 0.3s ease;
     pointer-events: auto;
     position: relative;
+    padding-top: 1rem;
     padding-bottom: 0.6rem;
   }
 
@@ -1750,19 +1753,51 @@ html:not(.dark) .sort-icon-btn.active {
     text-decoration: none;
     border-bottom: none;
     position: relative;
+    overflow: hidden;
+  }
+
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(
+      120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.07),
+      transparent 70%
+    );
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  html:not(.dark) .nav-links a::before {
+    background: radial-gradient(
+      120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(0, 0, 0, 0.07),
+      transparent 70%
+    );
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.25;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    mix-blend-mode: overlay;
   }
 
   .nav-links a:hover {
     color: var(--text-normal);
-    background-color: var(--bg-border);
   }
 
-  .nav-links-home a.active {
-    border-bottom-left-radius: 5px;
-  }
-
-  .nav-links-home a:hover {
-    border-bottom-left-radius: 5px;
+  .nav-links a:hover::before {
+    opacity: 1;
   }
 
   .nav-links a.active {

@@ -92,6 +92,14 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
     </div>
     <script>
       import "../scripts/menu.js";
+
+      document.querySelectorAll('.nav-links a').forEach((link) => {
+        link.addEventListener('mousemove', (e) => {
+          const rect = link.getBoundingClientRect();
+          link.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          link.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
     </script>
   </body>
   </html>

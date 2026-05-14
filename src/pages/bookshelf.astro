@@ -5,6 +5,7 @@ import Dropdown from '../components/Dropdown.jsx';
 import { getCollection } from 'astro:content';
 import { env } from 'cloudflare:workers';
 import { ExternalLink } from "lucide-preact";
+import TOC from '../components/TOC.astro';
 
 let books = [];
 let fetchError;
@@ -38,6 +39,10 @@ try {
 ---
 
 <BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} ogImage="/social-cards/bookshelf.png">
+
+  <TOC />
+
+  <h2>Recent books</h2>
 
   {fetchError && <p style="color: red;">Error: {fetchError}</p>}
 
