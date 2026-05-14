@@ -7,7 +7,7 @@ author: 'Josh Olivier'
 image:
     url: '/social-cards/blog.png'
     alt: 'Example Open Graph social card for a webpage'
-tags: ["code"]
+tags: ["code", "blogging"]
 readTime: '9'
 ---
 

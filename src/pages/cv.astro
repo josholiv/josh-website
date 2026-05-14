@@ -72,23 +72,9 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 }
 ---
 
-<script>
-  const printButton = document.getElementById('print-button');
-  printButton?.addEventListener('click', function() {
-    window.print(); 
-  });
-</script>
-
-<BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false} ogImage="/social-cards/cv.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="CV" shouldCenterTitle={false} ogImage="/social-cards/cv.png">
 
 <main>
-<div class="cv-title-row">
-  <h1 class="cv-page-title">CV</h1>
-  <button id="print-button" class="btn">Print</button>
-</div>
-
-<hr class="rainbow-hr">
-
 <TOC />
 
  <div class="cv-container">

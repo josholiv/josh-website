@@ -13,8 +13,8 @@ footer {
   background-color: var(--bg-secondary);
   color: var(--text-normal);
   padding: 1rem 0 1rem 0;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   margin-top: 3rem;
 }
 
@@ -46,6 +46,13 @@ footer {
 
   .footer-body p {
     margin-top: 0;
+  }
+
+  @media (max-width: 639px) {
+    footer {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
   }
 
   .social-container {
@@ -92,7 +99,7 @@ footer {
         class="profile-pic"
         loading={imageLoading}
       />
-      <p><strong>Hi, I'm Josh!</strong> <br/>I'm a lab manager in a neuroimaging research lab.</p>
+      <p><strong style="font-size: 16pt;">I'm Josh Olivier</strong> <br/><i>Incoming PhD student ● Amateur triathlete ● 3D printing enthusiast</i></p>
     </div>
 
     <div class="footer-body">

@@ -9,11 +9,7 @@ const pageTitle = "Josh Olivier - Blog";
 const allPosts = await getCollection("blog");
 ---
 
-<BaseLayout pageTitle={pageTitle} shouldCenterTitle={false} shouldShowTitle={false} ogImage="/social-cards/blog.png">
-
-   <h1>Blog</h1>
-
-<hr class="rainbow-hr">
+<BaseLayout pageTitle={pageTitle} titleHtml="Blog" shouldCenterTitle={false} ogImage="/social-cards/blog.png">
 
 <TOC />
 

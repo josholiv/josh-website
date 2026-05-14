@@ -29,7 +29,8 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
 
     <link rel="preconnect" href="https://fonts.googleapis.com"> <!--- DM Serif Text and Inter fonts from Google Fonts -->
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=optional" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=optional" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com"> <!--- Ubuntu Mono font from Google Fonts -->
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,52 +72,26 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
     <div class="page-wrapper">
       <Header />
       <main class="main-content">
-         {shouldShowTitle && (
-          <h1 class={shouldCenterTitle ? 'center-title' : ''}>
-            {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
-          </h1>
+        {shouldShowTitle && (
+          <div class="page-banner">
+            <div class="page-banner-content">
+              <h1 class={shouldCenterTitle ? 'center-title' : ''}>
+                {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
+              </h1>
+              {description && (
+                <p class="banner-description">{description}</p>
+              )}
+            </div>
+          </div>
         )}
-        <slot />
+        <div class="content-body">
+          <slot />
+        </div>
       </main>
       <Footer imageLoading={footerImageLoading} />
     </div>
     <script>
       import "../scripts/menu.js";
-
-      // Wrap the last word of every external link in a no-break span so the
-      // icon (applied via .ext-link-tail::after) always stays with the last word.
-      const SKIP = ['book-cover-link', 'no-external-icon', 'book-cover-badge',
-                    'rb-cover-hover-wrap', 'rb-hardcover-badge', 'btn', 'social-link',
-                    'hardcover-badge', 'cover-hover-wrap'];
-
-      document.querySelectorAll('a[target="_blank"]').forEach(link => {
-        if (SKIP.some(cls => link.classList.contains(cls))) return;
-        if (link.querySelector('.ext-link-tail')) return;
-
-        const walker = document.createTreeWalker(link, NodeFilter.SHOW_TEXT);
-        let lastTextNode = null;
-        let node;
-        while ((node = walker.nextNode())) {
-          if (node.textContent.trim()) lastTextNode = node;
-        }
-        if (!lastTextNode) return;
-
-        const text = lastTextNode.textContent;
-        const lastSpaceIdx = text.lastIndexOf(' ');
-
-        const tail = document.createElement('span');
-        tail.className = 'ext-link-tail';
-
-        if (lastSpaceIdx >= 0) {
-          tail.textContent = text.slice(lastSpaceIdx + 1);
-          lastTextNode.textContent = text.slice(0, lastSpaceIdx + 1);
-        } else {
-          tail.textContent = text;
-          lastTextNode.textContent = '';
-        }
-
-        link.appendChild(tail);
-      });
     </script>
   </body>
   </html>

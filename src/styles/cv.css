@@ -238,7 +238,8 @@ body {
   .wave-container,
   .print-name-section,
   .print-hide,
-  .personal-info-section {
+  .personal-info-section,
+  .page-banner {
     display: none !important;  
   }
 

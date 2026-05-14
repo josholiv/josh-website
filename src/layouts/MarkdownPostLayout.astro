@@ -68,9 +68,8 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
 <ImageLightbox client:load />
 
-<hr class="rainbow-hr">
-
-  <div class="post-meta" style="margin-bottom: 1rem;">
+  <div class="post-header-meta">
+  <div class="post-meta">
 
     <div class="post-author post-meta-item">
       <Image src={joshHeadshot} alt="Josh Olivier" width={24} height={24} style="width:1.5rem;height:1.5rem;border-radius:50%;flex-shrink:0;pointer-events:none;" data-no-lightbox />
@@ -94,7 +93,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   </div>
 
 
-  <div style="margin-bottom: 2rem" class="tags">
+  <div class="tags">
     {frontmatter.tags.map((tag: string) => {
       const TagIcon = getTagIcon(tag);
       return (
@@ -107,7 +106,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   </div>
 
   <!-- ─── Share ─── -->
-  <div style="margin-bottom: 2rem;">
+  <div>
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
 
       <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`}
@@ -139,6 +138,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
       </button>
 
     </div>
+  </div>
   </div>
 
   <TOC headings={tocHeadings} />
@@ -230,6 +230,20 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 </BaseLayout>
 
 <style>
+  .post-description {
+    font-size: 1.1rem;
+    color: var(--text-muted, var(--text-faint));
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .post-header-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
   /* Post meta: stack vertically on small screens */
   .post-meta {
     display: flex;

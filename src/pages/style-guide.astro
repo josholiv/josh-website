@@ -9,11 +9,7 @@ const isDev = import.meta.env.DEV;
 if (!isDev) return Astro.redirect('/404');
 ---
 
-<BaseLayout pageTitle="Style Guide" shouldCenterTitle={false} shouldShowTitle={false}>
-
-  <h1>Style Guide <span class="title-muted">/ dev only</span></h1>
-
-  <hr class="rainbow-hr">
+<BaseLayout pageTitle="Style Guide" titleHtml="Style Guide <span class='title-muted'>/ dev only</span>" shouldCenterTitle={false}>
 
 <TOC />
 
