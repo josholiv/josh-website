@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogSorter from '../components/BlogSorter.jsx';
 import { Info, GraduationCap, Rss, Contact } from "lucide-preact";
 import TOC from '../components/TOC.astro';
+import { PAGE_META } from '../data/page-meta';
 
 
 
@@ -18,7 +19,7 @@ let allPosts = await getCollection("blog");
 
 const recentPosts = allPosts.slice(0, 5); // show the newest 3 blog posts by pubDate
 ---
-<BaseLayout pageTitle={pageTitle} titleHtml="Hi, I'm Josh!" shouldCenterTitle={false} ogImage="/social-cards/home.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="Hi, I'm Josh!" shouldCenterTitle={false} ogImage="/social-cards/home.png" description={PAGE_META.home.description}>
 
   <TOC />
 

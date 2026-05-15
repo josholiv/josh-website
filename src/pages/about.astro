@@ -8,13 +8,14 @@ import ImageLightbox from '../components/ImageLightbox.jsx';
 import { Image } from 'astro:assets';
 import TOC from '../components/TOC.astro';
 import responsiveImagesScript from '../scripts/responsive-images.js?raw';
+import { PAGE_META } from '../data/page-meta';
 
 const pageTitle = "Josh Olivier - About";
 
 
 ---
 
-<BaseLayout pageTitle={pageTitle} titleHtml="About me" shouldCenterTitle={false} ogImage="/social-cards/about.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="About me" shouldCenterTitle={false} ogImage="/social-cards/about.png" description={PAGE_META.about.description}>
 
 <TOC />
 

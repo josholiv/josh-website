@@ -8,21 +8,37 @@ export default class Hardcover {
   }
 
   async #fetchData() {
-    const currentYear = new Date().getFullYear();
-    const startOfYear = `${currentYear}-01-01`;
-    const endOfYear = `${currentYear}-12-31`;
-
     const query = `
       query MyReadBooks {
         user_book_reads(
           where: {
             user_book: {
               user_id: { _eq: 29246 }
+              status_id: { _eq: 3 }
             }
-            finished_at: { _gte: "${startOfYear}", _lte: "${endOfYear}" }
+            finished_at: { _is_null: false }
           }
+          order_by: { finished_at: desc }
         ) {
           finished_at
+          user_book {
+            rating
+            book {
+              title
+              slug
+              cached_tags
+              pages
+              release_year
+              image {
+                url
+              }
+              contributions {
+                author {
+                  name
+                }
+              }
+            }
+          }
         }
 
         goals(
@@ -39,22 +55,9 @@ export default class Hardcover {
             user_id: { _eq: 29246 }
             status_id: { _eq: 3 }
           }
-          order_by: { last_read_date: desc }
         ) {
-          rating
-          last_read_date
           book {
-            title
-            slug
             cached_tags
-            image {
-              url
-            }
-          contributions {
-            author {  
-              name
-              }
-            }
           }
         }
       }
@@ -80,9 +83,15 @@ export default class Hardcover {
 
   async fetch() {
     const data = await this.#fetchData();
+    const currentYear = new Date().getFullYear();
+
+    const allReads = data.user_book_reads || [];
+    const readsThisYear = allReads.filter(r =>
+      r.finished_at && new Date(r.finished_at).getFullYear() === currentYear
+    ).length;
 
     const goalsData = Array.isArray(data.goals) && data.goals.length > 0
-      ? [{ goal: data.goals[0].goal, progress: data.user_book_reads?.length ?? data.goals[0].progress }]
+      ? [{ goal: data.goals[0].goal, progress: readsThisYear || data.goals[0].progress }]
       : [];
 
     const allBooks = data.user_books || [];
@@ -105,6 +114,7 @@ export default class Hardcover {
       goals: goalsData,
       topGenres,
       userBooks: allBooks,
+      userBookReads: allReads,
     };
   }
 }

@@ -36,7 +36,7 @@ const RecentBooks = () => {
     <div class="recent-books-grid">
       {books.map((book, i) => (
         <div class="rb-card" key={i}>
-          <div class="rb-cover-wrap">
+          <div class="rb-cover-wrap img-glow-wrap">
             {book.cover ? (
               <img src={book.cover} alt={book.title} class="rb-cover-img" loading="lazy" />
             ) : (

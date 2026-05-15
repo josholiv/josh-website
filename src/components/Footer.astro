@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Social from './social.astro';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 import { UserCircle, GraduationCap, Radio, Cog } from "lucide-preact";
+import { TAGLINE } from '../data/page-meta';
 
 const { imageLoading = 'lazy' } = Astro.props;
 ---
@@ -99,7 +100,7 @@ footer {
         class="profile-pic"
         loading={imageLoading}
       />
-      <p><strong style="font-size: 16pt;">I'm Josh Olivier</strong> <br/><i>Incoming PhD student ● Amateur triathlete ● 3D printing enthusiast</i></p>
+      <p><strong style="font-size: 16pt;">Hi, I'm Josh Olivier</strong> <br/><i>{TAGLINE}</i></p>
     </div>
 
     <div class="footer-body">

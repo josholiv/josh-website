@@ -100,6 +100,14 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
           link.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
         });
       });
+
+      document.querySelectorAll('.img-glow-wrap').forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
     </script>
   </body>
   </html>

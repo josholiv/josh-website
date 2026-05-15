@@ -2,10 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hardcover from '../components/Hardcover.js';
 import Dropdown from '../components/Dropdown.jsx';
+import ImageLightbox from '../components/ImageLightbox.jsx';
 import { getCollection } from 'astro:content';
 import { env } from 'cloudflare:workers';
-import { ExternalLink } from "lucide-preact";
 import TOC from '../components/TOC.astro';
+import { BookOpen, Star, Users, ScrollText } from "lucide-preact";
+import { PAGE_META } from '../data/page-meta';
 
 let books = [];
 let fetchError;
@@ -21,25 +23,257 @@ for (const post of allPosts) {
 try {
   const hc = new Hardcover(env);
   const result = await hc.fetch();
-  books = (result.userBooks || []).map(entry => ({
-    title: entry.book?.title || "Untitled",
-    cover: entry.book?.image?.url || null,
-    rating: entry.rating ?? null,
-    lastRead: entry.last_read_date ?? null,
-    authors: (entry.book?.contributions || [])
-      .map(c => c.author?.name)
+  books = (result.userBookReads || []).map(entry => ({
+    title: entry.user_book?.book?.title || "Untitled",
+    cover: entry.user_book?.book?.image?.url || null,
+    rating: entry.user_book?.rating ?? null,
+    lastRead: entry.finished_at ?? null,
+    pages: entry.user_book?.book?.pages ?? null,
+    pubYear: typeof entry.user_book?.book?.release_year === 'number' ? entry.user_book.book.release_year : null,
+    authors: (entry.user_book?.book?.contributions || [])
+      .map((c: any) => c.author?.name)
       .filter(Boolean)
       .join(", "),
-    reviewUrl: reviewMap.get((entry.book?.title || '').toLowerCase()) || null,
-    hardcoverUrl: entry.book?.slug ? `https://hardcover.app/books/${entry.book.slug}` : null,
-  })).sort((a, b) => new Date(b.lastRead) - new Date(a.lastRead));
+    reviewUrl: reviewMap.get((entry.user_book?.book?.title || '').toLowerCase()) || null,
+    hardcoverUrl: entry.user_book?.book?.slug ? `https://hardcover.app/books/${entry.user_book.book.slug}` : null,
+  }));
 } catch (e) {
   fetchError = e.message;
 }
+
+// Reading stats computed from the already-fetched books array
+const totalBooks = books.length;
+const ratedBooks = books.filter((b: any) => b.rating !== null);
+const avgRating = ratedBooks.length > 0
+  ? ratedBooks.reduce((sum: number, b: any) => sum + b.rating, 0) / ratedBooks.length
+  : null;
+
+const uniqueAuthors = new Set<string>();
+const seenBookKeys = new Set<string>();
+for (const book of books) {
+  const key = (book as any).hardcoverUrl || (book as any).title;
+  if (seenBookKeys.has(key)) continue;
+  seenBookKeys.add(key);
+  const firstAuthor = ((book as any).authors || '').split(', ')[0]?.trim();
+  if (firstAuthor) uniqueAuthors.add(firstAuthor);
+}
+const totalAuthors = uniqueAuthors.size;
+
+const booksWithPages = books.filter((b: any) => typeof b.pages === 'number' && b.pages > 0);
+const avgPages = booksWithPages.length > 0
+  ? Math.round(booksWithPages.reduce((s: number, b: any) => s + b.pages, 0) / booksWithPages.length)
+  : null;
+
+const yearCounts: Record<number, number> = {};
+for (const book of books) {
+  if (book.lastRead) {
+    const year = new Date(book.lastRead).getFullYear();
+    yearCounts[year] = (yearCounts[year] || 0) + 1;
+  }
+}
+const booksPerYear = Object.entries(yearCounts)
+  .map(([year, count]) => ({ year: Number(year), count: count as number }))
+  .sort((a, b) => a.year - b.year);
+const maxBooksYear = booksPerYear.length > 0 ? Math.max(...booksPerYear.map(y => y.count)) : 1;
+const avgBooksPerYear = booksPerYear.length > 0
+  ? Math.round(totalBooks / booksPerYear.length)
+  : null;
+
+const ratingBuckets: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+for (const book of ratedBooks) {
+  const key = Math.round(book.rating!);
+  if (key >= 1 && key <= 5) ratingBuckets[key]++;
+}
+const ratingDistArr = [5, 4, 3, 2, 1].map(star => ({ star, count: ratingBuckets[star] }));
+const maxRatingCount = Math.max(...ratingDistArr.map(r => r.count), 1);
+
+// Raincloud: page count distribution
+const pageCounts: number[] = books
+  .map((b: any) => b.pages)
+  .filter((p: any): p is number => typeof p === 'number' && p > 0)
+  .sort((a: number, b: number) => a - b);
+
+const RC_SVG_W = 600;
+const RC_SVG_H = 210;
+const RC_PAD_L = 10;
+const RC_PAD_R = 10;
+const RC_PLOT_W = RC_SVG_W - RC_PAD_L - RC_PAD_R;
+const RC_CLOUD_BASE_Y = 90;
+const RC_CLOUD_H = 80;
+const RC_BOX_Y = 100;
+const RC_BOX_H = 20;
+const RC_DOT_Y = 144;
+const RC_AXIS_Y = 178;
+
+let rcPathD = '';
+let rcBoxX1 = 0, rcBoxX2 = 0, rcMedianX = 0;
+let rcWhiskerLoX = 0, rcWhiskerHiX = 0;
+let rcDots: { cx: number; cy: number; outlier: boolean }[] = [];
+let rcTicks: { x: number; label: string }[] = [];
+
+if (pageCounts.length >= 4) {
+  const rcN = pageCounts.length;
+  const rcMin = pageCounts[0];
+  const rcMax = pageCounts[rcN - 1];
+  const range = rcMax - rcMin;
+  const xPad = range * 0.05;
+  const xLo = Math.max(0, rcMin - xPad);
+  const xHi = rcMax + xPad;
+
+  const xScale = (p: number) => RC_PAD_L + ((p - xLo) / (xHi - xLo)) * RC_PLOT_W;
+
+  const q1 = pageCounts[Math.floor(rcN * 0.25)];
+  const rcMedian = pageCounts[Math.floor(rcN * 0.5)];
+  const q3 = pageCounts[Math.floor(rcN * 0.75)];
+  const iqr = q3 - q1;
+  const whiskerLoVal = Math.max(rcMin, q1 - 1.5 * iqr);
+  const whiskerHiVal = Math.min(rcMax, q3 + 1.5 * iqr);
+
+  rcBoxX1 = xScale(q1);
+  rcBoxX2 = xScale(q3);
+  rcMedianX = xScale(rcMedian);
+  rcWhiskerLoX = xScale(whiskerLoVal);
+  rcWhiskerHiX = xScale(whiskerHiVal);
+
+  const rcMean = pageCounts.reduce((s: number, v: number) => s + v, 0) / rcN;
+  const rcVar = pageCounts.reduce((s: number, v: number) => s + (v - rcMean) ** 2, 0) / rcN;
+  const rcStd = Math.sqrt(rcVar);
+  const bw = Math.max(rcStd * 1.06 * Math.pow(rcN, -0.2), 10);
+
+  const N_SAMPLE = 150;
+  const densityPts: { px: number; d: number }[] = [];
+  for (let i = 0; i <= N_SAMPLE; i++) {
+    const val = xLo + (i / N_SAMPLE) * (xHi - xLo);
+    let sum = 0;
+    for (const xi of pageCounts) {
+      const u = (val - xi) / bw;
+      sum += Math.exp(-0.5 * u * u);
+    }
+    densityPts.push({ px: xScale(val), d: sum / (rcN * bw * Math.sqrt(2 * Math.PI)) });
+  }
+  const maxD = Math.max(...densityPts.map(pt => pt.d));
+  const toY = (d: number) => RC_CLOUD_BASE_Y - (d / maxD) * RC_CLOUD_H;
+
+  rcPathD = [
+    `M ${xScale(xLo).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    ...densityPts.map(pt => `L ${pt.px.toFixed(1)},${toY(pt.d).toFixed(1)}`),
+    `L ${xScale(xHi).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    'Z'
+  ].join(' ');
+
+  rcDots = pageCounts.map((p: number, i: number) => {
+    const v = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+    const jitter = (v - Math.floor(v)) * 2 - 1;
+    return {
+      cx: xScale(p),
+      cy: RC_DOT_Y + jitter * 7,
+      outlier: p < whiskerLoVal || p > whiskerHiVal,
+    };
+  });
+
+  const rawStep = (xHi - xLo) / 8;
+  const mag = Math.pow(10, Math.floor(Math.log10(Math.max(rawStep, 1))));
+  const tickStep = Math.round(rawStep / mag) * mag || mag;
+  const tickStart = 0; // always start from 0
+  for (let t = tickStart; t <= xHi + 0.001; t += tickStep) {
+    const sx = xScale(t);
+    if (sx >= RC_PAD_L - 5 && sx <= RC_SVG_W - RC_PAD_R + 5) {
+      rcTicks.push({
+        x: Math.max(RC_PAD_L, sx),
+        label: t >= 1000 ? `${(t / 1000).toFixed(t % 1000 === 0 ? 0 : 1)}k` : `${Math.round(t)}`,
+      });
+    }
+  }
+}
+
+// Publication year raincloud
+const pubYears: number[] = books
+  .map((b: any) => b.pubYear)
+  .filter((y: any): y is number => typeof y === 'number' && y > 0)
+  .sort((a: number, b: number) => a - b);
+
+let pyPathD = '';
+let pyBoxX1 = 0, pyBoxX2 = 0, pyMedianX = 0;
+let pyWhiskerLoX = 0, pyWhiskerHiX = 0;
+let pyDots: { cx: number; cy: number; outlier: boolean }[] = [];
+let pyTicks: { x: number; label: string }[] = [];
+
+if (pubYears.length >= 4) {
+  const pyN = pubYears.length;
+  const pyMin = pubYears[0];
+  const pyMax = pubYears[pyN - 1];
+  const pyRange = pyMax - pyMin;
+  const pyXPad = Math.max(pyRange * 0.05, 1);
+  const pyXLo = Math.max(0, pyMin - pyXPad);
+  const pyXHi = pyMax + pyXPad;
+  const pyXScale = (p: number) => RC_PAD_L + ((p - pyXLo) / (pyXHi - pyXLo)) * RC_PLOT_W;
+
+  const pyQ1 = pubYears[Math.floor(pyN * 0.25)];
+  const pyMedianVal = pubYears[Math.floor(pyN * 0.5)];
+  const pyQ3 = pubYears[Math.floor(pyN * 0.75)];
+  const pyIqr = pyQ3 - pyQ1;
+  const pyWhiskerLoVal = Math.max(pyMin, pyQ1 - 1.5 * pyIqr);
+  const pyWhiskerHiVal = Math.min(pyMax, pyQ3 + 1.5 * pyIqr);
+
+  pyBoxX1 = pyXScale(pyQ1);
+  pyBoxX2 = pyXScale(pyQ3);
+  pyMedianX = pyXScale(pyMedianVal);
+  pyWhiskerLoX = pyXScale(pyWhiskerLoVal);
+  pyWhiskerHiX = pyXScale(pyWhiskerHiVal);
+
+  const pyMeanVal = pubYears.reduce((s: number, v: number) => s + v, 0) / pyN;
+  const pyVar = pubYears.reduce((s: number, v: number) => s + (v - pyMeanVal) ** 2, 0) / pyN;
+  const pyBw = Math.max(Math.sqrt(pyVar) * 1.06 * Math.pow(pyN, -0.2), 1);
+
+  const pyDensityPts: { px: number; d: number }[] = [];
+  for (let i = 0; i <= 150; i++) {
+    const val = pyXLo + (i / 150) * (pyXHi - pyXLo);
+    let sum = 0;
+    for (const xi of pubYears) {
+      const u = (val - xi) / pyBw;
+      sum += Math.exp(-0.5 * u * u);
+    }
+    pyDensityPts.push({ px: pyXScale(val), d: sum / (pyN * pyBw * Math.sqrt(2 * Math.PI)) });
+  }
+  const pyMaxD = Math.max(...pyDensityPts.map(pt => pt.d));
+  const pyToY = (d: number) => RC_CLOUD_BASE_Y - (d / pyMaxD) * RC_CLOUD_H;
+
+  pyPathD = [
+    `M ${pyXScale(pyXLo).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    ...pyDensityPts.map(pt => `L ${pt.px.toFixed(1)},${pyToY(pt.d).toFixed(1)}`),
+    `L ${pyXScale(pyXHi).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    'Z'
+  ].join(' ');
+
+  pyDots = pubYears.map((p: number, i: number) => {
+    const v = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+    const jitter = (v - Math.floor(v)) * 2 - 1;
+    return {
+      cx: pyXScale(p),
+      cy: RC_DOT_Y + jitter * 7,
+      outlier: p < pyWhiskerLoVal || p > pyWhiskerHiVal,
+    };
+  });
+
+  const pyRawStep = (pyXHi - pyXLo) / 8;
+  const pyMag = Math.pow(10, Math.floor(Math.log10(Math.max(pyRawStep, 1))));
+  const pyTickStep = Math.round(pyRawStep / pyMag) * pyMag || pyMag;
+  const pyTickStart = Math.ceil(pyXLo / pyTickStep) * pyTickStep;
+  for (let t = pyTickStart; t <= pyXHi + 0.001; t += pyTickStep) {
+    const sx = pyXScale(t);
+    if (sx >= RC_PAD_L - 5 && sx <= RC_SVG_W - RC_PAD_R + 5) {
+      pyTicks.push({
+        x: Math.max(RC_PAD_L, sx),
+        label: `${Math.round(t)}`,
+      });
+    }
+  }
+}
 ---
 
-<BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} ogImage="/social-cards/bookshelf.png">
+<BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} ogImage="/social-cards/bookshelf.png" description={PAGE_META.bookshelf.description}>
 
+  <ImageLightbox />
   <TOC />
 
   <h2>Recent books</h2>
@@ -75,20 +309,9 @@ try {
     {books.map(book => (
       <div class="book-card" data-rating={book.rating ?? 'none'} data-has-review={book.reviewUrl ? 'true' : 'false'}>
         <div class="cover-area">
-          <div class="cover-wrap">
+          <div class="cover-wrap img-glow-wrap">
             {book.cover
-              ? (
-                <a href={book.hardcoverUrl || '#'} class="cover-hover-wrap" target="_blank" rel="noopener noreferrer" aria-label={`View ${book.title} on Hardcover`}>
-                  <img src={book.cover} alt={book.title} class="cover-img" />
-                  <div class="cover-overlay">
-                    <img src={book.cover} alt="" class="cover-bg-blur" aria-hidden="true" />
-                    <div class="cover-overlay-text">
-                      <span class="placeholder-title">{book.title}</span>
-                      <i class="placeholder-author">{book.authors}</i>
-                    </div>
-                  </div>
-                </a>
-              )
+              ? <img src={book.cover} alt={book.title} class="cover-img" />
               : (
                 <div class="cover-placeholder">
                   <span class="placeholder-title">{book.title}</span>
@@ -97,9 +320,6 @@ try {
               )
             }
           </div>
-          {book.hardcoverUrl && (
-            <a href={book.hardcoverUrl} class="hardcover-badge" target="_blank" rel="noopener noreferrer" aria-label={`View ${book.title} on Hardcover`}>View on Hardcover <ExternalLink size={10}/></a>
-          )}
         </div>
 
         <!-- Hidden but searchable -->
@@ -155,6 +375,129 @@ try {
       </div>
     ))}
   </div>
+
+  <h2>Reading stats</h2>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <span class="stat-card-icon"><BookOpen size="1.5rem" /></span>
+      <span class="stat-card-number">{totalBooks}</span>
+      <span class="stat-card-label">books read</span>
+    </div>
+    {avgRating !== null && (
+      <div class="stat-card">
+        <span class="stat-card-icon"><Star size="1.5rem" /></span>
+        <span class="stat-card-number">{avgRating.toFixed(1)}★</span>
+        <span class="stat-card-label">avg rating</span>
+      </div>
+    )}
+
+    <div class="stat-card">
+      <span class="stat-card-icon"><Users size="1.5rem" /></span>
+      <span class="stat-card-number">{totalAuthors}</span>
+      <span class="stat-card-label">authors read</span>
+    </div>
+    {avgPages !== null && (
+      <div class="stat-card">
+        <span class="stat-card-icon"><ScrollText size="1.5rem" /></span>
+        <span class="stat-card-number">{avgPages.toLocaleString()}</span>
+        <span class="stat-card-label">avg page length</span>
+      </div>
+    )}
+  </div>
+
+  <div class="stats-charts">
+    <div class="chart-section">
+      <p class="chart-title">Books per year</p>
+      <div class="year-bars">
+        {booksPerYear.map(({ year, count }) => (
+          <div class="year-bar-col">
+            <span class="bar-count">{count}</span>
+            <div class="year-bar" style={`height: ${(count / maxBooksYear) * 100}%`}></div>
+            <span class="bar-label">{year}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="chart-section">
+      <p class="chart-title">Rating distribution</p>
+      <div class="rating-bars">
+        {ratingDistArr.map(({ star, count }) => (
+          <div class="rating-row">
+            <span class="rating-label">{'★'.repeat(star)}</span>
+            <div class="rating-bar-track">
+              <div class="rating-bar-fill" style={`width: ${(count / maxRatingCount) * 100}%`}></div>
+            </div>
+            <span class="rating-count">{count}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {pageCounts.length >= 4 && (
+    <div class="stats-charts">
+      <div class="chart-section chart-section-wide">
+        <p class="chart-title">Page count distribution</p>
+        <svg viewBox={`0 0 ${RC_SVG_W} ${RC_SVG_H}`} class="raincloud-svg" role="img" aria-label="Raincloud plot of page counts per book">
+          <!-- Cloud (density) -->
+          <path d={rcPathD} class="rc-cloud" />
+          <!-- Whisker lines -->
+          <line x1={rcWhiskerLoX} y1={RC_BOX_Y + RC_BOX_H / 2} x2={rcBoxX1} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+          <line x1={rcBoxX2} y1={RC_BOX_Y + RC_BOX_H / 2} x2={rcWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+          <!-- Whisker caps -->
+          <line x1={rcWhiskerLoX} y1={RC_BOX_Y + 3} x2={rcWhiskerLoX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+          <line x1={rcWhiskerHiX} y1={RC_BOX_Y + 3} x2={rcWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+          <!-- IQR box -->
+          <rect x={rcBoxX1} y={RC_BOX_Y} width={Math.max(rcBoxX2 - rcBoxX1, 2)} height={RC_BOX_H} class="rc-box" />
+          <!-- Median line -->
+          <line x1={rcMedianX} y1={RC_BOX_Y} x2={rcMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
+          <!-- Rain dots -->
+          {rcDots.map(dot => (
+            <circle cx={dot.cx} cy={dot.cy} r="2.5" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
+          ))}
+          <!-- X-axis -->
+          <line x1={RC_PAD_L} y1={RC_AXIS_Y} x2={RC_SVG_W - RC_PAD_R} y2={RC_AXIS_Y} class="rc-axis" />
+          {rcTicks.map(t => (
+            <g>
+              <line x1={t.x} y1={RC_AXIS_Y} x2={t.x} y2={RC_AXIS_Y + 4} class="rc-tick" />
+              <text x={t.x} y={RC_AXIS_Y + 13} class="rc-tick-label">{t.label}</text>
+            </g>
+          ))}
+          <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 27} class="rc-axis-label">pages</text>
+        </svg>
+      </div>
+    </div>
+  )}
+
+  {pubYears.length >= 4 && (
+    <div class="stats-charts">
+      <div class="chart-section chart-section-wide">
+        <p class="chart-title">Publication year distribution</p>
+        <svg viewBox={`0 0 ${RC_SVG_W} ${RC_SVG_H}`} class="raincloud-svg" role="img" aria-label="Raincloud plot of book publication years">
+          <path d={pyPathD} class="rc-cloud" />
+          <line x1={pyWhiskerLoX} y1={RC_BOX_Y + RC_BOX_H / 2} x2={pyBoxX1} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+          <line x1={pyBoxX2} y1={RC_BOX_Y + RC_BOX_H / 2} x2={pyWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+          <line x1={pyWhiskerLoX} y1={RC_BOX_Y + 3} x2={pyWhiskerLoX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+          <line x1={pyWhiskerHiX} y1={RC_BOX_Y + 3} x2={pyWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+          <rect x={pyBoxX1} y={RC_BOX_Y} width={Math.max(pyBoxX2 - pyBoxX1, 2)} height={RC_BOX_H} class="rc-box" />
+          <line x1={pyMedianX} y1={RC_BOX_Y} x2={pyMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
+          {pyDots.map(dot => (
+            <circle cx={dot.cx} cy={dot.cy} r="2.5" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
+          ))}
+          <line x1={RC_PAD_L} y1={RC_AXIS_Y} x2={RC_SVG_W - RC_PAD_R} y2={RC_AXIS_Y} class="rc-axis" />
+          {pyTicks.map(t => (
+            <g>
+              <line x1={t.x} y1={RC_AXIS_Y} x2={t.x} y2={RC_AXIS_Y + 4} class="rc-tick" />
+              <text x={t.x} y={RC_AXIS_Y + 13} class="rc-tick-label">{t.label}</text>
+            </g>
+          ))}
+          <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 27} class="rc-axis-label">year published</text>
+        </svg>
+      </div>
+    </div>
+  )}
 
 </BaseLayout>
 
@@ -230,15 +573,6 @@ try {
     aspect-ratio: 2 / 3;
     border-radius: 2px;
     overflow: hidden;
-    transition: box-shadow 0.2s ease;
-  }
-
-  .cover-area:hover .cover-wrap {
-    box-shadow: 0 0 0 2px var(--purple-600);
-  }
-
-    html:not(.dark) .cover-area:hover .cover-wrap {
-    box-shadow: 0 0 0 2px var(--purple-500);
   }
 
   .cover-img {
@@ -272,98 +606,8 @@ try {
     color: var(--text-normal);
   }
 
-  .cover-hover-wrap {
-    position: absolute;
-    inset: 0;
-  }
-
-  .cover-overlay {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    overflow: hidden;
-  }
-
-  .cover-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.2) 0%,
-      rgba(0, 0, 0, 0.5) 100%
-    );
-    z-index: 1;
-  }
-
-  .cover-hover-wrap:hover .cover-overlay {
-    opacity: 1;
-  }
-
-  .cover-bg-blur {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(8px) brightness(0.5);
-    transform: scale(1.5);
-    z-index: 0;
-  }
-
-  .cover-overlay-text {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0.5rem;
-  }
-
-  .cover-overlay-text .placeholder-title {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.95);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  }
-
-  .cover-overlay-text .placeholder-author {
-    font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.7);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  }
-
-  .hardcover-badge {
-    position: absolute;
-    top: 100%;
-    left: -2px;
-    right: -2px;
-    z-index: 10;
-    background: var(--purple-600);
-    color: var(--purple-050);
-    font-size: 0.65rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0 0 7px 7px;
-    opacity: 0;
-    transform: translateY(-5px);
-    transition: opacity 0s ease, transform 0.2s ease;
+  .cover-img {
     cursor: pointer;
-    text-decoration: none;
-  }
-
-  html:not(.dark) .hardcover-badge {
-    background: var(--purple-500);
-    color: var(--purple-950);
-  }
-
-  .cover-area:hover .hardcover-badge {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   /* Hidden but searchable */
@@ -418,20 +662,274 @@ try {
     color: var(--text-normal);
   }
 
-  html:not(.dark) #reviewFilterBtn.active {
-    background-color: var(--purple-100);
-    color: var(--text-normal);
+  /* ── Reading stats ──────────────────────────────────── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
 
-  .cover-hover-wrap {
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem;
+    background-color: var(--bg-secondary);
+    border-radius: 7px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(
+      540px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.045),
+      transparent 70%
+    );
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  html:not(.dark) .stat-card::before {
+    background: radial-gradient(
+      540px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(0, 0, 0, 0.065),
+      transparent 70%
+    );
+  }
+
+  .stat-card:hover::before {
+    opacity: 1;
+  }
+
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    mix-blend-mode: overlay;
+  }
+
+  .stat-card-icon {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+  }
+
+  .stat-card-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    color: var(--text-heading);
+    line-height: 1;
+  }
+
+  .stat-card-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .stats-charts {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  .chart-section {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .chart-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin: 0 0 0.9rem;
+  }
+
+  /* Vertical bar chart — books per year */
+  .year-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    height: 120px;
+    padding-bottom: 1.6rem;
+    position: relative;
+  }
+
+  .year-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.2rem;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    min-width: 28px;
+  }
+
+  .bar-count {
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    line-height: 1;
+  }
+
+  .year-bar {
+    width: 100%;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+    min-height: 3px;
+    transition: opacity 0.15s;
+  }
+
+  .year-bar:hover {
+    background: var(--accent-hover);
+  }
+
+
+
+  .bar-label {
+    position: absolute;
+    bottom: -1.6rem;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  /* Horizontal bar chart — rating distribution */
+  .rating-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .rating-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    min-width: 4.5rem;
+    text-align: right;
+    letter-spacing: -1px;
+  }
+
+  .rating-bar-track {
+    flex: 1;
+    height: 0.9rem;
+    background: var(--bg-secondary);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .rating-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    min-width: 0;
+    transition: opacity 0.15s;
+  }
+
+  .rating-bar-fill:hover {
+    background: var(--accent-hover);
+  }
+
+  .rating-count {
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    min-width: 1.5rem;
+  }
+
+  /* ── Raincloud plot ──────────────────────────────────── */
+  .chart-section-wide {
+    flex: 0 0 100%;
+  }
+
+  .raincloud-svg {
+    width: 100%;
+    overflow: visible;
     display: block;
-    text-decoration: none;
-    color: inherit;
   }
 
-  /* suppress the global a[target="_blank"]::after icon inside the cover */
-  a.cover-hover-wrap::after {
-    display: none;
+  .rc-cloud {
+    fill: var(--accent);
+    opacity: 1;
+    transition: fill 0.15s;
+    cursor: default;
+  }
+
+  .rc-box {
+    fill: var(--bg-secondary);
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    transition: stroke 0.15s;
+  }
+
+  .rc-median {
+    stroke: var(--accent);
+    stroke-width: 2;
+    transition: stroke 0.15s;
+  }
+
+  .rc-whisker {
+    stroke: var(--text-muted);
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  .rc-dot {
+    fill: var(--accent);
+    opacity: 0.5;
+    transition: fill 0.15s;
+  }
+
+  .rc-outlier {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    opacity: 0.4;
+    transition: stroke 0.15s;
+  }
+
+  .raincloud-svg:hover .rc-cloud   { fill:   var(--accent-hover); }
+  .raincloud-svg:hover .rc-box     { stroke: var(--accent-hover); }
+  .raincloud-svg:hover .rc-median  { stroke: var(--accent-hover); }
+  .raincloud-svg:hover .rc-dot     { fill:   var(--accent-hover); }
+  .raincloud-svg:hover .rc-outlier { stroke: var(--accent-hover); }
+
+  .rc-axis,
+  .rc-tick {
+    stroke: var(--bg-border);
+    stroke-width: 1;
+  }
+
+  .rc-tick-label,
+  .rc-axis-label {
+    text-anchor: middle;
+    font-size: 13px;
+    fill: var(--text-faint);
+    font-family: "Atkinson Hyperlegible Mono", monospace;
   }
 </style>
 
@@ -522,4 +1020,13 @@ try {
 
   // Set initial count
   updateCount();
+
+  // Stat card mouse glow
+  document.querySelectorAll('.stat-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    });
+  });
 </script>

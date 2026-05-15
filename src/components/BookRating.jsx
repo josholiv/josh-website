@@ -65,7 +65,7 @@ const BookRating = ({ bookTitle }) => {
   return (
     <div class="book-rating-section" style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
       {coverUrl && (
-        <div style={{ marginBottom: '0.75rem' }}>
+        <div class="img-glow-wrap" style={{ marginBottom: '0.75rem' }}>
           <img
             src={coverUrl}
             alt={bookTitle}

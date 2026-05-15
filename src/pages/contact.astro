@@ -2,6 +2,7 @@
 import { Mail, UserCircle, Radio, GraduationCap, Cog } from "lucide-preact";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TOC from '../components/TOC.astro';
+import { PAGE_META } from '../data/page-meta';
 
 
 const pageTitle = "Josh Olivier - Contact";
@@ -9,7 +10,7 @@ const pageTitle = "Josh Olivier - Contact";
 
 
 
-<BaseLayout pageTitle={pageTitle} titleHtml="Contact me" shouldCenterTitle={false} footerImageLoading="eager" ogImage="/social-cards/contact.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="Contact me" shouldCenterTitle={false} footerImageLoading="eager" ogImage="/social-cards/contact.png" description={PAGE_META.contact.description}>
 
   <TOC />
 

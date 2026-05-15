@@ -255,6 +255,8 @@ html:not(.dark) {
       line-height: 1.5;
       color: var(--text-normal);
       margin-top: 0.75rem;
+      margin-bottom: 0;
+      font-style: italic;
     }
 
     /* ── Page banner: light mode ── */
@@ -1931,16 +1933,76 @@ article img,
 .prose img,
 main img.blog-body-pic,
 .rb-cover-img,
-.book-cover-img {
+.book-cover-img,
+.cover-img {
   transition: opacity 0.2s ease;
+}
+
+/* ─── Image glow hover (book covers + blog body images) ─── */
+.img-glow-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-glow-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 70%
+  );
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+html:not(.dark) .img-glow-wrap::before {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 0, 0, 0.08),
+    transparent 70%
+  );
+}
+
+.img-glow-wrap:hover::before {
+  opacity: 1;
+}
+
+.img-glow-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  z-index: 1;
 }
 
 article img:hover,
 .prose img:hover,
 main img.blog-body-pic:hover,
 .rb-cover-img:hover,
-.book-cover-img:hover {
+.book-cover-img:hover,
+.cover-img:hover {
   opacity: 0.9;
+}
+
+/* Images inside a glow wrap: let the wrapper handle the effect */
+.img-glow-wrap img {
+  display: block;
+  border-radius: 0 !important;
+}
+
+.img-glow-wrap:hover img {
+  opacity: 1;
 }
 
 @keyframes fadeIn {

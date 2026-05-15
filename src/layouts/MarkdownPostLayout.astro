@@ -227,6 +227,36 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   <div id="copy-toast">Link copied!</div>
 
   <script set:html={responsiveImagesScript} />
+
+  <script>
+    // Wrap blog body images in img-glow-wrap so they get the flashlight+grain hover
+    (function () {
+      document.querySelectorAll('.blog-body-pic').forEach((img) => {
+        if (img.closest('.img-glow-wrap')) return;
+        const wrap = document.createElement('div');
+        wrap.className = 'img-glow-wrap';
+        const cs = getComputedStyle(img);
+        const inFigure = img.closest('figure.img-figure');
+        wrap.style.display = 'block';
+        wrap.style.width = 'fit-content';
+        wrap.style.maxWidth = '100%';
+        wrap.style.borderRadius = inFigure ? '7px' : cs.borderRadius;
+        if (!inFigure) {
+          wrap.style.marginTop = cs.marginTop;
+          wrap.style.marginBottom = cs.marginBottom;
+          img.style.marginTop = '0';
+          img.style.marginBottom = '0';
+        }
+        img.parentNode.insertBefore(wrap, img);
+        wrap.appendChild(img);
+        wrap.addEventListener('mousemove', (e) => {
+          const rect = wrap.getBoundingClientRect();
+          wrap.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+          wrap.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+      });
+    })();
+  </script>
 </BaseLayout>
 
 <style>

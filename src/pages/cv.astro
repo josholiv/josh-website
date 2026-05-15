@@ -4,6 +4,7 @@ import cv from '../data/cv.json';
 import '../styles/cv.css'
 import TOC from '../components/TOC.astro';
 import { ExternalLink } from "lucide-preact";
+import { PAGE_META } from '../data/page-meta';
 
 
 const pageTitle = "Josh Olivier - CV";
@@ -72,7 +73,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 }
 ---
 
-<BaseLayout pageTitle={pageTitle} titleHtml="CV" shouldCenterTitle={false} ogImage="/social-cards/cv.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="CV" shouldCenterTitle={false} ogImage="/social-cards/cv.png" description={PAGE_META.cv.description}>
 
 <main>
 <TOC />

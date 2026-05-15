@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
+import { PAGE_META } from "../src/data/page-meta.js";
 
 // Load .env file manually so credentials never need to be typed in the terminal
 const envPath = join(process.cwd(), ".env");
@@ -22,14 +23,9 @@ const OUTPUT_DIR = "public/social-cards"; // Output directory for generated imag
 const POSTS_DIR = "src/blog"; // Directory containing your markdown posts
 
 /** Static site pages to generate OG images for. */
-const STATIC_PAGES: Array<{ slug: string; title: string; description: string }> = [
-  { slug: "home",      title: "Josh Olivier",      description: "Incoming PhD student, amateur triathlete, and 3D printing enthusiast." },
-  { slug: "about",     title: "Josh Olivier - About",     description: "My background, research interests, and what I'm up to." },
-  { slug: "blog",      title: "Josh Olivier - Blog",      description: "My digital garden, with posts on research, travel, triathlons, 3D printing, and more." },
-  { slug: "bookshelf", title: "Josh Olivier - Bookshelf", description: "A collection of books I've read." },
-  { slug: "cv",        title: "Josh Olivier - CV",        description: "My academic and professional history." },
-  { slug: "contact",  title: "Josh Olivier - Contact",   description: "Get in touch or connect with me on social media." },
-];
+const STATIC_PAGES: Array<{ slug: string; title: string; description: string }> = Object.entries(PAGE_META).map(
+  ([slug, { title, description }]) => ({ slug, title, description })
+);
 
 interface Post {
   slug: string;
