@@ -8,17 +8,17 @@ const RecentBooks = () => {
     fetch('/api/hardcover')
       .then(r => r.json())
       .then(result => {
-        const recentBooks = (result.userBooks || [])
+        const recentBooks = (result.userBookReads || [])
           .map(entry => ({
-            title: entry.book?.title || 'Untitled',
-            cover: entry.book?.image?.url || null,
-            lastRead: entry.last_read_date ?? null,
-            authors: (entry.book?.contributions || [])
+            title: entry.user_book?.book?.title || 'Untitled',
+            cover: entry.user_book?.book?.image?.url || null,
+            lastRead: entry.finished_at ?? null,
+            authors: (entry.user_book?.book?.contributions || [])
               .map(c => c.author?.name)
               .filter(Boolean)
               .join(', '),
-            hardcoverUrl: entry.book?.slug
-              ? `https://hardcover.app/books/${entry.book.slug}`
+            hardcoverUrl: entry.user_book?.book?.slug
+              ? `https://hardcover.app/books/${entry.user_book.book.slug}`
               : null,
           }))
           .sort((a, b) => new Date(b.lastRead).getTime() - new Date(a.lastRead).getTime())

@@ -455,7 +455,7 @@ if (pubYears.length >= 4) {
           <line x1={rcMedianX} y1={RC_BOX_Y} x2={rcMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
           <!-- Rain dots -->
           {rcDots.map(dot => (
-            <circle cx={dot.cx} cy={dot.cy} r="2.5" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
+            <circle cx={dot.cx} cy={dot.cy} r="4" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
           ))}
           <!-- X-axis -->
           <line x1={RC_PAD_L} y1={RC_AXIS_Y} x2={RC_SVG_W - RC_PAD_R} y2={RC_AXIS_Y} class="rc-axis" />
@@ -484,7 +484,7 @@ if (pubYears.length >= 4) {
           <rect x={pyBoxX1} y={RC_BOX_Y} width={Math.max(pyBoxX2 - pyBoxX1, 2)} height={RC_BOX_H} class="rc-box" />
           <line x1={pyMedianX} y1={RC_BOX_Y} x2={pyMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
           {pyDots.map(dot => (
-            <circle cx={dot.cx} cy={dot.cy} r="2.5" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
+            <circle cx={dot.cx} cy={dot.cy} r="4" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
           ))}
           <line x1={RC_PAD_L} y1={RC_AXIS_Y} x2={RC_SVG_W - RC_PAD_R} y2={RC_AXIS_Y} class="rc-axis" />
           {pyTicks.map(t => (
@@ -785,7 +785,7 @@ if (pubYears.length >= 4) {
   }
 
   .bar-count {
-    font-size: 0.75rem;
+    font-size: 17px;
     color: var(--text-faint);
     font-family: "Atkinson Hyperlegible Mono", monospace;
     line-height: 1;
@@ -808,7 +808,7 @@ if (pubYears.length >= 4) {
   .bar-label {
     position: absolute;
     bottom: -1.6rem;
-    font-size: 0.75rem;
+    font-size: 17px;
     color: var(--text-faint);
     white-space: nowrap;
   }
@@ -827,7 +827,7 @@ if (pubYears.length >= 4) {
   }
 
   .rating-label {
-    font-size: 0.85rem;
+    font-size: 17px;
     color: var(--text-muted);
     min-width: 4.5rem;
     text-align: right;
@@ -855,7 +855,7 @@ if (pubYears.length >= 4) {
   }
 
   .rating-count {
-    font-size: 0.85rem;
+    font-size: 17px;
     color: var(--text-faint);
     font-family: "Atkinson Hyperlegible Mono", monospace;
     min-width: 1.5rem;
@@ -882,19 +882,19 @@ if (pubYears.length >= 4) {
   .rc-box {
     fill: var(--bg-secondary);
     stroke: var(--accent);
-    stroke-width: 1.5;
+    stroke-width: 2.5;
     transition: stroke 0.15s;
   }
 
   .rc-median {
     stroke: var(--accent);
-    stroke-width: 2;
+    stroke-width: 3;
     transition: stroke 0.15s;
   }
 
   .rc-whisker {
     stroke: var(--text-muted);
-    stroke-width: 1.5;
+    stroke-width: 2;
     fill: none;
   }
 
@@ -927,7 +927,7 @@ if (pubYears.length >= 4) {
   .rc-tick-label,
   .rc-axis-label {
     text-anchor: middle;
-    font-size: 13px;
+    font-size: 17px;
     fill: var(--text-faint);
     font-family: "Atkinson Hyperlegible Mono", monospace;
   }
