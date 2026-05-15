@@ -1,49 +1,36 @@
 import type { FunctionalComponent } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
+import { Zap, Flame, Clock } from 'lucide-preact';
 
-const fetchChessStats = async (username: string) => {
-  const response = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
-  return await response.json();
-};
-
-const username = 'pichugang';
+const USERNAME = 'pichugang';
 
 const ChessStats: FunctionalComponent = () => {
   const [stats, setStats] = useState<any>(null);
 
   useEffect(() => {
-    const getStats = async () => {
-      const userStats = await fetchChessStats(username);
-      setStats(userStats);
-    };
-    getStats();
+    fetch(`https://api.chess.com/pub/player/${USERNAME}/stats`)
+      .then(r => r.json())
+      .then(setStats);
   }, []);
 
   if (!stats) return <div>Loading...</div>;
 
   const modes = [
-    { label: 'Bullet', rating: stats.chess_bullet?.last?.rating },
-    { label: 'Blitz',  rating: stats.chess_blitz?.last?.rating },
-    { label: 'Rapid',  rating: stats.chess_rapid?.last?.rating },
+    { label: 'bullet', rating: stats.chess_bullet?.last?.rating, Icon: Zap },
+    { label: 'blitz',  rating: stats.chess_blitz?.last?.rating,  Icon: Flame },
+    { label: 'rapid',  rating: stats.chess_rapid?.last?.rating,  Icon: Clock },
   ];
 
   return (
-    <table style={{ borderCollapse: 'collapse', marginBottom: '1rem', width: 'auto' }}>
-      <thead>
-        <tr>
-          <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Mode</th>
-          <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Rating</th>
-        </tr>
-      </thead>
-      <tbody>
-        {modes.map(({ label, rating }) => (
-          <tr key={label}>
-            <td style={{ fontWeight: 'bold', paddingRight: '2rem' }}>{label}</td>
-            <td style={{ fontFamily: 'Ubuntu Mono', color: 'var(--text-normal)' }}>{rating ?? '–'}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div class="stat-grid">
+      {modes.map(({ label, rating, Icon }) => (
+        <div class="stat-card" key={label}>
+          <span class="stat-card-icon"><Icon size="1.5rem" /></span>
+          <span class="stat-card-number">{rating ?? '–'}</span>
+          <span class="stat-card-label">{label}</span>
+        </div>
+      ))}
+    </div>
   );
 };
 

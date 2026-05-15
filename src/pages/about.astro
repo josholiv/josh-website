@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ChessStats from '../components/chesscom.tsx';
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import HardcoverStats from '../components/HardcoverStats.jsx';
-import RecentBooks from '../components/RecentBooks.jsx';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 import { Image } from 'astro:assets';
 import TOC from '../components/TOC.astro';
@@ -99,7 +98,7 @@ const pageTitle = "Josh Olivier - About";
     <p>
       Some of my other hobbies include <a href="/blog/?tag=3Dprinting">tinkering with my 3D printer</a> and doing <a href="/blog/?tag=triathlon">triathlons</a>.
       Throughout my triathlon training in <code>{`${new Date().getFullYear()}`}</code>, I've logged the following distances swimming, cycling, 
-      and running (according to my data from <a href="https://www.strava.com/" target="_blank" rel="noopener noreferrer">Strava</a>):
+      and running:
     </p>
 
 <TriathlonStats client:only="preact" />
@@ -107,29 +106,22 @@ const pageTitle = "Josh Olivier - About";
 <h3>Reading</h3>
 
 <p>
-  I also enjoy reading, and I'm trying to read more consistently. Below is the total number of books I've read in <code>{new Date().getFullYear()}</code>, 
-  according to my data from <a href="https://hardcover.app/" target="_blank" rel="noopener noreferrer">Hardcover</a>,
-   as well as my reading goal for the year:
+  I also enjoy reading, and I'm trying to read more consistently. Here's the total number of books I've read in 
+  <code>{new Date().getFullYear()}</code>, and my reading goal for the year:
 </p>
 
 <HardcoverStats client:only="preact" />
 
 <p>
-Here are some of the last few books I've read. Check out my <a href="/bookshelf">bookshelf</a> to see more, along with and any 
-ratings I've given and reviews I've written.
+Check out my <a href="/bookshelf">bookshelf</a> to see a list of books I've read recently, along with 
+ratings I've given each book and any reviews I've written.
 </p>
-
-<RecentBooks client:only="preact" />
-
-<p>I’m working on reading more thoughtfully and getting into the habit of capturing my reflections as I go, so 
-I'll continue updating this list over time. 
-And if you notice any gaps, please feel free to <a href="/contact">let me know</a>! I’m always looking for new book recommendations.</p>
 
 <h3>Chess</h3>
 
       <p>
         I also like playing online chess, especially speed chess, where time controls are set so each player is allotted a limited amount of time to play their moves.
-        Here are my current ratings on <a href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">Chess.com</a> for three categories of 
+        Here are my current <a href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">Chess.com</a> ratings for three categories of 
         <a href="https://www.chess.com/terms/blitz-chess#speed" target="_blank" rel="noopener noreferrer">speed chess</a>:
       </p>
 
@@ -138,3 +130,15 @@ And if you notice any gaps, please feel free to <a href="/contact">let me know</
   <ImageLightbox client:load />
   <script set:html={responsiveImagesScript} />
 </BaseLayout>
+
+<script>
+  // Delegated glow — catches both server-rendered and client-component stat cards
+  document.addEventListener('mousemove', e => {
+    const me = e as MouseEvent;
+    const card = (me.target as HTMLElement).closest<HTMLElement>('.stat-card');
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mouse-x', `${me.clientX - rect.left}px`);
+    card.style.setProperty('--mouse-y', `${me.clientY - rect.top}px`);
+  });
+</script>

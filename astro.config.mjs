@@ -8,6 +8,10 @@ export default defineConfig({
   site: "https://josholivier.com/",
   output: 'server',
   adapter: cloudflare(),
+  image: {
+    // Allow any HTTPS remote image (needed for dynamically-fetched book covers)
+    remotePatterns: [{ protocol: 'https' }],
+  },
   integrations: [
     preact(),
     expressiveCode({

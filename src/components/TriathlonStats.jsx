@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'preact/hooks';
+import { Waves, Bike, SportShoe } from 'lucide-preact';
+
+const UNITS = ['miles', 'km', 'fields', 'moon%'];
 
 const TriathlonStats = () => {
-  const units = ["miles", "km", "fields", "moon%"];
-  const [unit, setUnit] = useState("miles");
+  const [unit, setUnit] = useState(() => UNITS[Math.floor(Math.random() * UNITS.length)]);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,59 +21,42 @@ const TriathlonStats = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error)   return <p>Error: {error}</p>;
 
-  const toggleUnit = () => {
-    setUnit(prevUnit => {
-      const currentIndex = units.indexOf(prevUnit);
-      return units[(currentIndex + 1) % units.length];
-    });
+  const toggleUnit = () =>
+    setUnit(u => UNITS[(UNITS.indexOf(u) + 1) % UNITS.length]);
+
+  const fmt = (km) => {
+    if (unit === 'miles')  return Math.round(km / 1.60934);
+    if (unit === 'km')     return km;
+    if (unit === 'fields') return Math.round(km * 1000 / 91.44);
+    return ((km / 384400) * 100).toFixed(2) + '%';
   };
 
-  const convertToFields = (distanceMeters) => Math.round(distanceMeters / 91.44);
-  const convertToMoonPercentage = (distanceKm) => `${((distanceKm / 384400) * 100).toFixed(2)}%`;
-
-  const swimDistanceKm = data?.swimDistanceKm || 0;
-  const rideDistanceKm = data?.rideDistanceKm || 0;
-  const runDistanceKm  = data?.runDistanceKm  || 0;
-
-  const getDistance = (distanceKm) => {
-    if (unit === "miles")  return Math.round(distanceKm / 1.60934);
-    if (unit === "km")     return distanceKm;
-    if (unit === "fields") return convertToFields(distanceKm * 1000);
-    return convertToMoonPercentage(distanceKm);
-  };
-
-  const unitLabel = unit === "miles"  ? "miles"
-                  : unit === "km"     ? "kilometers"
-                  : unit === "fields" ? "American football fields"
-                  : "% Earth → Moon";
+  const unitLabel = unit === 'miles'  ? 'miles'
+                  : unit === 'km'     ? 'kilometers'
+                  : unit === 'fields' ? 'football fields'
+                  : 'to the moon';
 
   const sports = [
-    { label: "Swimming", km: swimDistanceKm },
-    { label: "Cycling",   km: rideDistanceKm },
-    { label: "Running",  km: runDistanceKm  },
+    { label: 'swimming', km: data?.swimDistanceKm || 0, Icon: Waves },
+    { label: 'cycling',  km: data?.rideDistanceKm || 0, Icon: Bike },
+    { label: 'running',  km: data?.runDistanceKm  || 0, Icon: SportShoe },
   ];
 
   return (
     <div>
-      <table style={{ borderCollapse: 'collapse', marginBottom: '1rem', width: 'auto' }}>
-  <thead>
-    <tr>
-      <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Sport</th>
-      <th style={{ textAlign: 'left', color: 'var(--text-muted)', fontWeight: 'normal' }}>Distance ({unitLabel})</th>
-    </tr>
-  </thead>
-  <tbody>
-    {sports.map(({ label, km }) => (
-      <tr key={label}>
-        <td style={{ fontWeight: 'bold', paddingRight: '2rem' }}>{label}</td>
-        <td style={{ fontFamily: "Ubuntu Mono", color: 'var(--text-normal)' }}>{getDistance(km)}</td>
-      </tr>
-    ))}
-  </tbody>
-</table>
-      <button onClick={toggleUnit} className="btn">Change unit</button>
+      <div class="stat-grid">
+        {sports.map(({ label, km, Icon }) => (
+          <div class="stat-card" key={label}>
+            <span class="stat-card-icon"><Icon size="1.5rem" /></span>
+            <span class="stat-card-number">{fmt(km)}</span>
+            <span class="stat-card-label">{unitLabel}</span>
+            <span class="stat-card-label">{label}</span>
+          </div>
+        ))}
+        <button onClick={toggleUnit} class="btn" style="align-self: end; justify-self: start;">Change unit</button>
+      </div>
     </div>
   );
 };

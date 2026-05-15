@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import Hardcover from '../components/Hardcover.js';
 import Dropdown from '../components/Dropdown.jsx';
 import ImageLightbox from '../components/ImageLightbox.jsx';
@@ -88,10 +89,11 @@ const ratingDistArr = [5, 4, 3, 2, 1].map(star => ({ star, count: ratingBuckets[
 const maxRatingCount = Math.max(...ratingDistArr.map(r => r.count), 1);
 
 // Raincloud: page count distribution
-const pageCounts: number[] = books
-  .map((b: any) => b.pages)
-  .filter((p: any): p is number => typeof p === 'number' && p > 0)
-  .sort((a: number, b: number) => a - b);
+const rcBookPagePairs = books
+  .filter((b: any) => typeof b.pages === 'number' && b.pages > 0)
+  .map((b: any) => ({ title: b.title as string, val: b.pages as number }))
+  .sort((a: { val: number }, b: { val: number }) => a.val - b.val);
+const pageCounts: number[] = rcBookPagePairs.map((b: { val: number }) => b.val);
 
 const RC_SVG_W = 600;
 const RC_SVG_H = 210;
@@ -108,8 +110,9 @@ const RC_AXIS_Y = 178;
 let rcPathD = '';
 let rcBoxX1 = 0, rcBoxX2 = 0, rcMedianX = 0;
 let rcWhiskerLoX = 0, rcWhiskerHiX = 0;
-let rcDots: { cx: number; cy: number; outlier: boolean }[] = [];
-let rcTicks: { x: number; label: string }[] = [];
+let rcDots: { cx: number; cy: number; outlier: boolean; val: number; title: string }[] = [];
+let rcTicks: { x: number; label: string; val: number }[] = [];
+let rcJsData = '{}';
 
 if (pageCounts.length >= 4) {
   const rcN = pageCounts.length;
@@ -117,7 +120,7 @@ if (pageCounts.length >= 4) {
   const rcMax = pageCounts[rcN - 1];
   const range = rcMax - rcMin;
   const xPad = range * 0.05;
-  const xLo = Math.max(0, rcMin - xPad);
+  const xLo = 0;
   const xHi = rcMax + xPad;
 
   const xScale = (p: number) => RC_PAD_L + ((p - xLo) / (xHi - xLo)) * RC_PLOT_W;
@@ -154,20 +157,39 @@ if (pageCounts.length >= 4) {
   const maxD = Math.max(...densityPts.map(pt => pt.d));
   const toY = (d: number) => RC_CLOUD_BASE_Y - (d / maxD) * RC_CLOUD_H;
 
+  // Evaluate KDE at an arbitrary value (reuse the same bandwidth)
+  const rcEvalAt = (val: number) => {
+    let s = 0;
+    for (const xi of pageCounts) { const u = (val - xi) / bw; s += Math.exp(-0.5 * u * u); }
+    return s / (rcN * bw * Math.sqrt(2 * Math.PI));
+  };
+  // Build density with exact endpoint samples so the violin aligns with the outermost dots
+  const rcFilteredDensity = [
+    { px: xScale(rcMin), d: rcEvalAt(rcMin), val: rcMin },
+    ...densityPts
+      .map((pt: { px: number; d: number }, i: number) => ({
+        px: pt.px, d: pt.d, val: xLo + (i / N_SAMPLE) * (xHi - xLo),
+      }))
+      .filter((pt: { px: number; d: number; val: number }) => pt.val > rcMin && pt.val < rcMax),
+    { px: xScale(rcMax), d: rcEvalAt(rcMax), val: rcMax },
+  ];
+
   rcPathD = [
-    `M ${xScale(xLo).toFixed(1)},${RC_CLOUD_BASE_Y}`,
-    ...densityPts.map(pt => `L ${pt.px.toFixed(1)},${toY(pt.d).toFixed(1)}`),
-    `L ${xScale(xHi).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    `M ${xScale(rcMin).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    ...rcFilteredDensity.map((pt: { px: number; d: number }) => `L ${pt.px.toFixed(1)},${toY(pt.d).toFixed(1)}`),
+    `L ${xScale(rcMax).toFixed(1)},${RC_CLOUD_BASE_Y}`,
     'Z'
   ].join(' ');
 
-  rcDots = pageCounts.map((p: number, i: number) => {
+  rcDots = rcBookPagePairs.map(({ title, val: p }: { title: string; val: number }, i: number) => {
     const v = Math.sin(i * 127.1 + 311.7) * 43758.5453;
     const jitter = (v - Math.floor(v)) * 2 - 1;
     return {
       cx: xScale(p),
       cy: RC_DOT_Y + jitter * 7,
       outlier: p < whiskerLoVal || p > whiskerHiVal,
+      val: p,
+      title,
     };
   });
 
@@ -181,22 +203,45 @@ if (pageCounts.length >= 4) {
       rcTicks.push({
         x: Math.max(RC_PAD_L, sx),
         label: t >= 1000 ? `${(t / 1000).toFixed(t % 1000 === 0 ? 0 : 1)}k` : `${Math.round(t)}`,
+        val: t,
       });
     }
   }
+
+  rcJsData = JSON.stringify({
+    xLoFull: xLo, xHiFull: xHi,
+    q1, median: rcMedian, q3,
+    whiskerLo: whiskerLoVal, whiskerHi: whiskerHiVal,
+    densitySamples: rcFilteredDensity.map((pt: { px: number; d: number; val: number }) => ({
+      val: pt.val, d: pt.d,
+    })),
+    maxD,
+    dots: rcDots.map((d: { cx: number; cy: number; outlier: boolean; val: number; title: string }) => ({
+      val: d.val, cy: d.cy, outlier: d.outlier, title: d.title,
+    })),
+    ticks: rcTicks.map((t: { x: number; label: string; val: number }) => ({
+      val: t.val, label: t.label,
+    })),
+    PAD_L: RC_PAD_L, PLOT_W: RC_PLOT_W,
+    CLOUD_BASE_Y: RC_CLOUD_BASE_Y, CLOUD_H: RC_CLOUD_H,
+    BOX_Y: RC_BOX_Y, BOX_H: RC_BOX_H, AXIS_Y: RC_AXIS_Y,
+    axisLabel: 'pages',
+  });
 }
 
-// Publication year raincloud
-const pubYears: number[] = books
-  .map((b: any) => b.pubYear)
-  .filter((y: any): y is number => typeof y === 'number' && y > 0)
-  .sort((a: number, b: number) => a - b);
+// Original Publication or Composition Date date raincloud
+const pyBookYearPairs = books
+  .filter((b: any) => typeof b.pubYear === 'number' && b.pubYear !== 0)
+  .map((b: any) => ({ title: b.title as string, val: b.pubYear as number }))
+  .sort((a: { val: number }, b: { val: number }) => a.val - b.val);
+const pubYears: number[] = pyBookYearPairs.map((b: { val: number }) => b.val);
 
 let pyPathD = '';
 let pyBoxX1 = 0, pyBoxX2 = 0, pyMedianX = 0;
 let pyWhiskerLoX = 0, pyWhiskerHiX = 0;
-let pyDots: { cx: number; cy: number; outlier: boolean }[] = [];
-let pyTicks: { x: number; label: string }[] = [];
+let pyDots: { cx: number; cy: number; outlier: boolean; val: number; title: string }[] = [];
+let pyTicks: { x: number; label: string; val: number }[] = [];
+let pyJsData = '{}';
 
 if (pubYears.length >= 4) {
   const pyN = pubYears.length;
@@ -204,7 +249,7 @@ if (pubYears.length >= 4) {
   const pyMax = pubYears[pyN - 1];
   const pyRange = pyMax - pyMin;
   const pyXPad = Math.max(pyRange * 0.05, 1);
-  const pyXLo = Math.max(0, pyMin - pyXPad);
+  const pyXLo = pyMin - pyXPad;
   const pyXHi = pyMax + pyXPad;
   const pyXScale = (p: number) => RC_PAD_L + ((p - pyXLo) / (pyXHi - pyXLo)) * RC_PLOT_W;
 
@@ -238,20 +283,37 @@ if (pubYears.length >= 4) {
   const pyMaxD = Math.max(...pyDensityPts.map(pt => pt.d));
   const pyToY = (d: number) => RC_CLOUD_BASE_Y - (d / pyMaxD) * RC_CLOUD_H;
 
+  const pyEvalAt = (val: number) => {
+    let s = 0;
+    for (const xi of pubYears) { const u = (val - xi) / pyBw; s += Math.exp(-0.5 * u * u); }
+    return s / (pyN * pyBw * Math.sqrt(2 * Math.PI));
+  };
+  const pyFilteredDensity = [
+    { px: pyXScale(pyMin), d: pyEvalAt(pyMin), val: pyMin },
+    ...pyDensityPts
+      .map((pt: { px: number; d: number }, i: number) => ({
+        px: pt.px, d: pt.d, val: pyXLo + (i / 150) * (pyXHi - pyXLo),
+      }))
+      .filter((pt: { px: number; d: number; val: number }) => pt.val > pyMin && pt.val < pyMax),
+    { px: pyXScale(pyMax), d: pyEvalAt(pyMax), val: pyMax },
+  ];
+
   pyPathD = [
-    `M ${pyXScale(pyXLo).toFixed(1)},${RC_CLOUD_BASE_Y}`,
-    ...pyDensityPts.map(pt => `L ${pt.px.toFixed(1)},${pyToY(pt.d).toFixed(1)}`),
-    `L ${pyXScale(pyXHi).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    `M ${pyXScale(pyMin).toFixed(1)},${RC_CLOUD_BASE_Y}`,
+    ...pyFilteredDensity.map((pt: { px: number; d: number }) => `L ${pt.px.toFixed(1)},${pyToY(pt.d).toFixed(1)}`),
+    `L ${pyXScale(pyMax).toFixed(1)},${RC_CLOUD_BASE_Y}`,
     'Z'
   ].join(' ');
 
-  pyDots = pubYears.map((p: number, i: number) => {
+  pyDots = pyBookYearPairs.map(({ title, val: p }: { title: string; val: number }, i: number) => {
     const v = Math.sin(i * 127.1 + 311.7) * 43758.5453;
     const jitter = (v - Math.floor(v)) * 2 - 1;
     return {
       cx: pyXScale(p),
       cy: RC_DOT_Y + jitter * 7,
       outlier: p < pyWhiskerLoVal || p > pyWhiskerHiVal,
+      val: p,
+      title,
     };
   });
 
@@ -259,15 +321,40 @@ if (pubYears.length >= 4) {
   const pyMag = Math.pow(10, Math.floor(Math.log10(Math.max(pyRawStep, 1))));
   const pyTickStep = Math.round(pyRawStep / pyMag) * pyMag || pyMag;
   const pyTickStart = Math.ceil(pyXLo / pyTickStep) * pyTickStep;
+  const pyCapYear = new Date().getFullYear();
   for (let t = pyTickStart; t <= pyXHi + 0.001; t += pyTickStep) {
+    if (Math.round(t) > pyCapYear) continue;
     const sx = pyXScale(t);
     if (sx >= RC_PAD_L - 5 && sx <= RC_SVG_W - RC_PAD_R + 5) {
+      const rounded = Math.round(t);
       pyTicks.push({
         x: Math.max(RC_PAD_L, sx),
-        label: `${Math.round(t)}`,
+        label: rounded < 0 ? `${Math.abs(rounded)} BC` : `${rounded}`,
+        val: t,
       });
     }
   }
+
+  pyJsData = JSON.stringify({
+    xLoFull: pyXLo, xHiFull: pyXHi,
+    q1: pyQ1, median: pyMedianVal, q3: pyQ3,
+    whiskerLo: pyWhiskerLoVal, whiskerHi: pyWhiskerHiVal,
+    densitySamples: pyFilteredDensity.map((pt: { px: number; d: number; val: number }) => ({
+      val: pt.val, d: pt.d,
+    })),
+    maxD: pyMaxD,
+    dots: pyDots.map((d: { cx: number; cy: number; outlier: boolean; val: number; title: string }) => ({
+      val: d.val, cy: d.cy, outlier: d.outlier, title: d.title,
+    })),
+    ticks: pyTicks.map((t: { x: number; label: string; val: number }) => ({
+      val: t.val, label: t.label,
+    })),
+    PAD_L: RC_PAD_L, PLOT_W: RC_PLOT_W,
+    CLOUD_BASE_Y: RC_CLOUD_BASE_Y, CLOUD_H: RC_CLOUD_H,
+    BOX_Y: RC_BOX_Y, BOX_H: RC_BOX_H, AXIS_Y: RC_AXIS_Y,
+    axisLabel: 'year',
+    capYear: new Date().getFullYear(),
+  });
 }
 ---
 
@@ -276,7 +363,7 @@ if (pubYears.length >= 4) {
   <ImageLightbox />
   <TOC />
 
-  <h2>Recent books</h2>
+  <h2>Books</h2>
 
   {fetchError && <p style="color: red;">Error: {fetchError}</p>}
 
@@ -311,7 +398,21 @@ if (pubYears.length >= 4) {
         <div class="cover-area">
           <div class="cover-wrap img-glow-wrap">
             {book.cover
-              ? <img src={book.cover} alt={book.title} class="cover-img" />
+              ? <Image
+                  src={book.cover}
+                  alt={book.title}
+                  width={240}
+                  height={360}
+                  class="cover-img"
+                  loading="lazy"
+                  decoding="async"
+                  data-book-title={book.title}
+                  data-book-authors={book.authors || undefined}
+                  data-book-pub-year={book.pubYear !== null ? String(book.pubYear) : undefined}
+                  data-book-rating={book.rating !== null ? String(book.rating) : undefined}
+                  data-book-review-url={book.reviewUrl || undefined}
+                  data-book-hardcover-url={book.hardcoverUrl || undefined}
+                />
               : (
                 <div class="cover-placeholder">
                   <span class="placeholder-title">{book.title}</span>
@@ -363,7 +464,7 @@ if (pubYears.length >= 4) {
         </div>
 
         {book.reviewUrl && (
-          <a href={book.reviewUrl} class="tag-blogsorter tag-theme-books review-badge">see review</a>
+          <a href={book.reviewUrl} class="tag-blogsorter tag-theme-code review-badge">see review</a>
         )}
 
         {book.lastRead && (
@@ -440,33 +541,38 @@ if (pubYears.length >= 4) {
     <div class="stats-charts">
       <div class="chart-section chart-section-wide">
         <p class="chart-title">Page count distribution</p>
-        <svg viewBox={`0 0 ${RC_SVG_W} ${RC_SVG_H}`} class="raincloud-svg" role="img" aria-label="Raincloud plot of page counts per book">
-          <!-- Cloud (density) -->
-          <path d={rcPathD} class="rc-cloud" />
-          <!-- Whisker lines -->
-          <line x1={rcWhiskerLoX} y1={RC_BOX_Y + RC_BOX_H / 2} x2={rcBoxX1} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
-          <line x1={rcBoxX2} y1={RC_BOX_Y + RC_BOX_H / 2} x2={rcWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
-          <!-- Whisker caps -->
-          <line x1={rcWhiskerLoX} y1={RC_BOX_Y + 3} x2={rcWhiskerLoX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
-          <line x1={rcWhiskerHiX} y1={RC_BOX_Y + 3} x2={rcWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
-          <!-- IQR box -->
-          <rect x={rcBoxX1} y={RC_BOX_Y} width={Math.max(rcBoxX2 - rcBoxX1, 2)} height={RC_BOX_H} class="rc-box" />
-          <!-- Median line -->
-          <line x1={rcMedianX} y1={RC_BOX_Y} x2={rcMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
-          <!-- Rain dots -->
-          {rcDots.map(dot => (
-            <circle cx={dot.cx} cy={dot.cy} r="4" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
-          ))}
-          <!-- X-axis -->
+        <svg viewBox={`0 0 ${RC_SVG_W} ${RC_SVG_H}`} class="raincloud-svg" role="img" aria-label="Raincloud plot of page counts per book" data-rc-info={rcJsData}>
+          <defs>
+            <clipPath id="rc-pages-clip">
+              <rect x={RC_PAD_L} y={0} width={RC_PLOT_W} height={RC_AXIS_Y - 1} />
+            </clipPath>
+          </defs>
+          <!-- Clipped data layer -->
+          <g clip-path="url(#rc-pages-clip)">
+            <path d={rcPathD} class="rc-cloud" />
+            <line x1={rcWhiskerLoX} y1={RC_BOX_Y + RC_BOX_H / 2} x2={rcBoxX1} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+            <line x1={rcBoxX2} y1={RC_BOX_Y + RC_BOX_H / 2} x2={rcWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+            <line x1={rcWhiskerLoX} y1={RC_BOX_Y + 3} x2={rcWhiskerLoX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+            <line x1={rcWhiskerHiX} y1={RC_BOX_Y + 3} x2={rcWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+            <rect x={rcBoxX1} y={RC_BOX_Y} width={Math.max(rcBoxX2 - rcBoxX1, 2)} height={RC_BOX_H} class="rc-box" />
+            <line x1={rcMedianX} y1={RC_BOX_Y} x2={rcMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
+            {rcDots.map(dot => (
+              <circle cx={dot.cx} cy={dot.cy} r="4" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
+            ))}
+          </g>
+          <!-- Axis layer (unclipped) -->
           <line x1={RC_PAD_L} y1={RC_AXIS_Y} x2={RC_SVG_W - RC_PAD_R} y2={RC_AXIS_Y} class="rc-axis" />
-          {rcTicks.map(t => (
-            <g>
-              <line x1={t.x} y1={RC_AXIS_Y} x2={t.x} y2={RC_AXIS_Y + 4} class="rc-tick" />
-              <text x={t.x} y={RC_AXIS_Y + 13} class="rc-tick-label">{t.label}</text>
-            </g>
-          ))}
+          <g class="rc-ticks-container">
+            {rcTicks.map((t, i) => (
+              <g class="rc-tick-group" data-tick-i={i}>
+                <line x1={t.x} y1={RC_AXIS_Y} x2={t.x} y2={RC_AXIS_Y + 4} class="rc-tick" />
+                <text x={t.x} y={RC_AXIS_Y + 13} class="rc-tick-label">{t.label}</text>
+              </g>
+            ))}
+          </g>
           <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 27} class="rc-axis-label">pages</text>
         </svg>
+        <p class="raincloud-hint">scroll to zoom · drag to pan · double-click to reset</p>
       </div>
     </div>
   )}
@@ -474,27 +580,39 @@ if (pubYears.length >= 4) {
   {pubYears.length >= 4 && (
     <div class="stats-charts">
       <div class="chart-section chart-section-wide">
-        <p class="chart-title">Publication year distribution</p>
-        <svg viewBox={`0 0 ${RC_SVG_W} ${RC_SVG_H}`} class="raincloud-svg" role="img" aria-label="Raincloud plot of book publication years">
-          <path d={pyPathD} class="rc-cloud" />
-          <line x1={pyWhiskerLoX} y1={RC_BOX_Y + RC_BOX_H / 2} x2={pyBoxX1} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
-          <line x1={pyBoxX2} y1={RC_BOX_Y + RC_BOX_H / 2} x2={pyWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
-          <line x1={pyWhiskerLoX} y1={RC_BOX_Y + 3} x2={pyWhiskerLoX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
-          <line x1={pyWhiskerHiX} y1={RC_BOX_Y + 3} x2={pyWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
-          <rect x={pyBoxX1} y={RC_BOX_Y} width={Math.max(pyBoxX2 - pyBoxX1, 2)} height={RC_BOX_H} class="rc-box" />
-          <line x1={pyMedianX} y1={RC_BOX_Y} x2={pyMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
-          {pyDots.map(dot => (
-            <circle cx={dot.cx} cy={dot.cy} r="4" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
-          ))}
+        <p class="chart-title">Original Publication / Composition Date Distribution</p>
+        <svg viewBox={`0 0 ${RC_SVG_W} ${RC_SVG_H}`} class="raincloud-svg" role="img" aria-label="Raincloud plot of book publication dates" data-rc-info={pyJsData}>
+          <defs>
+            <clipPath id="rc-years-clip">
+              <rect x={RC_PAD_L} y={0} width={RC_PLOT_W} height={RC_AXIS_Y - 1} />
+            </clipPath>
+          </defs>
+          <!-- Clipped data layer -->
+          <g clip-path="url(#rc-years-clip)">
+            <path d={pyPathD} class="rc-cloud" />
+            <line x1={pyWhiskerLoX} y1={RC_BOX_Y + RC_BOX_H / 2} x2={pyBoxX1} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+            <line x1={pyBoxX2} y1={RC_BOX_Y + RC_BOX_H / 2} x2={pyWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H / 2} class="rc-whisker" stroke-linecap="round" />
+            <line x1={pyWhiskerLoX} y1={RC_BOX_Y + 3} x2={pyWhiskerLoX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+            <line x1={pyWhiskerHiX} y1={RC_BOX_Y + 3} x2={pyWhiskerHiX} y2={RC_BOX_Y + RC_BOX_H - 3} class="rc-whisker" />
+            <rect x={pyBoxX1} y={RC_BOX_Y} width={Math.max(pyBoxX2 - pyBoxX1, 2)} height={RC_BOX_H} class="rc-box" />
+            <line x1={pyMedianX} y1={RC_BOX_Y} x2={pyMedianX} y2={RC_BOX_Y + RC_BOX_H} class="rc-median" />
+            {pyDots.map(dot => (
+              <circle cx={dot.cx} cy={dot.cy} r="4" class={dot.outlier ? 'rc-dot rc-outlier' : 'rc-dot'} />
+            ))}
+          </g>
+          <!-- Axis layer (unclipped) -->
           <line x1={RC_PAD_L} y1={RC_AXIS_Y} x2={RC_SVG_W - RC_PAD_R} y2={RC_AXIS_Y} class="rc-axis" />
-          {pyTicks.map(t => (
-            <g>
-              <line x1={t.x} y1={RC_AXIS_Y} x2={t.x} y2={RC_AXIS_Y + 4} class="rc-tick" />
-              <text x={t.x} y={RC_AXIS_Y + 13} class="rc-tick-label">{t.label}</text>
-            </g>
-          ))}
+          <g class="rc-ticks-container">
+            {pyTicks.map((t, i) => (
+              <g class="rc-tick-group" data-tick-i={i}>
+                <line x1={t.x} y1={RC_AXIS_Y} x2={t.x} y2={RC_AXIS_Y + 4} class="rc-tick" />
+                <text x={t.x} y={RC_AXIS_Y + 13} class="rc-tick-label">{t.label}</text>
+              </g>
+            ))}
+          </g>
           <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 27} class="rc-axis-label">year published</text>
         </svg>
+        <p class="raincloud-hint">scroll to zoom · drag to pan · double-click to reset</p>
       </div>
     </div>
   )}
@@ -663,25 +781,24 @@ if (pubYears.length >= 4) {
   }
 
   /* ── Reading stats ──────────────────────────────────── */
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  .stats-charts {
+    display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 1rem;
   }
 
-  .stat-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 1.25rem;
+  .chart-section {
+    flex: 1;
+    min-width: 220px;
     background-color: var(--bg-secondary);
     border-radius: 7px;
+    padding: 1.25rem;
     position: relative;
-    overflow: hidden;
   }
 
-  .stat-card::before {
+  .chart-section::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -696,7 +813,7 @@ if (pubYears.length >= 4) {
     border-radius: inherit;
   }
 
-  html:not(.dark) .stat-card::before {
+  html:not(.dark) .chart-section::before {
     background: radial-gradient(
       540px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
       rgba(0, 0, 0, 0.065),
@@ -704,11 +821,11 @@ if (pubYears.length >= 4) {
     );
   }
 
-  .stat-card:hover::before {
+  .chart-section:hover::before {
     opacity: 1;
   }
 
-  .stat-card::after {
+  .chart-section::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -719,38 +836,6 @@ if (pubYears.length >= 4) {
     background-repeat: repeat;
     background-size: 200px 200px;
     mix-blend-mode: overlay;
-  }
-
-  .stat-card-icon {
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-  }
-
-  .stat-card-number {
-    font-size: 1.8rem;
-    font-weight: bold;
-    font-family: "Atkinson Hyperlegible Mono", monospace;
-    color: var(--text-heading);
-    line-height: 1;
-  }
-
-  .stat-card-label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  .stats-charts {
-    display: flex;
-    gap: 3rem;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-  }
-
-  .chart-section {
-    flex: 1;
-    min-width: 220px;
   }
 
   .chart-title {
@@ -785,7 +870,7 @@ if (pubYears.length >= 4) {
   }
 
   .bar-count {
-    font-size: 17px;
+    font-size: 0.7rem;
     color: var(--text-faint);
     font-family: "Atkinson Hyperlegible Mono", monospace;
     line-height: 1;
@@ -808,7 +893,7 @@ if (pubYears.length >= 4) {
   .bar-label {
     position: absolute;
     bottom: -1.6rem;
-    font-size: 17px;
+    font-size: 0.7rem;
     color: var(--text-faint);
     white-space: nowrap;
   }
@@ -827,7 +912,7 @@ if (pubYears.length >= 4) {
   }
 
   .rating-label {
-    font-size: 17px;
+    font-size: 0.7rem;
     color: var(--text-muted);
     min-width: 4.5rem;
     text-align: right;
@@ -855,7 +940,7 @@ if (pubYears.length >= 4) {
   }
 
   .rating-count {
-    font-size: 17px;
+    font-size: 0.7rem;
     color: var(--text-faint);
     font-family: "Atkinson Hyperlegible Mono", monospace;
     min-width: 1.5rem;
@@ -870,6 +955,21 @@ if (pubYears.length >= 4) {
     width: 100%;
     overflow: visible;
     display: block;
+    user-select: none;
+  }
+
+  .raincloud-hint {
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    margin: 0.3rem 0 0;
+    text-align: center;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .raincloud-hint.rc-hint-zoomed {
+    color: var(--accent);
   }
 
   .rc-cloud {
@@ -902,6 +1002,7 @@ if (pubYears.length >= 4) {
     fill: var(--accent);
     opacity: 0.5;
     transition: fill 0.15s;
+    cursor: crosshair;
   }
 
   .rc-outlier {
@@ -927,7 +1028,7 @@ if (pubYears.length >= 4) {
   .rc-tick-label,
   .rc-axis-label {
     text-anchor: middle;
-    font-size: 17px;
+    font-size: 0.7rem;
     fill: var(--text-faint);
     font-family: "Atkinson Hyperlegible Mono", monospace;
   }
@@ -1021,8 +1122,408 @@ if (pubYears.length >= 4) {
   // Set initial count
   updateCount();
 
-  // Stat card mouse glow
-  document.querySelectorAll('.stat-card').forEach((card) => {
+  // Raincloud SVG: data-driven zoom/pan — repositions elements without scaling the SVG.
+  (function () {
+    const SVG_W = 600;
+
+    interface RcInfo {
+      xLoFull: number; xHiFull: number;
+      q1: number; median: number; q3: number;
+      whiskerLo: number; whiskerHi: number;
+      densitySamples: { val: number; d: number }[];
+      maxD: number;
+      dots: { val: number; cy: number; outlier: boolean; title: string }[];
+      ticks: { val: number; label: string }[];
+      PAD_L: number; PLOT_W: number;
+      CLOUD_BASE_Y: number; CLOUD_H: number;
+      BOX_Y: number; BOX_H: number; AXIS_Y: number;
+      axisLabel: string;
+      capYear?: number;
+    }
+
+    function niceStep(rawStep: number): number {
+      if (rawStep <= 0) return 1;
+      const mag = Math.pow(10, Math.floor(Math.log10(rawStep)));
+      for (const n of [1, 2, 2.5, 5, 10]) {
+        if (mag * n >= rawStep) return mag * n;
+      }
+      return mag * 10;
+    }
+
+    function fmtTickVal(val: number, axisLabel: string): string {
+      if (axisLabel === 'year') {
+        const r = Math.round(val);
+        return r < 0 ? String(Math.abs(r)) + ' BC' : String(r);
+      }
+      const r = Math.round(val);
+      if (Math.abs(r) >= 1000) return (r / 1000).toFixed(r % 1000 === 0 ? 0 : 1) + 'k';
+      return String(r);
+    }
+
+    function computeDynamicTicks(xLo: number, xHi: number, axisLabel: string, targetCount: number, capYear?: number): { val: number; label: string }[] {
+      const step = niceStep((xHi - xLo) / targetCount);
+      const start = Math.ceil(xLo / step) * step;
+      const ticks: { val: number; label: string }[] = [];
+      for (let t = start; t <= xHi + step * 0.001; t += step) {
+        if (capYear !== undefined && Math.round(t) > capYear) break;
+        ticks.push({ val: t, label: fmtTickVal(t, axisLabel) });
+      }
+      return ticks;
+    }
+
+    function getInfo(svg: Element): RcInfo | null {
+      try { return JSON.parse((svg as HTMLElement).dataset.rcInfo || ''); }
+      catch { return null; }
+    }
+
+    // Recompute and repaint all SVG elements for the given data x-range.
+    function applyRange(svg: Element, xLo: number, xHi: number) {
+      const info = getInfo(svg);
+      if (!info) return;
+      const { PAD_L, PLOT_W, CLOUD_BASE_Y, CLOUD_H, maxD, AXIS_Y } = info;
+      const xs = (v: number) => PAD_L + ((v - xLo) / (xHi - xLo)) * PLOT_W;
+
+      // Density cloud path
+      const cloud = svg.querySelector('.rc-cloud');
+      if (cloud && info.densitySamples.length) {
+        const toY = (d: number) => CLOUD_BASE_Y - (d / maxD) * CLOUD_H;
+        const s = info.densitySamples;
+        const parts = ['M ' + xs(s[0].val).toFixed(1) + ',' + CLOUD_BASE_Y];
+        for (const { val, d } of s) parts.push('L ' + xs(val).toFixed(1) + ',' + toY(d).toFixed(1));
+        parts.push('L ' + xs(s[s.length - 1].val).toFixed(1) + ',' + CLOUD_BASE_Y + ' Z');
+        cloud.setAttribute('d', parts.join(' '));
+      }
+
+      // Box and whiskers
+      const q1x = xs(info.q1), q3x = xs(info.q3);
+      const medX = xs(info.median);
+      const wLoX = xs(info.whiskerLo), wHiX = xs(info.whiskerHi);
+
+      const ws = svg.querySelectorAll('.rc-whisker');
+      if (ws.length >= 4) {
+        ws[0].setAttribute('x1', wLoX.toFixed(1)); ws[0].setAttribute('x2', q1x.toFixed(1));
+        ws[1].setAttribute('x1', q3x.toFixed(1));  ws[1].setAttribute('x2', wHiX.toFixed(1));
+        ws[2].setAttribute('x1', wLoX.toFixed(1)); ws[2].setAttribute('x2', wLoX.toFixed(1));
+        ws[3].setAttribute('x1', wHiX.toFixed(1)); ws[3].setAttribute('x2', wHiX.toFixed(1));
+      }
+      const box = svg.querySelector('.rc-box');
+      if (box) {
+        box.setAttribute('x', q1x.toFixed(1));
+        box.setAttribute('width', Math.max(q3x - q1x, 2).toFixed(1));
+      }
+      const med = svg.querySelector('.rc-median');
+      if (med) { med.setAttribute('x1', medX.toFixed(1)); med.setAttribute('x2', medX.toFixed(1)); }
+
+      // Dots
+      svg.querySelectorAll('.rc-dot').forEach((dot: Element, i: number) => {
+        if (info.dots[i] !== undefined) dot.setAttribute('cx', xs(info.dots[i].val).toFixed(1));
+      });
+
+      // Rebuild ticks at the granularity appropriate for the current zoom range
+      const renderedWidth = svg.getBoundingClientRect().width;
+      const targetCount = renderedWidth < 400 ? 4 : 6;
+      const dynamicTicks = computeDynamicTicks(xLo, xHi, info.axisLabel, targetCount, info.capYear);
+      const container = svg.querySelector('.rc-ticks-container');
+      if (container) {
+        while (container.firstChild) container.removeChild(container.firstChild);
+        const NS = 'http://www.w3.org/2000/svg';
+        for (const { val, label } of dynamicTicks) {
+          const tx = xs(val);
+          if (tx < PAD_L - 1 || tx > PAD_L + PLOT_W + 1) continue;
+          const txStr = tx.toFixed(1);
+          const g = document.createElementNS(NS, 'g');
+          const ln = document.createElementNS(NS, 'line');
+          ln.setAttribute('x1', txStr); ln.setAttribute('x2', txStr);
+          ln.setAttribute('y1', String(AXIS_Y)); ln.setAttribute('y2', String(AXIS_Y + 4));
+          ln.setAttribute('class', 'rc-tick');
+          const txt = document.createElementNS(NS, 'text');
+          txt.setAttribute('x', txStr);
+          txt.setAttribute('y', String(AXIS_Y + 13));
+          txt.setAttribute('class', 'rc-tick-label');
+          txt.setAttribute('text-anchor', 'middle');
+          txt.textContent = label;
+          g.appendChild(ln);
+          g.appendChild(txt);
+          container.appendChild(g);
+        }
+      }
+
+      // Axis label: keep centered over the visible plot area
+      const axLabel = svg.querySelector('.rc-axis-label');
+      if (axLabel) axLabel.setAttribute('x', (PAD_L + PLOT_W / 2).toFixed(1));
+
+      // Re-apply text sizing to newly created tick labels
+      updateText(svg);
+    }
+
+    // Maintain 0.7rem physical text size and correct y-offsets below axis.
+    function updateText(svg: Element) {
+      const rw = svg.getBoundingClientRect().width;
+      if (!rw) return;
+      const rootFs = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      const invScale = SVG_W / rw;
+      const fs = rootFs * 0.7 * invScale;
+      const AXIS_Y = 178;
+      svg.querySelectorAll('.rc-tick-label, .rc-axis-label').forEach((el: Element) => {
+        const st = (el as SVGElement).style;
+        st.fontSize = fs + 'px';
+        // Inline styles ensure dynamically created elements (no Astro scope attr) match
+        st.setProperty('fill', 'var(--text-faint)');
+        st.fontFamily = '"Atkinson Hyperlegible Mono", monospace';
+      });
+      svg.querySelectorAll('.rc-tick-label').forEach((el: Element) => {
+        (el as SVGTextElement).setAttribute('y', String(AXIS_Y + 13 * invScale));
+      });
+      svg.querySelectorAll('.rc-axis-label').forEach((el: Element) => {
+        (el as SVGTextElement).setAttribute('y', String(AXIS_Y + 27 * invScale));
+      });
+    }
+
+    function updateZoomIndicator(svg: Element, info: RcInfo, xLo: number, xHi: number) {
+      const hint = svg.nextElementSibling as HTMLElement | null;
+      if (!hint || !hint.classList.contains('raincloud-hint')) return;
+      const atFull = Math.abs(xLo - info.xLoFull) < 0.01 && Math.abs(xHi - info.xHiFull) < 0.01;
+      if (atFull) {
+        hint.textContent = 'scroll to zoom · drag to pan · double-click to reset';
+        hint.classList.remove('rc-hint-zoomed');
+        return;
+      }
+      const fmt = (v: number) => {
+        if (info.axisLabel === 'year') {
+          const r = Math.round(v);
+          return r < 0 ? String(Math.abs(r)) + ' BC' : String(r);
+        }
+        if (Math.abs(v) >= 1000) return (v / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+        return String(Math.round(v));
+      };
+      hint.textContent = fmt(xLo) + ' – ' + fmt(xHi) + ' ' + info.axisLabel + ' · double-click to reset';
+      hint.classList.add('rc-hint-zoomed');
+    }
+
+    function updateRaincloud(svg: Element) {
+      updateText(svg);
+      const info = getInfo(svg);
+      if (!info) return;
+      const xLo = parseFloat((svg as HTMLElement).dataset.xLo ?? 'NaN');
+      const xHi = parseFloat((svg as HTMLElement).dataset.xHi ?? 'NaN');
+      applyRange(svg, isNaN(xLo) ? info.xLoFull : xLo, isNaN(xHi) ? info.xHiFull : xHi);
+    }
+
+    function setupZoom(svg: Element) {
+      const info = getInfo(svg);
+      if (!info) return;
+      const el = svg as HTMLElement;
+
+      let xLo = info.xLoFull;
+      let xHi = info.xHiFull;
+      el.dataset.xLo = String(xLo);
+      el.dataset.xHi = String(xHi);
+
+      svg.addEventListener('wheel', (ev: Event) => {
+        const e = ev as WheelEvent;
+        e.preventDefault();
+        const rect = svg.getBoundingClientRect();
+        const plotLeft = info.PAD_L * (rect.width / SVG_W);
+        const plotPx   = info.PLOT_W * (rect.width / SVG_W);
+        const mouseRatio = Math.max(0, Math.min(1, (e.clientX - rect.left - plotLeft) / plotPx));
+        const pivot = xLo + mouseRatio * (xHi - xLo);
+        const factor = e.deltaY > 0 ? 1.25 : 0.8;
+        const minSpan = (info.xHiFull - info.xLoFull) / 50;
+        const newSpan = Math.max(minSpan, Math.min(info.xHiFull - info.xLoFull, (xHi - xLo) * factor));
+        xLo = Math.max(info.xLoFull, Math.min(info.xHiFull - newSpan, pivot - mouseRatio * newSpan));
+        xHi = xLo + newSpan;
+        el.dataset.xLo = String(xLo);
+        el.dataset.xHi = String(xHi);
+        applyRange(svg, xLo, xHi);
+        updateZoomIndicator(svg, info, xLo, xHi);
+      }, { passive: false } as AddEventListenerOptions);
+
+      let dragging = false;
+      let dragStartX = 0, dragStartLo = 0, dragStartHi = 0;
+
+      svg.addEventListener('mousedown', (ev: Event) => {
+        const e = ev as MouseEvent;
+        dragging = true;
+        dragStartX = e.clientX;
+        dragStartLo = xLo; dragStartHi = xHi;
+        el.style.cursor = 'grabbing';
+      });
+      window.addEventListener('mousemove', (ev: Event) => {
+        if (!dragging) return;
+        const e = ev as MouseEvent;
+        const rect = svg.getBoundingClientRect();
+        const plotPx = info.PLOT_W * (rect.width / SVG_W);
+        const dxData = -((e.clientX - dragStartX) / plotPx) * (dragStartHi - dragStartLo);
+        const span = dragStartHi - dragStartLo;
+        xLo = Math.max(info.xLoFull, Math.min(info.xHiFull - span, dragStartLo + dxData));
+        xHi = xLo + span;
+        el.dataset.xLo = String(xLo);
+        el.dataset.xHi = String(xHi);
+        applyRange(svg, xLo, xHi);
+        updateZoomIndicator(svg, info, xLo, xHi);
+      });
+      window.addEventListener('mouseup', () => {
+        if (!dragging) return;
+        dragging = false;
+        el.style.cursor = 'grab';
+      });
+
+      svg.addEventListener('dblclick', () => {
+        xLo = info.xLoFull; xHi = info.xHiFull;
+        el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
+        applyRange(svg, xLo, xHi);
+        updateZoomIndicator(svg, info, xLo, xHi);
+      });
+
+      // Touch: single-finger pan, two-finger pinch-to-zoom, double-tap to reset
+      let lastTouchDist = 0;
+      let lastTap = 0;
+
+      svg.addEventListener('touchstart', (ev: Event) => {
+        const e = ev as TouchEvent;
+        e.preventDefault();
+        if (e.touches.length === 1) {
+          dragging = true;
+          dragStartX = e.touches[0].clientX;
+          dragStartLo = xLo; dragStartHi = xHi;
+        } else if (e.touches.length === 2) {
+          dragging = false;
+          lastTouchDist = Math.hypot(
+            e.touches[1].clientX - e.touches[0].clientX,
+            e.touches[1].clientY - e.touches[0].clientY,
+          );
+        }
+      }, { passive: false } as AddEventListenerOptions);
+
+      svg.addEventListener('touchmove', (ev: Event) => {
+        const e = ev as TouchEvent;
+        e.preventDefault();
+        if (e.touches.length === 1 && dragging) {
+          const rect = svg.getBoundingClientRect();
+          const plotPx = info.PLOT_W * (rect.width / SVG_W);
+          const dxData = -((e.touches[0].clientX - dragStartX) / plotPx) * (dragStartHi - dragStartLo);
+          const span = dragStartHi - dragStartLo;
+          xLo = Math.max(info.xLoFull, Math.min(info.xHiFull - span, dragStartLo + dxData));
+          xHi = xLo + span;
+          el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
+          applyRange(svg, xLo, xHi);
+          updateZoomIndicator(svg, info, xLo, xHi);
+        } else if (e.touches.length === 2 && lastTouchDist > 0) {
+          const dist = Math.hypot(
+            e.touches[1].clientX - e.touches[0].clientX,
+            e.touches[1].clientY - e.touches[0].clientY,
+          );
+          const scale = lastTouchDist / dist;
+          lastTouchDist = dist;
+          const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          const rect = svg.getBoundingClientRect();
+          const plotLeft = info.PAD_L * (rect.width / SVG_W);
+          const plotPx = info.PLOT_W * (rect.width / SVG_W);
+          const mouseRatio = Math.max(0, Math.min(1, (midX - rect.left - plotLeft) / plotPx));
+          const pivot = xLo + mouseRatio * (xHi - xLo);
+          const minSpan = (info.xHiFull - info.xLoFull) / 50;
+          const newSpan = Math.max(minSpan, Math.min(info.xHiFull - info.xLoFull, (xHi - xLo) * scale));
+          xLo = Math.max(info.xLoFull, Math.min(info.xHiFull - newSpan, pivot - mouseRatio * newSpan));
+          xHi = xLo + newSpan;
+          el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
+          applyRange(svg, xLo, xHi);
+          updateZoomIndicator(svg, info, xLo, xHi);
+        }
+      }, { passive: false } as AddEventListenerOptions);
+
+      svg.addEventListener('touchend', (ev: Event) => {
+        const e = ev as TouchEvent;
+        if (e.touches.length === 0) {
+          dragging = false;
+          lastTouchDist = 0;
+          const now = Date.now();
+          if (now - lastTap < 300) {
+            xLo = info.xLoFull; xHi = info.xHiFull;
+            el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
+            applyRange(svg, xLo, xHi);
+            updateZoomIndicator(svg, info, xLo, xHi);
+          }
+          lastTap = now;
+        }
+      });
+
+      el.style.cursor = 'grab';
+      el.style.touchAction = 'none';
+    }
+
+    // Tooltip for individual data points
+    const rcTooltip = document.createElement('div');
+    rcTooltip.id = 'rc-tooltip';
+    document.body.appendChild(rcTooltip);
+
+    function attachDotTooltips(svg: Element) {
+      const info = getInfo(svg);
+      if (!info) return;
+      let tapTimer: ReturnType<typeof setTimeout> | null = null;
+
+      const positionTooltip = (cx: number, cy: number) => {
+        const vw = window.innerWidth;
+        const tx = (cx + 14 + 220 > vw) ? cx - 234 : cx + 14;
+        rcTooltip.style.left = Math.max(8, tx) + 'px';
+        rcTooltip.style.top = Math.max(10, cy - 44) + 'px';
+      };
+
+      svg.querySelectorAll('.rc-dot').forEach((dot: Element, i: number) => {
+        const entry = info.dots[i];
+        if (!entry?.title) return;
+
+        // Desktop: hover
+        dot.addEventListener('mouseenter', (ev: Event) => {
+          const e = ev as MouseEvent;
+          rcTooltip.textContent = entry.title;
+          positionTooltip(e.clientX, e.clientY);
+          rcTooltip.style.display = 'block';
+        });
+        dot.addEventListener('mousemove', (ev: Event) => {
+          const e = ev as MouseEvent;
+          positionTooltip(e.clientX, e.clientY);
+        });
+        dot.addEventListener('mouseleave', () => {
+          rcTooltip.style.display = 'none';
+        });
+
+        // Mobile: tap (detect by small movement threshold)
+        let tapStartX = 0, tapStartY = 0;
+        dot.addEventListener('touchstart', (ev: Event) => {
+          const t = (ev as TouchEvent).touches[0];
+          tapStartX = t.clientX; tapStartY = t.clientY;
+        }, { passive: true } as AddEventListenerOptions);
+
+        dot.addEventListener('touchend', (ev: Event) => {
+          const t = (ev as TouchEvent).changedTouches[0];
+          const moved = Math.hypot(t.clientX - tapStartX, t.clientY - tapStartY);
+          if (moved < 10) {
+            if (tapTimer) clearTimeout(tapTimer);
+            rcTooltip.textContent = entry.title;
+            positionTooltip(t.clientX, t.clientY);
+            rcTooltip.style.display = 'block';
+            tapTimer = setTimeout(() => {
+              rcTooltip.style.display = 'none';
+              tapTimer = null;
+            }, 3000);
+          }
+        }, { passive: true } as AddEventListenerOptions);
+      });
+    }
+
+    const rainSvgs = document.querySelectorAll('.raincloud-svg');
+    rainSvgs.forEach((svg: Element) => { updateRaincloud(svg); setupZoom(svg); attachDotTooltips(svg); });
+
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+        entries.forEach((e: ResizeObserverEntry) => updateRaincloud(e.target));
+      });
+      rainSvgs.forEach((svg: Element) => ro.observe(svg));
+    }
+  })();
+
+  // Stat card + chart card mouse glow
+  document.querySelectorAll('.stat-card, .chart-section').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
