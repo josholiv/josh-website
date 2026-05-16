@@ -23,6 +23,20 @@ const titleHtml = (frontmatter.tags?.includes('books') && frontmatter.bookTitle)
   ? `Book review: <em>${frontmatter.bookTitleShort ?? frontmatter.bookTitle}</em>`
   : undefined;
 
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+let descriptionHtml: string | undefined;
+if (frontmatter.tags?.includes('books') && frontmatter.bookTitle && frontmatter.description) {
+  const safeDesc = escapeHtml(frontmatter.description);
+  const safeTitle = escapeHtml(frontmatter.bookTitle);
+  const pattern = new RegExp(escapeRegex(safeTitle));
+  if (pattern.test(safeDesc)) {
+    descriptionHtml = safeDesc.replace(pattern, `<em>${safeTitle}</em>`);
+  }
+}
+
 const allPosts = await getCollection("blog");
 
 const dateValue = (date: string | Date) => new Date(date).getTime();
@@ -62,6 +76,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   pageTitle={frontmatter.title}
   titleHtml={titleHtml}
   description={frontmatter.description}
+  descriptionHtml={descriptionHtml}
   ogImage={slug ? `/social-cards/${slug}.png` : undefined}
   ogType="article"
 >

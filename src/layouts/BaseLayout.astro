@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerImageLoading = 'lazy', description, ogImage, ogType = 'website' } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
 
 const siteUrl = 'https://josholivier.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
@@ -78,7 +78,9 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
               <h1 class={shouldCenterTitle ? 'center-title' : ''}>
                 {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
               </h1>
-              {description && (
+              {descriptionHtml ? (
+                <p class="banner-description"><Fragment set:html={descriptionHtml} /></p>
+              ) : description && (
                 <p class="banner-description">{description}</p>
               )}
             </div>
