@@ -2,7 +2,7 @@
 title: 'Book review: The Order of Time'
 pubDate: 2026-05-16
 dateModified: 2026-05-16
-description: 'My review of The The Order of Time by Carlo Rovelli.'
+description: 'My review of The Order of Time by Carlo Rovelli.'
 author: 'Josh Olivier'
 image:
     url: 'https://production-img.hardcover.app/enlarge?height=416&type=webp&url=https%3A%2F%2Fassets.hardcover.app%2Feditions%2F30402897%2F2340846043215666-45427805.jpg&width=270'

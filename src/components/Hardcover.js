@@ -56,8 +56,19 @@ export default class Hardcover {
             status_id: { _eq: 3 }
           }
         ) {
+          rating
           book {
+            title
+            slug
             cached_tags
+            image {
+              url
+            }
+            contributions {
+              author {
+                name
+              }
+            }
           }
         }
       }

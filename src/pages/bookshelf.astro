@@ -7,7 +7,7 @@ import ImageLightbox from '../components/ImageLightbox.jsx';
 import { getCollection } from 'astro:content';
 import { env } from 'cloudflare:workers';
 import TOC from '../components/TOC.astro';
-import { BookOpen, Star, Users, ScrollText, NotebookText } from "lucide-preact";
+import { BookOpen, Star, Users, ScrollText, NotebookText, Repeat } from "lucide-preact";
 import { PAGE_META } from '../data/page-meta';
 
 let books = [];
@@ -38,6 +38,33 @@ try {
     reviewUrl: reviewMap.get((entry.user_book?.book?.title || '').toLowerCase()) || null,
     hardcoverUrl: entry.user_book?.book?.slug ? `https://hardcover.app/books/${entry.user_book.book.slug}` : null,
   }));
+
+  // A read is a reread iff there's an earlier finished_at for the same book.
+  const earliestRead = new Map<string, number>();
+  for (const b of books) {
+    if (!b.title || !b.lastRead) continue;
+    const key = b.title.toLowerCase();
+    const t = new Date(b.lastRead).getTime();
+    const prev = earliestRead.get(key);
+    if (prev === undefined || t < prev) earliestRead.set(key, t);
+  }
+  for (const b of books) {
+    const key = b.title?.toLowerCase();
+    const t = b.lastRead ? new Date(b.lastRead).getTime() : null;
+    (b as any).isReread = t !== null && key !== undefined && earliestRead.has(key) && t > (earliestRead.get(key) as number);
+  }
+
+  // Show the review tag on only the most recent read per title (userBookReads is ordered finished_at desc).
+  const reviewShownFor = new Set<string>();
+  for (const b of books) {
+    const key = b.title?.toLowerCase();
+    if (!b.reviewUrl || !key) continue;
+    if (reviewShownFor.has(key)) {
+      b.reviewUrl = null;
+    } else {
+      reviewShownFor.add(key);
+    }
+  }
 } catch (e) {
   fetchError = e.message;
 }
@@ -469,6 +496,12 @@ for (const [iso, info] of Object.entries(countryCounts)) {
                 <span class="review-overlay-label">review</span>
               </span>
             )}
+            {book.isReread && (
+              <span class="reread-overlay" aria-label="Reread">
+                <Repeat size={16} strokeWidth={2} />
+                <span class="reread-overlay-label">reread</span>
+              </span>
+            )}
           </div>
         </div>
 
@@ -860,6 +893,32 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   :global(html:not(.dark)) .review-overlay {
     background-color: var(--pink-700);
     color: var(--pink-050);
+  }
+
+  .reread-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.5rem;
+    border-bottom-left-radius: 10px;
+    background-color: var(--neutral-800);
+    color: var(--neutral-200);
+    pointer-events: none;
+  }
+
+  .reread-overlay-label {
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  :global(html:not(.dark)) .reread-overlay {
+    background-color: var(--neutral-700);
+    color: var(--neutral-050);
   }
 
   #reviewFilterBtn.active {

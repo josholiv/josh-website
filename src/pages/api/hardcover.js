@@ -16,9 +16,11 @@ export async function GET({ request }) {
     if (cachedResponse) {
       if (!requestedTitle) return cachedResponse;
       const payload = await cachedResponse.clone().json();
-      const hasTitle = payload.userBooks?.some(
-        b => b.book?.title?.toLowerCase() === requestedTitle.toLowerCase()
-      );
+      const target = requestedTitle.toLowerCase();
+      const hasTitle = payload.userBooks?.some(b => {
+        const t = b.book?.title?.toLowerCase();
+        return t === target || t?.startsWith(target + ':');
+      });
       if (hasTitle) return cachedResponse;
     }
   } catch (e) {
@@ -32,7 +34,7 @@ export async function GET({ request }) {
     const response = new Response(JSON.stringify(result), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}`
+        'Cache-Control': `public, max-age=0, s-maxage=${CACHE_TTL_SECONDS}, must-revalidate`
       }
     });
 

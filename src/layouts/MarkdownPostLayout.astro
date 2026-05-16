@@ -1,5 +1,5 @@
 ---
-import { User, CalendarPlus, CalendarClock, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book, LibraryBig } from "lucide-preact";
+import { CalendarPlus, CalendarClock, Timer, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
 import { Image } from 'astro:assets';
 import { getCollection } from "astro:content";
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
@@ -154,11 +154,15 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
     </div>
   </div>
+
+  {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
+    <BookRating client:load bookTitle={frontmatter.bookTitle} />
+  )}
   </div>
 
   <TOC headings={tocHeadings} />
 
- 
+
 
   {frontmatter.tags?.includes("books") && (
     <h2 id="review">Review</h2>
@@ -166,10 +170,6 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 
   {frontmatter.tags?.includes("books") && (
     <Callout type="warning" title="Warning: contains spoilers!" />
-  )}
-
-  {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
-    <BookRating client:load bookTitle={frontmatter.bookTitle} />
   )}
 
   <slot />

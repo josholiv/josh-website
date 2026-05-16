@@ -31,16 +31,18 @@ const BookRating = ({ bookTitle }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/hardcover?title=${encodeURIComponent(bookTitle)}`)
+    fetch(`/api/hardcover?title=${encodeURIComponent(bookTitle)}`, { cache: 'reload' })
       .then(async r => {
         const payload = await r.json().catch(() => ({}));
         if (!r.ok) throw new Error(payload?.error || `API error (${r.status})`);
         return payload;
       })
       .then(result => {
-        const match = result.userBooks?.find(
-          b => b.book?.title?.toLowerCase() === bookTitle.toLowerCase()
-        );
+        const target = bookTitle.toLowerCase();
+        const match = result.userBooks?.find(b => {
+          const t = b.book?.title?.toLowerCase();
+          return t === target || t?.startsWith(target + ':');
+        });
         if (match) {
           if (match.rating != null) setRating(match.rating);
           if (match.book?.image?.url) setCoverUrl(match.book.image.url);
@@ -63,7 +65,7 @@ const BookRating = ({ bookTitle }) => {
   if (error || (rating === null && !coverUrl)) return null;
 
   return (
-    <div class="book-rating-section" style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div class="book-rating-section" style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', alignSelf: 'flex-start' }}>
       {coverUrl && (
         <div class="img-glow-wrap" style={{ marginBottom: '0.75rem' }}>
           <img
