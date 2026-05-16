@@ -355,6 +355,8 @@ if (pubYears.length >= 4) {
     BOX_Y: RC_BOX_Y, BOX_H: RC_BOX_H, AXIS_Y: RC_AXIS_Y,
     axisLabel: 'year',
     capYear: new Date().getFullYear(),
+    defaultXLo: 1800,
+    defaultXHi: 2035,
   });
 }
 
@@ -367,22 +369,27 @@ for (const [k, v] of Object.entries(countryMapRaw as Record<string, unknown>)) {
   if (k.startsWith('_')) continue;
   if (typeof v === 'string') authorToCountry[normalizeName(k)] = v.toLowerCase();
 }
-const countryCounts: Record<string, { count: number; titles: string[] }> = {};
+const countryCounts: Record<string, { count: number; authors: Set<string> }> = {};
+const allAuthorsCounted = new Set<string>();
 for (const book of books) {
   const firstAuthor = ((book as any).authors || '').split(',')[0]?.trim();
   if (!firstAuthor) continue;
   const iso = authorToCountry[normalizeName(firstAuthor)];
   if (!iso) continue;
-  if (!countryCounts[iso]) countryCounts[iso] = { count: 0, titles: [] };
-  countryCounts[iso].count += 1;
-  countryCounts[iso].titles.push((book as any).title);
+  const norm = normalizeName(firstAuthor);
+  if (!countryCounts[iso]) countryCounts[iso] = { count: 0, authors: new Set() };
+  if (!countryCounts[iso].authors.has(norm)) {
+    countryCounts[iso].authors.add(norm);
+    countryCounts[iso].count += 1;
+    allAuthorsCounted.add(norm);
+  }
 }
 const maxCountryCount = Math.max(0, ...Object.values(countryCounts).map(c => c.count));
-const totalMappedBooks = Object.values(countryCounts).reduce((s, c) => s + c.count, 0);
+const totalMappedAuthors = allAuthorsCounted.size;
 const totalCountries = Object.keys(countryCounts).length;
 let worldMapSvg = worldMapRaw as string;
 for (const [iso, info] of Object.entries(countryCounts)) {
-  // Min 0.25 so single-book countries are still clearly visible; scales to 1.0 at max.
+  // Min 0.25 so single-author countries are still clearly visible; scales to 1.0 at max.
   const opacity = maxCountryCount > 0
     ? 0.25 + 0.75 * (info.count / maxCountryCount)
     : 0;
@@ -610,7 +617,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
           </g>
           <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 44} class="rc-axis-label">pages</text>
         </svg>
-        <p class="raincloud-hint">scroll to zoom · drag to pan · double-click to reset</p>
+        <p class="raincloud-hint">Scroll to zoom · drag to pan · double-click to reset</p>
       </div>
     </div>
   )}
@@ -651,7 +658,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
           </g>
           <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 44} class="rc-axis-label">publication or original composition date</text>
         </svg>
-        <p class="raincloud-hint">scroll to zoom · drag to pan · double-click to reset</p>
+        <p class="raincloud-hint">Scroll to zoom · drag to pan · double-click to reset</p>
       </div>
     </div>
   )}
@@ -659,12 +666,15 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   <div class="stats-charts">
     <div class="chart-section chart-section-wide">
       <p class="chart-title">Authors by country</p>
-      <div class="world-map" data-titles={JSON.stringify(Object.fromEntries(Object.entries(countryCounts).map(([k, v]) => [k, v.titles])))} set:html={worldMapSvg}></div>
-      <p class="world-map-hint">
-        {totalCountries > 0
-          ? `${totalMappedBooks} ${totalMappedBooks === 1 ? 'book' : 'books'} across ${totalCountries} ${totalCountries === 1 ? 'country' : 'countries'} · hover or tap a country · scroll or pinch to zoom · double-click to reset`
-          : 'No country data yet — add author → ISO mappings in src/data/book-countries.json'}
-      </p>
+      <div class="world-map" set:html={worldMapSvg}></div>
+      {totalCountries > 0 ? (
+        <>
+          <p class="world-map-summary">{totalMappedAuthors} {totalMappedAuthors === 1 ? 'author' : 'authors'} across {totalCountries} {totalCountries === 1 ? 'country' : 'countries'}</p>
+          <p class="raincloud-hint world-map-hint">Scroll to zoom · drag to pan · double-click to reset</p>
+        </>
+      ) : (
+        <p class="raincloud-hint">No country data yet — add author → ISO mappings in src/data/book-countries.json</p>
+      )}
     </div>
   </div>
 
@@ -1036,8 +1046,8 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     font-size: 0.875rem;
     color: var(--text-faint);
     font-family: "Atkinson Hyperlegible Mono", monospace;
-    margin: 1rem 0 0;
-    text-align: center;
+    margin: 2rem 0 0;
+    text-align: left;
     letter-spacing: 0.03em;
     transition: color 0.2s;
     font-style: italic;
@@ -1153,34 +1163,13 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     fill: var(--accent-hover) !important;
     opacity: 1 !important;
   }
-  .world-map-hint {
-    margin: 0.75rem 0 0;
+  .world-map-summary {
+    margin: 1rem 0 0;
     font-size: 0.875rem;
-    color: var(--text-faint);
-    text-align: center;
-  }
-  .world-map-tooltip {
-    position: fixed;
-    pointer-events: none;
-    background: var(--bg-secondary);
-    border: 1px solid var(--bg-border);
-    border-radius: 6px;
-    padding: 0.4rem 0.6rem;
-    font-size: 0.875rem;
-    color: var(--text-normal);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    max-width: 240px;
-    line-height: 1.35;
-  }
-  .world-map-tooltip strong {
-    color: var(--text-normal);
-    display: block;
-    margin-bottom: 0.15rem;
-  }
-  .world-map-tooltip .wm-tt-titles {
+    font-family: "Atkinson Hyperlegible Mono", monospace;
     color: var(--text-muted);
-    font-size: 0.875rem;
+    font-weight: 700;
+    text-align: center;
   }
 </style>
 
@@ -1289,6 +1278,8 @@ for (const [iso, info] of Object.entries(countryCounts)) {
       BOX_Y: number; BOX_H: number; AXIS_Y: number;
       axisLabel: string;
       capYear?: number;
+      defaultXLo?: number;
+      defaultXHi?: number;
     }
 
     function niceStep(rawStep: number): number {
@@ -1454,7 +1445,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
       if (!hint || !hint.classList.contains('raincloud-hint')) return;
       const atFull = Math.abs(xLo - info.xLoFull) < 0.01 && Math.abs(xHi - info.xHiFull) < 0.01;
       if (atFull) {
-        hint.textContent = 'scroll to zoom · drag to pan · double-click to reset';
+        hint.textContent = 'Scroll to zoom · drag to pan · double-click to reset';
         hint.classList.remove('rc-hint-zoomed');
         return;
       }
@@ -1466,7 +1457,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
         if (Math.abs(v) >= 1000) return (v / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
         return String(Math.round(v));
       };
-      hint.textContent = fmt(xLo) + ' – ' + fmt(xHi) + (info.axisLabel === 'year' ? '' : ' ' + info.axisLabel) + ' · double-click to reset';
+      hint.textContent = 'Zoomed to ' + fmt(xLo) + ' – ' + fmt(xHi) + (info.axisLabel === 'year' ? '' : ' ' + info.axisLabel) + ' · double-click to reset';
       hint.classList.add('rc-hint-zoomed');
     }
 
@@ -1484,10 +1475,12 @@ for (const [iso, info] of Object.entries(countryCounts)) {
       if (!info) return;
       const el = svg as HTMLElement;
 
-      let xLo = info.xLoFull;
-      let xHi = info.xHiFull;
+      let xLo = info.defaultXLo !== undefined ? Math.max(info.xLoFull, info.defaultXLo) : info.xLoFull;
+      let xHi = info.defaultXHi !== undefined ? Math.min(info.xHiFull, info.defaultXHi) : info.xHiFull;
       el.dataset.xLo = String(xLo);
       el.dataset.xHi = String(xHi);
+      applyRange(svg, xLo, xHi);
+      updateZoomIndicator(svg, info, xLo, xHi);
 
       const PAD_R = SVG_W - info.PAD_L - info.PLOT_W;
       const plotPxOf = (rect: DOMRect) => Math.max(rect.width - info.PAD_L - PAD_R, 1);
@@ -1773,50 +1766,43 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     const svg = wrapper.querySelector('svg') as SVGSVGElement | null;
     if (!svg) return;
 
-    let titlesByIso: Record<string, string[]> = {};
-    try { titlesByIso = JSON.parse(wrapper.dataset.titles || '{}'); } catch {}
-
-    // ── Tooltip ─────────────────────────────────────────
-    let tip: HTMLDivElement | null = null;
-    const ensureTip = () => {
-      if (tip) return tip;
+    // ── Tooltip (shares #rc-tooltip with the raincloud plots) ──
+    let tip = document.getElementById('rc-tooltip') as HTMLDivElement | null;
+    if (!tip) {
       tip = document.createElement('div');
-      tip.className = 'world-map-tooltip';
-      tip.style.display = 'none';
+      tip.id = 'rc-tooltip';
       document.body.appendChild(tip);
-      return tip;
-    };
-    const hideTip = () => { if (tip) tip.style.display = 'none'; };
+    }
+    const hideTip = () => { tip!.style.display = 'none'; };
     const showTip = (p: SVGPathElement, clientX: number, clientY: number) => {
-      const t = ensureTip();
       const iso = p.getAttribute('data-iso') || p.id || '';
       const count = Number(p.getAttribute('data-count') || '0');
       const name = p.getAttribute('aria-label') || iso.toUpperCase();
-      const titles = titlesByIso[iso] || [];
-      let body: string;
-      if (count > 0) {
-        const shown = titles.slice(0, 6).map(s => `· ${s}`).join('<br>');
-        const more = titles.length > 6 ? `<br>+ ${titles.length - 6} more` : '';
-        body = `<strong>${name} — ${count} ${count === 1 ? 'book' : 'books'}</strong><span class="wm-tt-titles">${shown}${more}</span>`;
-      } else {
-        body = `<strong>${name} — 0 books</strong>`;
-      }
-      t.innerHTML = body;
-      t.style.display = 'block';
-      const pad = 14;
-      const rect = t.getBoundingClientRect();
-      let x = clientX + pad, y = clientY + pad;
-      if (x + rect.width > window.innerWidth - 8) x = clientX - rect.width - pad;
-      if (y + rect.height > window.innerHeight - 8) y = clientY - rect.height - pad;
-      t.style.left = x + 'px';
-      t.style.top = y + 'px';
+      tip!.innerHTML = `<strong>${name}:</strong> ${count} ${count === 1 ? 'author' : 'authors'}`;
+      tip!.style.display = 'block';
+      const vw = window.innerWidth;
+      const tx = (clientX + 14 + 220 > vw) ? clientX - 234 : clientX + 14;
+      tip!.style.left = Math.max(8, tx) + 'px';
+      tip!.style.top = Math.max(10, clientY - 44) + 'px';
     };
 
     // ── Zoom / pan state ────────────────────────────────
     const ORIG = { x: 0, y: 0, w: 1010, h: 666 };
     let view = { ...ORIG };
     const MIN_W = ORIG.w / 12;
-    const applyView = () => svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`);
+    const mapHint = wrapper.parentElement?.querySelector('.world-map-hint') as HTMLElement | null;
+    const updateMapHint = () => {
+      if (!mapHint) return;
+      const isZoomed = view.w < ORIG.w - 0.01;
+      if (isZoomed) {
+        mapHint.textContent = 'Zoomed · drag to pan · double-click to reset';
+        mapHint.classList.add('rc-hint-zoomed');
+      } else {
+        mapHint.textContent = 'Scroll to zoom · drag to pan · double-click to reset';
+        mapHint.classList.remove('rc-hint-zoomed');
+      }
+    };
+    const applyView = () => { svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`); updateMapHint(); };
     const clamp = () => {
       if (view.w > ORIG.w) view.w = ORIG.w;
       if (view.w < MIN_W) view.w = MIN_W;
@@ -1913,6 +1899,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
         const wasTap = dragStart && !movedDuringPress && (performance.now() - pressStart) < 500;
         dragStart = null;
         pinchStart = null;
+        movedDuringPress = false;
         if (wasTap) {
           const el = document.elementFromPoint(e.clientX, e.clientY);
           if (el && el.tagName.toLowerCase() === 'path' && wrapper.contains(el)) {

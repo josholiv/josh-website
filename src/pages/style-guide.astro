@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Callout from '../components/Callout.astro';
 import Dropdown from '../components/Dropdown.astro';
 import TOC from '../components/TOC.astro';
-import { Bike, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe } from "lucide-preact";
+import { Bike, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, BookOpen, Activity, Globe } from "lucide-preact";
 
 const isDev = import.meta.env.DEV;
 if (!isDev) return Astro.redirect('/404');
@@ -262,6 +262,57 @@ if (!isDev) return Astro.redirect('/404');
 
   <hr />
 
+  <!-- ─── Explore Cards ─── -->
+  <h2>Explore Cards</h2>
+  <p>Used on the homepage and about page to link to sections. Mouse over to see the glow effect.</p>
+  <div class="explore-grid">
+    <a href="#" class="explore-card">
+      <span class="explore-card-icon"><BookOpen size="1.25rem" /></span>
+      <span class="explore-card-title">Bookshelf</span>
+      <span class="explore-card-desc">Books I've read, rated, and reviewed.</span>
+    </a>
+    <a href="#" class="explore-card">
+      <span class="explore-card-icon"><Activity size="1.25rem" /></span>
+      <span class="explore-card-title">Triathlon</span>
+      <span class="explore-card-desc">Training data and race results.</span>
+    </a>
+    <a href="#" class="explore-card">
+      <span class="explore-card-icon"><Globe size="1.25rem" /></span>
+      <span class="explore-card-title">Travel</span>
+      <span class="explore-card-desc">Places I've been and trips I've taken.</span>
+    </a>
+    <a href="#" class="explore-card">
+      <span class="explore-card-icon"><CodeIcon size="1.25rem" /></span>
+      <span class="explore-card-title">Projects</span>
+      <span class="explore-card-desc">Side projects, tools, and experiments.</span>
+    </a>
+  </div>
+
+  <hr />
+
+  <!-- ─── Stat Cards ─── -->
+  <h2>Stat Cards</h2>
+  <p>Used on the bookshelf and about pages to display key numbers. Mouse over to see the glow effect.</p>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+    <div class="stat-card">
+      <span class="stat-card-icon"><BookOpen size="1.1rem" /></span>
+      <span class="stat-card-number">142</span>
+      <span class="stat-card-label">books read</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card-icon"><Activity size="1.1rem" /></span>
+      <span class="stat-card-number">4.2</span>
+      <span class="stat-card-label">avg rating</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card-icon"><Globe size="1.1rem" /></span>
+      <span class="stat-card-number">31</span>
+      <span class="stat-card-label">countries</span>
+    </div>
+  </div>
+
+  <hr />
+
   <!-- ─── Color Palette ─── -->
   <h2>Color Palette</h2>
 
@@ -276,7 +327,7 @@ if (!isDev) return Astro.redirect('/404');
     { name: 'neutral', shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
   ].map(({ name, shades }) => (
     <div style="margin-bottom: 0.75rem;">
-      <p style="margin: 0 0 0.35rem; font-family: 'Atkinson Hyperlegible Mono', monospace; font-size: 0.85rem;">{name}</p>
+      <p style="margin: 0 0 0.35rem; font-family: 'Atkinson Hyperlegible Mono', monospace; font-size: 0.875rem;">{name}</p>
       <div style="display: flex; gap: 2px;">
         {shades.map(shade => (
           <div
@@ -308,3 +359,13 @@ if (!isDev) return Astro.redirect('/404');
   </div>
 
 </BaseLayout>
+
+<script>
+  document.querySelectorAll('.stat-card, .explore-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    });
+  });
+</script>

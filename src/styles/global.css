@@ -349,7 +349,7 @@ html:not(.dark) {
     .copyright {
       margin-top: 1rem;
       margin-bottom: 0;
-      font-size: 0.85rem;
+      font-size: 0.875rem;
       color: var(--text-faint);
     }
 
@@ -1145,7 +1145,7 @@ figure.img-figure .blog-body-pic {
 }
 
 .img-caption {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--text-faint);
   font-style: italic;
   margin-top: 0.4rem;
@@ -1560,7 +1560,7 @@ html:not(.dark) .post-card-link::before {
   border: 1px solid var(--bg-border);
   background: var(--bg-secondary);
   color: var(--text-normal);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   cursor: pointer;
   outline: none;
@@ -1640,7 +1640,7 @@ html:not(.dark) .sort-icon-btn.active {
   top: 50%;
   transform: translateY(-50%);
   font-family: "Atkinson Hyperlegible Mono", monospace;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: var(--text-faint);
   background: var(--bg-primary);
   border: 1px solid var(--bg-border);
@@ -1651,7 +1651,7 @@ html:not(.dark) .sort-icon-btn.active {
 }
 
 .blog-count {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--text-faint);
   margin: 0.5rem 0 0.75rem 0;
   font-family: "Atkinson Hyperlegible Mono", monospace;
@@ -1854,12 +1854,12 @@ html:not(.dark) .sort-icon-btn.active {
   }
 
   .rb-title {
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     font-weight: 500;
   }
 
   .rb-author {
-    font-size: 0.7rem;
+    font-size: 0.875rem;
     font-style: italic;
     color: var(--text-normal);
   }
@@ -1970,7 +1970,7 @@ html:not(.dark) .sort-icon-btn.active {
 }
 
 .stat-card-label {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--text-muted);
 }
 
@@ -2065,19 +2065,19 @@ html:not(.dark) .stat-card::before {
 }
 
 .lightbox-book-authors {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
 }
 
 .lightbox-book-meta {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: var(--text-faint);
   margin: 0.25rem 0 0;
 }
 
 .lightbox-book-rating {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: var(--text-muted);
   margin: 0;
 }
@@ -2090,7 +2090,7 @@ html:not(.dark) .stat-card::before {
 }
 
 .lightbox-book-link {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   padding: 0.4rem 0.75rem;
   border-radius: var(--control-radius, 4px);
   text-align: center;
