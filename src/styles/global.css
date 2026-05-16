@@ -1937,7 +1937,7 @@ html:not(.dark) .sort-icon-btn.active {
   border: 1px solid var(--bg-border);
   border-radius: 4px;
   color: var(--text-normal);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 1.35;
   padding: 0.25rem 0.55rem;
   pointer-events: none;

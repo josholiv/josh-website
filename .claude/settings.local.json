@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL -o \"c:/Users/Josh/Documents/josh-website/src/assets/world-map.svg\" \"https://raw.githubusercontent.com/mledoze/countries/master/data/world.svg\")",
+      "Bash(curl -sL -o \"c:/Users/Josh/Documents/josh-website/src/assets/world-map.svg\" \"https://raw.githubusercontent.com/CartoDB/cartodb/master/lib/assets/javascripts/cdb/geojson/world.svg\")",
+      "Bash(curl -sL -A \"Mozilla/5.0\" -o \"c:/Users/Josh/Documents/josh-website/src/assets/world-map.svg\" \"https://upload.wikimedia.org/wikipedia/commons/9/97/BlankMap-World6.svg\")",
+      "Bash(npm view *)",
+      "Bash(curl -sL https://registry.npmjs.org/@svg-maps/world/2.0.0)",
+      "Bash(cd /tmp)",
+      "Bash(curl -sL \"https://registry.npmjs.org/@svg-maps/world/-/world-2.0.0.tgz\" -o world.tgz)",
+      "Bash(tar -tzf world.tgz)",
+      "Bash(tar -xzf world.tgz)",
+      "Bash(cp /tmp/package/world.svg \"c:/Users/Josh/Documents/josh-website/src/assets/world-map.svg\")",
+      "Bash(cp /tmp/package/LICENSE.md \"c:/Users/Josh/Documents/josh-website/src/assets/world-map.LICENSE.md\")",
+      "Bash(npx astro *)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}
