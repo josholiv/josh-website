@@ -35,3 +35,24 @@ pnpm-debug.log*
 
 # vs code settings
 .vscode
+
+# claude
+.claude/
+
+# OS-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# editor temp/swap files
+*.swp
+*.swo
+*~
+
+# logs and caches
+*.log
+.cache/
+.turbo/
+coverage/
+.nyc_output/
