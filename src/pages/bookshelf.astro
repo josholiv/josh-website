@@ -465,7 +465,8 @@ for (const [iso, info] of Object.entries(countryCounts)) {
             }
             {book.reviewUrl && (
               <span class="review-overlay" aria-label="Has review">
-                <NotebookText size={20} strokeWidth={2} />
+                <NotebookText size={16} strokeWidth={2} />
+                <span class="review-overlay-label">review</span>
               </span>
             )}
           </div>
@@ -839,17 +840,21 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     position: absolute;
     bottom: 0;
     right: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: right;
-    padding-right: 0.3rem;
-    padding-bottom: 0.3rem;
-    width: 2rem;
-    height: 2rem;
-    border-top-left-radius: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.5rem;
+    border-top-left-radius: 10px;
     background-color: var(--pink-800);
     color: var(--pink-200);
     pointer-events: none; /* clicks fall through to the cover image → lightbox */
+  }
+
+  .review-overlay-label {
+    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
   }
 
   :global(html:not(.dark)) .review-overlay {
@@ -1842,26 +1847,10 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     let pressStart = 0;
     const MOVE_THRESHOLD_PX = 6;
 
-    svg.addEventListener('pointerdown', (e: PointerEvent) => {
-      svg.setPointerCapture(e.pointerId);
-      active.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (active.size === 1) {
-        dragStart = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
-        pinchStart = null;
-        movedDuringPress = false;
-        pressStart = performance.now();
-        svg.classList.add('is-panning');
-      } else if (active.size === 2) {
-        const pts = Array.from(active.values());
-        pinchStart = {
-          dist: Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y),
-          view: { ...view },
-        };
-        dragStart = null;
-      }
-    });
-
-    svg.addEventListener('pointermove', (e: PointerEvent) => {
+    // Listeners attach to window on the first pointerdown so we keep getting
+    // move/up events even when a finger leaves the SVG bounds — and we avoid
+    // setPointerCapture, which is unreliable for multi-touch on mobile Safari.
+    const onPointerMove = (e: PointerEvent) => {
       const p = active.get(e.pointerId);
       if (!p) return;
       p.x = e.clientX; p.y = e.clientY;
@@ -1888,30 +1877,59 @@ for (const [iso, info] of Object.entries(countryCounts)) {
         movedDuringPress = true;
         hideTip();
       }
-    });
+    };
 
-    const endPointer = (e: PointerEvent) => {
+    const onPointerEnd = (e: PointerEvent) => {
       if (!active.has(e.pointerId)) return;
+      const endX = e.clientX, endY = e.clientY;
       active.delete(e.pointerId);
-      try { svg.releasePointerCapture(e.pointerId); } catch {}
       if (active.size === 0) {
         svg.classList.remove('is-panning');
         const wasTap = dragStart && !movedDuringPress && (performance.now() - pressStart) < 500;
         dragStart = null;
         pinchStart = null;
         movedDuringPress = false;
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerEnd);
+        window.removeEventListener('pointercancel', onPointerEnd);
         if (wasTap) {
-          const el = document.elementFromPoint(e.clientX, e.clientY);
+          const el = document.elementFromPoint(endX, endY);
           if (el && el.tagName.toLowerCase() === 'path' && wrapper.contains(el)) {
-            showTip(el as SVGPathElement, e.clientX, e.clientY);
+            showTip(el as SVGPathElement, endX, endY);
           } else {
             hideTip();
           }
         }
+      } else if (active.size === 1) {
+        // Going from pinch back to single finger: reseed pan state from the
+        // surviving pointer so the map stays interactive instead of locking up.
+        const [survivor] = Array.from(active.values());
+        dragStart = { x: survivor.x, y: survivor.y, vx: view.x, vy: view.y };
+        pinchStart = null;
+        movedDuringPress = true;
       }
     };
-    svg.addEventListener('pointerup', endPointer);
-    svg.addEventListener('pointercancel', endPointer);
+
+    svg.addEventListener('pointerdown', (e: PointerEvent) => {
+      active.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (active.size === 1) {
+        dragStart = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y };
+        pinchStart = null;
+        movedDuringPress = false;
+        pressStart = performance.now();
+        svg.classList.add('is-panning');
+        window.addEventListener('pointermove', onPointerMove, { passive: true });
+        window.addEventListener('pointerup', onPointerEnd);
+        window.addEventListener('pointercancel', onPointerEnd);
+      } else if (active.size === 2) {
+        const pts = Array.from(active.values());
+        pinchStart = {
+          dist: Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y),
+          view: { ...view },
+        };
+        dragStart = null;
+      }
+    });
 
     // ── Desktop hover (mouse only — skipped if mid-drag) ─
     const paths = wrapper.querySelectorAll<SVGPathElement>('path');

@@ -2117,7 +2117,40 @@ html:not(.dark) .stat-card::before {
 .lightbox-book-link-secondary,
 .lightbox-book-link-secondary:link,
 .lightbox-book-link-secondary:visited {
-  color: var(--text-muted);
+  color: var(--link-color);
+}
+
+.lightbox-book-link-secondary:hover {
+  color: var(--link-color-hover);
+  opacity: 1;
+}
+
+.lightbox-book-link-review {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--pink-800);
+}
+
+.lightbox-book-link-review,
+.lightbox-book-link-review:link,
+.lightbox-book-link-review:visited {
+  color: var(--pink-200);
+}
+
+html:not(.dark) .lightbox-book-link-review {
+  background: var(--pink-700);
+}
+
+html:not(.dark) .lightbox-book-link-review,
+html:not(.dark) .lightbox-book-link-review:link,
+html:not(.dark) .lightbox-book-link-review:visited {
+  color: var(--pink-050);
+}
+
+.lightbox-book-link-review svg {
+  flex-shrink: 0;
 }
 
 @media (max-width: 639px) {

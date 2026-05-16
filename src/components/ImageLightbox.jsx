@@ -66,8 +66,37 @@ export default function ImageLightbox() {
               if (meta.reviewUrl) {
                 const a = document.createElement('a');
                 a.href = meta.reviewUrl;
-                a.textContent = 'See review';
-                a.className = 'lightbox-book-link';
+                a.className = 'lightbox-book-link lightbox-book-link-review';
+                const SVG_NS = 'http://www.w3.org/2000/svg';
+                const svg = document.createElementNS(SVG_NS, 'svg');
+                svg.setAttribute('width', '16');
+                svg.setAttribute('height', '16');
+                svg.setAttribute('viewBox', '0 0 24 24');
+                svg.setAttribute('fill', 'none');
+                svg.setAttribute('stroke', 'currentColor');
+                svg.setAttribute('stroke-width', '2');
+                svg.setAttribute('stroke-linecap', 'round');
+                svg.setAttribute('stroke-linejoin', 'round');
+                svg.setAttribute('aria-hidden', 'true');
+                const paths = [
+                  ['path', { d: 'M2 6h4' }],
+                  ['path', { d: 'M2 10h4' }],
+                  ['path', { d: 'M2 14h4' }],
+                  ['path', { d: 'M2 18h4' }],
+                  ['rect', { width: '16', height: '20', x: '4', y: '2', rx: '2' }],
+                  ['path', { d: 'M9.5 8h5' }],
+                  ['path', { d: 'M9.5 12h5' }],
+                  ['path', { d: 'M9.5 16h3' }],
+                ];
+                paths.forEach(([tag, attrs]) => {
+                  const el = document.createElementNS(SVG_NS, tag);
+                  Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+                  svg.appendChild(el);
+                });
+                a.appendChild(svg);
+                const label = document.createElement('span');
+                label.textContent = 'See review';
+                a.appendChild(label);
                 links.appendChild(a);
               }
 
