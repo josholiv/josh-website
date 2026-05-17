@@ -254,7 +254,10 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
         const inFigure = img.closest('figure.img-figure');
         wrap.style.display = 'block';
         wrap.style.width = 'fit-content';
-        wrap.style.maxWidth = '100%';
+        // Match the image's already-computed maxWidth (set by responsive-images script
+        // for cached images); falls back to 100% for images not yet loaded — the
+        // responsive-images load handler will update it once the image finishes loading.
+        wrap.style.maxWidth = img.style.maxWidth || '100%';
         wrap.style.borderRadius = inFigure ? '7px' : cs.borderRadius;
         if (!inFigure) {
           wrap.style.marginTop = cs.marginTop;

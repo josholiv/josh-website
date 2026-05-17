@@ -211,6 +211,11 @@ body {
     margin-bottom: 0 !important;
   }
 
+
+  .h3-cv {
+    font-size: 14pt !important;
+  }
+
   /* Contact info styling for print */
   .print-contact-info {
     display: block !important;
@@ -305,12 +310,12 @@ body {
   }
 
   h1 {
-    font-size: 16pt !important;
+    font-size: 11pt !important;
     font-weight: 700 !important;
   }
 
   h2 {
-    font-size: 13pt !important;
+    font-size: 11pt !important;
     font-weight: 700 !important;
   }
 

@@ -2,6 +2,19 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import '@fontsource-variable/inter';
+import '@fontsource/dm-serif-text/latin-400.css';
+import '@fontsource/dm-serif-text/latin-400-italic.css';
+import '@fontsource/ubuntu-mono/latin-400.css';
+import '@fontsource/ubuntu-mono/latin-700.css';
+import '@fontsource/ubuntu-mono/latin-400-italic.css';
+import '@fontsource/ubuntu-mono/latin-700-italic.css';
+
+// Preload critical font files so they're fetched before CSS is parsed,
+// eliminating FOUT (flash of unstyled text) on every page load.
+import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import dmSerifFont from '@fontsource/dm-serif-text/files/dm-serif-text-latin-400-normal.woff2?url';
+import ubuntuMonoFont from '@fontsource/ubuntu-mono/files/ubuntu-mono-latin-400-normal.woff2?url';
 
 const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
 
@@ -25,17 +38,11 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
     </script>
   
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://use.typekit.net/qck4nvy.css"> <!--- Gill Sans Nova font family from Adobe Fonts -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com"> <!--- DM Serif Text and Inter fonts from Google Fonts -->
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=optional" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=optional" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com"> <!--- Ubuntu Mono font from Google Fonts -->
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
+    <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={dmSerifFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={ubuntuMonoFont} as="font" type="font/woff2" crossorigin />
+    
     <link rel="icon" type="image/svg+xml" href="/josh-favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
