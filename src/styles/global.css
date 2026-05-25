@@ -228,7 +228,7 @@ html:not(.dark) {
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      border-radius: 0 0 10px 10px;
+      border-radius: 0;
       background: var(--bg-primary);
       margin: 0 0 2rem;
       min-height: 360px;
@@ -279,7 +279,7 @@ html:not(.dark) {
     }
 
     .banner-description {
-      font-size: 1.1rem;
+      font-size: 1rem;
       line-height: 1.5;
       color: var(--text-normal);
       margin-top: 0.75rem;
@@ -423,6 +423,8 @@ html:not(.dark) {
       width: calc(70ch + 2rem);
       max-width: 100%;
       min-height: 100vh;
+      border-right: 1px solid var(--bg-secondary);
+      border-left: 1px solid var(--bg-secondary);
     }
     
     .main-content {
@@ -610,30 +612,25 @@ html:not(.dark) {
 }
 
 @media (min-width: 1300px) {
-  /* Shift content right by half the (TOC + gap) so the TOC+content pair is
-     centered as one unit on the screen. */
+  /* Shift content left by half the (TOC + gap) so the content+TOC pair is
+     centered as one unit on the screen. TOC sits on the right. */
   .page-wrapper {
-    margin-left: calc((12rem + 4rem) / 2);
+    margin-right: calc((12rem + 4rem) / 2);
   }
 
   .toc {
     position: fixed;
-    top: 2rem;
+    top: 0.6rem;
     /* font-size: 1rem normalises the ch unit so it matches the page-wrapper's
        70ch (which resolves at the root 1rem).  Without this, .toc's 0.9rem
        font-size makes ch ~10% smaller, pushing the panel into the content. */
     font-size: 1rem;
-    /* left = the exact position so the TOC right edge sits 1rem from the
-       content left edge.
-       Body flex-centers the page-wrapper's margin box (margin-left M + 70ch),
-       so content left edge = 50% + M/2 − 35ch = 50% + 3.25rem − 35ch.
-       TOC left = content left − 1rem gap − 12rem width
-                = 50% + 3.25rem − 35ch − 1rem − 12rem
-                = 50% − 35ch − 9.75rem                    */
-    left: calc(50% - 35ch - 9.75rem - 8rem);
+    /* right = the exact position so the TOC left edge sits 1rem from the
+       content right edge (mirror of the previous left-side layout). */
+    right: calc(50% - 35ch - 9.75rem - 8rem);
     width: 14rem;
     margin-bottom: 0;
-    max-height: calc(100vh - 2rem);
+    max-height: calc(100vh - 0.6rem);
     overflow-y: auto;
     z-index: 100;
   }

@@ -11,7 +11,9 @@ html {
 }
 
 .h2-cv {
-  text-align: center;
+  text-align: left;
+  padding-bottom: 1.5rem;
+  padding-top: 0.5rem;
 }
 
 .h2-cv, .h3-cv {
@@ -195,6 +197,8 @@ body {
   .page-wrapper {
     width: 100% !important;
     max-width: 100% !important;
+      border-left: 0px !important;
+      border-right: 0px !important;
   }
 
   .cv-container {
@@ -209,8 +213,10 @@ body {
     font-size: 20pt !important;
     font-weight: bold !important;
     margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    padding-bottom: 0.1in !important;
+    padding-top: 0 !important;
   }
-
 
   .h3-cv {
     font-size: 14pt !important;
