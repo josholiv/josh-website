@@ -547,6 +547,44 @@ html:not(.dark) {
   padding-top: 0;
 }
 
+/* Tag filter panel — mirrors #toc collapsible behaviour */
+#tag-panel[data-open="false"] .toc-chevron {
+  transform: rotate(0deg);
+}
+
+#tag-panel[data-open="false"] .toc-body {
+  grid-template-rows: 0fr;
+  padding-top: 0;
+}
+
+#tag-panel[data-open="false"] .toc-body-inner {
+  padding-top: 0;
+}
+
+.tag-filter-panel {
+  margin-top: 0.75rem;
+}
+
+.tag-filter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+@media (min-width: 1300px) {
+  .tag-filter-list {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
+
+.tag-filter-item {
+  display: flex;
+}
+
 .toc ul {
   list-style: none;
   padding: 0;
@@ -1194,13 +1232,13 @@ figure.img-figure .blog-body-pic {
   color:  var(--text-normal);
   border-radius: 5px;
   padding: 0rem 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   background-color: var(--bg-secondary);
   position: relative;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 /* Individual tag styling on BlogSorter component (just for show, with no cursor or hover effects!) */
@@ -1215,11 +1253,32 @@ figure.img-figure .blog-body-pic {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
 .tag-icon {
   flex: 0 0 auto;
+}
+
+/* Icon-only tag chips shown above post titles in the BlogSorter list */
+.post-tag-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.post-tag-icons .pub-date {
+  line-height: 1;
+}
+
+.tag-post-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 
 .tag[class*="tag-theme-"],
@@ -1229,38 +1288,38 @@ figure.img-figure .blog-body-pic {
 }
 
 .tag-theme-3dprinting {
-  background-color: var(--orange-700);
-  color: var(--neutral-300) !important;
+  background-color: var(--orange-900);
+  color: var(--orange-400) !important;
 }
 
 .tag-theme-science {
-  background-color: var(--green-700);
-  color: var(--neutral-300) !important;
+  background-color: var(--green-900);
+  color: var(--green-400) !important;
 }
 
 .tag-theme-books {
-  background-color: var(--pink-700);
-  color: var(--neutral-300) !important;
+  background-color: var(--pink-900);
+  color: var(--pink-400) !important;
 }
 
 .tag-theme-blogging {
-  background-color: var(--purple-700);
-  color: var(--neutral-300) !important;
+  background-color: var(--purple-900);
+  color: var(--purple-400) !important;
 }
 
 .tag-theme-code {
-  background-color: var(--cyan-700);
-  color: var(--neutral-300) !important;
+  background-color: var(--cyan-900);
+  color: var(--cyan-400) !important;
 }
 
 .tag-theme-travel {
-  background-color: var(--blue-700);
-  color: var(--neutral-300) !important;
+  background-color: var(--blue-900);
+  color: var(--blue-400) !important;
 }
 
 .tag-theme-triathlon {
-  background-color: var(--red-700);
-  color: var(--neutral-300) !important;
+  background-color: var(--red-900);
+  color: var(--red-400) !important;
 }
 
 .tag[class*="tag-theme-"] .tag-count {
@@ -1273,38 +1332,38 @@ figure.img-figure .blog-body-pic {
 }
 
 html:not(.dark) .tag-theme-3dprinting {
-  background-color: var(--orange-600);
-  color: var(--neutral-100) !important;
+  background-color: var(--orange-100);
+  color: var(--orange-600) !important;
 }
 
 html:not(.dark) .tag-theme-science {
-  background-color: var(--green-600);
-  color: var(--neutral-100) !important;
+  background-color: var(--green-100);
+  color: var(--green-600) !important;
 }
 
 html:not(.dark) .tag-theme-books {
-  background-color: var(--pink-600);
-  color: var(--neutral-100) !important;
+  background-color: var(--pink-100);
+  color: var(--pink-600) !important;
 }
 
 html:not(.dark) .tag-theme-blogging {
-  background-color: var(--purple-600);
-  color: var(--neutral-100) !important;
+  background-color: var(--purple-100);
+  color: var(--purple-600) !important;
 }
 
 html:not(.dark) .tag-theme-code {
-  background-color: var(--cyan-600);
-  color: var(--neutral-100) !important;
+  background-color: var(--cyan-100);
+  color: var(--cyan-600) !important;
 }
 
 html:not(.dark) .tag-theme-travel {
-  background-color: var(--blue-600);
-  color: var(--neutral-100) !important;
+  background-color: var(--blue-100);
+  color: var(--blue-600) !important;
 }
 
 html:not(.dark) .tag-theme-triathlon {
-  background-color: var(--red-600);
-  color: var(--neutral-100) !important;
+  background-color: var(--red-100);
+  color: var(--red-600) !important;
 }
 
 a.tag, a.tag:visited {
@@ -1407,21 +1466,31 @@ li.blog-post {
 }
 
 .blog-post a .post-title {
-  color: var(--text-normal);
+  color: var(--text-heading);
 }
 
 /* BlogSorter component styles, used on blog.astro */
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   margin-bottom: 0rem;
   border-radius: 5px;
   padding: 1rem;
 }
-  
+
   .blog-thumbnail-wrapper {
   overflow: hidden;
   flex-shrink: 0;
+  width: 2.5rem;
+  order: 2;
+  margin-left: 0.75rem;
+}
+
+.post-wrapper .post-text {
+  flex: 1;
+  min-width: 0;
 }
 
 .blog-list {
@@ -1691,13 +1760,22 @@ html:not(.dark) .sort-icon-btn.active {
   /* Title on BlogSorter component */
   .post-title {
     margin-bottom: 0;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-heading);
   }
 
   /* Date on BlogSorter component */
-  .pub-date, 
-  .post-author, 
+  .pub-date,
+  .post-author,
   .post-read-time {
     color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .post-read-time {
+    font-style: italic;
   }
 
   .post-card-link {
@@ -1724,50 +1802,13 @@ html:not(.dark) .sort-icon-btn.active {
   }
 }
 
-@media (max-width: 639px) {
-  .blog-post .post-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .blog-thumbnail-wrapper {
-    width: 2.5rem;
-    order: 2;
-    margin-left: 0.75rem;
-  }
-
-  .post-wrapper .post-text {
-    flex: 1;
-    min-width: 0;
-  }
-
-}
-
 @media (min-width: 640px) {
-  .blog-post .post-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .blog-thumbnail-wrapper {
-    width: 4rem;
-    order: 0;
-    margin-right: 1rem;
-    margin-left: 0;
-  }
-
   .post-title,
   .post-tags,
   .pub-date,
   .post-description {
     margin-left: 0;
     margin-right: 0;
-  }
-
-  .post-wrapper .post-text {
-    flex: 1;
   }
 
   .nav-links {

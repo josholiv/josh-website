@@ -2,8 +2,9 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogSorter from "../components/BlogSorter.jsx"; 
+import BlogSorter from "../components/BlogSorter.jsx";
 import TOC from '../components/TOC.astro';
+import TagFilterPanel from '../components/TagFilterPanel.jsx';
 import { PAGE_META } from '../data/page-meta';
 
 const pageTitle = "Josh Olivier - Blog";
@@ -12,11 +13,11 @@ const allPosts = await getCollection("blog");
 
 <BaseLayout pageTitle={pageTitle} titleHtml="Blog" shouldCenterTitle={false} ogImage="/social-cards/blog.png" description={PAGE_META.blog.description}>
 
-<TOC />
+<TOC>
+  <TagFilterPanel posts={allPosts} client:load />
+</TOC>
 
-<h2>Posts</h2>
-
-   <div style={{ marginTop: '2rem'}}>
+   <div style={{ marginTop: '0rem'}}>
       <BlogSorter posts={allPosts} client:load /> 
    </div>
 

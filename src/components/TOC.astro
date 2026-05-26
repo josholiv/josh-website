@@ -76,6 +76,7 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
       </div>
     </div>
   </nav>
+  <slot />
 </div>
 
 <style>
@@ -132,12 +133,16 @@ for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
       display: flex;
     }
 
-    :global(#toc) {
+    :global(#toc),
+    :global(#tag-panel) {
       position: static;
       top: auto;
       left: auto;
       width: auto;
       margin-bottom: 0;
+    }
+
+    :global(#toc) {
       max-height: calc(100vh - 0.6rem - 1.45rem - 0.5rem);
       overflow-y: auto;
     }

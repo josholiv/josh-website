@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
-import { CalendarPlus, CalendarClock, Timer, X, Cog, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
+import { X, Box, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
 
 const tagIcons = {
-  '3dprinting': Cog,
+  '3dprinting': Box,
   science: Dna,
   blogging: Rss,
   code: CodeIcon,
@@ -21,20 +21,19 @@ const renderPostTitle = (post) => {
   return post.data.title;
 };
 
-const renderTagLabel = (tag) => {
+
+const renderTagIconOnly = (tag) => {
   const TagIcon = getTagIcon(tag);
-  return (
-    <>
-      {TagIcon ? <TagIcon size="0.9rem" className="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
-      <span>{tag}</span>
-    </>
-  );
+  if (!TagIcon) return null;
+  return <TagIcon size="1.25rem" aria-label={tag} />;
 };
 
-const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true, lazyLoadAll = false }) => {
-  const [sortOrder, setSortOrder] = useState('newest');
+const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
+  const [sortOrder, setSortOrder] = useState('recently-updated');
   const [sortedPosts, setSortedPosts] = useState(() => {
-    return [...posts].sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate));
+    return [...posts].sort((a, b) =>
+      new Date(b.data.dateModified ?? b.data.pubDate) - new Date(a.data.dateModified ?? a.data.pubDate)
+    );
   });
 
   const [selectedTags, setSelectedTags] = useState([]);
@@ -43,12 +42,19 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
   const [searchFocused, setSearchFocused] = useState(false);
   const searchRef = useRef(null);
 
-  // Check for tag from URL
+  // Check for tag from URL on mount
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tagFromUrl = urlParams.get('tag');
     if (tagFromUrl) setSelectedTags([tagFromUrl]);
     else setSelectedTags([]);
+  }, []);
+
+  // Sync tag selection from TagFilterPanel
+  useEffect(() => {
+    const handler = (e) => setSelectedTags(e.detail.tags);
+    document.addEventListener('blog:tagchange', handler);
+    return () => document.removeEventListener('blog:tagchange', handler);
   }, []);
 
   // '/' keyboard shortcut to focus search
@@ -112,52 +118,9 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
     setSortedPosts(sorted);
   }, [sortOrder, selectedTags, searchQuery, posts, shuffleKey]);
 
-  // Tags and counts
-  const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
-  const tagCounts = tags.map(tag => ({
-    tag,
-    count: posts.filter(post => post.data.tags?.includes(tag)).length,
-  }));
-  tagCounts.sort((a, b) => b.count === a.count ? a.tag.localeCompare(b.tag) : b.count - a.count);
-  const sortedTags = tagCounts.map(tc => tc.tag);
-
-  const handleTagClick = (tag) => {
-    setSelectedTags(prev => prev.includes(tag)
-      ? prev.filter(t => t !== tag)
-      : [...prev, tag]
-    );
-  };
-
   return (
     <div className="blog-layout">
       <div className="blog-content">
-
-        {/* Tags */}
-        {showTags && (
-          <div className="tags-bar">
-            {sortedTags.map((tag) => (
-              <span
-                key={tag}
-                className={`tag ${getTagThemeClass(tag)} ${selectedTags.includes(tag) ? 'active' : ''}`}
-                onClick={() => handleTagClick(tag)}
-              >
-                {renderTagLabel(tag)}
-                <span className="tag-count">
-                  ({posts.filter(post => post.data.tags?.includes(tag)).length})
-                </span>
-              </span>
-            ))}
-            {selectedTags.length > 0 && (
-              <button
-                onClick={() => setSelectedTags([])}
-                style={{ background: 'none', border: 'none', padding: '0', cursor: 'pointer', color: 'var(--text-normal)', display: 'inline-flex', alignItems: 'center' }}
-                aria-label="Clear tags"
-              >
-                <X size={16} strokeWidth={2.25} />
-              </button>
-            )}
-          </div>
-        )}
 
         {/* Search + sort row */}
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -193,9 +156,9 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
                   setSortOrder(val);
                 }}
               >
+                <option value="recently-updated">Last updated</option>
                 <option value="newest">Newest → oldest</option>
                 <option value="oldest">Oldest → newest</option>
-                <option value="recently-updated">Last updated</option>
                 <option value="shortest">Shortest read</option>
                 <option value="longest">Longest read</option>
                 <option value="a → z">A → Z</option>
@@ -225,7 +188,7 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
         {/* Posts List */}
         <div>
           <ul className="blog-list">
-            {sortedPosts.map((post, index) => (
+            {sortedPosts.map((post) => (
               <li key={post.id} className="blog-post">
 
                 <a
@@ -238,63 +201,20 @@ const BlogSorter = ({ posts, showSort = true, showTags = true, showSearch = true
                   }}
                 >
 
-                  {post.data.image?.url && (
-                    <div className="blog-thumbnail-wrapper">
-                      <img
-                        src={post.data.image.url}
-                        alt={post.data.image.alt || post.data.title}
-                        className="blog-thumbnail"
-                        loading={lazyLoadAll ? "lazy" : (index < 4 ? "eager" : "lazy")}
-                      />
-                    </div>
-                  )}
-
                   <div className="post-text">
 
+                    <div className="post-tag-icons">
+                      {(() => { const t = post.data.tags?.find(tag => getTagIcon(tag)); return t ? <span className={`tag-post-icon ${getTagThemeClass(t)}`}>{renderTagIconOnly(t)}</span> : null; })()}
+                      <span className="pub-date">
+                        {post.data.dateModified && new Date(post.data.dateModified).toDateString() !== new Date(post.data.pubDate).toDateString()
+                          ? <>Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</>
+                          : new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+                        }
+                        {' | '}<span className="post-read-time">{post.data.readTime} min read</span>
+                      </span>
+                    </div>
+
                     <div className="post-title">{renderPostTitle(post)}</div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-                      <span className="pub-date icon-container-inline">
-                        <CalendarPlus size="1rem" />
-                        {new Date(post.data.pubDate).toLocaleDateString('en-US', {
-                          month: 'long',
-                          year: 'numeric',
-                          timeZone: 'UTC',
-                        })}
-                      </span>
-
-                      {post.data.dateModified && new Date(post.data.dateModified).toDateString() !== new Date(post.data.pubDate).toDateString() && (
-                        <>
-                          <span style={{ color: 'var(--bg-border)' }}>|</span>
-                          <span className="pub-date icon-container-inline">
-                            <CalendarClock size="1rem" />
-                            Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', {
-                              month: 'long',
-                              year: 'numeric',
-                              timeZone: 'UTC',
-                            })}
-                          </span>
-                        </>
-                      )}
-
-                      <span style={{ color: 'var(--bg-border)' }}>|</span>
-
-                      <span className="post-read-time icon-container-inline">
-                        <Timer size="1rem" />
-                        {post.data.readTime} minute read
-                      </span>
-                    </div>
-
-                    <div
-                      className="tags"
-                      style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', alignItems: 'flex-start' }}
-                    >
-                      {post.data.tags?.map((tag) => (
-                        <span key={tag} className={`tag-blogsorter ${getTagThemeClass(tag)}`}>
-                          {renderTagLabel(tag)}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 </a>
               </li>
