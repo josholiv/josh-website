@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import cv from '../data/cv.json';
 import '../styles/cv.css'
-import TOC from '../components/TOC.astro';
+import Panels from '../components/Panels.astro';
 import { ExternalLink } from "lucide-preact";
 import { PAGE_META } from '../data/page-meta';
 
@@ -76,7 +76,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 <BaseLayout pageTitle={pageTitle} titleHtml="CV" shouldCenterTitle={false} ogImage="/social-cards/cv.png" description={PAGE_META.cv.description}>
 
 <main>
-<TOC />
+<Panels />
 
  <div class="cv-container">
 

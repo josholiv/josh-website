@@ -1,0 +1,436 @@
+---
+import { ChevronRight, Code, GraduationCap, Briefcase, Radio, Cog, X, Box, Dna, Rss, Map, SportShoe, Book } from 'lucide-preact';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings?: Heading[];
+  posts?: any[];
+}
+
+const { headings = [], posts } = Astro.props;
+
+type HeadingGroup = { h2: Heading; h3s: Heading[] };
+const grouped: HeadingGroup[] = [];
+for (const h of headings.filter(h => h.depth === 2 || h.depth === 3)) {
+  if (h.depth === 2) {
+    grouped.push({ h2: h, h3s: [] });
+  } else if (grouped.length > 0) {
+    grouped[grouped.length - 1].h3s.push(h);
+  }
+}
+
+const tagIconMap: Record<string, any> = {
+  '3dprinting': Box,
+  science: Dna,
+  blogging: Rss,
+  code: Code,
+  travel: Map,
+  triathlon: SportShoe,
+  books: Book,
+};
+
+function getTagThemeClass(tag: string) {
+  return `tag-theme-${tag.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}
+
+let sortedTags: { tag: string; count: number }[] = [];
+if (posts) {
+  const allTags = [...new Set(posts.flatMap((p: any) => p.data.tags || []))] as string[];
+  const tagCounts = allTags.map(tag => ({
+    tag,
+    count: posts.filter((p: any) => p.data.tags?.includes(tag)).length,
+  }));
+  tagCounts.sort((a, b) => b.count === a.count ? a.tag.localeCompare(b.tag) : b.count - a.count);
+  sortedTags = tagCounts;
+}
+---
+
+<div class="toc-panel">
+  <a href="/" class="toc-site-title">
+    <span><span class="toc-site-title-main">josholivier</span><span class="toc-site-title-domain">.com</span></span>
+  </a>
+
+<nav class="toc" id="links-panel">
+    <button class="toc-title" id="links-toggle">
+      Links
+      <span class="toc-chevron">
+        <ChevronRight size="0.9rem" />
+      </span>
+    </button>
+    <div class="toc-body">
+      <div class="toc-body-inner">
+        <ul class="toc-links-list">
+          <li class="links-item"><a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Code size="0.9rem" />GitHub</a></li>
+          <li class="links-item"><a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Radio size="0.9rem" />Bluesky</a></li>
+          <li class="links-item"><a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Briefcase size="0.9rem" />LinkedIn</a></li>
+          <li class="links-item"><a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="0.9rem" />ORCiD</a></li>
+          <li class="links-item"><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="0.9rem" />Google Scholar</a></li>
+          <li class="links-item"><a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Cog size="0.9rem" />Thingiverse</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="toc" id="toc">
+    <button class="toc-title" id="toc-toggle">
+      On this page
+      <span class="toc-chevron">
+        <ChevronRight size="0.9rem" />
+      </span>
+    </button>
+    <div class="toc-body">
+      <div class="toc-body-inner">
+        <ul id="toc-list">
+          {grouped.map(({ h2, h3s }) => (
+            <li class="toc-item">
+              <a href={`#${h2.slug}`}>
+                {h2.text}
+              </a>
+              {h3s.length > 0 && (
+                <ul class="toc-sublist">
+                  {h3s.map(h3 => (
+                    <li class="toc-subitem">
+                      <a href={`#${h3.slug}`}>{h3.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {sortedTags.length > 0 && (
+    <nav class="toc tag-filter-panel" id="tag-panel">
+      <button class="toc-title" id="tag-toggle">
+        Tags
+        <span class="toc-chevron">
+          <ChevronRight size="0.9rem" />
+        </span>
+      </button>
+      <div class="toc-body">
+        <div class="toc-body-inner">
+          <ul class="tag-filter-list">
+            {sortedTags.map(({ tag, count }) => {
+              const TagIcon = tagIconMap[tag.toLowerCase()] ?? null;
+              return (
+                <li class="tag-filter-item">
+                  <span class={`tag ${getTagThemeClass(tag)}`} data-tag={tag} role="button" tabindex="0">
+                    {TagIcon ? <TagIcon size="0.9rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+                    <span>{tag}</span>
+                    <span class="tag-count">({count})</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          <button id="tag-clear" style="display:none; background:none; border:none; padding:0.4rem 0 0; cursor:pointer; color:var(--text-normal); align-items:center;" aria-label="Clear tag filter">
+            <X size={16} strokeWidth={2.25} />
+          </button>
+        </div>
+      </div>
+    </nav>
+  )}
+
+</div>
+
+<style>
+  :global(#tag-panel) {
+    margin-top: 0;
+  }
+
+  .toc-site-title {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: "DM Serif Text", serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--text-normal);
+    margin-bottom: 1rem;
+    margin-left: 0.3rem;
+  }
+
+  .toc-site-title-icon {
+    flex-shrink: 0;
+    color: var(--text-heading);
+    position: relative;
+    top: 1px;
+  }
+
+  .toc-site-title-main {
+    color: inherit;
+  }
+
+  .toc-site-title-domain {
+    color: var(--text-faint);
+  }
+
+  .toc-site-title:hover,
+  .toc-site-title:active,
+  .toc-site-title:visited,
+  .toc-site-title:visited:hover,
+  .toc-site-title:focus,
+  .toc-site-title:focus-visible {
+    color: var(--text-heading);
+  }
+
+  .toc-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .links-item a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .links-item a:hover {
+    color: var(--link-color-hover);
+  }
+
+  @media (min-width: 1300px) {
+    .toc-panel {
+      position: fixed;
+      top: 0.6rem;
+      right: calc(50% - 35ch - 9.75rem - 8rem);
+      width: 14rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toc-site-title {
+      display: flex;
+    }
+
+    :global(#toc),
+    :global(#tag-panel),
+    :global(#links-panel) {
+      position: static;
+      top: auto;
+      left: auto;
+      width: auto;
+      margin-bottom: 1rem;
+    }
+
+    :global(#toc) {
+      max-height: calc(100vh - 0.6rem - 1.45rem - 0.5rem);
+      overflow-y: auto;
+    }
+  }
+</style>
+
+<script>
+  // Set open state based on screen width; wide = open, mobile = closed.
+  const toc = document.getElementById('toc');
+  const tagPanel = document.getElementById('tag-panel');
+  const linksPanel = document.getElementById('links-panel');
+
+  function applyDefaultOpen() {
+    const wide = window.innerWidth >= 1300;
+    [toc, tagPanel, linksPanel].forEach(panel => {
+      if (!panel) return;
+      if (wide) {
+        panel.removeAttribute('data-open');
+      } else {
+        panel.setAttribute('data-open', 'false');
+      }
+    });
+  }
+
+  window.addEventListener('resize', applyDefaultOpen, { passive: true });
+
+  function togglePanel(panel: HTMLElement) {
+    const body = panel.querySelector<HTMLElement>('.toc-body');
+    const isOpen = body ? body.getBoundingClientRect().height > 0 : false;
+    panel.setAttribute('data-open', isOpen ? 'false' : 'true');
+  }
+
+  // Collapse toggle — TOC
+  document.getElementById('toc-toggle')?.addEventListener('click', () => {
+    if (toc) togglePanel(toc);
+  });
+
+  // Collapse toggle — Tags
+  document.getElementById('tag-toggle')?.addEventListener('click', () => {
+    if (tagPanel) togglePanel(tagPanel);
+  });
+
+  // Collapse toggle — Links
+  document.getElementById('links-toggle')?.addEventListener('click', () => {
+    if (linksPanel) togglePanel(linksPanel);
+  });
+
+  // Tag filtering
+  let selectedTags: string[] = [];
+
+  function updateTagUI() {
+    document.querySelectorAll<HTMLElement>('#tag-panel [data-tag]').forEach(el => {
+      el.classList.toggle('active', selectedTags.includes(el.dataset.tag!));
+    });
+    const clearBtn = document.getElementById('tag-clear') as HTMLElement | null;
+    if (clearBtn) clearBtn.style.display = selectedTags.length > 0 ? 'inline-flex' : 'none';
+  }
+
+  function dispatchTagChange() {
+    document.dispatchEvent(new CustomEvent('blog:tagchange', { detail: { tags: selectedTags } }));
+  }
+
+  // Restore from URL param
+  const urlTag = new URLSearchParams(window.location.search).get('tag');
+  if (urlTag) {
+    selectedTags = [urlTag];
+    updateTagUI();
+    dispatchTagChange();
+  }
+
+  // Tag click handlers
+  document.querySelectorAll<HTMLElement>('#tag-panel [data-tag]').forEach(el => {
+    const tag = el.dataset.tag!;
+    const toggle = () => {
+      selectedTags = selectedTags.includes(tag)
+        ? selectedTags.filter(t => t !== tag)
+        : [...selectedTags, tag];
+      updateTagUI();
+      dispatchTagChange();
+    };
+    el.addEventListener('click', toggle);
+    el.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter') toggle(); });
+  });
+
+  document.getElementById('tag-clear')?.addEventListener('click', () => {
+    selectedTags = [];
+    updateTagUI();
+    dispatchTagChange();
+  });
+
+  // Active heading highlight
+  const headingEls = Array.from(document.querySelectorAll('main h2, main h3')) as HTMLElement[];
+
+  let pinnedId: string | null = null;
+
+  function clearPin() {
+    if (!pinnedId) return;
+    pinnedId = null;
+    pickActive();
+  }
+
+  document.getElementById('toc-list')?.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (href?.startsWith('#')) {
+      pinnedId = href.slice(1);
+      setActive(pinnedId);
+    }
+  });
+
+  window.addEventListener('wheel', clearPin, { passive: true });
+  window.addEventListener('touchstart', clearPin, { passive: true });
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowUp','ArrowDown','PageUp','PageDown',' ','Home','End'].includes(e.key)) clearPin();
+  });
+
+  function setActive(id: string | null) {
+    document.querySelectorAll('#toc-list a').forEach(a => a.classList.remove('toc-active'));
+    if (id) {
+      document.querySelector(`#toc-list a[href="#${CSS.escape(id)}"]`)?.classList.add('toc-active');
+    }
+  }
+
+  function pickActive() {
+    if (pinnedId) {
+      setActive(pinnedId);
+      return;
+    }
+
+    const atBottom =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
+    if (atBottom && headingEls.length > 0) {
+      setActive(headingEls[headingEls.length - 1].id);
+      return;
+    }
+
+    const threshold = 120;
+    let activeId: string | null = headingEls[0]?.id ?? null;
+    for (const h of headingEls) {
+      if (h.getBoundingClientRect().top <= threshold) {
+        activeId = h.id;
+      }
+    }
+    setActive(activeId);
+  }
+
+  window.addEventListener('scroll', pickActive, { passive: true });
+  window.addEventListener('resize', pickActive, { passive: true });
+
+  // Auto-populate headings if none were server-rendered
+  const list = document.getElementById('toc-list');
+
+  if (list && list.children.length === 0) {
+    const headings = Array.from(document.querySelectorAll('main h2, main h3'));
+    let currentH2Li: HTMLLIElement | null = null;
+    let currentSublist: HTMLUListElement | null = null;
+
+    headings.forEach(h => {
+      if (!h.id) {
+        h.id = h.textContent!
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-');
+      }
+
+      if (h.tagName === 'H2') {
+        const li = document.createElement('li');
+        li.className = 'toc-item';
+        const a = document.createElement('a');
+        a.href = `#${h.id}`;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        list.appendChild(li);
+        currentH2Li = li;
+        currentSublist = null;
+      } else if (h.tagName === 'H3' && currentH2Li) {
+        if (!currentSublist) {
+          currentSublist = document.createElement('ul');
+          currentSublist.className = 'toc-sublist';
+          (currentH2Li as HTMLLIElement).appendChild(currentSublist);
+        }
+        const li = document.createElement('li');
+        li.className = 'toc-subitem';
+        const a = document.createElement('a');
+        a.href = `#${h.id}`;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        currentSublist.appendChild(li);
+      }
+    });
+  }
+
+  // Hide the TOC nav if there are fewer than 2 h2/h3 headings total.
+  if (list && list.querySelectorAll('.toc-item, .toc-subitem').length <= 1) {
+    document.getElementById('toc')?.style.setProperty('display', 'none');
+  }
+
+  // Re-run after auto-populating so newly added headings are immediately highlighted.
+  pickActive();
+</script>

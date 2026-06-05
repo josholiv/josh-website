@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogSorter from '../components/BlogSorter.jsx';
 import { Info, GraduationCap, Rss, Contact } from "lucide-preact";
-import TOC from '../components/TOC.astro';
+import Panels from '../components/Panels.astro';
 import { PAGE_META } from '../data/page-meta';
 
 
@@ -21,19 +21,12 @@ const recentPosts = allPosts.slice(0, 5); // show the newest 3 blog posts by pub
 ---
 <BaseLayout pageTitle={pageTitle} titleHtml="Josh Olivier" shouldCenterTitle={false} ogImage="/social-cards/home.png" description={PAGE_META.home.description}>
 
-  <TOC />
+  <Panels />
 
   <p>
-      I'm an incoming Psychology PhD student at the University of California, Riverside and I currently work as lab manager
-      of a neuroimaging lab at the University of Texas at Dallas.
-  </p>
-
-  <p>
-      I'm interested in how the brain supports episodic memory and how
+      I'm an incoming Psychology PhD student at the University of California, Riverside. I'm interested in how the brain supports episodic memory and how
       memory-related brain mechanisms are disrupted by aging and neurological conditions like Alzheimer's disease.
   </p>
-
-<h2>Explore</h2>
 
 <div class="explore-grid">
   <a href="/about" class="explore-card">

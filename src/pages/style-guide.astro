@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Callout from '../components/Callout.astro';
 import Dropdown from '../components/Dropdown.astro';
-import TOC from '../components/TOC.astro';
+import Panels from '../components/Panels.astro';
 import { Bike, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, BookOpen, Activity, Globe } from "lucide-preact";
 
 const isDev = import.meta.env.DEV;
@@ -11,7 +11,7 @@ if (!isDev) return Astro.redirect('/404');
 
 <BaseLayout pageTitle="Style Guide" titleHtml="Style Guide <span class='title-muted'>/ dev only</span>" shouldCenterTitle={false}>
 
-<TOC />
+<Panels />
 
   <!-- ─── Typography ─── -->
   <h2>Typography</h2>

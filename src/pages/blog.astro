@@ -3,8 +3,7 @@ import { getCollection } from "astro:content";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogSorter from "../components/BlogSorter.jsx";
-import TOC from '../components/TOC.astro';
-import TagFilterPanel from '../components/TagFilterPanel.jsx';
+import Panels from '../components/Panels.astro';
 import { PAGE_META } from '../data/page-meta';
 
 const pageTitle = "Josh Olivier - Blog";
@@ -13,20 +12,10 @@ const allPosts = await getCollection("blog");
 
 <BaseLayout pageTitle={pageTitle} titleHtml="Blog" shouldCenterTitle={false} ogImage="/social-cards/blog.png" description={PAGE_META.blog.description}>
 
-<TOC>
-  <TagFilterPanel posts={allPosts} client:load />
-</TOC>
+<Panels posts={allPosts} />
 
    <div style={{ marginTop: '0rem'}}>
       <BlogSorter posts={allPosts} client:load /> 
    </div>
-
-<h2>About this blog</h2>
-
-<p>
-  This blog is where I share posts about my research, hobbies like travel, triathlons, and 3D printing, 
-  and anything else I find potentially useful to share.
-   I also use it to share updates about my academic work, such as new publications. 
-</p>
    
 </BaseLayout>

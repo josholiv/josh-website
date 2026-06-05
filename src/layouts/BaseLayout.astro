@@ -9,6 +9,7 @@ import '@fontsource/ubuntu-mono/latin-400.css';
 import '@fontsource/ubuntu-mono/latin-700.css';
 import '@fontsource/ubuntu-mono/latin-400-italic.css';
 import '@fontsource/ubuntu-mono/latin-700-italic.css';
+import '../styles/font-display-override.css';
 
 // Preload critical font files so they're fetched before CSS is parsed,
 // eliminating FOUT (flash of unstyled text) on every page load.
@@ -16,7 +17,7 @@ import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.
 import dmSerifFont from '@fontsource/dm-serif-text/files/dm-serif-text-latin-400-normal.woff2?url';
 import ubuntuMonoFont from '@fontsource/ubuntu-mono/files/ubuntu-mono-latin-400-normal.woff2?url';
 
-const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, showBanner = true, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
 
 const siteUrl = 'https://josholivier.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
@@ -79,18 +80,19 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
     <div class="page-wrapper">
       <Header />
       <main class="main-content">
+        {shouldShowTitle && showBanner && (
+          <div class="page-banner"></div>
+        )}
         {shouldShowTitle && (
-          <div class="page-banner">
-            <div class="page-banner-content">
-              <h1 class={shouldCenterTitle ? 'center-title' : ''}>
-                {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
-              </h1>
-              {descriptionHtml ? (
-                <p class="banner-description"><Fragment set:html={descriptionHtml} /></p>
-              ) : description && (
-                <p class="banner-description">{description}</p>
-              )}
-            </div>
+          <div class="page-title-block">
+            <h1 class={shouldCenterTitle ? 'center-title' : ''}>
+              {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
+            </h1>
+            {descriptionHtml ? (
+              <p class="banner-description"><Fragment set:html={descriptionHtml} /></p>
+            ) : description && (
+              <p class="banner-description">{description}</p>
+            )}
           </div>
         )}
         <div class="content-body">

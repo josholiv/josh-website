@@ -6,7 +6,7 @@ import Dropdown from '../components/Dropdown.jsx';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 import { getCollection } from 'astro:content';
 import { env } from 'cloudflare:workers';
-import TOC from '../components/TOC.astro';
+import Panels from '../components/Panels.astro';
 import { BookOpen, Star, Users, ScrollText, NotebookText, Repeat } from "lucide-preact";
 import { PAGE_META } from '../data/page-meta';
 
@@ -431,7 +431,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
 <BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} ogImage="/social-cards/bookshelf.png" description={PAGE_META.bookshelf.description}>
 
   <ImageLightbox />
-  <TOC />
+  <Panels />
 
   <h2>Books</h2>
 

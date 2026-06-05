@@ -210,7 +210,7 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                           ? <>Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</>
                           : new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
                         }
-                        {' | '}<span className="post-read-time">{post.data.readTime} min read</span>
+                        {' | '}<span className="post-read-time">{post.data.readTime} min</span>
                       </span>
                     </div>
 

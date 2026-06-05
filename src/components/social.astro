@@ -1,9 +1,22 @@
 ---
 const { platform, username, icon: Icon, displayName = platform } = Astro.props;
 ---
-<style> 
+<style>
   .social-link::after {
     display: none !important; /* remove external link icon from social links*/
+  }
+
+  .icon-container-inline {
+    color: var(--link-color);
+  }
+
+  .icon-container-inline:hover {
+    color: var(--link-color-hover);
+  }
+
+  .social-link {
+    text-decoration: none;
+    color: inherit;
   }
 </style>
 

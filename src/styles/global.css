@@ -223,15 +223,33 @@ html:not(.dark) {
       margin: 1.5rem 0;
     }
 
-    /* ── Page banner (matches social card glow style) ── */
+    /* ── Page banner ── */
     .page-banner {
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      border-radius: 0;
+      border-radius: 0 0 5px 5px;
       background: var(--bg-primary);
-      margin: 0 0 2rem;
-      min-height: 360px;
+      margin: 0 1rem 1rem;
+      min-height: 240px;
+      will-change: transform;
+    }
+
+    .page-title-block {
+      padding: 0 1rem 1rem;
+    }
+
+    .page-title-block h1 {
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 639px) {
+      .page-banner {
+        margin: 0 0 1rem;
+        border-radius: 0;
+        min-height: 180px;
+      }
     }
 
     .page-banner::before {
@@ -282,13 +300,9 @@ html:not(.dark) {
       font-size: 1rem;
       line-height: 1.5;
       color: var(--text-normal);
+      font-style: italic;
       margin-top: 0.75rem;
       margin-bottom: 0;
-    }
-
-    /* ── Page banner: light mode ── */
-    html:not(.dark) .page-banner {
-      background: var(--bg-primary);
     }
 
     html:not(.dark) .page-banner::before {
@@ -310,7 +324,7 @@ html:not(.dark) {
     /* ── Page banner: mobile ── */
     @media (max-width: 639px) {
       .page-banner {
-        min-height: 360px;
+        min-height: 180px;
         border-radius: 0px;
         display: flex;
         flex-direction: column;
@@ -326,7 +340,7 @@ html:not(.dark) {
       font-size: 2rem;
       font-weight: 700;
       line-height: 1;
-      margin-top: 3rem;
+      margin-top: 2rem;
     }
 
     h3 {
@@ -396,9 +410,10 @@ html:not(.dark) {
     }
 
     header {
-      width: 100%;
       background-color: var(--bg-secondary);
-      padding: 0 0.6rem 0 0;
+      isolation: isolate;
+      margin: 0 1rem;
+      padding: 0;
     }
 
     .center-title {
@@ -423,8 +438,7 @@ html:not(.dark) {
       width: calc(70ch + 2rem);
       max-width: 100%;
       min-height: 100vh;
-      border-right: 1px solid var(--bg-secondary);
-      border-left: 1px solid var(--bg-secondary);
+     
     }
     
     .main-content {
@@ -520,22 +534,13 @@ html:not(.dark) {
   display: flex;
   align-items: center;
   transition: transform 0.2s ease;
-  transform: rotate(90deg);
-}
-
-#toc[data-open="false"] .toc-chevron {
   transform: rotate(0deg);
 }
 
 .toc-body {
   display: grid;
-  grid-template-rows: 1fr;
-  transition: grid-template-rows 0.25s ease, padding-top 0.25s ease;
-  padding-top: 1rem;
-}
-
-#toc[data-open="false"] .toc-body {
   grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease, padding-top 0.25s ease;
   padding-top: 0;
 }
 
@@ -543,26 +548,44 @@ html:not(.dark) {
   overflow: hidden;
 }
 
-#toc[data-open="false"] .toc-body-inner {
-  padding-top: 0;
+/* Explicitly opened */
+#toc[data-open="true"] .toc-chevron,
+#tag-panel[data-open="true"] .toc-chevron,
+#links-panel[data-open="true"] .toc-chevron {
+  transform: rotate(90deg);
 }
 
-/* Tag filter panel — mirrors #toc collapsible behaviour */
-#tag-panel[data-open="false"] .toc-chevron {
-  transform: rotate(0deg);
+#toc[data-open="true"] .toc-body,
+#tag-panel[data-open="true"] .toc-body,
+#links-panel[data-open="true"] .toc-body {
+  grid-template-rows: 1fr;
+  padding-top: 1rem;
 }
 
-#tag-panel[data-open="false"] .toc-body {
-  grid-template-rows: 0fr;
-  padding-top: 0;
-}
+/* Desktop (≥ 1300px): open by default unless explicitly closed by user */
+@media (min-width: 1300px) {
+  #toc:not([data-open="false"]) .toc-chevron,
+  #tag-panel:not([data-open="false"]) .toc-chevron,
+  #links-panel:not([data-open="false"]) .toc-chevron {
+    transform: rotate(90deg);
+  }
 
-#tag-panel[data-open="false"] .toc-body-inner {
-  padding-top: 0;
+  #toc:not([data-open="false"]) .toc-body,
+  #tag-panel:not([data-open="false"]) .toc-body,
+  #links-panel:not([data-open="false"]) .toc-body {
+    grid-template-rows: 1fr;
+    padding-top: 1rem;
+  }
 }
 
 .tag-filter-panel {
   margin-top: 0.75rem;
+}
+
+@media (max-width: 639px) {
+  #links-panel {
+    display: none;
+  }
 }
 
 .tag-filter-list {
@@ -1155,6 +1178,7 @@ a[target="_blank"]:not(.book-cover-link):not(.no-external-icon):not(.book-cover-
     padding: 1rem;
     background-color: var(--bg-primary);
     border: none;
+    margin: 0;
   }
 }
 
@@ -1230,10 +1254,7 @@ figure.img-figure .blog-body-pic {
   margin: 0rem;
   font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
   color:  var(--text-normal);
-  border-radius: 5px;
-  padding: 0rem 0.5rem;
   font-size: 1rem;
-  background-color: var(--bg-secondary);
   position: relative;
   cursor: pointer;
   display: inline-flex;
@@ -1247,8 +1268,6 @@ figure.img-figure .blog-body-pic {
   font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
   background-color: var(--bg-primary);
   color:  var(--text-normal);
-  border-radius: 5px;
-  padding: 0rem 0.5rem;
   font-size: 0.9rem;
   position: relative;
   display: inline-flex;
@@ -1276,7 +1295,7 @@ figure.img-figure .blog-body-pic {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.3rem;
+  padding: 0rem;
   border-radius: 6px;
   flex-shrink: 0;
 }
@@ -1288,37 +1307,30 @@ figure.img-figure .blog-body-pic {
 }
 
 .tag-theme-3dprinting {
-  background-color: var(--orange-900);
   color: var(--orange-400) !important;
 }
 
 .tag-theme-science {
-  background-color: var(--green-900);
   color: var(--green-400) !important;
 }
 
 .tag-theme-books {
-  background-color: var(--pink-900);
   color: var(--pink-400) !important;
 }
 
 .tag-theme-blogging {
-  background-color: var(--purple-900);
   color: var(--purple-400) !important;
 }
 
 .tag-theme-code {
-  background-color: var(--cyan-900);
   color: var(--cyan-400) !important;
 }
 
 .tag-theme-travel {
-  background-color: var(--blue-900);
   color: var(--blue-400) !important;
 }
 
 .tag-theme-triathlon {
-  background-color: var(--red-900);
   color: var(--red-400) !important;
 }
 
@@ -1328,41 +1340,35 @@ figure.img-figure .blog-body-pic {
 
 .tag[class*="tag-theme-"]:hover,
 .tag[class*="tag-theme-"].active {
-  box-shadow: 0 0 0 2px currentColor inset;
+  box-shadow: 0 0 0 0 currentColor;
+  border-bottom: 2px solid currentColor;
 }
 
 html:not(.dark) .tag-theme-3dprinting {
-  background-color: var(--orange-100);
   color: var(--orange-600) !important;
 }
 
 html:not(.dark) .tag-theme-science {
-  background-color: var(--green-100);
   color: var(--green-600) !important;
 }
 
 html:not(.dark) .tag-theme-books {
-  background-color: var(--pink-100);
   color: var(--pink-600) !important;
 }
 
 html:not(.dark) .tag-theme-blogging {
-  background-color: var(--purple-100);
   color: var(--purple-600) !important;
 }
 
 html:not(.dark) .tag-theme-code {
-  background-color: var(--cyan-100);
   color: var(--cyan-600) !important;
 }
 
 html:not(.dark) .tag-theme-travel {
-  background-color: var(--blue-100);
   color: var(--blue-600) !important;
 }
 
 html:not(.dark) .tag-theme-triathlon {
-  background-color: var(--red-100);
   color: var(--red-600) !important;
 }
 

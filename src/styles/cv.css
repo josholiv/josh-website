@@ -191,7 +191,7 @@ body {
   }
 
   @page {
-    margin: 0.5in !important;
+    margin: 1in !important;
   }
 
   .page-wrapper {
@@ -244,14 +244,15 @@ body {
   #print-button,
   .cv-title-row,
   .cv-page-title,
+  .page-title-block,
   .blockquote,
-  .rainbow-hr, 
+  .rainbow-hr,
   .wave-container,
   .print-name-section,
   .print-hide,
   .personal-info-section,
   .page-banner {
-    display: none !important;  
+    display: none !important;
   }
 
   .print-only {

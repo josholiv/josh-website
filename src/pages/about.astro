@@ -5,7 +5,7 @@ import TriathlonStats from '../components/TriathlonStats.jsx';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 import { Image } from 'astro:assets';
-import TOC from '../components/TOC.astro';
+import Panels from '../components/Panels.astro';
 import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 import { PAGE_META } from '../data/page-meta';
 
@@ -16,7 +16,7 @@ const pageTitle = "Josh Olivier - About";
 
 <BaseLayout pageTitle={pageTitle} titleHtml="About me" shouldCenterTitle={false} ogImage="/social-cards/about.png" description={PAGE_META.about.description}>
 
-<TOC />
+<Panels />
 
       <p>
         I'm an incoming Psychology PhD student at the University of California, Riverside, and I've spent the last few years working as 
@@ -58,18 +58,6 @@ const pageTitle = "Josh Olivier - About";
         There has never been a more urgent time to invest in scientific research aimed at understanding 
         mechanisms and indicators of age-related cognitive decline. 
       </p>
-
-    <h3>Interest categories</h3>
-    <p>
-      My overall research interests fall into four related categories:
-    <ol>
-        <li>The nature of memory and how we can best define and measure it</li>
-        <li>How brain structure is related to memory formation and retrieval</li>
-        <li>How memory processes change with age across the lifespan</li>
-        <li>How neurodegenerative conditions, including Alzheimer's disease, alter memory systems and how we can better detect age-related cognitive decline</li>
-      </ol>
-    </p>
-
 
     <h2>Hobbies and other stuff</h2>
     
