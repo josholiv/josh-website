@@ -140,45 +140,29 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
       <ul class="blog-list">
         {postsToShow.map(post => (
           <li class="blog-post">
-            <a href={`/posts/${post.id}/`} class="post-wrapper post-card-link">
-              {post.data.image?.url && (
-                <div class="blog-thumbnail-wrapper">
-                  <img
-                    src={post.data.image.url}
-                    alt={post.data.image.alt || post.data.title}
-                    class="blog-thumbnail"
-                  />
-                </div>
-              )}
+            <a href={`/posts/${post.id}/`} class="post-wrapper post-card-link related-post-link">
               <div class="post-text">
+                <div class="post-tag-icons">
+                  {post.data.tags?.filter(tag => getTagIcon(tag)).map(tag => {
+                    const TagIcon = getTagIcon(tag);
+                    return TagIcon ? (
+                      <span class={`tag-post-icon ${getTagThemeClass(tag)}`}>
+                        <TagIcon size="1.25rem" aria-label={tag} />
+                      </span>
+                    ) : null;
+                  })}
+                  <span class="pub-date">
+                    {post.data.dateModified && new Date(post.data.dateModified).toDateString() !== new Date(post.data.pubDate).toDateString()
+                      ? <>Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</>
+                      : new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+                    }
+                    {' | '}<span class="post-read-time">{post.data.readTime} min</span>
+                  </span>
+                </div>
                 <div class="post-title">
                   {(post.data.tags?.includes('books') && post.data.bookTitle)
                     ? <span>Book review: <em>{post.data.bookTitleShort ?? post.data.bookTitle}</em></span>
                     : post.data.title}
-                </div>
-                <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
-                  <span class="pub-date">
-                    {new Date(post.data.pubDate).toLocaleDateString('en-US', {
-                      month: 'short',
-                      year: 'numeric',
-                      timeZone: 'UTC',
-                    })}
-                  </span>
-                  <span style="color: var(--text-faint);">|</span>
-                  <span class="post-read-time">
-                    {post.data.readTime} min
-                  </span>
-                </div>
-                <div class="tags" style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-                  {post.data.tags?.map(tag => {
-                    const TagIcon = getTagIcon(tag);
-                    return (
-                      <span class={`tag-blogsorter ${getTagThemeClass(tag)}`}>
-                        {TagIcon ? <TagIcon size="0.9rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
-                        <span>{tag}</span>
-                      </span>
-                    );
-                  })}
                 </div>
               </div>
             </a>
@@ -187,10 +171,6 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
       </ul>
     </div>
   )}
-
-  ← <a href="/blog">back to blog</a>
-
-  <div id="copy-toast">Link copied!</div>
 
   <script set:html={responsiveImagesScript} />
 
@@ -256,6 +236,15 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
 </style>
 
 <script>
+  document.querySelectorAll<HTMLElement>('.related-post-link').forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const me = e as MouseEvent;
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty('--mouse-x', `${me.clientX - rect.left}px`);
+      el.style.setProperty('--mouse-y', `${me.clientY - rect.top}px`);
+    });
+  });
+
   const btn = document.getElementById('copy-link-btn');
   const icon = document.getElementById('copy-link-icon');
   const toast = document.getElementById('copy-toast');
