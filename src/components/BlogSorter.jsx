@@ -204,7 +204,9 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                   <div className="post-text">
 
                     <div className="post-tag-icons">
-                      {(() => { const t = post.data.tags?.find(tag => getTagIcon(tag)); return t ? <span className={`tag-post-icon ${getTagThemeClass(t)}`}>{renderTagIconOnly(t)}</span> : null; })()}
+                      {post.data.tags?.filter(tag => getTagIcon(tag)).map(tag => (
+                        <span key={tag} className={`tag-post-icon ${getTagThemeClass(tag)}`}>{renderTagIconOnly(tag)}</span>
+                      ))}
                       <span className="pub-date">
                         {post.data.dateModified && new Date(post.data.dateModified).toDateString() !== new Date(post.data.pubDate).toDateString()
                           ? <>Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</>

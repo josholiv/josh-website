@@ -399,11 +399,11 @@ for (const [k, v] of Object.entries(countryMapRaw as Record<string, unknown>)) {
 const countryCounts: Record<string, { count: number; authors: Set<string> }> = {};
 const allAuthorsCounted = new Set<string>();
 for (const book of books) {
-  const firstAuthor = ((book as any).authors || '').split(',')[0]?.trim();
-  if (!firstAuthor) continue;
-  const iso = authorToCountry[normalizeName(firstAuthor)];
-  if (!iso) continue;
-  const norm = normalizeName(firstAuthor);
+  const authorList = ((book as any).authors || '').split(',').map((a: string) => a.trim()).filter(Boolean);
+  const matchedAuthor = authorList.find((a: string) => authorToCountry[normalizeName(a)]);
+  if (!matchedAuthor) continue;
+  const iso = authorToCountry[normalizeName(matchedAuthor)];
+  const norm = normalizeName(matchedAuthor);
   if (!countryCounts[iso]) countryCounts[iso] = { count: 0, authors: new Set() };
   if (!countryCounts[iso].authors.has(norm)) {
     countryCounts[iso].authors.add(norm);

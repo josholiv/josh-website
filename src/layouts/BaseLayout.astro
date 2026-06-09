@@ -28,7 +28,7 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
   <head>
     <script is:inline>
       const stored = localStorage?.getItem("theme");
-      if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      if (stored !== "light") {
         document.documentElement.classList.add("dark");
         document.documentElement.dataset.theme = "dark";
       } else {

@@ -1,7 +1,7 @@
 /** Single source of truth for static page metadata used in banners and social cards. */
 
 /** Short tagline shown in the footer and index page banner. */
-export const TAGLINE = "Incoming PhD student • Amateur triathlete • 3D printing enthusiast";
+export const TAGLINE = "Incoming PhD student interested in memory, aging, and cognitive neuroscience";
 
 export const PAGE_META: Record<string, { title: string; description: string }> = {
   home:      { title: "Josh Olivier",              description: TAGLINE },
