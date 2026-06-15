@@ -143,7 +143,7 @@
 --accent-hover:      var(--cyan-600);      /* #256c65 */
 --link-color:        var(--text-normal);
 --link-color-hover:  var(--cyan-400);      /* #49afa6 */
---code-bg:           var(--neutral-950);   /* #10100f */
+--code-bg:           var(--neutral-900);   /* #10100f */
 --code-text:         var(--neutral-300);   /* #cdcbc8 */
 --code-border:       var(--neutral-700);   /* #464542 */
 --btn-text:          var(--text-normal);

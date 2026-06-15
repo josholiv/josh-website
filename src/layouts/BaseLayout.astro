@@ -12,7 +12,7 @@ import '../styles/font-display-override.css';
 import atkinsonNextFont from '@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2?url';
 import atkinsonMonoFont from '@fontsource-variable/atkinson-hyperlegible-mono/files/atkinson-hyperlegible-mono-latin-wght-normal.woff2?url';
 
-const { pageTitle, titleHtml, shouldCenterTitle, shouldShowTitle = true, showBanner = false, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, pageTitleClass, shouldShowTitle = true, showBanner = false, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
 
 const siteUrl = 'https://josholivier.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
@@ -79,7 +79,7 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
         )}
         {shouldShowTitle && (
           <div class="page-title-block">
-            <h1 class={shouldCenterTitle ? 'center-title' : ''}>
+            <h1 class={`${shouldCenterTitle ? 'center-title' : ''} ${pageTitleClass || ''}`.trim()}>
               {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
             </h1>
             {descriptionHtml ? (
