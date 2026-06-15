@@ -11,7 +11,7 @@ const description = Astro.url.searchParams.get("description") || "";
     <meta charset="utf-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
       * {
         margin: 0;
@@ -22,8 +22,8 @@ const description = Astro.url.searchParams.get("description") || "";
       body {
         width: 1200px;
         height: 630px;
-        background: #191919;
-        font-family: "Inter", sans-serif;
+        background: #100f0f;
+        font-family: "Atkinson Hyperlegible Next", sans-serif;
         display: grid;
         grid-template-columns: 1fr;
         position: relative;
@@ -34,7 +34,7 @@ const description = Astro.url.searchParams.get("description") || "";
       .glow {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 100% 20%, #ddf9fc 10%, #1d6b74 24%, #154c53 28%, #0c2b2e 37%, #081c1f 50%, transparent 55%);
+        background: radial-gradient(circle at 100% 20%, #eaf6f5 10%, #256c65 24%, #1a4d48 28%, #0f2b29 37%, #0a1d1b 50%, transparent 55%);
         pointer-events: none;
         z-index: 0;
         filter: blur(90px);
@@ -71,19 +71,19 @@ const description = Astro.url.searchParams.get("description") || "";
       }
 
       .brain-circuit-icon {
-        color: #f3f3f3;
+        color: #f4f3f3;
         flex-shrink: 0;
       }
 
       .site-name {
-        font-family: "DM Serif Text", serif;
+        font-family: "Atkinson Hyperlegible Next", sans-serif;
         font-size: 22px;
-        font-weight: 400;
+        font-weight: 700;
         line-height: 1;
       }
 
-      .site-name-main { color: #f3f3f3; }
-      .site-name-domain { color: #454545; }
+      .site-name-main { color: #f4f3f3; }
+      .site-name-domain { color: #464542; }
 
       .title-group {
         display: flex;
@@ -92,21 +92,21 @@ const description = Astro.url.searchParams.get("description") || "";
       }
 
       .title {
-        font-family: "DM Serif Text", serif;
+        font-family: "Atkinson Hyperlegible Next", sans-serif;
         font-size: 80px;
-        font-weight: 400;
+        font-weight: 700;
         line-height: 1.12;
-        color: #f3f3f3;
+        color: #f4f3f3;
         max-width: 900px;
         position: relative;
       }
 
       .description {
-        font-family: "Inter", sans-serif;
+        font-family: "Atkinson Hyperlegible Next", sans-serif;
         font-size: 28px;
         font-weight: 400;
         line-height: 1.5;
-        color: #a0a0a0;
+        color: #a2a099;
         max-width: 900px;
         position: relative;
       }

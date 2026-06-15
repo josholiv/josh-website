@@ -3,10 +3,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Callout from '../components/Callout.astro';
 import Dropdown from '../components/Dropdown.astro';
 import Panels from '../components/Panels.astro';
-import { Bike, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, BookOpen, Activity, Globe } from "lucide-preact";
+import Social from '../components/social.astro';
+import { Bike, Cog as CogIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, BookOpen, Activity, Globe, Radio, Briefcase, GraduationCap } from "lucide-preact";
 
 const isDev = import.meta.env.DEV;
 if (!isDev) return Astro.redirect('/404');
+
+const tsxSnippet = `const fetchChessStats = async (username: string) => {
+  const url = 'https://api.chess.com/pub/player/' + username + '/stats';
+  const response = await fetch(url);
+  return await response.json();
+};`;
+
+const bashSnippet = `npm install astro-expressive-code`;
 ---
 
 <BaseLayout pageTitle="Style Guide" titleHtml="Style Guide <span class='title-muted'>/ dev only</span>" shouldCenterTitle={false}>
@@ -16,13 +25,13 @@ if (!isDev) return Astro.redirect('/404');
   <!-- ─── Typography ─── -->
   <h2>Typography</h2>
 
-  <h1>Heading 1 — DM Serif Text</h1>
-  <h2>Heading 2 — Inter</h2>
-  <h3>Heading 3 — Inter, italic</h3>
-  <h4>Heading 4 — Inter</h4>
-  <h5>Heading 5 — Inter, italic</h5>
-  <h6>Heading 6 — Inter</h6>
-  <p>Body text — Inter. The quick brown fox jumps over the lazy dog. <strong>Bold text.</strong> <em>Italic text.</em> <strong><em>Bold italic.</em></strong></p>
+  <h1>Heading 1 — Atkinson Hyperlegible Next</h1>
+  <h2>Heading 2 — Atkinson Hyperlegible Next</h2>
+  <h3>Heading 3 — Atkinson Hyperlegible Next, italic</h3>
+  <h4>Heading 4 — Atkinson Hyperlegible Next</h4>
+  <h5>Heading 5 — Atkinson Hyperlegible Next, italic</h5>
+  <h6>Heading 6 — Atkinson Hyperlegible Next</h6>
+  <p>Body text — Atkinson Hyperlegible Next. The quick brown fox jumps over the lazy dog. <strong>Bold text.</strong> <em>Italic text.</em> <strong><em>Bold italic.</em></strong></p>
   <p>A paragraph with an <a href="#">inline link</a> and an <a href="https://example.com" target="_blank">external link</a> (should show external link icon).</p>
   <p class="title-muted">Muted text using <code>.title-muted</code></p>
 
@@ -31,6 +40,21 @@ if (!isDev) return Astro.redirect('/404');
   <!-- ─── Code ─── -->
   <h2>Inline Code</h2>
   <p>Use <code>const x = 1</code> for inline code. Or reference a class like <code>.post-wrapper</code>.</p>
+
+  <hr />
+
+  <!-- ─── Code Blocks ─── -->
+  <h2>Code Blocks</h2>
+  <p>Fenced code blocks, rendered with Expressive Code and synced to the site's light/dark theme via <code>--code-bg</code> and <code>--code-text</code>.</p>
+
+  <div class="demo-code-frame">
+    <div class="demo-code-header">chess-stats.tsx</div>
+    <pre class="demo-code-body"><code set:text={tsxSnippet} /></pre>
+  </div>
+
+  <div class="demo-code-frame">
+    <pre class="demo-code-body"><code set:text={bashSnippet} /></pre>
+  </div>
 
   <hr />
 
@@ -47,13 +71,50 @@ if (!isDev) return Astro.redirect('/404');
 
   <hr />
 
+  <!-- ─── Checkboxes ─── -->
+  <h2>Checkboxes</h2>
+  <p>Used for the blog sidebar's tag filters and task lists in posts.</p>
+  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+      <input type="checkbox" /> Unchecked
+    </label>
+    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+      <input type="checkbox" checked /> Checked
+    </label>
+    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+      <input type="checkbox" disabled /> Disabled
+    </label>
+    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+      <input type="checkbox" checked disabled /> Disabled, checked
+    </label>
+  </div>
+
+  <hr />
+
+  <!-- ─── Search & Sort Controls ─── -->
+  <h2>Search &amp; Sort Controls</h2>
+  <p>Used on the blog page to search and sort posts.</p>
+  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+    <div style="position: relative;">
+      <input type="text" placeholder="Search..." class="blog-search" />
+      <kbd class="blog-search-kbd">/</kbd>
+    </div>
+    <select class="sort-select">
+      <option>Last updated</option>
+      <option>Newest → oldest</option>
+      <option>Oldest → newest</option>
+    </select>
+  </div>
+
+  <hr />
+
   <!-- ─── Tags ─── -->
   <h2>Tags</h2>
-  <p>Clickable tags (used in tag sidebar):</p>
+  <p>Clickable tags (used on post pages, link to the blog with that tag selected):</p>
   <div class="tags">
     <span class="tag tag-theme-3dprinting"><CogIcon size="0.9rem" class="tag-icon" /> <span>3Dprinting</span></span>
     <span class="tag tag-theme-science"><Dna size="0.9rem" class="tag-icon" /> <span>science</span></span>
-    <span class="tag tag-theme-blog active"><Rss size="0.9rem" class="tag-icon" /> <span>blog</span></span>
+    <span class="tag tag-theme-blogging"><Rss size="0.9rem" class="tag-icon" /> <span>blog</span></span>
     <span class="tag tag-theme-code"><CodeIcon size="0.9rem" class="tag-icon" /> <span>code</span></span>
   </div>
 
@@ -64,12 +125,27 @@ if (!isDev) return Astro.redirect('/404');
     <span class="tag-blogsorter tag-theme-code"><CodeIcon size="0.9rem" class="tag-icon" /> <span>code</span></span>
   </div>
 
-  <p>Tags with counts (used in tag sidebar):</p>
-  <div class="tags">
-    <span class="tag tag-theme-3dprinting"><CogIcon size="0.9rem" class="tag-icon" /> <span>3Dprinting</span> <span class="tag-count">(4)</span></span>
-    <span class="tag tag-theme-science"><Dna size="0.9rem" class="tag-icon" /> <span>science</span> <span class="tag-count">(12)</span></span>
-    <span class="tag tag-theme-travel"><MapIcon size="0.9rem" class="tag-icon" /> <span>travel</span> <span class="tag-count">(3)</span></span>
-  </div>
+  <p>Tag filter checkboxes with counts (used in the blog sidebar's Tags panel):</p>
+  <ul class="tag-filter-list" style="list-style: none; padding: 0;">
+    <li class="tag-filter-item">
+      <label class="tag-filter-label">
+        <input type="checkbox" class="tag-filter-checkbox" checked />
+        <span class="tag tag-theme-3dprinting"><CogIcon size="0.9rem" class="tag-icon" /> <span>3Dprinting</span> <span class="tag-count">(4)</span></span>
+      </label>
+    </li>
+    <li class="tag-filter-item">
+      <label class="tag-filter-label">
+        <input type="checkbox" class="tag-filter-checkbox" />
+        <span class="tag tag-theme-science"><Dna size="0.9rem" class="tag-icon" /> <span>science</span> <span class="tag-count">(12)</span></span>
+      </label>
+    </li>
+    <li class="tag-filter-item">
+      <label class="tag-filter-label">
+        <input type="checkbox" class="tag-filter-checkbox" />
+        <span class="tag tag-theme-travel"><MapIcon size="0.9rem" class="tag-icon" /> <span>travel</span> <span class="tag-count">(3)</span></span>
+      </label>
+    </li>
+  </ul>
 
   <hr />
 
@@ -290,6 +366,26 @@ if (!isDev) return Astro.redirect('/404');
 
   <hr />
 
+  <!-- ─── Blog Post Card ─── -->
+  <h2>Blog Post Card</h2>
+  <p>Used in the blog post list. Mouse over to see the glow effect.</p>
+  <ul class="blog-list">
+    <li class="blog-post">
+      <a href="#" class="post-wrapper post-card-link">
+        <div class="post-text">
+          <div class="post-tag-icons">
+            <span class="tag-post-icon tag-theme-3dprinting"><CogIcon size="1.25rem" aria-label="3dprinting" /></span>
+            <span class="tag-post-icon tag-theme-science"><Dna size="1.25rem" aria-label="science" /></span>
+            <span class="pub-date">Jun 2026 | <span class="post-read-time">5 min</span></span>
+          </div>
+          <div class="post-title">Example blog post title</div>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <hr />
+
   <!-- ─── Stat Cards ─── -->
   <h2>Stat Cards</h2>
   <p>Used on the bookshelf and about pages to display key numbers. Mouse over to see the glow effect.</p>
@@ -313,6 +409,18 @@ if (!isDev) return Astro.redirect('/404');
 
   <hr />
 
+  <!-- ─── Social Links ─── -->
+  <h2>Social Links</h2>
+  <p>Used in the Links sidebar panel and, on small screens, the footer.</p>
+  <ul class="social-container" style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 1rem;">
+    <li><Social platform="github.com" username="josholiv" icon={CodeIcon} displayName="GitHub" /></li>
+    <li><Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky" /></li>
+    <li><Social platform="linkedin.com" username="in/joshua-olivier/" icon={Briefcase} displayName="LinkedIn" /></li>
+    <li><Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD" /></li>
+  </ul>
+
+  <hr />
+
   <!-- ─── Color Palette ─── -->
   <h2>Color Palette</h2>
 
@@ -320,6 +428,7 @@ if (!isDev) return Astro.redirect('/404');
     { name: 'blue',    shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'green',   shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'orange',  shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
+    { name: 'yellow',  shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'red',     shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'pink',    shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
     { name: 'purple',  shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
@@ -327,7 +436,7 @@ if (!isDev) return Astro.redirect('/404');
     { name: 'neutral', shades: ['050','100','200','300','400','500','600','700','800','900','950'] },
   ].map(({ name, shades }) => (
     <div style="margin-bottom: 0.75rem;">
-      <p style="margin: 0 0 0.35rem; font-family: 'Atkinson Hyperlegible Mono', monospace; font-size: 0.875rem;">{name}</p>
+      <p style="margin: 0 0 0.35rem; font-family: 'Atkinson Hyperlegible Mono Variable', 'Atkinson Hyperlegible Mono Fallback', monospace; font-size: 0.875rem;">{name}</p>
       <div style="display: flex; gap: 2px;">
         {shades.map(shade => (
           <div
@@ -360,8 +469,36 @@ if (!isDev) return Astro.redirect('/404');
 
 </BaseLayout>
 
+<style>
+  .demo-code-frame {
+    border-radius: 7px;
+    overflow: hidden;
+    background-color: var(--code-bg);
+    margin-bottom: 1rem;
+  }
+
+  .demo-code-header {
+    padding: 0.4rem 0.75rem;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--bg-border);
+  }
+
+  .demo-code-body {
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    overflow-x: auto;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--code-text);
+  }
+</style>
+
 <script>
-  document.querySelectorAll('.stat-card, .explore-card').forEach((card) => {
+  document.querySelectorAll('.stat-card, .explore-card, .post-card-link').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);

@@ -1,168 +1,207 @@
-/* accessible color palette with consistent luminance generated with:
-https://perceptualpalettes.alexdunn.au/?c=green%2333cc33%2Corange%23ff9900%2Cblue%233399ff%2Cneutral%23000000%2Cpurple%239933ff%2Cred%23ff0000%2Cpink%23ff3399%2Ccyan%233bdbed&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true
-*/
+/*
+ * Color palette: a tweaked version of the Flexoki color system
+ * (https://stephango.com/flexoki), with each hue regenerated for
+ * consistent perceptual luminance using:
+ * https://perceptualpalettes.alexdunn.au/?c=red%23d14d41%2Corange%23da702c%2Cyellow%23d0a215%2Cgreen%23879a39%2Ccyan%233aa99f%2Cblue%234385be%2Cpurple%238b7ec8%2Cmagenta%23ce5d97%2C%239f9d96&l=90%2C80%2C70%2C60%2C35%2C21%2C12%2C6%2C2%2C1%2C0.5&n=false&i=true
+ */
 
 :root {
---green-050: #e6f9e6;
---green-100: #c9f2c9;
---green-200: #a9eaa9;
---green-300: #84e084;
---green-400: #2eb82e;
---green-500: #249224;
---green-600: #1c701c;
---green-700: #145014;
---green-800: #0b2d0b;
---green-900: #081e08;
---green-950: #051305;
---orange-050: #fff2de;
---orange-100: #ffe3ba;
---orange-200: #ffd391;
---orange-300: #ffc062;
---orange-400: #e68a00;
---orange-500: #b66d00;
---orange-600: #8c5400;
---orange-700: #643c00;
---orange-800: #392200;
---orange-900: #261700;
---orange-950: #170e00;
---blue-050: #ebf5ff;
---blue-100: #d5eaff;
---blue-200: #bcdeff;
---blue-300: #a1d0ff;
---blue-400: #48a4ff;
---blue-500: #2b81d6;
---blue-600: #2163a5;
---blue-700: #184776;
---blue-800: #0d2843;
---blue-900: #091a2c;
---blue-950: #05101b;
---neutral-050: #f3f3f3;
---neutral-100: #e7e7e7;
---neutral-200: #dadada;
---neutral-300: #cbcbcb;
---neutral-400: #a0a0a0;
---neutral-500: #7e7e7e;
---neutral-600: #616161;
---neutral-700: #454545;
---neutral-800: #272727;
---neutral-900: #191919;
---neutral-950: #101010;
---purple-050: #f8f1ff;
---purple-100: #f0e2ff;
---purple-200: #e8d1ff;
---purple-300: #dfbfff;
---purple-400: #c184ff;
---purple-500: #a74fff;
---purple-600: #852cdd;
---purple-700: #60209f;
---purple-800: #37125b;
---purple-900: #250c3d;
---purple-950: #170827;
---red-050: #fff0f0;
---red-100: #ffe0e0;
---red-200: #ffcece;
---red-300: #ffbaba;
---red-400: #ff7474;
---red-500: #fe0000;
---red-600: #c60000;
---red-700: #910000;
---red-800: #560000;
---red-900: #3d0000;
---red-950: #2a0000;
---pink-050: #ffeff7;
---pink-100: #ffdfef;
---pink-200: #ffcce5;
---pink-300: #ffb6db;
---pink-400: #ff6bb5;
---pink-500: #e82e8b;
---pink-600: #b4246c;
---pink-700: #821a4e;
---pink-800: #4a0f2d;
---pink-900: #320a1e;
---pink-950: #200613;
---cyan-050: #ddf9fc;
---cyan-100: #b6f2f8;
---cyan-200: #87e9f4;
---cyan-300: #4cdeef;
---cyan-400: #2fafbd;
---cyan-500: #258b96;
---cyan-600: #1d6b74;
---cyan-700: #154c53;
---cyan-800: #0c2b2e;
---cyan-900: #081c1f;
---cyan-950: #051213;
+  --black: #100f0f;
+  --paper: #fffcf0;
+
+  /* Neutral ramp (perceptual, anchored to Flexoki base-400 #9f9d96) */
+  --neutral-050: #f4f3f3;
+  --neutral-100: #e8e7e5;
+  --neutral-150: #dbdad7;
+  --neutral-200: #dbdad7;
+  --neutral-300: #cdcbc8;
+  --neutral-400: #a2a099;
+  --neutral-500: #807e79;
+  --neutral-600: #62615d;
+  --neutral-700: #464542;
+  --neutral-800: #272725;
+  --neutral-850: #1a1918;
+  --neutral-900: #1a1918;
+  --neutral-950: #10100f;
+
+  /* Red */
+  --red-050: #fbf1f0;
+  --red-100: #f8e3e1;
+  --red-200: #f3d2cf;
+  --red-300: #efc1bd;
+  --red-400: #e08880;
+  --red-500: #d3564a;
+  --red-600: #a83e34;
+  --red-700: #792c25;
+  --red-800: #441915;
+  --red-900: #2e110e;
+  --red-950: #1c0a09;
+
+  /* Orange */
+  --orange-050: #fcf2eb;
+  --orange-100: #f8e3d6;
+  --orange-200: #f4d4bf;
+  --orange-300: #efc3a6;
+  --orange-400: #e18b53;
+  --orange-500: #c36427;
+  --orange-600: #974d1e;
+  --orange-700: #6c3716;
+  --orange-800: #3d1f0c;
+  --orange-900: #281508;
+  --orange-950: #190d05;
+
+  /* Yellow */
+  --yellow-050: #f9f3e2;
+  --yellow-100: #f3e7c2;
+  --yellow-200: #ecd9a0;
+  --yellow-300: #e4ca79;
+  --yellow-400: #c59a14;
+  --yellow-500: #9c7a10;
+  --yellow-600: #785e0c;
+  --yellow-700: #564309;
+  --yellow-800: #302605;
+  --yellow-900: #201903;
+  --yellow-950: #140f02;
+
+  /* Green */
+  --green-050: #f3f5eb;
+  --green-100: #e5e9d5;
+  --green-200: #d7ddbd;
+  --green-300: #c7d0a3;
+  --green-400: #97a753;
+  --green-500: #758631;
+  --green-600: #5a6726;
+  --green-700: #40491b;
+  --green-800: #24290f;
+  --green-900: #181b0a;
+  --green-950: #0f1106;
+
+  /* Cyan */
+  --cyan-050: #eaf6f5;
+  --cyan-100: #d4ecea;
+  --cyan-200: #bbe1de;
+  --cyan-300: #a0d6d1;
+  --cyan-400: #49afa6;
+  --cyan-500: #308c84;
+  --cyan-600: #256c65;
+  --cyan-700: #1a4d48;
+  --cyan-800: #0f2b29;
+  --cyan-900: #0a1d1b;
+  --cyan-950: #061211;
+
+  /* Blue */
+  --blue-050: #eff4f9;
+  --blue-100: #dde9f3;
+  --blue-200: #cadced;
+  --blue-300: #b5cfe5;
+  --blue-400: #74a5cf;
+  --blue-500: #4283bb;
+  --blue-600: #336590;
+  --blue-700: #244867;
+  --blue-800: #14283a;
+  --blue-900: #0d1b26;
+  --blue-950: #081017;
+
+  /* Purple */
+  --purple-050: #f4f3fa;
+  --purple-100: #e8e5f4;
+  --purple-200: #dbd7ee;
+  --purple-300: #cdc8e7;
+  --purple-400: #a398d3;
+  --purple-500: #8175ba;
+  --purple-600: #635a8f;
+  --purple-700: #474066;
+  --purple-800: #282439;
+  --purple-900: #1a1826;
+  --purple-950: #100f17;
+
+  /* Pink (Flexoki's magenta ramp) */
+  --pink-050: #fbf1f6;
+  --pink-100: #f6e2ec;
+  --pink-200: #f1d1e2;
+  --pink-300: #ecbfd6;
+  --pink-400: #da85b1;
+  --pink-500: #c55990;
+  --pink-600: #98456f;
+  --pink-700: #6d3150;
+  --pink-800: #3d1c2d;
+  --pink-900: #29121e;
+  --pink-950: #190b12;
 
 /* ─── Theme tokens (default: dark theme) ─── */
---bg-primary:        var(--neutral-900);   /* #191919 */
---bg-secondary:      var(--neutral-800);   /* #272727 */
---bg-tertiary:       var(--neutral-700);   /* #454545 */
---bg-border:         var(--neutral-700);   /* #454545 */
---text-normal:       var(--neutral-400);   /* #a0a0a0 */
---text-muted:        var(--neutral-500);   /* #7e7e7e */
---text-faint:        var(--neutral-600);   /* #616161 */
---text-on-accent:    var(--neutral-050);   /* #f3f3f3 */
---text-heading:      var(--neutral-300);   /* #f3f3f3 */
---accent:            var(--cyan-400);      /* #48a4ff */
---accent-hover:      var(--cyan-200);      /* #a1d0ff */
---link-color:        var(--cyan-400);      /* #48a4ff */
---link-color-hover:  var(--cyan-200);      /* #bcdeff */
---code-bg:           var(--neutral-800);   /* #272727 */
---code-text:         var(--neutral-400);   /* #a0a0a0 */
---code-border:       var(--neutral-600);   /* #616161 */ 
+--bg-primary:        var(--black);         /* #100f0f */
+--bg-secondary:      var(--neutral-900);   /* #1a1918 */
+--bg-tertiary:       var(--neutral-800);   /* #272725 */
+--bg-border:         var(--neutral-800);   /* #464542 */
+--text-normal:       var(--neutral-200);   /* #dbdad7 */
+--text-muted:        var(--neutral-400);   /* #a2a099 */
+--text-faint:        var(--neutral-500);   /* #807e79 */
+--text-on-accent:    var(--black);         /* #100f0f */
+--text-heading:      var(--text-normal);
+--icon-color:        var(--neutral-400);   /* #a2a099 */
+--accent:            var(--cyan-400);      /* #49afa6 */
+--accent-hover:      var(--cyan-600);      /* #256c65 */
+--link-color:        var(--text-normal);
+--link-color-hover:  var(--cyan-400);      /* #49afa6 */
+--code-bg:           var(--neutral-950);   /* #10100f */
+--code-text:         var(--neutral-300);   /* #cdcbc8 */
+--code-border:       var(--neutral-700);   /* #464542 */
 --btn-text:          var(--text-normal);
 --btn-text-hover:    var(--text-normal);
---btn-bg-hover:      var(--neutral-700);
---control-radius:    10px;
+--btn-bg-hover:      var(--neutral-800);   /* #272725 */
+--control-radius:    6px;
 }
 
 /* Light mode: either OS preference OR explicit toggle */
 @media (prefers-color-scheme: light) {
   :root:not(.dark) {
-    --bg-primary:         var(--neutral-100);
-    --bg-secondary:       var(--neutral-200);
-    --bg-tertiary:        var(--neutral-300);
-    --bg-border:          var(--neutral-300);
-    --text-normal:        var(--neutral-600);
-    --text-muted:         var(--neutral-500);
-    --text-faint:         var(--neutral-400);
-    --text-on-accent:     var(--neutral-950);
-    --text-heading:       var(--neutral-700);
-    --accent:             var(--cyan-600);
-    --accent-hover:       var(--cyan-700);
-    --link-color:         var(--cyan-600);
-    --link-color-hover:   var(--cyan-700);
-    --code-bg:            var(--neutral-200);
-    --code-text:          var(--neutral-700);
-    --code-border:        var(--neutral-300);
+    --bg-primary:         var(--paper);          /* #fffcf0 */
+    --bg-secondary:       var(--yellow-050);     /* #f9f3e2 */
+    --bg-tertiary:        var(--yellow-100);     /* #f3e7c2 */
+    --bg-border:          var(--yellow-200);    /* #dbdad7 */
+    --text-normal:        var(--black);          /* #100f0f */
+    --text-muted:         var(--neutral-600);    /* #62615d */
+    --text-faint:         var(--neutral-500);    /* #807e79 */
+    --text-on-accent:     var(--paper);          /* #fffcf0 */
+    --text-heading:       var(--text-normal);
+    --icon-color:         var(--yellow-600);     /* #785e0c */
+    --accent:             var(--cyan-600);       /* #256c65 */
+    --accent-hover:       var(--cyan-400);       /* #49afa6 */
+    --link-color:         var(--text-normal);
+    --link-color-hover:   var(--cyan-400);       /* #49afa6 */
+    --code-bg:            var(--yellow-050);     /* #f9f3e2 */
+    --code-text:          var(--neutral-700);    /* #464542 */
+    --code-border:        var(--yellow-200);     /* #ecd9a0 */
     --btn-text:           var(--text-normal);
     --btn-text-hover:     var(--text-normal);
-    --btn-bg-hover:       var(--neutral-300);
-    --control-radius:     10px;
+    --btn-bg-hover:       var(--yellow-100);     /* #f3e7c2 */
+    --control-radius:     6px;
   }
 }
 
 /* Explicit light override (toggle overrides dark OS preference) */
 html:not(.dark) {
-  --bg-primary:         var(--neutral-100);
-  --bg-secondary:       var(--neutral-200);
-  --bg-tertiary:        var(--neutral-300);
-  --bg-border:          var(--neutral-300);
-  --text-normal:        var(--neutral-600);
-  --text-muted:         var(--neutral-500);
-  --text-faint:         var(--neutral-400);
-  --text-on-accent:     var(--neutral-950);
-  --text-heading:       var(--neutral-700);
-  --accent:             var(--cyan-600);
-  --accent-hover:       var(--cyan-700);
-  --link-color:         var(--cyan-600);
-  --link-color-hover:   var(--cyan-700);
-  --code-bg:            var(--neutral-200);
-  --code-text:          var(--neutral-700);
-  --code-border:        var(--neutral-300);
+  --bg-primary:         var(--paper);          /* #fffcf0 */
+  --bg-secondary:       var(--yellow-050);     /* #f9f3e2 */
+  --bg-tertiary:        var(--yellow-100);     /* #f3e7c2 */
+  --bg-border:          var(--yellow-200);    /* #dbdad7 */
+  --text-normal:        var(--black);          /* #100f0f */
+  --text-muted:         var(--neutral-600);    /* #62615d */
+  --text-faint:         var(--neutral-500);    /* #807e79 */
+  --text-on-accent:     var(--paper);          /* #fffcf0 */
+  --text-heading:       var(--text-normal);
+  --icon-color:         var(--yellow-600);     /* #785e0c */
+  --accent:             var(--cyan-600);       /* #256c65 */
+  --accent-hover:       var(--cyan-400);       /* #49afa6 */
+  --link-color:         var(--text-normal);
+  --link-color-hover:   var(--cyan-400);       /* #49afa6 */
+  --code-bg:            var(--yellow-050);     /* #f9f3e2 */
+  --code-text:          var(--neutral-700);    /* #464542 */
+  --code-border:        var(--yellow-200);     /* #ecd9a0 */
   --btn-text:          var(--text-normal);
   --btn-text-hover:    var(--text-normal);
-  --btn-bg-hover:      var(--neutral-300);
-  --control-radius:    10px;
+  --btn-bg-hover:      var(--yellow-100);      /* #f3e7c2 */
+  --control-radius:    6px;
 
     /* Callout backgrounds */
   .callout-info    { background-color: var(--blue-200); }
@@ -180,47 +219,56 @@ html:not(.dark) {
   .callout-code     { background-color: var(--neutral-200); }
 }
 
+/* Lucide icons are fainter than surrounding text by default */
+.lucide {
+  color: var(--icon-color);
+}
+
+/* Tag icons keep their tag's theme color instead of the faint icon color */
+.tag .lucide,
+.tag-blogsorter .lucide,
+.tag-post-icon .lucide {
+  color: inherit;
+}
+
+/* Icons inside callout titles match the callout's color instead of the faint icon color */
+.callout-title .lucide {
+  color: inherit;
+}
+
 /* ── Fallback fonts with adjusted metrics to prevent layout shift on font swap ── */
 @font-face {
-  font-family: 'Inter Variable Fallback';
+  font-family: 'Atkinson Hyperlegible Next Fallback';
   src: local('Arial');
-  size-adjust: 107.4%;
-  ascent-override: 90.2%;
-  descent-override: 22.48%;
+  size-adjust: 105%;
+  ascent-override: 95%;
+  descent-override: 28%;
   line-gap-override: 0%;
 }
 
 @font-face {
-  font-family: 'DM Serif Text Fallback';
-  src: local('Georgia');
-  size-adjust: 97%;
-  ascent-override: 80%;
-  descent-override: 20%;
-  line-gap-override: 0%;
-}
-
-@font-face {
-  font-family: 'Ubuntu Mono Fallback';
+  font-family: 'Atkinson Hyperlegible Mono Fallback';
   src: local('Courier New');
-  size-adjust: 86%;
-  ascent-override: 78%;
-  descent-override: 19%;
+  size-adjust: 103%;
+  ascent-override: 85%;
+  descent-override: 22%;
   line-gap-override: 0%;
 }
 
     html {
-      font-family: "Inter Variable", "Inter Variable Fallback", sans-serif;
+      font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
+      font-size: 18px; /* Base font size for the whole site */
       overflow-y: scroll; /* Always reserve space for the scrollbar */
     }
 
     h1 {
       color: var(--text-heading);
-      font-family: "DM Serif Text", "DM Serif Text Fallback", serif;
+      font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
       line-height: 1.2;
-      letter-spacing: -0.02em;
-      font-weight: 400;
-      font-size: 3rem;
-      margin: 1.5rem 0;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+      font-size: 2rem;
+      margin: 0;
     }
 
     /* ── Page banner ── */
@@ -228,20 +276,20 @@ html:not(.dark) {
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      border-radius: 0 0 5px 5px;
+      border-radius: 0 0  7px 7px;
       background: var(--bg-primary);
       margin: 0 1rem 1rem;
-      min-height: 240px;
+      min-height: 90px;
       will-change: transform;
     }
 
     .page-title-block {
-      padding: 0 1rem 1rem;
+      padding: 0 1rem 0rem;
     }
 
     .page-title-block h1 {
       margin-top: 1rem;
-      margin-bottom: 0;
+      margin-bottom: 1rem;
     }
 
     @media (max-width: 639px) {
@@ -258,16 +306,17 @@ html:not(.dark) {
       inset: 0;
       background: radial-gradient(
         circle at 100% 20%,
-        #ddf9fc 10%,
-        #1d6b74 24%,
-        #154c53 28%,
-        #0c2b2e 37%,
-        #081c1f 50%,
+        var(--cyan-050) 10%,
+        var(--cyan-600) 24%,
+        var(--cyan-700) 28%,
+        var(--cyan-800) 37%,
+        var(--cyan-900) 50%,
         transparent 55%
       );
       filter: blur(90px);
       pointer-events: none;
       z-index: 0;
+      border-radius: inherit;
     }
 
     .page-banner::after {
@@ -276,6 +325,7 @@ html:not(.dark) {
       inset: 0;
       pointer-events: none;
       opacity: 0.4;
+      border-radius: inherit;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
       background-repeat: repeat;
       background-size: 200px 200px;
@@ -301,18 +351,18 @@ html:not(.dark) {
       line-height: 1.5;
       color: var(--text-normal);
       font-style: italic;
-      margin-top: 0.75rem;
-      margin-bottom: 0;
+      margin-top: 0;
+      margin-bottom: 2rem;
     }
 
     html:not(.dark) .page-banner::before {
       background: radial-gradient(
         circle at 100% 20%,
-        #ddf9fc 10%,
-        #0c2b2e 24%,
-        #154c53 28%,    
-        #1d6b74 37%,
-        #ddf9fc 50%,
+        var(--yellow-050) 10%,
+        var(--yellow-800) 24%,
+        var(--yellow-700) 28%,
+        var(--yellow-600) 37%,
+        var(--yellow-050) 50%,
         transparent 55%
       );
     }
@@ -337,21 +387,32 @@ html:not(.dark) {
 
     h2 {
       color: var(--text-heading);
-      font-size: 2rem;
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1;
+      margin-top: 2rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    h3, h4, h5, h6 {
       font-weight: 700;
       line-height: 1;
       margin-top: 2rem;
     }
 
     h3 {
-      font-size: 1.5rem;
+      color: var(--text-heading);
     }
 
-    h3, h4, h5, h6 {
-      color: var(--text-heading);
-      font-weight: 700;
-      line-height: 1;
-      margin-top: 2rem;
+    h4, h5 {
+      color: var(--text-muted);
+    }
+
+    h6 {
+      color: var(--text-faint);
     }
 
     .title-muted {
@@ -359,7 +420,7 @@ html:not(.dark) {
     }
 
     code {
-      font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
+      font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
       background-color: var(--code-bg);
       color: var(--code-text);
       padding: 0.25rem 0.35rem;
@@ -414,6 +475,13 @@ html:not(.dark) {
       isolation: isolate;
       margin: 0 1rem;
       padding: 0;
+      border-radius: 0 0 7px 7px;
+    }
+
+    /* On pages with a hero banner (index.astro), the header sits flush
+       against the banner below it, so its bottom corners stay square. */
+    .page-wrapper:has(.page-banner) header {
+      border-radius: 0;
     }
 
     .center-title {
@@ -520,7 +588,7 @@ html:not(.dark) {
   background: none;
   border: none;
   color: var(--button-text);
-  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -608,6 +676,17 @@ html:not(.dark) {
   display: flex;
 }
 
+.tag-filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.tag-filter-label .tag {
+  cursor: pointer;
+}
+
 .toc ul {
   list-style: none;
   padding: 0;
@@ -676,19 +755,14 @@ html:not(.dark) {
   /* Shift content left by half the (TOC + gap) so the content+TOC pair is
      centered as one unit on the screen. TOC sits on the right. */
   .page-wrapper {
-    margin-right: calc((12rem + 4rem) / 2);
+    margin-right: calc((12rem + 4rem) / 2 + 12rem);
   }
 
   .toc {
     position: fixed;
     top: 0.6rem;
-    /* font-size: 1rem normalises the ch unit so it matches the page-wrapper's
-       70ch (which resolves at the root 1rem).  Without this, .toc's 0.9rem
-       font-size makes ch ~10% smaller, pushing the panel into the content. */
     font-size: 1rem;
-    /* right = the exact position so the TOC left edge sits 1rem from the
-       content right edge (mirror of the previous left-side layout). */
-    right: calc(50% - 35ch - 9.75rem - 8rem);
+    right: calc(50% - 35ch - 8.75rem - 7rem);
     width: 14rem;
     margin-bottom: 0;
     max-height: calc(100vh - 0.6rem);
@@ -696,10 +770,8 @@ html:not(.dark) {
     z-index: 100;
   }
 
-  /* .toc-title and .toc-subitem a already declare font-size: 0.9rem
-     explicitly, so only .toc-item a needs restoring after the override above. */
   .toc-item a {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
 
@@ -943,6 +1015,21 @@ blockquote {
 .callout-note    .callout-title { color: var(--purple-400); }
 .callout-code    .callout-title { color: var(--neutral-400); }
 
+/* Light mode: use the 600-shades (anchored for use on light backgrounds) */
+html:not(.dark) .callout-info     .callout-title { color: var(--blue-600); }
+html:not(.dark) .callout-success  .callout-title { color: var(--green-600); }
+html:not(.dark) .callout-warning  .callout-title { color: var(--orange-600); }
+html:not(.dark) .callout-danger   .callout-title { color: var(--red-600); }
+html:not(.dark) .callout-tip      .callout-title { color: var(--pink-600); }
+html:not(.dark) .callout-note     .callout-title { color: var(--purple-600); }
+html:not(.dark) .callout-todo     .callout-title { color: var(--blue-600); }
+html:not(.dark) .callout-abstract .callout-title { color: var(--cyan-600); }
+html:not(.dark) .callout-example  .callout-title { color: var(--purple-600); }
+html:not(.dark) .callout-faq      .callout-title { color: var(--orange-600); }
+html:not(.dark) .callout-bug      .callout-title { color: var(--red-600); }
+html:not(.dark) .callout-quote    .callout-title { color: var(--neutral-600); }
+html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
+
 .callout-info,
 .callout-success,
 .callout-warning,
@@ -961,36 +1048,6 @@ blockquote {
   margin-left: 0;
   padding-bottom: 0.6rem;
   padding-top: 0.6rem;
-}
-
-/* Add external link Lucide icon automatically after every link with `target="_blank"` */
-a[target="_blank"]:not(.btn) {
-  display: inline;
-}
-
-a[target="_blank"]:not(.book-cover-link):not(.no-external-icon):not(.book-cover-badge):not(.rb-cover-hover-wrap):not(.rb-hardcover-badge):not(.btn):not(.social-link):not(.hardcover-badge):not(.cover-hover-wrap)::after {
-  content: "";
-  display: inline-block;
-  width: 0.9rem;
-  height: 0.9rem;
-  margin-left: 0.15rem;
-  vertical-align: middle;
-  position: relative;
-  top: -0.05em;
-  background-color: var(--link-color);
-  mask-image: url("/icons/external-link.svg");
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-
-  -webkit-mask-image: url("/icons/external-link.svg");
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-}
-
-a[target="_blank"]:not(.book-cover-link):not(.no-external-icon):not(.book-cover-badge):not(.rb-cover-hover-wrap):not(.rb-hardcover-badge):not(.btn):not(.social-link):not(.hardcover-badge):not(.cover-hover-wrap):hover::after {
-  background-color: var(--link-color-hover);
 }
 
   li::marker {
@@ -1057,7 +1114,7 @@ a[target="_blank"]:not(.book-cover-link):not(.no-external-icon):not(.book-cover-
 /* Mobile link styles */
 .nav-links a {
   display: block;
-  font-family: "Inter Variable", "Inter Variable Fallback", sans-serif;
+  font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
   text-align: left;
   color: var(--text-normal);
   text-decoration: none;
@@ -1179,6 +1236,7 @@ a[target="_blank"]:not(.book-cover-link):not(.no-external-icon):not(.book-cover-
     background-color: var(--bg-primary);
     border: none;
     margin: 0;
+    border-radius: 0;
   }
 }
 
@@ -1252,7 +1310,7 @@ figure.img-figure .blog-body-pic {
 /* Individual tag styling */
 .tag {
   margin: 0rem;
-  font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   color:  var(--text-normal);
   font-size: 1rem;
   position: relative;
@@ -1265,7 +1323,7 @@ figure.img-figure .blog-body-pic {
 /* Individual tag styling on BlogSorter component (just for show, with no cursor or hover effects!) */
 .tag-blogsorter {
   margin: 0rem;
-  font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   background-color: var(--bg-primary);
   color:  var(--text-normal);
   font-size: 0.9rem;
@@ -1302,7 +1360,7 @@ figure.img-figure .blog-body-pic {
 
 .tag[class*="tag-theme-"],
 .tag-blogsorter[class*="tag-theme-"] {
-  font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
 
 }
 
@@ -1338,10 +1396,14 @@ figure.img-figure .blog-body-pic {
   color: inherit;
 }
 
-.tag[class*="tag-theme-"]:hover,
-.tag[class*="tag-theme-"].active {
+.tag[class*="tag-theme-"]:hover {
   box-shadow: 0 0 0 0 currentColor;
   border-bottom: 2px solid currentColor;
+}
+
+/* The checkbox already shows selection state in the tag filter panel, so skip the underline hover */
+.tag-filter-label .tag[class*="tag-theme-"]:hover {
+  border-bottom: none;
 }
 
 html:not(.dark) .tag-theme-3dprinting {
@@ -1379,13 +1441,8 @@ a.tag, a.tag:visited {
 
 /* Count next to the tag */
 .tag-count {
-  font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   font-size: 0.9rem;
-}
-
-/* Styling for when the tag is active */
-.tag.active:not([class*="tag-theme-"]) {
-  background-color: var(--bg-border);
 }
 
 .tag:hover:not([class*="tag-theme-"]) {
@@ -1396,7 +1453,7 @@ a.tag, a.tag:visited {
   padding: 1rem;
   height: 2.25rem;
   font-size: 1rem;
-  font-family: "Ubuntu Mono", "Ubuntu Mono Fallback", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   cursor: pointer;
   background-color: var(--bg-secondary);
   color: var(--btn-text);
@@ -1428,6 +1485,56 @@ a.btn:visited:hover {
 
 code.btn-code {
   color: var(--btn-text);
+}
+
+/* Checkboxes, styled after the theme's task-list checkboxes */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-content: center;
+  vertical-align: middle;
+  border: 1px solid var(--bg-border);
+  border-radius: 4px;
+  background-color: var(--bg-primary);
+  cursor: pointer;
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+input[type="checkbox"]::after {
+  content: '';
+  width: 0.6rem;
+  height: 0.6rem;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  background-color: var(--bg-primary);
+  transform: scale(0);
+  transition: transform 0.1s ease;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+input[type="checkbox"]:checked::after {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:hover {
+  border-color: var(--accent);
+}
+
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+input[type="checkbox"]:disabled {
+  cursor: default;
+  opacity: 0.6;
 }
 
 #nextBtn {
@@ -1519,10 +1626,6 @@ li.blog-post {
   max-width: 100%;
   border-radius: 2px;
   cursor: pointer;
-}
-
-a.no-external-icon::after {
-  display: none;
 }
 
 .show-tags-toggle {
@@ -1661,7 +1764,7 @@ html:not(.dark) .post-card-link::before {
   background: var(--bg-secondary);
   color: var(--text-normal);
   font-size: 0.875rem;
-  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   cursor: pointer;
   outline: none;
 }
@@ -1719,7 +1822,7 @@ html:not(.dark) .sort-icon-btn.active {
   background: var(--bg-secondary);
   color: var(--text-normal);
   font-size: 0.9rem;
-  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   box-shadow: none;
   outline: none;
   max-width: 28rem;
@@ -1739,7 +1842,7 @@ html:not(.dark) .sort-icon-btn.active {
   right: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
-  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   font-size: 0.875rem;
   color: var(--text-faint);
   background: var(--bg-primary);
@@ -1754,7 +1857,7 @@ html:not(.dark) .sort-icon-btn.active {
   font-size: 0.875rem;
   color: var(--text-faint);
   margin: 0.5rem 0 0.75rem 0;
-  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
 }
 
   .post-text {
@@ -1830,6 +1933,20 @@ html:not(.dark) .sort-icon-btn.active {
     overflow: hidden;
   }
 
+  /* The Home link sits flush against the header's left edge, so its
+     hover/grain overlays need to respect the header's bottom-left
+     border-radius rather than squaring it off. */
+  .nav-links-home a {
+    border-radius: 0 0 0 7px;
+  }
+
+  /* When a page banner is present (index/home), the header is flush
+     with the banner so the Home link should not add its own bottom-left
+     rounding — remove it in that case to avoid a visible corner. */
+  .page-wrapper:has(.page-banner) .nav-links-home a {
+    border-radius: 0 !important;
+  }
+
   .nav-links a::before {
     content: '';
     position: absolute;
@@ -1877,6 +1994,11 @@ html:not(.dark) .sort-icon-btn.active {
   .nav-links a.active {
     color: var(--text-heading);
     background-color: var(--bg-primary);
+  }
+
+  .page-banner {
+    border-radius: 0;
+    border-bottom: 1px solid var(--bg-border);
   }
 
   .expanded a {
@@ -2036,7 +2158,7 @@ html:not(.dark) .sort-icon-btn.active {
 .stat-card-number {
   font-size: 1.8rem;
   font-weight: bold;
-  font-family: "Atkinson Hyperlegible Mono", monospace;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   color: var(--text-heading);
   line-height: 1;
 }

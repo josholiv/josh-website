@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Social from './social.astro';
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
-import { UserCircle, Code, GraduationCap, Briefcase, Radio, Cog } from "lucide-preact";
+import { UserCircle, Code, GraduationCap, Briefcase, Radio, Box } from "lucide-preact";
 import { TAGLINE } from '../data/page-meta';
 
 const { imageLoading = 'lazy' } = Astro.props;
@@ -13,7 +13,7 @@ footer {
   background-color: var(--bg-secondary);
   color: var(--text-normal);
   padding: 0.25rem 0 1rem 0;
-  border-radius: 5px;
+  border-radius: 7px 7px 0 0;
   margin: 2rem 1rem 0;
 }
 
@@ -37,9 +37,9 @@ footer {
   }
 
   .profile-pic {
-    width: 4.5rem;
-    height: 4.5rem;
-    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 7px;
     flex-shrink: 0;
   }
 
@@ -92,6 +92,14 @@ footer {
       display: none;
     }
   }
+
+  /* The Links panel (Panels.astro) is visible from 640px up, so the footer's
+     social links are only needed below that breakpoint. */
+  @media (min-width: 640px) {
+    .social-container {
+      display: none;
+    }
+  }
 </style>
 
 <footer>
@@ -104,7 +112,7 @@ footer {
         class="profile-pic"
         loading={imageLoading}
       />
-      <p><strong style="font-size: 16pt;">Hi, I'm Josh Olivier</strong> <br/><i>{TAGLINE}</i></p>
+      <p><strong style="font-size: 16pt;">Hi, I'm Josh</strong> <br/><i>{TAGLINE}</i></p>
     </div>
 
     <div class="footer-body">
@@ -114,7 +122,7 @@ footer {
         <li><Social platform="linkedin.com" username="in/joshua-olivier/" icon={Briefcase} displayName="LinkedIn"/></li>
         <li><Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD"/></li>
         <li><Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/></li>
-        <li><Social platform="thingiverse.com" username="josholiv" icon={Cog} displayName="Thingiverse" /></li>
+        <li><Social platform="thingiverse.com" username="josholiv" icon={Box} displayName="Thingiverse" /></li>
       </ul>
     </div>
 

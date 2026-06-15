@@ -11,6 +11,7 @@ html {
 }
 
 .h2-cv {
+  display: none;
   text-align: left;
   padding-bottom: 1.5rem;
   padding-top: 0.5rem;
@@ -186,12 +187,15 @@ body {
 
 @media print {
 
-  .toc {
+  .toc,
+  .toc-panel {
     display: none !important;
   }
 
   @page {
-    margin: 1in !important;
+    /* Use a fixed page size and tighter margins for CV prints (US letter) */
+    size: 8.5in 11in;
+    margin: 0.5in !important;
   }
 
   .page-wrapper {
@@ -208,8 +212,54 @@ body {
     margin-bottom: 0 !important;
   }
 
+  /* Reset top/right/left margins that browsers (notably Safari) may add, and
+     constrain wrapper width to page size so the content doesn't get squeezed
+     or shifted to the right when printing to PDF. */
+  /* Force light color-scheme and white backgrounds when printing from dark-mode */
+  :root {
+    color-scheme: light !important;
+  }
+
+  html, body, .page-wrapper, .cv-container, header, main {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .page-wrapper {
+    width: auto !important;
+    max-width: 8.5in !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .cv-container {
+    width: calc(8.5in - 1in) !important; /* account for left+right page margins */
+    max-width: calc(8.5in - 1in) !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure other common regions used by the site do not keep dark backgrounds */
+  .page-banner,
+  .page-title-block,
+  .page-header,
+  .personal-info-section,
+  .print-name-section {
+    background: transparent !important;
+    background-image: none !important;
+  }
+
   /* Make name bigger in print */
   .h2-cv {
+    display: revert;
     font-size: 20pt !important;
     font-weight: bold !important;
     margin-bottom: 0 !important;

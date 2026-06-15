@@ -1,5 +1,5 @@
 ---
-import { ChevronRight, Code, GraduationCap, Briefcase, Radio, Cog, X, Box, Dna, Rss, Map, SportShoe, Book } from 'lucide-preact';
+import { ChevronRight, Code, GraduationCap, Briefcase, Radio, X, Box, Dna, Rss, Map, SportShoe, Book } from 'lucide-preact';
 
 interface Heading {
   depth: number;
@@ -65,12 +65,12 @@ if (posts) {
     <div class="toc-body">
       <div class="toc-body-inner">
         <ul class="toc-links-list">
-          <li class="links-item"><a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Code size="0.9rem" />GitHub</a></li>
-          <li class="links-item"><a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Radio size="0.9rem" />Bluesky</a></li>
-          <li class="links-item"><a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Briefcase size="0.9rem" />LinkedIn</a></li>
-          <li class="links-item"><a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="0.9rem" />ORCiD</a></li>
-          <li class="links-item"><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="0.9rem" />Google Scholar</a></li>
-          <li class="links-item"><a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Cog size="0.9rem" />Thingiverse</a></li>
+          <li class="links-item"><a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Code size="1rem" />GitHub</a></li>
+          <li class="links-item"><a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Radio size="1rem" />Bluesky</a></li>
+          <li class="links-item"><a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Briefcase size="1rem" />LinkedIn</a></li>
+          <li class="links-item"><a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />ORCiD</a></li>
+          <li class="links-item"><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />Google Scholar</a></li>
+          <li class="links-item"><a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Box size="1rem" />Thingiverse</a></li>
         </ul>
       </div>
     </div>
@@ -122,11 +122,14 @@ if (posts) {
               const TagIcon = tagIconMap[tag.toLowerCase()] ?? null;
               return (
                 <li class="tag-filter-item">
-                  <span class={`tag ${getTagThemeClass(tag)}`} data-tag={tag} role="button" tabindex="0">
-                    {TagIcon ? <TagIcon size="0.9rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
-                    <span>{tag}</span>
-                    <span class="tag-count">({count})</span>
-                  </span>
+                  <label class="tag-filter-label">
+                    <input type="checkbox" class="tag-filter-checkbox" data-tag={tag} />
+                    <span class={`tag ${getTagThemeClass(tag)}`}>
+                      {TagIcon ? <TagIcon size="0.9rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+                      <span>{tag}</span>
+                      <span class="tag-count">({count})</span>
+                    </span>
+                  </label>
                 </li>
               );
             })}
@@ -150,7 +153,7 @@ if (posts) {
     display: none;
     align-items: center;
     gap: 0.45rem;
-    font-family: "DM Serif Text", serif;
+    font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
     font-size: 1.7rem;
     font-weight: 400;
     line-height: 1;
@@ -199,8 +202,8 @@ if (posts) {
     align-items: center;
     gap: 0.35rem;
     color: var(--link-color);
-    text-decoration: none;
-    font-size: 0.9rem;
+    /* text-decoration: none; */
+    font-size: 1rem;
   }
 
   .links-item a:hover {
@@ -211,7 +214,7 @@ if (posts) {
     .toc-panel {
       position: fixed;
       top: 0.6rem;
-      right: calc(50% - 35ch - 9.75rem - 8rem);
+      right: calc(50% - 35ch - 6rem - 4rem);
       width: 14rem;
       display: flex;
       flex-direction: column;
@@ -283,8 +286,8 @@ if (posts) {
   let selectedTags: string[] = [];
 
   function updateTagUI() {
-    document.querySelectorAll<HTMLElement>('#tag-panel [data-tag]').forEach(el => {
-      el.classList.toggle('active', selectedTags.includes(el.dataset.tag!));
+    document.querySelectorAll<HTMLInputElement>('#tag-panel .tag-filter-checkbox').forEach(el => {
+      el.checked = selectedTags.includes(el.dataset.tag!);
     });
     const clearBtn = document.getElementById('tag-clear') as HTMLElement | null;
     if (clearBtn) clearBtn.style.display = selectedTags.length > 0 ? 'inline-flex' : 'none';
@@ -302,18 +305,16 @@ if (posts) {
     dispatchTagChange();
   }
 
-  // Tag click handlers
-  document.querySelectorAll<HTMLElement>('#tag-panel [data-tag]').forEach(el => {
+  // Tag checkbox handlers
+  document.querySelectorAll<HTMLInputElement>('#tag-panel .tag-filter-checkbox').forEach(el => {
     const tag = el.dataset.tag!;
-    const toggle = () => {
-      selectedTags = selectedTags.includes(tag)
-        ? selectedTags.filter(t => t !== tag)
-        : [...selectedTags, tag];
+    el.addEventListener('change', () => {
+      selectedTags = el.checked
+        ? [...selectedTags, tag]
+        : selectedTags.filter(t => t !== tag);
       updateTagUI();
       dispatchTagChange();
-    };
-    el.addEventListener('click', toggle);
-    el.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter') toggle(); });
+    });
   });
 
   document.getElementById('tag-clear')?.addEventListener('click', () => {

@@ -721,7 +721,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     background: var(--bg-secondary);
     color: var(--text-normal);
     font-size: 0.9rem;
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     box-shadow: none;
     outline: none;
     max-width: 28rem;
@@ -741,7 +741,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     right: 0.5rem;
     top: 50%;
     transform: translateY(-50%);
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     font-size: 0.875rem;
     color: var(--text-muted);
     background: var(--bg-primary);
@@ -756,7 +756,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     font-size: 0.875rem;
     color: var(--text-normal);
     margin: 1rem 0 0 0;
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   }
 
   .book-grid {
@@ -882,7 +882,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   }
 
   .review-overlay-label {
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     font-size: 0.75rem;
     line-height: 1;
     letter-spacing: 0.02em;
@@ -908,7 +908,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   }
 
   .reread-overlay-label {
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     font-size: 0.75rem;
     line-height: 1;
     letter-spacing: 0.02em;
@@ -1017,7 +1017,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   .bar-count {
     font-size: 0.875rem;
     color: var(--text-muted);
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     line-height: 1;
   }
 
@@ -1087,7 +1087,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   .rating-count {
     font-size: 0.875rem;
     color: var(--text-muted);
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     min-width: 1.5rem;
   }
 
@@ -1107,7 +1107,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   .raincloud-hint {
     font-size: 0.875rem;
     color: var(--text-faint);
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     margin: 2rem 0 0;
     text-align: left;
     letter-spacing: 0.03em;
@@ -1182,7 +1182,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   .rc-axis-label {
     text-anchor: middle;
     font-size: 0.875rem;
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   }
   .rc-tick-label {
     fill: var(--text-faint);
@@ -1228,7 +1228,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   .world-map-summary {
     margin: 1rem 0 0;
     font-size: 0.875rem;
-    font-family: "Atkinson Hyperlegible Mono", monospace;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     color: var(--text-muted);
     font-weight: 700;
     text-align: center;
@@ -1489,14 +1489,14 @@ for (const [iso, info] of Object.entries(countryCounts)) {
         const st = (el as SVGElement).style;
         st.fontSize = fs + 'px';
         st.setProperty('fill', 'var(--text-faint)');
-        st.fontFamily = '"Atkinson Hyperlegible Mono", monospace';
+        st.fontFamily = '"Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace';
         (el as SVGTextElement).setAttribute('y', String(AXIS_Y + 18));
       });
       svg.querySelectorAll('.rc-axis-label').forEach((el: Element) => {
         const st = (el as SVGElement).style;
         st.fontSize = fs + 'px';
         st.setProperty('fill', 'var(--text-muted)');
-        st.fontFamily = '"Atkinson Hyperlegible Mono", monospace';
+        st.fontFamily = '"Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace';
         st.fontWeight = '700';
         (el as SVGTextElement).setAttribute('y', String(AXIS_Y + 44));
       });
