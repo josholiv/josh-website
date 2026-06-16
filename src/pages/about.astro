@@ -3,14 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ChessStats from '../components/chesscom.tsx';
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import HardcoverStats from '../components/HardcoverStats.jsx';
-import ImageLightbox from '../components/ImageLightbox.jsx';
-import { Image } from 'astro:assets';
 import Panels from '../components/Panels.astro';
-import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 import { PAGE_META } from '../data/page-meta';
 const pageTitle = "Josh Olivier - About";
-
-
 ---
 
 <BaseLayout pageTitle={pageTitle} titleHtml="About me" shouldCenterTitle={false} ogImage="/social-cards/about.png">
@@ -79,17 +74,6 @@ ratings I've given each book and any reviews I've written. Here's the total numb
 
 <HardcoverStats client:only="preact" />
 
-      <p>
-        I also like playing online chess every now and then, especially <a href="https://www.chess.com/terms/blitz-chess#speed" target="_blank" rel="noopener noreferrer">speed chess</a>, 
-        where time controls are set so each player is allotted a limited amount of time to play their moves.
-        Though I'm quite far from being a grandmaster, 
-        here are my current <a href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">Chess.com</a> ratings for three categories of speed chess:
-      </p>
-
-  <ChessStats client:load />
-
-  <ImageLightbox client:load />
-  <script set:html={responsiveImagesScript} />
 </BaseLayout>
 
 <script>
