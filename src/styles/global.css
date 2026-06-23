@@ -264,9 +264,9 @@ html:not(.dark) {
     h1 {
       color: var(--text-heading);
       font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
-      line-height: 1.2;
+      line-height: 1;
       letter-spacing: -0.01em;
-      font-weight: 500;
+      font-weight: 400;
       font-size: 2rem;
       margin: 0;
     }
@@ -398,8 +398,8 @@ html:not(.dark) {
     }
 
     h3, h4, h5, h6 {
-      font-weight: 700;
-      line-height: 1;
+      font-weight: 300;
+      line-height: 1.1;
       margin-top: 2rem;
     }
 
@@ -1346,7 +1346,7 @@ figure.img-figure .blog-body-pic {
 }
 
 .post-tag-icons .pub-date {
-  line-height: 1;
+  line-height: 1rem;
 }
 
 .tag-post-icon {
@@ -1869,7 +1869,7 @@ html:not(.dark) .sort-icon-btn.active {
   /* Title on BlogSorter component */
   .post-title {
     margin-bottom: 0;
-    font-weight: 700;
+    /* font-weight: 700; */
     font-size: 1rem;
     color: var(--text-heading);
   }
@@ -1878,9 +1878,9 @@ html:not(.dark) .sort-icon-btn.active {
   .pub-date,
   .post-author,
   .post-read-time {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.4;
+    color: var(--text-faint);
+    font-size: 0.875rem;
+    line-height: 1.4rem;
   }
 
   .post-read-time {

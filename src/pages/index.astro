@@ -18,6 +18,7 @@ let allPosts = await getCollection("blog");
 
 const recentPosts = allPosts.slice(0, 5); // show the newest 3 blog posts by pubDate
 ---
+
 <BaseLayout pageTitle={pageTitle} titleHtml="Josh Olivier" shouldCenterTitle={false} showBanner={true} ogImage="/social-cards/home.png">
 
   <Panels />

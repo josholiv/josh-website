@@ -28,8 +28,16 @@ const renderTagIconOnly = (tag) => {
   return <TagIcon size="1.25rem" aria-label={tag} />;
 };
 
+const formatDate = (date) => {
+  try {
+    return new Date(date).toISOString().slice(0, 10);
+  } catch (e) {
+    return '';
+  }
+};
+
 const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
-  const [sortOrder, setSortOrder] = useState('recently-updated');
+  const [sortOrder, setSortOrder] = useState('newest');
   const [sortedPosts, setSortedPosts] = useState(() => {
     return [...posts].sort((a, b) =>
       new Date(b.data.dateModified ?? b.data.pubDate) - new Date(a.data.dateModified ?? a.data.pubDate)
@@ -89,10 +97,9 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
 
     const sorted = [...filteredPosts].sort((a, b) => {
       switch (sortOrder) {
-        case 'recently-updated':
-          return new Date(b.data.dateModified ?? b.data.pubDate) - new Date(a.data.dateModified ?? a.data.pubDate);
+        // removed "recently-updated" sorting; keep published-date based sorts
         case 'oldest':
-          return new Date(a.data.pubDate) - new Date(b.data.pubDate);
+          return new Date(a.data.dateModified ?? a.data.pubDate) - new Date(b.data.dateModified ?? b.data.pubDate);
         case 'shortest':
           return (a.data.readTime ?? 0) - (b.data.readTime ?? 0);
         case 'longest':
@@ -104,7 +111,7 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
         case 'random':
           return 0; // shuffle handled below
         default: // newest
-          return new Date(b.data.pubDate) - new Date(a.data.pubDate);
+          return new Date(b.data.dateModified ?? b.data.pubDate) - new Date(a.data.dateModified ?? a.data.pubDate);
       }
     });
 
@@ -156,7 +163,6 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                   setSortOrder(val);
                 }}
               >
-                <option value="recently-updated">Last updated</option>
                 <option value="newest">Newest → oldest</option>
                 <option value="oldest">Oldest → newest</option>
                 <option value="shortest">Shortest read</option>
@@ -208,15 +214,16 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                         <span key={tag} className={`tag-post-icon ${getTagThemeClass(tag)}`}>{renderTagIconOnly(tag)}</span>
                       ))}
                       <span className="pub-date">
-                        {post.data.dateModified && new Date(post.data.dateModified).toDateString() !== new Date(post.data.pubDate).toDateString()
-                          ? <>Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</>
-                          : new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+                        {post.data.dateModified && formatDate(post.data.dateModified) !== formatDate(post.data.pubDate)
+                          ? <>{formatDate(post.data.dateModified)}</>
+                          : formatDate(post.data.pubDate)
                         }
-                        {' | '}<span className="post-read-time">{post.data.readTime} min</span>
+                        {' | '}<span className="post-read-time">{post.data.readTime} min read</span>
                       </span>
                     </div>
 
                     <div className="post-title">{renderPostTitle(post)}</div>
+                    
                   </div>
                 </a>
               </li>
