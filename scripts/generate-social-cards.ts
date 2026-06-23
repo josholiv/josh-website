@@ -3,7 +3,7 @@ import { join } from "path";
 import { PAGE_META } from "../src/data/page-meta.js";
 
 // Load .env file manually so credentials never need to be typed in the terminal
-const envPath = join(process.cwd(), ".env");
+const envPath = join(process.cwd(), ".env");  
 if (existsSync(envPath)) {
   for (const line of readFileSync(envPath, "utf-8").split("\n")) {
     const trimmed = line.trim();
@@ -100,7 +100,7 @@ async function captureScreenshot(
       body: JSON.stringify({
         url: pageUrl,
         viewport: { width: 1200, height: 630 },
-        gotoOptions: { waitUntil: "networkidle0" },
+        gotoOptions: { waitUntil: "networkidle2" },
       }),
     });
 

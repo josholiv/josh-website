@@ -363,7 +363,7 @@ if (pubYears.length >= 4) {
     }
   }
 
-  pyJsData = JSON.stringify({
+    pyJsData = JSON.stringify({
     xLoFull: pyXLo, xHiFull: pyXHi,
     q1: pyQ1, median: pyMedianVal, q3: pyQ3,
     whiskerLo: pyWhiskerLoVal, whiskerHi: pyWhiskerHiVal,
@@ -382,8 +382,6 @@ if (pubYears.length >= 4) {
     BOX_Y: RC_BOX_Y, BOX_H: RC_BOX_H, AXIS_Y: RC_AXIS_Y,
     axisLabel: 'year',
     capYear: new Date().getFullYear(),
-    defaultXLo: 1800,
-    defaultXHi: 2035,
   });
 }
 
@@ -428,10 +426,24 @@ for (const [iso, info] of Object.entries(countryCounts)) {
 }
 ---
 
-<BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} ogImage="/social-cards/bookshelf.png" description={PAGE_META.bookshelf.description}>
+<BaseLayout pageTitle="Bookshelf" shouldCenterTitle={false} ogImage="/social-cards/bookshelf.png">
 
   <ImageLightbox />
   <Panels />
+
+  <p>
+    This is a collection of books I’ve read recently, listed in reverse chronological order, 
+    along some fun <a href="#reading-stats">reading stats</a>. The data comes from 
+    <a href="https://hardcover.app" target="_blank" rel="noopener noreferrer">Hardcover</a> 
+    and my <a href="/blog/?tag=books">book review blog posts</a>. 
+    As a personal rule, I generally try to follow the rating guidance shown when you hover 
+    over the stars on 
+    <a href="https://www.goodreads.com" target="_blank" rel="noopener noreferrer">Goodreads</a>: 
+    1 star = did not like it; 2 stars = it was okay; 3 stars = 
+    liked it; 4 stars = really liked it; 5 stars = it was amazing.
+  </p>
+
+  <h2>Books</h2>
 
   {fetchError && <p style="color: red;">Error: {fetchError}</p>}
 
@@ -553,7 +565,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     ))}
   </div>
 
-  <h2>Reading stats</h2>
+  <h2 id="reading-stats">Reading stats</h2>
 
   <div class="stat-grid">
     <div class="stat-card">
@@ -564,7 +576,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     {avgRating !== null && (
       <div class="stat-card">
         <span class="stat-card-icon"><Star size="1.5rem" /></span>
-        <span class="stat-card-number">{avgRating.toFixed(1)}★</span>
+        <span class="stat-card-number">{avgRating.toFixed(1)}</span>
         <span class="stat-card-label">avg rating</span>
       </div>
     )}

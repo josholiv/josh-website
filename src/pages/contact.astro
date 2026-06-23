@@ -1,5 +1,5 @@
 ---
-import { Mail, UserCircle, Radio, GraduationCap, Cog } from "lucide-preact";
+import { Mail, Code, Radio, GraduationCap, Box, Briefcase } from "lucide-preact";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Panels from '../components/Panels.astro';
 import { PAGE_META } from '../data/page-meta';
@@ -29,11 +29,7 @@ const pageTitle = "Josh Olivier - Contact";
 
 <ul class="icon-list">
     <li>
-      <GraduationCap size="1rem"/>
-      <a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer">ORCiD</a>
-    </li>
-    <li>
-      <UserCircle size="1rem"/>
+      <Code size="1rem"/>
       <a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer">GitHub</a>
     </li>
     <li>
@@ -41,16 +37,20 @@ const pageTitle = "Josh Olivier - Contact";
       <a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer">Bluesky</a>
     </li>
     <li>
-      <UserCircle size="1rem"/>
+      <Briefcase size="1rem"/>
       <a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </li>
     <li>
-      <Cog size="1rem"/>
-      <a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer">Thingiverse</a>
+      <GraduationCap size="1rem"/>
+      <a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer">ORCiD</a>
     </li>
     <li>
       <GraduationCap size="1rem"/>
       <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+    </li>
+    <li>
+      <Box size="1rem"/>
+      <a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer">Thingiverse</a>
     </li>
 
   </ul>
