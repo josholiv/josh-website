@@ -213,16 +213,18 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                       {post.data.tags?.filter(tag => getTagIcon(tag)).map(tag => (
                         <span key={tag} className={`tag-post-icon ${getTagThemeClass(tag)}`}>{renderTagIconOnly(tag)}</span>
                       ))}
-                      <span className="pub-date">
+                      
+                    </div>
+
+                    <div className="post-title">{renderPostTitle(post)}</div>
+
+                    <div className="pub-date">
                         {post.data.dateModified && formatDate(post.data.dateModified) !== formatDate(post.data.pubDate)
                           ? <>{formatDate(post.data.dateModified)}</>
                           : formatDate(post.data.pubDate)
                         }
-                        {' | '}<span className="post-read-time">{post.data.readTime} min read</span>
-                      </span>
-                    </div>
-
-                    <div className="post-title">{renderPostTitle(post)}</div>
+                        {' · '}<span className="post-read-time">{post.data.readTime} min read</span>
+                      </div>
                     
                   </div>
                 </a>

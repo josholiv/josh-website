@@ -1354,7 +1354,6 @@ figure.img-figure .blog-body-pic {
   align-items: center;
   justify-content: center;
   padding: 0rem;
-  border-radius: 6px;
   flex-shrink: 0;
 }
 
@@ -1590,7 +1589,7 @@ li.blog-post {
   align-items: flex-start;
   margin-bottom: 0rem;
   border-radius: 5px;
-  padding: 1rem;
+  padding: 0.6rem;
 }
 
   .blog-thumbnail-wrapper {
@@ -1868,8 +1867,7 @@ html:not(.dark) .sort-icon-btn.active {
 
   /* Title on BlogSorter component */
   .post-title {
-    margin-bottom: 0;
-    /* font-weight: 700; */
+    margin-bottom: 0rem;
     font-size: 1rem;
     color: var(--text-heading);
   }
@@ -1880,7 +1878,7 @@ html:not(.dark) .sort-icon-btn.active {
   .post-read-time {
     color: var(--text-faint);
     font-size: 0.875rem;
-    line-height: 1.4rem;
+    line-height: 1rem;
   }
 
   .post-read-time {
