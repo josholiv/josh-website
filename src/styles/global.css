@@ -1315,11 +1315,19 @@ figure.img-figure .blog-body-pic {
   gap: 0.3rem;
 }
 
+.post-tags-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+}
+
 /* Individual tag styling on BlogSorter component (just for show, with no cursor or hover effects!) */
 .tag-blogsorter {
   margin: 0rem;
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
-  background-color: var(--bg-primary);
   color:  var(--text-normal);
   font-size: 0.9rem;
   position: relative;
@@ -1330,26 +1338,6 @@ figure.img-figure .blog-body-pic {
 
 .tag-icon {
   flex: 0 0 auto;
-}
-
-/* Icon-only tag chips shown above post titles in the BlogSorter list */
-.post-tag-icons {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.post-tag-icons .pub-date {
-  line-height: 1rem;
-}
-
-.tag-post-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0rem;
-  flex-shrink: 0;
 }
 
 .tag[class*="tag-theme-"],
@@ -1584,7 +1572,7 @@ li.blog-post {
   align-items: flex-start;
   margin-bottom: 0rem;
   border-radius: 5px;
-  padding: 0.6rem;
+  padding: 0.6rem 0.6rem 0.7rem 0.6rem;
 }
 
   .blog-thumbnail-wrapper {

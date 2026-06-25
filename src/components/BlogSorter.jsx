@@ -22,12 +22,6 @@ const renderPostTitle = (post) => {
 };
 
 
-const renderTagIconOnly = (tag) => {
-  const TagIcon = getTagIcon(tag);
-  if (!TagIcon) return null;
-  return <TagIcon size="1.25rem" aria-label={tag} />;
-};
-
 const formatDate = (date) => {
   try {
     return new Date(date).toISOString().slice(0, 10);
@@ -209,13 +203,6 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
 
                   <div className="post-text">
 
-                    <div className="post-tag-icons">
-                      {post.data.tags?.filter(tag => getTagIcon(tag)).map(tag => (
-                        <span key={tag} className={`tag-post-icon ${getTagThemeClass(tag)}`}>{renderTagIconOnly(tag)}</span>
-                      ))}
-                      
-                    </div>
-
                     <div className="post-title">{renderPostTitle(post)}</div>
 
                     <div className="pub-date">
@@ -224,6 +211,19 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                           : formatDate(post.data.pubDate)
                         }
                         {' · '}<span className="post-read-time">{post.data.readTime} min read</span>
+                        {post.data.tags && post.data.tags.length > 0 && (
+                          <>{' \u00b7 '}<span className="post-tags-list">
+                            {post.data.tags.map(tag => {
+                              const TagIcon = getTagIcon(tag);
+                              return (
+                                <span key={tag} className={`tag-blogsorter ${getTagThemeClass(tag)}`} style={{ fontSize: 'inherit' }}>
+                                  {TagIcon ? <TagIcon size="0.875rem" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+                                  <span>{tag}</span>
+                                </span>
+                              );
+                            })}
+                          </span></>
+                        )}
                       </div>
                     
                   </div>
