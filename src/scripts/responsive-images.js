@@ -1,59 +1,43 @@
-// Dynamically size blog images based on aspect ratio
-// Wider images get more width, taller images get less
+// Dynamically size blog images based on aspect ratio.
+// 3:2 (ar >= 1.5) or wider → full content width.
+// Narrower than 3:2 → width scales as √(ar / 1.5) so visual area stays roughly constant.
 
 const resizeImagesByAspectRatio = () => {
   const images = document.querySelectorAll('.blog-body-pic');
-  const isMobile = window.innerWidth < 768;
-  
+
   images.forEach(img => {
     const loadImage = () => {
-      const aspectRatio = img.naturalWidth / img.naturalHeight;
-      
-      // Set width based on aspect ratio and screen size
-      // Desktop: Wide images get more width, tall images get less
-      // Mobile: Reduced max widths for better mobile experience
+      const ar = img.naturalWidth / img.naturalHeight;
+
       let maxWidth;
-      
-      if (isMobile) {
-        // Mobile sizing (reduced from desktop)
-        if (aspectRatio > 1.5) {
-          maxWidth = 'min(100%, 22rem)'; // Very wide
-        } else if (aspectRatio > 1) {
-          maxWidth = 'min(100%, 18rem)'; // Wide
-        } else if (aspectRatio > 0.66) {
-          maxWidth = 'min(100%, 16rem)'; // Square-ish
-        } else {
-          maxWidth = 'min(100%, 14rem)'; // Tall
-        }
+      if (ar >= 1.5) {
+        maxWidth = '100%';
       } else {
-        // Desktop sizing
-        if (aspectRatio > 1.5) {
-          maxWidth = 'min(100%, 35rem)'; // Very wide
-        } else if (aspectRatio > 1) {
-          maxWidth = 'min(100%, 28rem)'; // Wide
-        } else if (aspectRatio > 0.66) {
-          maxWidth = 'min(100%, 22rem)'; // Square-ish
-        } else {
-          maxWidth = 'min(100%, 17rem)'; // Tall
-        }
+        const pct = Math.min(100, Math.round(Math.sqrt(ar / 1.5) * 100));
+        maxWidth = `${pct}%`;
       }
-      
+
       img.style.maxWidth = maxWidth;
+      // Set maxWidth on the outermost container only.
+      // Setting it on both the container and the image compounds the percentages
+      // (e.g. 82% of 82% of parent), causing the image to be narrower than its wrapper.
       const wrap = img.closest('.img-glow-wrap');
-      if (wrap) {
-        wrap.style.maxWidth = maxWidth;
-      }
       const figure = img.closest('figure.img-figure');
-      if (figure) {
-        figure.style.maxWidth = maxWidth;
+      const outermost = figure || wrap;
+
+      if (outermost) {
+        outermost.style.maxWidth = maxWidth;
+        if (wrap && wrap !== outermost) wrap.style.maxWidth = '100%';
+        img.style.maxWidth = '100%';
+      } else {
+        // Standalone image — wrap hasn't been created yet (cached image path).
+        img.style.maxWidth = maxWidth;
       }
     };
-    
-    // If image is already loaded
+
     if (img.complete) {
       loadImage();
     } else {
-      // Wait for image to load
       img.addEventListener('load', loadImage);
     }
   });

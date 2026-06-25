@@ -146,7 +146,7 @@
 --code-bg:           var(--neutral-900);   /* #10100f */
 --code-text:         var(--neutral-300);   /* #cdcbc8 */
 --code-border:       var(--neutral-700);   /* #464542 */
---btn-text:          var(--text-normal);
+--btn-text:          var(--neutral-400);    /* #62615d */
 --btn-text-hover:    var(--text-normal);
 --btn-bg-hover:      var(--neutral-800);   /* #272725 */
 --control-radius:    6px;
@@ -172,7 +172,7 @@
     --code-bg:            var(--yellow-050);     /* #f9f3e2 */
     --code-text:          var(--neutral-700);    /* #464542 */
     --code-border:        var(--yellow-200);     /* #ecd9a0 */
-    --btn-text:           var(--text-normal);
+    --btn-text:           var(--neutral-600);    /* #62615d */
     --btn-text-hover:     var(--text-normal);
     --btn-bg-hover:       var(--yellow-100);     /* #f3e7c2 */
     --control-radius:     6px;
@@ -198,7 +198,7 @@ html:not(.dark) {
   --code-bg:            var(--yellow-050);     /* #f9f3e2 */
   --code-text:          var(--neutral-700);    /* #464542 */
   --code-border:        var(--yellow-200);     /* #ecd9a0 */
-  --btn-text:          var(--text-normal);
+  --btn-text:          var(--neutral-600);    /* #62615d */
   --btn-text-hover:    var(--text-normal);
   --btn-bg-hover:      var(--yellow-100);      /* #f3e7c2 */
   --control-radius:    6px;
@@ -582,7 +582,7 @@ html:not(.dark) {
   user-select: none;
   background: none;
   border: none;
-  color: var(--button-text);
+  color: var(--btn-text);
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   font-size: 0.9rem;
   font-weight: 700;
@@ -1434,7 +1434,7 @@ a.tag, a.tag:visited {
 .btn {
   padding: 1rem;
   height: 2.25rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   cursor: pointer;
   background-color: var(--bg-secondary);
@@ -1444,12 +1444,6 @@ a.tag, a.tag:visited {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--bg-border);
-}
-
-button:not(#themeToggle):not(.toc-title).btn {
-  border: 1px solid var(--bg-border);
-  border-radius: var(--control-radius);
-  color: var(--text-normal);
 }
 
 .btn:hover {
@@ -1744,7 +1738,7 @@ html:not(.dark) .post-card-link::before {
   border-radius: var(--control-radius);
   border: 1px solid var(--bg-border);
   background: var(--bg-secondary);
-  color: var(--text-normal);
+  color: var(--btn-text);
   font-size: 0.875rem;
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   cursor: pointer;

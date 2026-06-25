@@ -141,27 +141,30 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
           <li class="blog-post">
             <a href={`/posts/${post.id}/`} class="post-wrapper post-card-link related-post-link">
               <div class="post-text">
-                <div class="post-tag-icons">
-                  {post.data.tags?.filter(tag => getTagIcon(tag)).map(tag => {
-                    const TagIcon = getTagIcon(tag);
-                    return TagIcon ? (
-                      <span class={`tag-post-icon ${getTagThemeClass(tag)}`}>
-                        <TagIcon size="1.25rem" aria-label={tag} />
-                      </span>
-                    ) : null;
-                  })}
-                  <span class="pub-date">
-                    {post.data.dateModified && new Date(post.data.dateModified).toDateString() !== new Date(post.data.pubDate).toDateString()
-                      ? <>Updated {new Date(post.data.dateModified).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })}</>
-                      : new Date(post.data.pubDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
-                    }
-                    {' | '}<span class="post-read-time">{post.data.readTime} min</span>
-                  </span>
-                </div>
                 <div class="post-title">
                   {(post.data.tags?.includes('books') && post.data.bookTitle)
                     ? <span>Book review: <em>{post.data.bookTitleShort ?? post.data.bookTitle}</em></span>
                     : post.data.title}
+                </div>
+                <div class="pub-date">
+                  {post.data.dateModified && new Date(post.data.dateModified).toISOString().slice(0, 10) !== new Date(post.data.pubDate).toISOString().slice(0, 10)
+                    ? new Date(post.data.dateModified).toISOString().slice(0, 10)
+                    : new Date(post.data.pubDate).toISOString().slice(0, 10)
+                  }
+                  {' · '}<span class="post-read-time">{post.data.readTime} min read</span>
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <Fragment>{' · '}<span class="post-tags-list">
+                      {post.data.tags.map(tag => {
+                        const TagIcon = getTagIcon(tag);
+                        return (
+                          <span class={`tag-blogsorter ${getTagThemeClass(tag)}`} style="font-size: inherit;">
+                            {TagIcon ? <TagIcon size="0.875rem" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+                            <span>{tag}</span>
+                          </span>
+                        );
+                      })}
+                    </span></Fragment>
+                  )}
                 </div>
               </div>
             </a>
@@ -188,6 +191,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
         // for cached images); falls back to 100% for images not yet loaded — the
         // responsive-images load handler will update it once the image finishes loading.
         wrap.style.maxWidth = img.style.maxWidth || '100%';
+        img.style.maxWidth = '100%'; // prevent compounding percentages (wrap already constrains width)
         wrap.style.borderRadius = inFigure ? '7px' : cs.borderRadius;
         if (!inFigure) {
           wrap.style.marginTop = cs.marginTop;
