@@ -139,6 +139,7 @@
 --text-on-accent:    var(--black);         /* #100f0f */
 --text-heading:      var(--text-normal);
 --icon-color:        var(--neutral-400);   /* #a2a099 */
+--icon-accent:       var(--cyan-400);      /* #49afa6 */
 --accent:            var(--cyan-400);      /* #49afa6 */
 --accent-hover:      var(--cyan-600);      /* #256c65 */
 --link-color:        var(--text-normal);
@@ -158,13 +159,14 @@
     --bg-primary:         var(--paper);          /* #fffcf0 */
     --bg-secondary:       var(--yellow-050);     /* #f9f3e2 */
     --bg-tertiary:        var(--yellow-100);     /* #f3e7c2 */
-    --bg-border:          var(--yellow-200);    /* #dbdad7 */
+    --bg-border:          var(--neutral-200);    /* #dbdad7 */
     --text-normal:        var(--black);          /* #100f0f */
     --text-muted:         var(--neutral-600);    /* #62615d */
     --text-faint:         var(--neutral-500);    /* #807e79 */
     --text-on-accent:     var(--paper);          /* #fffcf0 */
     --text-heading:       var(--text-normal);
-    --icon-color:         var(--yellow-600);     /* #785e0c */
+    --icon-color:         var(--neutral-600);     /* #785e0c */
+    --icon-accent:        var(--yellow-600);     /* #49afa6 */
     --accent:             var(--yellow-600);       /* #256c65 */
     --accent-hover:       var(--yellow-400);       /* #49afa6 */
     --link-color:         var(--text-normal);
@@ -184,13 +186,14 @@ html:not(.dark) {
   --bg-primary:         var(--paper);          /* #fffcf0 */
   --bg-secondary:       var(--yellow-050);     /* #f9f3e2 */
   --bg-tertiary:        var(--yellow-100);     /* #f3e7c2 */
-  --bg-border:          var(--yellow-200);    /* #dbdad7 */
+  --bg-border:          var(--neutral-200);    /* #dbdad7 */
   --text-normal:        var(--black);          /* #100f0f */
   --text-muted:         var(--neutral-600);    /* #62615d */
   --text-faint:         var(--neutral-500);    /* #807e79 */
   --text-on-accent:     var(--paper);          /* #fffcf0 */
   --text-heading:       var(--text-normal);
-  --icon-color:         var(--yellow-600);     /* #785e0c */
+  --icon-color:         var(--neutral-600);     /* #785e0c */
+  --icon-accent:        var(--yellow-600);     /* #49afa6 */
   --accent:             var(--yellow-600);       /* #256c65 */
   --accent-hover:       var(--yellow-400);       /* #49afa6 */
   --link-color:         var(--text-normal);
@@ -1117,7 +1120,7 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
 
 /* Active link */
 .nav-links a.active {
-  color: var(--text-heading);
+  color: var(--bg-primary);
 }
 
 .nav-links a:hover {
@@ -1625,7 +1628,6 @@ li.blog-post {
   background-color: var(--bg-secondary);
   border-radius: 7px;
   text-decoration: none;
-  color: var(--text-normal);
   position: relative;
   overflow: hidden;
 }
@@ -1687,8 +1689,10 @@ html:not(.dark) .post-card-link::before {
   color: var(--text-normal);
 }
 
+.explore-card-icon .lucide { color: inherit; }
+
 .explore-card-icon {
-  color: var(--accent);
+  color: var(--icon-accent);
   display: flex;
   align-items: center;
 }
