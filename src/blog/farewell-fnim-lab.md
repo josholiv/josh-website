@@ -5,8 +5,8 @@ dateModified: 2026-06-26
 description: 'Today was my last day at Functional Neuroimaging of Memory lab, and the last few weeks have been bittersweet.'
 author: 'Josh Olivier'
 image:
-    url: '/social-cards/blog.png'
-    alt: 'Example Open Graph social card for a webpage'
+    url: ''
+    alt: ''
 tags: ["science"]
 readTime: '1'
 ---
