@@ -10,7 +10,7 @@ const pageTitle = "Josh Olivier - Blog";
 const allPosts = await getCollection("blog");
 ---
 
-<BaseLayout pageTitle={pageTitle} titleHtml="Blog" shouldCenterTitle={false} ogImage="/social-cards/blog.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="Blog" shouldCenterTitle={false} titlePrefix={true} ogImage="/social-cards/blog.png">
 
 <Panels posts={allPosts} />
 

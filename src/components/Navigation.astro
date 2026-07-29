@@ -5,13 +5,6 @@ const pathname = Astro.url.pathname;
 <div class="nav-container">
 <div class="nav-links">
   <div class="nav-links-inner">
-  <div class="nav-links-home">
-  <a href="/" class={`${pathname === "/" ? "active" : ""}`}>
-    <span class="icon-container">
-      <Home size={"1rem"} class="nav-icon"/>
-      Home
-    </span>
-  </a></div>
   <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>
     <span class="icon-container">
       <Info size={"1rem"} class="nav-icon"/>

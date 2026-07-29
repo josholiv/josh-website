@@ -12,7 +12,7 @@ import '../styles/font-display-override.css';
 import atkinsonNextFont from '@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2?url';
 import atkinsonMonoFont from '@fontsource-variable/atkinson-hyperlegible-mono/files/atkinson-hyperlegible-mono-latin-wght-normal.woff2?url';
 
-const { pageTitle, titleHtml, shouldCenterTitle, pageTitleClass, shouldShowTitle = true, showBanner = false, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, pageTitleClass, shouldShowTitle = true, titlePrefix = false, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
 
 const siteUrl = 'https://josholivier.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
@@ -74,18 +74,16 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
     <div class="page-wrapper">
       <Header />
       <main class="main-content">
-        {shouldShowTitle && showBanner && (
-          <div class="page-banner"></div>
-        )}
         {shouldShowTitle && (
           <div class="page-title-block">
             <h1 class={`${shouldCenterTitle ? 'center-title' : ''} ${pageTitleClass || ''}`.trim()}>
+              {titlePrefix && <><a href="/" class="title-prefix">Josh Olivier</a><span class="title-muted"> / </span></>}
               {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
             </h1>
             {descriptionHtml ? (
-              <p class="banner-description"><Fragment set:html={descriptionHtml} /></p>
+              <p class="page-description"><Fragment set:html={descriptionHtml} /></p>
             ) : description && (
-              <p class="banner-description">{description}</p>
+              <p class="page-description">{description}</p>
             )}
           </div>
         )}
@@ -97,14 +95,6 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
     </div>
     <script>
       import "../scripts/menu.js";
-
-      document.querySelectorAll('.nav-links a').forEach((link) => {
-        link.addEventListener('mousemove', (e) => {
-          const rect = link.getBoundingClientRect();
-          link.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-          link.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-        });
-      });
 
       document.querySelectorAll('.img-glow-wrap').forEach((el) => {
         el.addEventListener('mousemove', (e) => {

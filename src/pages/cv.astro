@@ -9,6 +9,17 @@ import { PAGE_META } from '../data/page-meta';
 
 const pageTitle = "Josh Olivier - CV";
 const { basics, education, publications, presentations, researchExperience, grants, awards, service, affiliations, skills } = cv;
+const cvHeadings = [
+  { depth: 2, slug: 'education', text: 'Education' },
+  { depth: 2, slug: 'publications', text: 'Publications' },
+  { depth: 2, slug: 'presentations', text: 'Presentations' },
+  { depth: 2, slug: 'research-experience', text: 'Research Experience' },
+  { depth: 2, slug: 'grants-fellowships', text: 'Grants & Fellowships' },
+  { depth: 2, slug: 'honors-awards', text: 'Honors, Awards & Certificates' },
+  { depth: 2, slug: 'skills', text: 'Skills' },
+  { depth: 2, slug: 'service', text: 'Service, Work & Activities' },
+  { depth: 2, slug: 'affiliations', text: 'Professional Affiliations' },
+];
 
 function formatDate(str: string | undefined, month: 'short' | 'long' = 'short') {
   if (!str) return '';
@@ -73,12 +84,14 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 }
 ---
 
-<BaseLayout pageTitle={pageTitle} titleHtml="Joshua M. Olivier" pageTitleClass="cv-page-title" shouldCenterTitle={false} ogImage="/social-cards/cv.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="CV" pageTitleClass="cv-page-title" shouldCenterTitle={false} titlePrefix={true} ogImage="/social-cards/cv.png">
 
 <main>
-<Panels />
+<Panels headings={cvHeadings} />
 
  <div class="cv-container">
+
+      <h1 class="cv-print-title cv-page-title">Joshua M. Olivier</h1>
 
       {/* Contact info for print version */}
       <div class="print-contact-info">
@@ -87,7 +100,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
       
       <section>
         <div class="print-header">
-        <h2 class="cv-section">Education</h2>
+        <h2 id="education" class="cv-section">Education</h2>
         <hr />
         </div>
         {education.map(ed => (
@@ -116,7 +129,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
       <section>
         <div class="print-header">
-        <h2 class="cv-section">Publications</h2>
+        <h2 id="publications" class="cv-section">Publications</h2>
         <hr />
         </div>
           <div>
@@ -139,7 +152,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
       <section>
         <div class="print-header">
-        <h2 class="cv-section">Presentations</h2>
+        <h2 id="presentations" class="cv-section">Presentations</h2>
           <hr/>
           </div>
           <div>
@@ -159,7 +172,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
      <section>
       <div class="print-header">
-        <h2 class="cv-section">Research Experience</h2>
+        <h2 id="research-experience" class="cv-section">Research Experience</h2>
         <hr />
         </div>
         {researchExperience.map(res => (
@@ -190,7 +203,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
       <section>
         <div class="print-header">
-        <h2 class="cv-section">Grants &amp; Fellowships</h2>
+        <h2 id="grants-fellowships" class="cv-section">Grants &amp; Fellowships</h2>
         <hr />
         </div>
         {grants.map(g => (
@@ -210,7 +223,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
       <section>
         <div class="print-header">
-        <h2 class="cv-section">Honors, Awards &amp; Certificates</h2>
+        <h2 id="honors-awards" class="cv-section">Honors, Awards &amp; Certificates</h2>
         <hr />
         </div>
         {awards.map(a => (
@@ -228,7 +241,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
          <section>
     <div class="print-header">
-  <h2 class="cv-section">Skills</h2>
+  <h2 id="skills" class="cv-section">Skills</h2>
   <hr />
   </div>
 
@@ -261,7 +274,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
       <section>
         <div class="print-header">
-          <h2 class="cv-section">Service, Work &amp; Activities</h2>
+          <h2 id="service" class="cv-section">Service, Work &amp; Activities</h2>
          <hr />
         </div>
         {service.map(s => (
@@ -285,7 +298,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
       <section>
         <div class="print-header">
-        <h2 class="cv-section">Professional Affiliations</h2>
+        <h2 id="affiliations" class="cv-section">Professional Affiliations</h2>
         <hr />
         </div>
         {affiliations.map(aff => (

@@ -55,7 +55,8 @@ if (posts) {
     <span><span class="toc-site-title-main">josholivier</span><span class="toc-site-title-domain">.com</span></span>
   </a>
 
-<nav class="toc" id="links-panel">
+{grouped.length === 0 && sortedTags.length === 0 && (
+  <nav class="toc" id="links-panel">
     <button class="toc-title" id="links-toggle">
       Links
       <span class="toc-chevron">
@@ -75,7 +76,9 @@ if (posts) {
       </div>
     </div>
   </nav>
+)}
 
+  {grouped.length > 0 && (
   <nav class="toc" id="toc">
     <button class="toc-title" id="toc-toggle">
       On this page
@@ -106,6 +109,7 @@ if (posts) {
       </div>
     </div>
   </nav>
+  )}
 
   {sortedTags.length > 0 && (
     <nav class="toc tag-filter-panel" id="tag-panel">
@@ -127,8 +131,8 @@ if (posts) {
                     <span class={`tag ${getTagThemeClass(tag)}`}>
                       {TagIcon ? <TagIcon size="0.9rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
                       <span>{tag}</span>
-                      <span class="tag-count">({count})</span>
                     </span>
+                    <span class="tag-count">{count}</span>
                   </label>
                 </li>
               );

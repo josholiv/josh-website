@@ -1,132 +1,15 @@
----
-import { Image } from 'astro:assets';
-import Social from './social.astro';
-import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
-import { UserCircle, Code, GraduationCap, Briefcase, Radio, Box } from "lucide-preact";
-import { TAGLINE } from '../data/page-meta';
-
-const { imageLoading = 'lazy' } = Astro.props;
----
-
 <style>
-footer {
-  background-color: var(--bg-secondary);
-  color: var(--text-normal);
-  padding: 0.25rem 0 1rem 0;
-  border-radius: 7px 7px 0 0;
-  margin: 2rem 1rem 0;
-}
-
-.footer-inner {
-  width: 80ch;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-  .footer-top {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
+  footer {
+    margin: 2rem 1rem 0;
   }
 
-  .footer-top h3 {
-    margin: 0;
-    font-style: normal;
-  }
-
-  .profile-pic {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 7px;
-    flex-shrink: 0;
-  }
-
-  .footer-body p {
-    margin-top: 0;
-  }
-
-  .social-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0;
-    padding: 0;
-    list-style: none;
-    margin: 0;
-  }
-
-  .social-container li {
-    display: flex;
-    align-items: center;
-  }
-
-  .social-container li + li::before {
-    content: "|";
-    color: var(--text-faint);
-    margin: 0 0.25rem;
-  }
-
-  @media (max-width: 639px) {
-    footer {
-      margin: 2rem 0 0;
-      border-radius: 0;
-      padding-left: 1rem;
-      padding-right: 1rem;
+  .copyright {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-faint);
     }
-    .footer-inner {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-
-  @media (max-width: 635px) {
-    .social-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.25rem 0;
-    }
-
-    .social-container li + li::before {
-      display: none;
-    }
-  }
-
-  /* The Links panel (Panels.astro) is visible from 640px up, so the footer's
-     social links are only needed below that breakpoint. */
-  @media (min-width: 640px) {
-    .social-container {
-      display: none;
-    }
-  }
 </style>
 
 <footer>
-  <div class="footer-inner">
-
-    <div class="footer-top">
-      <Image
-        src={joshHeadshot}
-        alt="Josh Olivier"
-        class="profile-pic"
-        loading={imageLoading}
-      />
-      <p><strong style="font-size: 16pt;">Hi, I'm Josh</strong> <br/><i>{TAGLINE}</i></p>
-    </div>
-
-    <div class="footer-body">
-      <ul class="social-container">
-        <li><Social platform="github.com" username="josholiv" icon={Code} displayName="GitHub" /></li>
-        <li><Social platform="bsky.app" username="profile/josholivier.bsky.social" icon={Radio} displayName="Bluesky"/></li>
-        <li><Social platform="linkedin.com" username="in/joshua-olivier/" icon={Briefcase} displayName="LinkedIn"/></li>
-        <li><Social platform="orcid.org/" username="0009-0002-3696-5552" icon={GraduationCap} displayName="ORCiD"/></li>
-        <li><Social platform="scholar.google.com" username="citations?view_op=list_works&hl=en&hl=en&user=pXjS6H0AAAAJ" icon={GraduationCap} displayName="Google Scholar"/></li>
-        <li><Social platform="thingiverse.com" username="josholiv" icon={Box} displayName="Thingiverse" /></li>
-      </ul>
-    </div>
-
     <p class="copyright">© {new Date().getFullYear()} Josh Olivier</p>
-
-  </div>
 </footer>

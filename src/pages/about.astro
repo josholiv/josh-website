@@ -4,13 +4,31 @@ import ChessStats from '../components/chesscom.tsx';
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import HardcoverStats from '../components/HardcoverStats.jsx';
 import Panels from '../components/Panels.astro';
-import { PAGE_META } from '../data/page-meta';
+import ImageLightbox from '../components/ImageLightbox.jsx';
+import { Image } from 'astro:assets';
+import responsiveImagesScript from '../scripts/responsive-images.js?raw';
+import bannerImage from '../assets/josh-and-oliver-grandcanyon.jpg';
+
 const pageTitle = "Josh Olivier - About";
+const headings = [
+  { depth: 2, slug: 'research-interests', text: 'Research interests' },
+  { depth: 2, slug: 'hobbies', text: 'Hobbies' },
+];
 ---
 
-<BaseLayout pageTitle={pageTitle} titleHtml="About me" shouldCenterTitle={false} ogImage="/social-cards/about.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="About" shouldCenterTitle={false} titlePrefix={true} ogImage="/social-cards/about.png">
 
-<Panels />
+<Panels headings={headings} />
+
+<ImageLightbox client:load />
+
+<div class="img-glow-wrap">
+<Image
+    src={bannerImage}
+    alt="Josh and his dog, Oliver, at the Grand Canyon"
+    class="blog-body-pic"
+/>
+</div>
 
       <p>
         I'm an incoming Psychology PhD student at the University of California, Riverside, and I've spent the last few years working as 
@@ -19,7 +37,7 @@ const pageTitle = "Josh Olivier - About";
         memory-related brain mechanisms are disrupted by aging and neurological conditions like Alzheimer's disease.
   </p>
         
-   <h2>Research interests</h2>
+   <h2 id="research-interests">Research interests</h2>
 
      <p>  
         I'm interested in researching episodic memory, which is the ability to recollect previously experienced events (and which 
@@ -44,7 +62,7 @@ const pageTitle = "Josh Olivier - About";
         mechanisms and indicators of age-related cognitive decline. 
       </p>
 
-    <h2>Hobbies</h2>
+    <h2 id="hobbies">Hobbies</h2>
 
     <p>
       Apart from research work, I have many hobbies, including traveling, trying new foods, and learning new skills. 
@@ -75,6 +93,8 @@ ratings I've given each book and any reviews I've written. Here's the total numb
 <HardcoverStats client:only="preact" />
 
 </BaseLayout>
+
+<script set:html={responsiveImagesScript} />
 
 <script>
   // Delegated glow — catches both server-rendered and client-component stat cards

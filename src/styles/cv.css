@@ -165,6 +165,10 @@ body {
   display: none;
 }
 
+.cv-print-title {
+  display: none;
+}
+
 @media print {
 
   .toc,
@@ -228,7 +232,6 @@ body {
   }
 
   /* Ensure other common regions used by the site do not keep dark backgrounds */
-  .page-banner,
   .page-title-block,
   .page-header,
   .personal-info-section,
@@ -267,6 +270,14 @@ body {
     display: inline !important;
   }
 
+  .cv-print-title {
+    display: block !important;
+  }
+
+  .page-title-block {
+    display: none !important;
+  }
+
   .reference-entry {
     margin-bottom: 0.6rem;
   }
@@ -278,8 +289,7 @@ body {
   .wave-container,
   .print-name-section,
   .print-hide,
-  .personal-info-section,
-  .page-banner {
+  .personal-info-section {
     display: none !important;
   }
 

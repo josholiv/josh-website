@@ -6,8 +6,8 @@
  */
 
 :root {
-  --black: #100f0f;
-  --paper: #fffcf0;
+  --black: #000000;
+  --paper: #ffffff;
 
   /* Neutral ramp (perceptual, anchored to Flexoki base-400 #9f9d96) */
   --neutral-050: #f4f3f3;
@@ -129,81 +129,53 @@
   --pink-950: #190b12;
 
 /* ─── Theme tokens (default: dark theme) ─── */
---bg-primary:        var(--black);         /* #100f0f */
---bg-secondary:      var(--neutral-900);   /* #1a1918 */
+--bg-primary:        var(--black);         
+--bg-secondary:      var(--neutral-950);   
 --bg-tertiary:       var(--neutral-800);   /* #272725 */
 --bg-border:         var(--neutral-800);   /* #464542 */
---text-normal:       var(--neutral-200);   /* #dbdad7 */
---text-muted:        var(--neutral-400);   /* #a2a099 */
---text-faint:        var(--neutral-500);   /* #807e79 */
---text-on-accent:    var(--black);         /* #100f0f */
---text-heading:      var(--text-normal);
+--text-normal:       var(--neutral-400);   /* #dbdad7 */
+--text-muted:        var(--neutral-500);   /* #a2a099 */
+--text-faint:        var(--neutral-600);   /* #807e79 */
+--text-on-accent:    var(--black);         
+--text-heading:      var(--paper);
 --icon-color:        var(--neutral-400);   /* #a2a099 */
 --icon-accent:       var(--cyan-400);      /* #49afa6 */
 --accent:            var(--cyan-400);      /* #49afa6 */
 --accent-hover:      var(--cyan-600);      /* #256c65 */
 --link-color:        var(--text-normal);
 --link-color-hover:  var(--cyan-400);      /* #49afa6 */
---code-bg:           var(--neutral-900);   /* #10100f */
+--code-bg:           var(--neutral-950);   /* #10100f */
 --code-text:         var(--neutral-300);   /* #cdcbc8 */
---code-border:       var(--neutral-700);   /* #464542 */
+--code-border:       var(--neutral-900);   /* #464542 */
 --btn-text:          var(--neutral-400);    /* #62615d */
 --btn-text-hover:    var(--text-normal);
 --btn-bg-hover:      var(--neutral-800);   /* #272725 */
 --control-radius:    6px;
 }
 
-/* Light mode: either OS preference OR explicit toggle */
-@media (prefers-color-scheme: light) {
-  :root:not(.dark) {
-    --bg-primary:         var(--paper);          /* #fffcf0 */
-    --bg-secondary:       var(--yellow-050);     /* #f9f3e2 */
-    --bg-tertiary:        var(--yellow-100);     /* #f3e7c2 */
-    --bg-border:          var(--neutral-200);    /* #dbdad7 */
-    --text-normal:        var(--black);          /* #100f0f */
-    --text-muted:         var(--neutral-600);    /* #62615d */
-    --text-faint:         var(--neutral-500);    /* #807e79 */
-    --text-on-accent:     var(--paper);          /* #fffcf0 */
-    --text-heading:       var(--text-normal);
-    --icon-color:         var(--neutral-600);     /* #785e0c */
-    --icon-accent:        var(--yellow-600);     /* #49afa6 */
-    --accent:             var(--yellow-600);       /* #256c65 */
-    --accent-hover:       var(--yellow-400);       /* #49afa6 */
-    --link-color:         var(--text-normal);
-    --link-color-hover:   var(--cyan-400);       /* #49afa6 */
-    --code-bg:            var(--yellow-050);     /* #f9f3e2 */
-    --code-text:          var(--neutral-700);    /* #464542 */
-    --code-border:        var(--yellow-200);     /* #ecd9a0 */
-    --btn-text:           var(--neutral-600);    /* #62615d */
-    --btn-text-hover:     var(--text-normal);
-    --btn-bg-hover:       var(--yellow-100);     /* #f3e7c2 */
-    --control-radius:     6px;
-  }
-}
-
 /* Explicit light override (toggle overrides dark OS preference) */
 html:not(.dark) {
   --bg-primary:         var(--paper);          /* #fffcf0 */
-  --bg-secondary:       var(--yellow-050);     /* #f9f3e2 */
-  --bg-tertiary:        var(--yellow-100);     /* #f3e7c2 */
+  --bg-secondary:       var(--green-050);     
+  --bg-tertiary:        var(--green-100);     
   --bg-border:          var(--neutral-200);    /* #dbdad7 */
-  --text-normal:        var(--black);          /* #100f0f */
+  --text-normal:        var(--neutral-700);          /* #100f0f */
   --text-muted:         var(--neutral-600);    /* #62615d */
   --text-faint:         var(--neutral-500);    /* #807e79 */
   --text-on-accent:     var(--paper);          /* #fffcf0 */
-  --text-heading:       var(--text-normal);
+  --text-heading:       var(--black);
   --icon-color:         var(--neutral-600);     /* #785e0c */
-  --icon-accent:        var(--yellow-600);     /* #49afa6 */
-  --accent:             var(--yellow-600);       /* #256c65 */
-  --accent-hover:       var(--yellow-400);       /* #49afa6 */
+  --icon-accent:        var(--green-600);     
+  --accent:             var(--green-600);       
+  --accent-hover:       var(--green-400);
   --link-color:         var(--text-normal);
-  --link-color-hover:   var(--cyan-400);       /* #49afa6 */
-  --code-bg:            var(--yellow-050);     /* #f9f3e2 */
+  --link-color-hover:   var(--cyan-400);       
+  --code-bg:            var(--green-050);     
   --code-text:          var(--neutral-700);    /* #464542 */
-  --code-border:        var(--yellow-200);     /* #ecd9a0 */
+  --code-border:        var(--green-200);     
   --btn-text:          var(--neutral-600);    /* #62615d */
   --btn-text-hover:    var(--text-normal);
-  --btn-bg-hover:      var(--yellow-100);      /* #f3e7c2 */
+  --btn-bg-hover:      var(--green-100);      
   --control-radius:    6px;
 
     /* Callout backgrounds */
@@ -268,22 +240,9 @@ html:not(.dark) {
       color: var(--text-heading);
       font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
       line-height: 1;
-      letter-spacing: -0.01em;
       font-weight: 400;
       font-size: 2rem;
       margin: 0;
-    }
-
-    /* ── Page banner ── */
-    .page-banner {
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      background: var(--bg-primary);
-      margin: 0 1rem 1rem;
-      min-height: 180px;
-      will-change: transform;
-      border-radius: 0 0 7px 7px;
     }
 
     .page-title-block {
@@ -295,92 +254,13 @@ html:not(.dark) {
       margin-bottom: 1rem;
     }
 
-
-    .page-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        circle at 100% 20%,
-        var(--cyan-050) 10%,
-        var(--cyan-600) 24%,
-        var(--cyan-700) 28%,
-        var(--cyan-800) 37%,
-        var(--cyan-900) 50%,
-        transparent 55%
-      );
-      filter: blur(90px);
-      mask-image: radial-gradient(circle at 100% 20%, black 0%, black 60%, transparent 85%);
-      pointer-events: none;
-      z-index: 0;
-      border-radius: inherit;
-    }
-
-    .page-banner::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.4;
-      border-radius: inherit;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 200px 200px;
-      mix-blend-mode: overlay;
-      z-index: 2;
-    }
-
-    .page-banner-content {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 1;
-      padding: 1rem 1rem 1rem 1rem;
-    }
-
-    .page-banner h1 {
-      margin: 0;
-    }
-
-    .banner-description {
+    .page-description {
       font-size: 1rem;
       line-height: 1.5;
-      color: var(--text-normal);
+      color: var(--text-muted);
       font-style: italic;
       margin-top: 0;
       margin-bottom: 2rem;
-    }
-
-    html:not(.dark) .page-banner::before {
-      background: radial-gradient(
-        circle at 100% 20%,
-        var(--yellow-050) 10%,
-        var(--yellow-800) 24%,
-        var(--yellow-700) 28%,
-        var(--yellow-600) 37%,
-        var(--yellow-050) 50%,
-        transparent 55%
-      );
-    }
-
-    html:not(.dark) .banner-description {
-      color: var(--neutral-600);
-    }
-
-    /* ── Page banner: mobile ── */
-    @media (max-width: 639px) {
-      .page-banner {
-        margin: 0 0 1rem;
-        min-height: 180px;
-        border-radius: 0px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
-      .page-banner-content {
-        position: relative;
-      }
     }
 
     h2 {
@@ -396,7 +276,7 @@ html:not(.dark) {
     }
 
     h3, h4, h5, h6 {
-      font-weight: 300;
+      font-weight: 400;
       line-height: 1.1;
       margin-top: 2rem;
     }
@@ -415,6 +295,15 @@ html:not(.dark) {
 
     .title-muted {
       color: var(--text-faint);
+    }
+
+    .title-prefix {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .title-prefix:hover {
+      color: var(--text-normal);
     }
 
     code {
@@ -449,13 +338,6 @@ html:not(.dark) {
       border-top-right-radius: var(--header-border-radius) !important;
     }
 
-    .copyright {
-      margin-top: 1rem;
-      margin-bottom: 0;
-      font-size: 0.875rem;
-      color: var(--text-faint);
-    }
-
     .icon-container {
       display: flex; 
       align-items: center;
@@ -469,17 +351,7 @@ html:not(.dark) {
     }
 
     header {
-      background-color: var(--bg-secondary);
       isolation: isolate;
-      margin: 0 1rem;
-      padding: 0;
-      border-radius: 0 0 7px 7px;
-    }
-
-    /* On pages with a hero banner (index.astro), the header sits flush
-       against the banner below it, so its bottom corners stay square. */
-    .page-wrapper:has(.page-banner) header {
-      border-radius: 0px;
     }
 
     .center-title {
@@ -1114,17 +986,12 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
   display: block;
   font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
   text-align: left;
-  color: var(--text-normal);
-  text-decoration: none;
-}
-
-/* Active link */
-.nav-links a.active {
-  color: var(--bg-primary);
+  color: var(--link-color);
+  text-decoration: underline;
 }
 
 .nav-links a:hover {
-  color: var(--text-heading);
+  color: var(--link-color-hover);
 }
 
 .social-link {
@@ -1248,8 +1115,8 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
 
 .about-pics {
   display: flex;
-  gap: 1rem;          /* space between images */
-  justify-content: left; /* optional */
+  gap: 1rem;          
+  justify-content: left; 
 }
 
 .about-pic {
@@ -1310,7 +1177,7 @@ figure.img-figure .blog-body-pic {
   margin: 0rem;
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   color:  var(--text-normal);
-  font-size: 1rem;
+  font-size: 0.9rem;
   position: relative;
   cursor: pointer;
   display: inline-flex;
@@ -1346,7 +1213,10 @@ figure.img-figure .blog-body-pic {
 .tag[class*="tag-theme-"],
 .tag-blogsorter[class*="tag-theme-"] {
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
-
+  border: 1px solid currentColor;
+  border-radius: 2rem;
+  padding: 0.1em 0.35em;
+  line-height: 1;
 }
 
 .tag-theme-3dprinting {
@@ -1377,9 +1247,7 @@ figure.img-figure .blog-body-pic {
   color: var(--red-400) !important;
 }
 
-.tag[class*="tag-theme-"] .tag-count {
-  color: inherit;
-}
+
 
 .tag[class*="tag-theme-"]:hover {
   box-shadow: 0 0 0 0 currentColor;
@@ -1428,6 +1296,8 @@ a.tag, a.tag:visited {
 .tag-count {
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   font-size: 0.9rem;
+  color: var(--text-faint);
+  line-height: 1;
 }
 
 .tag:hover:not([class*="tag-theme-"]) {
@@ -1440,13 +1310,13 @@ a.tag, a.tag:visited {
   font-size: 0.875rem;
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   cursor: pointer;
-  background-color: var(--bg-secondary);
+  background-color: var(--code-bg);
   color: var(--btn-text);
   border-radius: var(--control-radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--bg-border);
+  border: 1px solid var(--code-border);
 }
 
 .btn:hover {
@@ -1625,7 +1495,8 @@ li.blog-post {
   flex-direction: column;
   gap: 0.5rem;
   padding: 1.25rem;
-  background-color: var(--bg-secondary);
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
   border-radius: 7px;
   text-decoration: none;
   position: relative;
@@ -1740,8 +1611,8 @@ html:not(.dark) .post-card-link::before {
   height: 2.25rem;
   padding: 0 0.5rem;
   border-radius: var(--control-radius);
-  border: 1px solid var(--bg-border);
-  background: var(--bg-secondary);
+  border: 1px solid var(--code-border);
+  background: var(--code-bg);
   color: var(--btn-text);
   font-size: 0.875rem;
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
@@ -1774,15 +1645,15 @@ html:not(.dark) .sort-icon-btn.active {
   right: 0;
   top: 100%;
   margin-top: 0.25rem;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--bg-border);
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
   border-radius: var(--control-radius);
   overflow: hidden;
   z-index: 10;
 }
 
 .sort-dropdown .btn:hover {
-  background-color: var(--bg-border);
+  background-color: var(--btn-bg-hover);
 }
 
 .dropdown-chevron {
@@ -1798,8 +1669,8 @@ html:not(.dark) .sort-icon-btn.active {
   height: 2.25rem;
   padding: 0.5rem 0.75rem;
   border-radius: var(--control-radius);
-  border: 1px solid var(--bg-border);
-  background: var(--bg-secondary);
+  border: 1px solid var(--code-border);
+  background: var(--code-bg);
   color: var(--text-normal);
   font-size: 0.9rem;
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
@@ -1871,7 +1742,8 @@ html:not(.dark) .sort-icon-btn.active {
   text-decoration: none;
   color: inherit;
   padding: 0.5rem;
-  background-color: var(--bg-secondary);
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
   position: relative;
   overflow: hidden;
 }
@@ -1904,77 +1776,19 @@ html:not(.dark) .sort-icon-btn.active {
   }
 
   .nav-links a {
-    padding: 0.6rem 1rem;
+    padding: 0rem 1rem;
     color: var(--text-muted);
-    text-decoration: none;
+    text-decoration: underline;
     border-bottom: none;
     position: relative;
     overflow: hidden;
   }
 
-  /* The Home link sits flush against the header's left edge, so its
-     hover/grain overlays need to respect the header's bottom-left
-     border-radius rather than squaring it off. */
-  .nav-links-home a {
-    border-radius: 0 0 0 7px;
-  }
-
-  /* When a page banner is present (index/home), the header is flush
-     with the banner so the Home link should not add its own bottom-left
-     rounding — remove it in that case to avoid a visible corner. */
-  .page-wrapper:has(.page-banner) .nav-links-home a {
-    border-radius: 0 !important;
-  }
-
-  .nav-links a::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    background: radial-gradient(
-      120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(255, 255, 255, 0.07),
-      transparent 70%
-    );
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-    border-radius: inherit;
-  }
-
-  html:not(.dark) .nav-links a::before {
-    background: radial-gradient(
-      120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(0, 0, 0, 0.07),
-      transparent 70%
-    );
-  }
-
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    opacity: 0.25;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    mix-blend-mode: overlay;
-  }
-
-  .nav-links a:hover {
+  .nav-links a.active {
     color: var(--text-normal);
   }
 
-  .nav-links a:hover::before {
-    opacity: 1;
-  }
-
-  .nav-links a.active {
-    color: var(--text-heading);
-    background-color: var(--bg-primary);
-  }
-
+ 
   .expanded a {
     margin-bottom: 0rem;
   }
