@@ -1,32 +1,21 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 import { Info, GraduationCap, Rss, Contact } from "lucide-preact";
 import Panels from '../components/Panels.astro';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 
 const pageTitle = "Josh Olivier - Home";
 ---
-<BaseLayout pageTitle={pageTitle} titleHtml="Hi, I'm Josh Olivier" shouldCenterTitle={false} ogImage="/social-cards/home.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="Hi, I'm Josh Olivier!" shouldCenterTitle={false} ogImage="/social-cards/home.png">
 
 <Panels />
 
 <ImageLightbox client:load />
 
-<Image
-  src={joshHeadshot}
-  alt="Josh Olivier"
-  width={720}
-  height={720}
-  style="width:7.5rem;height:7.5rem;border-radius:7px;object-fit:cover;display:block;margin-bottom:1rem;"
-/>
-
-<p>I'm an incoming PhD student interested in memory, aging, and brain activity. 
+<p>I'm a PhD student at UC Riverside interested in memory, aging, and brain activity. 
 I have experience in neuroimaging, cognitive neuroscience, and psychology research.
-Check out my <a href="/cv">CV</a> to see my past and current research projects, and visit any 
-of the other pages below to learn more about my work and interests.
+Check out any of the links below to learn more about me and my work.
 </p>
 
 

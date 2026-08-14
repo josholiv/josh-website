@@ -1,17 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
-import Hardcover from '../components/Hardcover.js';
+import type { ImageMetadata } from 'astro';
 import Dropdown from '../components/Dropdown.jsx';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 import { getCollection } from 'astro:content';
-import { env } from 'cloudflare:workers';
 import Panels from '../components/Panels.astro';
 import { BookOpen, Star, Users, ScrollText, NotebookText, Repeat } from "lucide-preact";
 import { PAGE_META } from '../data/page-meta';
-
-let books = [];
-let fetchError;
+// Keep every import at the top: the Astro compiler hoists them, and hoisting one
+// from mid-frontmatter can corrupt the surrounding line.
+import worldMapRaw from '../assets/world-map.svg?raw';
 
 const allPosts = await getCollection('blog');
 const reviewMap = new Map();
@@ -21,52 +20,70 @@ for (const post of allPosts) {
   }
 }
 
-try {
-  const hc = new Hardcover(env);
-  const result = await hc.fetch();
-  books = (result.userBookReads || []).map(entry => ({
-    title: entry.user_book?.book?.title || "Untitled",
-    cover: entry.user_book?.book?.image?.url || null,
-    rating: entry.user_book?.rating ?? null,
-    lastRead: entry.finished_at ?? null,
-    pages: entry.user_book?.book?.pages ?? null,
-    pubYear: typeof entry.user_book?.book?.release_year === 'number' ? entry.user_book.book.release_year : null,
-    authors: (entry.user_book?.book?.contributions || [])
-      .map((c: any) => c.author?.name)
-      .filter(Boolean)
-      .join(", "),
-    reviewUrl: reviewMap.get((entry.user_book?.book?.title || '').toLowerCase()) || null,
-    hardcoverUrl: entry.user_book?.book?.slug ? `https://hardcover.app/books/${entry.user_book.book.slug}` : null,
-  }));
+// Covers are synced into src/assets so astro:assets can optimize them.
+//
+// The grid is 5 columns inside a 70ch column and 3 columns on small screens,
+// which works out to roughly the same rendered width either way — so a density
+// srcset is a better fit here than `widths` + `sizes`, which is for genuinely
+// fluid images. 1x/2x/3x keeps standard displays off the retina-sized file.
+const COVER_CSS_WIDTH = 120;
+// Two grid rows (5 columns desktop, 3 mobile) is a safe over-estimate of what
+// sits above the fold on a laptop, so none of those covers get deferred.
+const EAGER_COVERS = 10;
+// But keep the high-priority hint to the first row only. Marking every
+// above-fold image "high" just makes them compete, which can delay the LCP
+// image rather than help it.
+const PRIORITY_COVERS = 5;
 
-  // A read is a reread iff there's an earlier finished_at for the same book.
-  const earliestRead = new Map<string, number>();
-  for (const b of books) {
-    if (!b.title || !b.lastRead) continue;
-    const key = b.title.toLowerCase();
-    const t = new Date(b.lastRead).getTime();
-    const prev = earliestRead.get(key);
-    if (prev === undefined || t < prev) earliestRead.set(key, t);
-  }
-  for (const b of books) {
-    const key = b.title?.toLowerCase();
-    const t = b.lastRead ? new Date(b.lastRead).getTime() : null;
-    (b as any).isReread = t !== null && key !== undefined && earliestRead.has(key) && t > (earliestRead.get(key) as number);
-  }
+const coverModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/book-covers/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+const coverMap = new Map<string, ImageMetadata>(
+  Object.entries(coverModules).map(([p, m]) => [p.split('/').pop()!, m.default])
+);
 
-  // Show the review tag on only the most recent read per title (userBookReads is ordered finished_at desc).
-  const reviewShownFor = new Set<string>();
-  for (const b of books) {
-    const key = b.title?.toLowerCase();
-    if (!b.reviewUrl || !key) continue;
-    if (reviewShownFor.has(key)) {
-      b.reviewUrl = null;
-    } else {
-      reviewShownFor.add(key);
-    }
+// One row per read, newest first — a reread is its own row, as the charts expect.
+const bookEntries = await getCollection('books');
+const books = bookEntries
+  .flatMap(({ data }) =>
+    data.datesRead.map(lastRead => ({
+      title: data.title,
+      cover: data.cover ? coverMap.get(data.cover) ?? null : null,
+      rating: data.rating,
+      lastRead,
+      pages: data.pages,
+      pubYear: data.pubYear,
+      authors: data.author.join(', '),
+      authorCountry: data.authorCountry,
+      reviewUrl: reviewMap.get(data.title.toLowerCase()) || null,
+      isReread: false,
+    }))
+  )
+  .sort((a, b) => new Date(b.lastRead).getTime() - new Date(a.lastRead).getTime());
+
+// A read is a reread iff there's an earlier read of the same book.
+const earliestRead = new Map<string, number>();
+for (const b of books) {
+  const key = b.title.toLowerCase();
+  const t = new Date(b.lastRead).getTime();
+  const prev = earliestRead.get(key);
+  if (prev === undefined || t < prev) earliestRead.set(key, t);
+}
+for (const b of books) {
+  b.isReread = new Date(b.lastRead).getTime() > (earliestRead.get(b.title.toLowerCase()) as number);
+}
+
+// Show the review tag on only the most recent read per title (books is ordered desc).
+const reviewShownFor = new Set<string>();
+for (const b of books) {
+  const key = b.title.toLowerCase();
+  if (!b.reviewUrl) continue;
+  if (reviewShownFor.has(key)) {
+    b.reviewUrl = null;
+  } else {
+    reviewShownFor.add(key);
   }
-} catch (e) {
-  fetchError = e.message;
 }
 
 // Reading stats computed from the already-fetched books array
@@ -79,7 +96,7 @@ const avgRating = ratedBooks.length > 0
 const uniqueAuthors = new Set<string>();
 const seenBookKeys = new Set<string>();
 for (const book of books) {
-  const key = (book as any).hardcoverUrl || (book as any).title;
+  const key = (book as any).title;
   if (seenBookKeys.has(key)) continue;
   seenBookKeys.add(key);
   const firstAuthor = ((book as any).authors || '').split(', ')[0]?.trim();
@@ -386,22 +403,16 @@ if (pubYears.length >= 4) {
 }
 
 // World map: highlight country of origin per book, scaled by count
-import worldMapRaw from '../assets/world-map.svg?raw';
-import countryMapRaw from '../data/book-countries.json';
 const normalizeName = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').trim();
-const authorToCountry: Record<string, string> = {};
-for (const [k, v] of Object.entries(countryMapRaw as Record<string, unknown>)) {
-  if (k.startsWith('_')) continue;
-  if (typeof v === 'string') authorToCountry[normalizeName(k)] = v.toLowerCase();
-}
+// Counts unique authors per country, not books — so rereads collapse on their own.
+// authorCountry describes the primary author, hence author[0] as the dedupe key.
 const countryCounts: Record<string, { count: number; authors: Set<string> }> = {};
 const allAuthorsCounted = new Set<string>();
 for (const book of books) {
-  const authorList = ((book as any).authors || '').split(',').map((a: string) => a.trim()).filter(Boolean);
-  const matchedAuthor = authorList.find((a: string) => authorToCountry[normalizeName(a)]);
-  if (!matchedAuthor) continue;
-  const iso = authorToCountry[normalizeName(matchedAuthor)];
-  const norm = normalizeName(matchedAuthor);
+  const iso = book.authorCountry?.toLowerCase();
+  const primaryAuthor = (book.authors || '').split(',')[0]?.trim();
+  if (!iso || !primaryAuthor) continue;
+  const norm = normalizeName(primaryAuthor);
   if (!countryCounts[iso]) countryCounts[iso] = { count: 0, authors: new Set() };
   if (!countryCounts[iso].authors.has(norm)) {
     countryCounts[iso].authors.add(norm);
@@ -424,28 +435,32 @@ for (const [iso, info] of Object.entries(countryCounts)) {
     `$1 data-count="${info.count}" data-iso="${iso}" style="fill:var(--accent);opacity:${opacity.toFixed(3)}"`
   );
 }
+
+const headings = [
+  { depth: 2, slug: 'books', text: 'Books' },
+  { depth: 2, slug: 'reading-stats', text: 'Reading stats' },
+];
 ---
 
 <BaseLayout pageTitle="Bookshelf" titleHtml="Bookshelf" shouldCenterTitle={false} titlePrefix={true} ogImage="/social-cards/bookshelf.png">
 
   <ImageLightbox />
-  <Panels />
+  <Panels headings={headings} />
 
   <p>
     This is a collection of books I’ve read recently, listed in reverse chronological order, 
-    along some fun <a href="#reading-stats">reading stats</a>. The data comes from 
-    <a href="https://hardcover.app" target="_blank" rel="noopener noreferrer">Hardcover</a> 
-    and my <a href="/blog/?tag=books">book review blog posts</a>. 
-    As a personal rule, I generally try to follow the rating guidance shown when you hover 
+    along some fun <a href="#reading-stats">reading stats</a>. The data comes from my personal
+    reading notes and my <a href="/blog/?tag=books">book review blog posts</a>.</p>
+
+  <p>
+    As a personal rule, I generally try to follow the rating guidance shown when you hover
     over the stars on 
     <a href="https://www.goodreads.com" target="_blank" rel="noopener noreferrer">Goodreads</a>: 
     1 star = did not like it; 2 stars = it was okay; 3 stars = 
     liked it; 4 stars = really liked it; 5 stars = it was amazing.
   </p>
 
-  <h2>Books</h2>
-
-  {fetchError && <p style="color: red;">Error: {fetchError}</p>}
+  <h2 id="books">Books</h2>
 
   <!-- search + rating filter -->
   <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap; justify-content: space-between;">
@@ -473,7 +488,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   </div>
 
   <div class="book-grid">
-    {books.map(book => (
+    {books.map((book, i) => (
       <div class="book-card" data-rating={book.rating ?? 'none'} data-has-review={book.reviewUrl ? 'true' : 'false'}>
         <div class="cover-area">
           <div class="cover-wrap img-glow-wrap">
@@ -481,17 +496,17 @@ for (const [iso, info] of Object.entries(countryCounts)) {
               ? <Image
                   src={book.cover}
                   alt={book.title}
-                  width={240}
-                  height={360}
+                  width={COVER_CSS_WIDTH}
+                  densities={[1, 2, 3]}
                   class="cover-img"
-                  loading="lazy"
+                  loading={i < EAGER_COVERS ? 'eager' : 'lazy'}
+                  fetchpriority={i < PRIORITY_COVERS ? 'high' : undefined}
                   decoding="async"
                   data-book-title={book.title}
                   data-book-authors={book.authors || undefined}
                   data-book-pub-year={book.pubYear !== null ? String(book.pubYear) : undefined}
                   data-book-rating={book.rating !== null ? String(book.rating) : undefined}
                   data-book-review-url={book.reviewUrl || undefined}
-                  data-book-hardcover-url={book.hardcoverUrl || undefined}
                 />
               : (
                 <div class="cover-placeholder">
@@ -717,7 +732,7 @@ for (const [iso, info] of Object.entries(countryCounts)) {
           <p class="raincloud-hint world-map-hint">Scroll to zoom · drag to pan · double-click to reset</p>
         </>
       ) : (
-        <p class="raincloud-hint">No country data yet — add author → ISO mappings in src/data/book-countries.json</p>
+        <p class="raincloud-hint">No country data yet — add an authorCountry ISO code to your book notes and re-run the sync</p>
       )}
     </div>
   </div>

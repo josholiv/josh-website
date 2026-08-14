@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import { BookOpen, Target } from 'lucide-preact';
+
+// Was supplied by the Hardcover goals API; now just a number I set each year.
+const READING_GOAL = 50;
+
+const currentYear = new Date().getFullYear();
+const books = await getCollection('books');
+const progress = books.reduce(
+  (count, { data }) =>
+    count + data.datesRead.filter(d => new Date(d).getFullYear() === currentYear).length,
+  0
+);
+---
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <span class="stat-card-icon"><BookOpen size="1.5rem" /></span>
+    <span class="stat-card-number">{progress}</span>
+    <span class="stat-card-label">books read</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-card-icon"><Target size="1.5rem" /></span>
+    <span class="stat-card-number">{READING_GOAL}</span>
+    <span class="stat-card-label">reading goal</span>
+  </div>
+</div>

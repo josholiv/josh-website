@@ -1468,13 +1468,29 @@ li.blog-post {
   border-radius: 3px;
 }
 
-/* BookRating component cover */
+/* BookRating component cover — sized to match one bookshelf grid cell.
+   The bookshelf grid is 5 columns with 0.75rem gaps inside the 70ch content
+   column, so a cell is (70ch - 4 * 0.75rem) / 5. Mobile mirrors its 3-column
+   layout. Keep in step with .book-grid in bookshelf.astro. */
+.book-cover-wrap {
+  width: calc(14ch - 0.6rem);
+  aspect-ratio: 2 / 3;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
 .book-cover-img {
   display: block;
-  width: calc(4 * 3rem + 3 * 0.5rem);
-  max-width: 100%;
-  border-radius: 2px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   cursor: pointer;
+}
+
+@media (max-width: 639px) {
+  .book-cover-wrap {
+    width: calc((100vw - 3.5rem) / 3);
+  }
 }
 
 .show-tags-toggle {

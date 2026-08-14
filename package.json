@@ -10,7 +10,8 @@
     "cf:deploy": "astro build && wrangler pages deploy dist",
     "astro": "astro",
     "og:generate": "npx tsx scripts/generate-social-cards.ts",
-    "og:regenerate": "npx tsx scripts/generate-social-cards.ts --force"
+    "og:regenerate": "npx tsx scripts/generate-social-cards.ts --force",
+    "books:sync": "node --env-file-if-exists=.env scripts/sync-books.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.0",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@astrojs/cloudflare": "^13.6.1",
+    "js-yaml": "^4.1.0",
     "shiki": "^3.4.0",
     "wrangler": "^4.61.1"
   }

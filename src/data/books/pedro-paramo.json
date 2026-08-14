@@ -1,0 +1,24 @@
+{
+  "title": "Pedro Páramo",
+  "subtitle": null,
+  "author": [
+    "Juan Rulfo"
+  ],
+  "authorCountry": "MX",
+  "category": [
+    "fiction",
+    "classics",
+    "magicalRealism",
+    "Spanish",
+    "Mexico"
+  ],
+  "publisher": null,
+  "pubYear": 1955,
+  "pages": 132,
+  "isbn": null,
+  "rating": 3,
+  "datesRead": [
+    "2026-07-30"
+  ],
+  "cover": "pedro-paramo.jpg"
+}

@@ -1,0 +1,26 @@
+{
+  "title": "The Martian",
+  "subtitle": null,
+  "author": [
+    "Andy Weir"
+  ],
+  "authorCountry": "US",
+  "category": [
+    "Science Fiction",
+    "Fiction",
+    "Audiobook",
+    "Book Club",
+    "Adventure",
+    "Space",
+    "Adult"
+  ],
+  "publisher": "Ballantine Books",
+  "pubYear": 2014,
+  "pages": 384,
+  "isbn": "0804139024 9780804139021",
+  "rating": 4,
+  "datesRead": [
+    "2023-05-01"
+  ],
+  "cover": "the-martian.jpg"
+}

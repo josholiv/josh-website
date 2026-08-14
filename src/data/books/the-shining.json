@@ -1,0 +1,26 @@
+{
+  "title": "The Shining",
+  "subtitle": null,
+  "author": [
+    "Stephen  King"
+  ],
+  "authorCountry": "US",
+  "category": [
+    "Horror",
+    "Fiction",
+    "Thriller",
+    "Classics",
+    "Fantasy",
+    "Paranormal",
+    "Mystery"
+  ],
+  "publisher": "New English Library",
+  "pubYear": 1980,
+  "pages": 497,
+  "isbn": "0450040186 9780450040184",
+  "rating": 3,
+  "datesRead": [
+    "2024-09-12"
+  ],
+  "cover": "the-shining.jpg"
+}

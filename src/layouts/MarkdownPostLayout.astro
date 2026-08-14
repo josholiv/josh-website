@@ -1,6 +1,7 @@
 ---
 import { Box as BoxIcon, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { getCollection } from "astro:content";
 import joshHeadshot from '../assets/josh-headshot-cropped.jpg';
 import BaseLayout from './BaseLayout.astro';
@@ -38,6 +39,36 @@ if (frontmatter.tags?.includes('books') && frontmatter.bookTitle && frontmatter.
 }
 
 const allPosts = await getCollection("blog");
+
+const coverModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/book-covers/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+
+// Book review posts show the cover and rating from my synced reading notes.
+// Titles match exactly, or on the part before a subtitle colon.
+let bookRating: number | null = null;
+let bookCover: string | null = null;
+let bookCoverSrcSet: string | undefined;
+if (frontmatter.tags?.includes('books') && frontmatter.bookTitle) {
+  const target = frontmatter.bookTitle.toLowerCase();
+  const match = (await getCollection('books')).find(({ data }) => {
+    const t = data.title.toLowerCase();
+    return t === target || t.startsWith(target + ':');
+  });
+  if (match) {
+    bookRating = match.data.rating;
+    const cover = match.data.cover
+      ? coverModules[`../assets/book-covers/${match.data.cover}`]?.default
+      : null;
+    if (cover) {
+      // Same rendered size and density set as the bookshelf grid covers.
+      const optimized = await getImage({ src: cover, width: 120, densities: [1, 2, 3] });
+      bookCover = optimized.src;
+      bookCoverSrcSet = optimized.srcSet.attribute || undefined;
+    }
+  }
+}
 
 const dateValue = (date: string | Date) => new Date(date).getTime();
 
@@ -108,7 +139,7 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
   </div>
 
   {frontmatter.tags?.includes("books") && frontmatter.bookTitle && (
-    <BookRating client:load bookTitle={frontmatter.bookTitle} />
+    <BookRating bookTitle={frontmatter.bookTitle} rating={bookRating} coverUrl={bookCover} coverSrcSet={bookCoverSrcSet} />
   )}
   </div>
 

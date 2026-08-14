@@ -73,12 +73,14 @@ function formatStudyType(studyType: string | undefined) {
 }
 
 function formatEducationSummary(ed: { studyType?: string; area?: string; startDate?: string; endDate?: string }) {
-  const degree = [formatStudyType(ed.studyType), ed.area ? `in ${ed.area}` : ''].filter(Boolean).join(' ');
+  const degree = [formatStudyType(ed.studyType), ed.area ? `, ${ed.area}` : ''].filter(Boolean).join('');
   const dateText = ed.endDate
     ? formatMonthYear(ed.endDate)
-    : ed.startDate
-      ? `Expected start ${formatMonthYear(ed.startDate)}`
-      : '';
+    : ed.expected
+      ? `Expected ${ed.expected}`
+      : ed.startDate
+        ? `Expected start ${formatMonthYear(ed.startDate)}`
+        : '';
 
   return [degree, dateText].filter(Boolean).join(' • ');
 }

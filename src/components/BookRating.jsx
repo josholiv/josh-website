@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'preact/hooks';
-
 const Star = ({ filled, half }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +8,8 @@ const Star = ({ filled, half }) => (
     stroke-linecap="round"
     stroke-linejoin="round"
     class={`star ${filled ? 'filled' : half ? 'half' : 'empty'}`}
-    style={{ flex: 1, minWidth: 0, display: 'block', height: 'auto', aspectRatio: '1 / 1' }}
+    width="14"
+    height="14"
   >
     <defs>
       <linearGradient id="half-fill-blog">
@@ -22,62 +21,30 @@ const Star = ({ filled, half }) => (
   </svg>
 );
 
-const BookRating = ({ bookTitle }) => {
-  const [rating, setRating] = useState(null);
-  const [coverUrl, setCoverUrl] = useState(null);
-  const [hardcoverUrl, setHardcoverUrl] = useState(null);
-  const [authors, setAuthors] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch(`/api/hardcover?title=${encodeURIComponent(bookTitle)}`, { cache: 'reload' })
-      .then(async r => {
-        const payload = await r.json().catch(() => ({}));
-        if (!r.ok) throw new Error(payload?.error || `API error (${r.status})`);
-        return payload;
-      })
-      .then(result => {
-        const target = bookTitle.toLowerCase();
-        const match = result.userBooks?.find(b => {
-          const t = b.book?.title?.toLowerCase();
-          return t === target || t?.startsWith(target + ':');
-        });
-        if (match) {
-          if (match.rating != null) setRating(match.rating);
-          if (match.book?.image?.url) setCoverUrl(match.book.image.url);
-          if (match.book?.slug) setHardcoverUrl(`https://hardcover.app/books/${match.book.slug}`);
-          const authorList = (match.book?.contributions || [])
-            .map(c => c.author?.name)
-            .filter(Boolean)
-            .join(', ');
-          if (authorList) setAuthors(authorList);
-        }
-        setLoading(false);
-      })
-      .catch(e => {
-        setError(e.message);
-        setLoading(false);
-      });
-  }, [bookTitle]);
-
-  if (loading) return <p style={{ color: 'var(--text-muted)' }}>Loading rating...</p>;
-  if (error || (rating === null && !coverUrl)) return null;
+/**
+ * Rating and cover are resolved from the books collection at build time and
+ * passed in, so this renders as static HTML with no client-side fetch.
+ *
+ * @param {{ bookTitle: string, rating?: number | null, coverUrl?: string | null, coverSrcSet?: string }} props
+ */
+const BookRating = ({ bookTitle, rating = null, coverUrl = null, coverSrcSet }) => {
+  if (rating === null && !coverUrl) return null;
 
   return (
     <div class="book-rating-section" style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', alignSelf: 'flex-start' }}>
       {coverUrl && (
-        <div class="img-glow-wrap" style={{ marginBottom: '0.75rem' }}>
+        <div class="img-glow-wrap book-cover-wrap" style={{ marginBottom: '0.75rem' }}>
           <img
             src={coverUrl}
+            srcset={coverSrcSet}
             alt={bookTitle}
             class="book-cover-img"
-            style={{ cursor: 'pointer' }}
+            decoding="async"
           />
         </div>
       )}
       {rating !== null && (
-        <div style={{ display: 'flex', alignItems: 'center', width: '100%', padding: '0 0.5rem', boxSizing: 'border-box', gap: '0.25rem' }}>
+        <div style={{ display: 'flex', gap: '1px' }}>
             {Array.from({ length: 5 }).map((_, i) => {
               const filled = i < Math.floor(rating);
               const half = !filled && (rating - Math.floor(rating)) >= 0.5 && i === Math.floor(rating);

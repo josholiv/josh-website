@@ -1,0 +1,26 @@
+{
+  "title": "Animal Farm",
+  "subtitle": null,
+  "author": [
+    "George Orwell"
+  ],
+  "authorCountry": "GB",
+  "category": [
+    "Classics",
+    "Fiction",
+    "Dystopia",
+    "Fantasy",
+    "School",
+    "Politics",
+    "Literature"
+  ],
+  "publisher": "Signet Classics",
+  "pubYear": 1996,
+  "pages": 141,
+  "isbn": "0451526341 9780451526342",
+  "rating": 5,
+  "datesRead": [
+    "2023-12-01"
+  ],
+  "cover": "animal-farm.jpg"
+}

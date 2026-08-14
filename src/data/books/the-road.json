@@ -1,0 +1,26 @@
+{
+  "title": "The Road",
+  "subtitle": null,
+  "author": [
+    "Cormac McCarthy"
+  ],
+  "authorCountry": "US",
+  "category": [
+    "Fiction",
+    "Science Fiction",
+    "Dystopia",
+    "Classics",
+    "Post Apocalyptic",
+    "Horror",
+    "Book Club"
+  ],
+  "publisher": "Alfred A. Knopf",
+  "pubYear": 2006,
+  "pages": 241,
+  "isbn": "0307265439 9780307265432",
+  "rating": 3,
+  "datesRead": [
+    "2023-12-17"
+  ],
+  "cover": "the-road.jpg"
+}

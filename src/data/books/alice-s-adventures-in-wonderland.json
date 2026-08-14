@@ -1,0 +1,18 @@
+{
+  "title": "Alice's Adventures in Wonderland",
+  "subtitle": null,
+  "author": [
+    "Lewis Carroll"
+  ],
+  "authorCountry": "GB",
+  "category": [],
+  "publisher": null,
+  "pubYear": 1865,
+  "pages": 320,
+  "isbn": "152900246X",
+  "rating": 5,
+  "datesRead": [
+    "2026-05-09"
+  ],
+  "cover": "alice-s-adventures-in-wonderland.jpg"
+}

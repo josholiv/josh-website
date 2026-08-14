@@ -100,16 +100,6 @@ export default function ImageLightbox() {
                 links.appendChild(a);
               }
 
-              if (meta.hardcoverUrl) {
-                const a = document.createElement('a');
-                a.href = meta.hardcoverUrl;
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
-                a.textContent = 'Hardcover';
-                a.className = 'lightbox-book-link lightbox-book-link-secondary';
-                links.appendChild(a);
-              }
-
               if (links.children.length > 0) info.appendChild(links);
               content.appendChild(info);
             }
@@ -154,7 +144,6 @@ export default function ImageLightbox() {
                     pubYear: img.dataset.bookPubYear || '',
                     rating: img.dataset.bookRating || '',
                     reviewUrl: img.dataset.bookReviewUrl || '',
-                    hardcoverUrl: img.dataset.bookHardcoverUrl || '',
                   }
                 : null;
 

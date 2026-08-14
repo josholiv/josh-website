@@ -1,0 +1,23 @@
+{
+  "title": "The Prince",
+  "subtitle": null,
+  "author": [
+    "Niccolo Machiavelli"
+  ],
+  "authorCountry": "IT",
+  "category": [
+    "philosophy",
+    "classics",
+    "politics",
+    "Italy"
+  ],
+  "publisher": null,
+  "pubYear": 1513,
+  "pages": 144,
+  "isbn": null,
+  "rating": 3,
+  "datesRead": [
+    "2026-06-16"
+  ],
+  "cover": "the-prince.jpg"
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Pet Sematary",
+  "subtitle": null,
+  "author": [
+    "Stephen  King"
+  ],
+  "authorCountry": "US",
+  "category": [
+    "Horror",
+    "Fiction",
+    "Thriller",
+    "Audiobook",
+    "Fantasy",
+    "Paranormal",
+    "Horror Thriller"
+  ],
+  "publisher": "Scribner",
+  "pubYear": 2014,
+  "pages": 580,
+  "isbn": null,
+  "rating": 5,
+  "datesRead": [
+    "2024-05-16"
+  ],
+  "cover": "pet-sematary.jpg"
+}
