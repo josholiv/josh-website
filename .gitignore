@@ -56,3 +56,8 @@ $RECYCLE.BIN/
 .turbo/
 coverage/
 .nyc_output/
+
+# Conflict copies from file-syncing services ("name 2.json"). Generated book
+# slugs never contain spaces, so anything with one here is a duplicate.
+src/data/books/* *
+src/assets/book-covers/* *
