@@ -7,7 +7,7 @@ author: 'Josh Olivier'
 image:
     url: 'https://production-img.hardcover.app/enlarge?url=https://assets.hardcover.app/edition/32562159/f769a8819ab61cc8a9bae38d93865e6acd65eb95.jpeg&width=270&height=405&type=webp'
     alt: 'The Edge of Space-Time: Particles, Poetry, and the Cosmic Dream Boogie'
-tags: ["books", "science"]
+tags: ["books"]
 readTime: '2'
 bookTitle: 'The Edge of Space-Time: Particles, Poetry, and the Cosmic Dream Boogie'
 bookTitleShort: 'The Edge of Space-Time'

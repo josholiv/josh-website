@@ -7,7 +7,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-7/tpu-brain.jpg'
     alt: 'My brain 3D-printed with orange TPU'
-tags: ["3Dprinting", "science"]
+tags: ["3Dprinting"]
 readTime: '3'
 ---
 ## Previous prints

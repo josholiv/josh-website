@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
-import { X, Box, Dna, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
+import { X, Box, Brain, Rss, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
 
 const tagIcons = {
-  '3dprinting': Box,
-  science: Dna,
+ '3dprinting': Box,
+  neuroscience: Brain,
   blogging: Rss,
   code: CodeIcon,
   travel: MapIcon,
@@ -200,9 +200,23 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                     e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
                   }}
                 >
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div className="post-tags-container">
+                      <span className="post-tags-list">
+                        {post.data.tags.map(tag => {
+                          const TagIcon = getTagIcon(tag);
+                          return (
+                            <span key={tag} className={`tag-blogsorter ${getTagThemeClass(tag)}`}>
+                              {TagIcon ? <TagIcon size="0.875rem" class="tag-icon" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+                              <span>{tag}</span>
+                            </span>
+                          );
+                        })}
+                      </span>
+                    </div>
+                  )}
 
-                  <div className="post-text">
-
+                  <div>
                     <div className="post-title">{renderPostTitle(post)}</div>
 
                     <div className="pub-date">
@@ -210,22 +224,10 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
                           ? <>{formatDate(post.data.dateModified)}</>
                           : formatDate(post.data.pubDate)
                         }
-                        {' · '}<span className="post-read-time">{post.data.readTime} min read</span>
-                        {post.data.tags && post.data.tags.length > 0 && (
-                          <>{' \u00b7 '}<span className="post-tags-list">
-                            {post.data.tags.map(tag => {
-                              const TagIcon = getTagIcon(tag);
-                              return (
-                                <span key={tag} className={`tag-blogsorter ${getTagThemeClass(tag)}`} style={{ fontSize: 'inherit' }}>
-                                  {TagIcon ? <TagIcon size="0.875rem" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
-                                  <span>{tag}</span>
-                                </span>
-                              );
-                            })}
-                          </span></>
-                        )}
+                        <span style={{color: 'var(--bg-border)'}}>{' | '}</span><span className="post-read-time">{post.data.readTime} minutes</span>
+
                       </div>
-                    
+
                   </div>
                 </a>
               </li>

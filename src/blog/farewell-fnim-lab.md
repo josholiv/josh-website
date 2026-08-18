@@ -7,7 +7,7 @@ author: 'Josh Olivier'
 image:
     url: ''
     alt: ''
-tags: ["science"]
+tags: ["neuroscience"]
 readTime: '1'
 ---
 

@@ -155,9 +155,9 @@
 
 /* Explicit light override (toggle overrides dark OS preference) */
 html:not(.dark) {
-  --bg-primary:         var(--paper);          /* #fffcf0 */
+  --bg-primary:         var(--green-100);          /* #fffcf0 */
   --bg-secondary:       var(--green-050);     
-  --bg-tertiary:        var(--green-100);     
+  --bg-tertiary:        var(--paper);     
   --bg-border:          var(--neutral-200);    /* #dbdad7 */
   --text-normal:        var(--neutral-700);          /* #100f0f */
   --text-muted:         var(--neutral-600);    /* #62615d */
@@ -239,7 +239,7 @@ html:not(.dark) {
     h1 {
       color: var(--text-heading);
       font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
-      line-height: 1;
+      line-height: 1.3;
       font-weight: 400;
       font-size: 2rem;
       margin: 0;
@@ -250,8 +250,8 @@ html:not(.dark) {
     }
 
     .page-title-block h1 {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+      margin-top: 3rem;
+      margin-bottom: 2rem;
     }
 
     .page-description {
@@ -352,6 +352,9 @@ html:not(.dark) {
 
     header {
       isolation: isolate;
+      background-color: var(--bg-primary);
+      padding-top: 1rem;
+      padding-bottom: 1rem;
     }
 
     .center-title {
@@ -365,18 +368,20 @@ html:not(.dark) {
       align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
-      background: var(--bg-primary);
+      background: var(--bg-secondary);
+      background-attachment: fixed;
       line-height: 1.7;
       letter-spacing: 0.01em;
     }
-    
+
     .page-wrapper {
       display: flex;
       flex-direction: column;
-      width: calc(70ch + 2rem);
+      width: calc(60ch + 2rem);
       max-width: 100%;
       min-height: 100vh;
-     
+      border-left: 1px solid var(--code-border);
+      border-right: 1px solid var(--code-border);
     }
     
     .main-content {
@@ -444,7 +449,7 @@ html:not(.dark) {
 .toc {
   background: var(--bg-secondary);
   border-radius: 5px;
-  padding: 0.75rem 1rem;
+  /* padding: 0.75rem 1rem; */
   margin-bottom: 1.5rem;
   font-size: 1rem;
 }
@@ -622,10 +627,9 @@ html:not(.dark) {
 }
 
 @media (min-width: 1300px) {
-  /* Shift content left by half the (TOC + gap) so the content+TOC pair is
-     centered as one unit on the screen. TOC sits on the right. */
+  /* Shift content left to center content+TOC pair on screen. TOC sits on the right. */
   .page-wrapper {
-    margin-right: calc((12rem + 4rem) / 2 + 12rem);
+    margin-right: 14rem;
   }
 
   .toc {
@@ -984,7 +988,7 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
 /* Mobile link styles */
 .nav-links a {
   display: block;
-  font-family: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next Fallback", sans-serif;
+  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   text-align: left;
   color: var(--link-color);
   text-decoration: underline;
@@ -1018,10 +1022,6 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
     justify-content: flex-start;
     align-items: center;
     width: auto;
-  }
-
-  .nav-icon {
-    display: none;
   }
 
 }
@@ -1191,15 +1191,11 @@ figure.img-figure .blog-body-pic {
   gap: 0.5rem;
   flex-wrap: wrap;
   vertical-align: middle;
-  margin-left: 0.2rem;
 }
 
 /* Individual tag styling on BlogSorter component (just for show, with no cursor or hover effects!) */
 .tag-blogsorter {
-  margin: 0rem;
-  font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   color:  var(--text-normal);
-  font-size: 0.9rem;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -1213,78 +1209,80 @@ figure.img-figure .blog-body-pic {
 .tag[class*="tag-theme-"],
 .tag-blogsorter[class*="tag-theme-"] {
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
-  border: 1px solid currentColor;
-  border-radius: 2rem;
-  padding: 0.1em 0.35em;
-  line-height: 1;
+  border: 1px solid var(--bg-border);
+  border-radius: 5px;
+  padding: 0px 2px;
+  font-size: 0.875rem;
 }
 
 .tag-theme-3dprinting {
   color: var(--orange-400) !important;
+  background-color: var(--orange-800);
 }
 
-.tag-theme-science {
-  color: var(--green-400) !important;
+.tag-theme-neuroscience {
+  color: var(--pink-400) !important;
+  background-color: var(--pink-800);
 }
 
 .tag-theme-books {
-  color: var(--pink-400) !important;
+  color: var(--green-400) !important;
+  background-color: var(--green-800);
 }
 
 .tag-theme-blogging {
   color: var(--purple-400) !important;
+  background-color: var(--purple-800);
 }
 
 .tag-theme-code {
   color: var(--cyan-400) !important;
+  background-color: var(--cyan-800);
 }
 
 .tag-theme-travel {
   color: var(--blue-400) !important;
+  background-color: var(--blue-800);
 }
 
 .tag-theme-triathlon {
   color: var(--red-400) !important;
-}
-
-
-
-.tag[class*="tag-theme-"]:hover {
-  box-shadow: 0 0 0 0 currentColor;
-  border-bottom: 2px solid currentColor;
-}
-
-/* The checkbox already shows selection state in the tag filter panel, so skip the underline hover */
-.tag-filter-label .tag[class*="tag-theme-"]:hover {
-  border-bottom: none;
+  background-color: var(--red-800);
 }
 
 html:not(.dark) .tag-theme-3dprinting {
   color: var(--orange-600) !important;
+  background-color: var(--orange-100);
 }
 
-html:not(.dark) .tag-theme-science {
-  color: var(--green-600) !important;
+html:not(.dark) .tag-theme-neuroscience {
+  color: var(--pink-600) !important;
+  background-color: var(--pink-100);
 }
 
 html:not(.dark) .tag-theme-books {
-  color: var(--pink-600) !important;
+  color: var(--green-600) !important;
+  background-color: var(--green-100);
 }
 
 html:not(.dark) .tag-theme-blogging {
   color: var(--purple-600) !important;
+  background-color: var(--purple-100);
 }
 
 html:not(.dark) .tag-theme-code {
   color: var(--cyan-600) !important;
+  background-color: var(--cyan-100);
 }
 
 html:not(.dark) .tag-theme-travel {
   color: var(--blue-600) !important;
+  background-color: var(--blue-100);
 }
 
 html:not(.dark) .tag-theme-triathlon {
   color: var(--red-600) !important;
+  background-color: var(--red-100);
 }
 
 a.tag, a.tag:visited {
@@ -1428,14 +1426,14 @@ li.blog-post {
 }
 
 .blog-post a .post-title {
-  color: var(--text-heading);
+  color: var(--text-normal);
 }
 
 /* BlogSorter component styles, used on blog.astro */
   /* Wrapper Div on BlogSorter component */
   .blog-post .post-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   margin-bottom: 0rem;
   border-radius: 5px;
@@ -1450,7 +1448,7 @@ li.blog-post {
   margin-left: 0.75rem;
 }
 
-.post-wrapper .post-text {
+.post-wrapper {
   flex: 1;
   min-width: 0;
 }
@@ -1586,7 +1584,7 @@ html:not(.dark) .post-card-link::before {
 
 .explore-card-title {
   font-weight: 700;
-  color: var(--text-heading);
+  color: var(--text-normal);
   font-size: 1rem;
 }
 
@@ -1727,17 +1725,15 @@ html:not(.dark) .sort-icon-btn.active {
   font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
 }
 
-  .post-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
   /* Title on BlogSorter component */
   .post-title {
     margin-bottom: 0rem;
     font-size: 1rem;
-    color: var(--text-heading);
+    color: var(--text-normal);
+  }
+
+  .post-wrapper:hover .post-title {
+    text-decoration: underline;
   }
 
   /* Date on BlogSorter component */
@@ -1761,8 +1757,19 @@ html:not(.dark) .sort-icon-btn.active {
   background-color: var(--code-bg);
   border: 1px solid var(--code-border);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
+
+  .post-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.25rem;
+  }
+
+  .post-tags-container .post-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
 .post-card-link:hover {
   color: inherit;
@@ -1780,7 +1787,6 @@ html:not(.dark) .sort-icon-btn.active {
 
 @media (min-width: 640px) {
   .post-title,
-  .post-tags,
   .pub-date,
   .post-description {
     margin-left: 0;
@@ -1792,6 +1798,7 @@ html:not(.dark) .sort-icon-btn.active {
   }
 
   .nav-links a {
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     padding: 0rem 1rem;
     color: var(--text-muted);
     text-decoration: underline;
@@ -1979,6 +1986,7 @@ html:not(.dark) .sort-icon-btn.active {
   gap: 0.4rem;
   padding: 1.25rem;
   background-color: var(--bg-secondary);
+  border: 1px solid var(--code-border);
   border-radius: 7px;
   position: relative;
   overflow: hidden;

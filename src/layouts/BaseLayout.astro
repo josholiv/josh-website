@@ -12,7 +12,7 @@ import '../styles/font-display-override.css';
 import atkinsonNextFont from '@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2?url';
 import atkinsonMonoFont from '@fontsource-variable/atkinson-hyperlegible-mono/files/atkinson-hyperlegible-mono-latin-wght-normal.woff2?url';
 
-const { pageTitle, titleHtml, shouldCenterTitle, pageTitleClass, shouldShowTitle = true, titlePrefix = false, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, pageTitleClass, shouldShowTitle = true, titlePrefix = false, breadcrumbs = undefined, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
 
 const siteUrl = 'https://josholivier.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
@@ -77,8 +77,27 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
         {shouldShowTitle && (
           <div class="page-title-block">
             <h1 class={`${shouldCenterTitle ? 'center-title' : ''} ${pageTitleClass || ''}`.trim()}>
-              {titlePrefix && <><a href="/" class="title-prefix">Josh Olivier</a><span class="title-muted"> / </span></>}
-              {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
+              {breadcrumbs ? (
+                <>
+                  {breadcrumbs.map((crumb: any, index: number) => (
+                    <Fragment key={index}>
+                      {crumb.href ? (
+                        <a href={crumb.href} class="title-prefix">{crumb.text}</a>
+                      ) : crumb.html ? (
+                        <Fragment set:html={crumb.html} />
+                      ) : (
+                        <span>{crumb.text}</span>
+                      )}
+                      {index < breadcrumbs.length - 1 && <span class="title-muted"> / </span>}
+                    </Fragment>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {titlePrefix && <><a href="/" class="title-prefix">Josh Olivier</a><span class="title-muted"> / </span></>}
+                  {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
+                </>
+              )}
             </h1>
             {descriptionHtml ? (
               <p class="page-description"><Fragment set:html={descriptionHtml} /></p>

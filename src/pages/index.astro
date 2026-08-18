@@ -1,20 +1,48 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Info, GraduationCap, Rss, Contact } from "lucide-preact";
+import { Info, GraduationCap, Rss, Contact, Box as BoxIcon, Brain, Code as CodeIcon, Map as MapIcon, SportShoe, Book } from "lucide-preact";
 import Panels from '../components/Panels.astro';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 
 const pageTitle = "Josh Olivier - Home";
+
+// Get top 3 blog tags by frequency
+const allPosts = await getCollection("blog");
+const tagCounts: Record<string, number> = {};
+allPosts.forEach(post => {
+  post.data.tags?.forEach(tag => {
+    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+  });
+});
+
+const topTags = Object.entries(tagCounts)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 3)
+  .map(([tag]) => tag);
+
+const getTagThemeClass = (tag: string) => `tag-theme-${tag.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+
+const tagIcons: Record<string, any> = {
+  '3dprinting': BoxIcon,
+  neuroscience: Brain,
+  blogging: Rss,
+  code: CodeIcon,
+  travel: MapIcon,
+  triathlon: SportShoe,
+  books: Book,
+};
+
+const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase()] ?? null;
 ---
-<BaseLayout pageTitle={pageTitle} titleHtml="Hi, I'm Josh Olivier!" shouldCenterTitle={false} ogImage="/social-cards/home.png">
+<BaseLayout pageTitle={pageTitle} titleHtml="Josh Olivier" shouldCenterTitle={false} titlePrefix={false} ogImage="/social-cards/home.png">
 
 <Panels />
 
 <ImageLightbox client:load />
 
-<p>I'm a PhD student at UC Riverside interested in memory, aging, and brain activity. 
-I have experience in neuroimaging, cognitive neuroscience, and psychology research.
+<p>I'm a psychology PhD student at the University of California, Riverside. I'm interested in memory, aging, and brain activity 
+  and have experience in neuroimaging and cognitive neuroscience research.
 Check out any of the links below to learn more about me and my work.
 </p>
 
@@ -34,7 +62,22 @@ Check out any of the links below to learn more about me and my work.
   <a href="/blog" class="explore-card">
     <span class="explore-card-icon"><Rss size="1.5rem" /></span>
     <span class="explore-card-title">Blog</span>
-    <span class="explore-card-desc">Posts on research, travel, triathlons, 3D printing, and more.</span>
+    <span class="explore-card-desc">
+      Posts on
+      {topTags.map((tag, index) => {
+        const TagIcon = getTagIcon(tag);
+        return (
+          <span style="display: inline-block; white-space: nowrap;">
+            <span class={`tag tag-blogsorter ${getTagThemeClass(tag)}`}>
+              {TagIcon ? <TagIcon size="0.875rem" aria-hidden="true" /> : <span aria-hidden="true">#</span>}
+              <span>{tag}</span>
+            </span>
+            {index < topTags.length - 1 && <>, </>}
+          </span>
+        );
+      })}
+      , and more.
+    </span>
   </a>
   <a href="/contact" class="explore-card">
     <span class="explore-card-icon"><Contact size="1.5rem" /></span>

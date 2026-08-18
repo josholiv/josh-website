@@ -7,7 +7,7 @@ author: 'Josh Olivier'
 image:
     url: 'https://production-img.hardcover.app/enlarge?height=416&type=webp&url=https%3A%2F%2Fassets.hardcover.app%2Feditions%2F30402897%2F2340846043215666-45427805.jpg&width=270'
     alt: 'The Order of Time'
-tags: ["books", "science"]
+tags: ["books"]
 readTime: '2'
 bookTitle: 'The Order of Time'
 bookTitleShort: 'The Order of Time'

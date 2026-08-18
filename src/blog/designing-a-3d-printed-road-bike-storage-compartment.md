@@ -7,7 +7,7 @@ author: 'Josh Olivier'
 image:
     url: '/images/blog/post-4/post-4-09.jpg'
     alt: '3D model of a storage compartment for a road bike'
-tags: ["3Dprinting", "triathlon"]
+tags: ["3Dprinting"]
 readTime: '5'
 ---
 ## A DIY storage solution
