@@ -165,9 +165,9 @@ html:not(.dark) {
   --text-on-accent:     var(--paper);          /* #fffcf0 */
   --text-heading:       var(--black);
   --icon-color:         var(--neutral-600);     /* #785e0c */
-  --icon-accent:        var(--green-600);     
-  --accent:             var(--green-600);       
-  --accent-hover:       var(--green-400);
+  --icon-accent:        var(--cyan-600);     
+  --accent:             var(--cyan-600);       
+  --accent-hover:       var(--cyan-400);
   --link-color:         var(--text-normal);
   --link-color-hover:   var(--cyan-400);       
   --code-bg:            var(--green-050);     
