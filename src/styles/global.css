@@ -151,13 +151,29 @@
 --btn-text-hover:    var(--text-normal);
 --btn-bg-hover:      var(--neutral-800);   /* #272725 */
 --control-radius:    6px;
+
+  /* Tag theme colors */
+  --tag-orange-text:   var(--orange-400);
+  --tag-orange-bg:     var(--orange-800);
+  --tag-pink-text:     var(--pink-400);
+  --tag-pink-bg:       var(--pink-800);
+  --tag-green-text:    var(--green-400);
+  --tag-green-bg:      var(--green-800);
+  --tag-purple-text:   var(--purple-400);
+  --tag-purple-bg:     var(--purple-800);
+  --tag-cyan-text:     var(--cyan-400);
+  --tag-cyan-bg:       var(--cyan-800);
+  --tag-blue-text:     var(--blue-400);
+  --tag-blue-bg:       var(--blue-800);
+  --tag-red-text:      var(--red-400);
+  --tag-red-bg:        var(--red-800);
 }
 
 /* Explicit light override (toggle overrides dark OS preference) */
 html:not(.dark) {
-  --bg-primary:         var(--green-100);          /* #fffcf0 */
-  --bg-secondary:       var(--green-050);     
-  --bg-tertiary:        var(--paper);     
+  --bg-primary:         var(--paper);          /* #fffcf0 */
+  --bg-secondary:       var(--paper);     
+  --bg-tertiary:        var(--neutral-100);     
   --bg-border:          var(--neutral-200);    /* #dbdad7 */
   --text-normal:        var(--neutral-700);          /* #100f0f */
   --text-muted:         var(--neutral-600);    /* #62615d */
@@ -170,13 +186,29 @@ html:not(.dark) {
   --accent-hover:       var(--cyan-400);
   --link-color:         var(--text-normal);
   --link-color-hover:   var(--cyan-400);       
-  --code-bg:            var(--green-050);     
+  --code-bg:            var(--neutral-050);     
   --code-text:          var(--neutral-700);    /* #464542 */
-  --code-border:        var(--green-200);     
+  --code-border:        var(--neutral-200);     
   --btn-text:          var(--neutral-600);    /* #62615d */
   --btn-text-hover:    var(--text-normal);
-  --btn-bg-hover:      var(--green-100);      
+  --btn-bg-hover:      var(--cyan-100);
   --control-radius:    6px;
+
+  /* Tag theme colors (light theme) */
+  --tag-orange-text:   var(--orange-600);
+  --tag-orange-bg:     var(--orange-100);
+  --tag-pink-text:     var(--pink-600);
+  --tag-pink-bg:       var(--pink-100);
+  --tag-green-text:    var(--green-600);
+  --tag-green-bg:      var(--green-100);
+  --tag-purple-text:   var(--purple-600);
+  --tag-purple-bg:     var(--purple-100);
+  --tag-cyan-text:     var(--cyan-600);
+  --tag-cyan-bg:       var(--cyan-100);
+  --tag-blue-text:     var(--blue-600);
+  --tag-blue-bg:       var(--blue-100);
+  --tag-red-text:      var(--red-600);
+  --tag-red-bg:        var(--red-100);
 
     /* Callout backgrounds */
   .callout-info    { background-color: var(--blue-200); }
@@ -380,6 +412,7 @@ html:not(.dark) {
       width: calc(60ch + 2rem);
       max-width: 100%;
       min-height: 100vh;
+      background-color: var(--bg-primary);
       border-left: 1px solid var(--code-border);
       border-right: 1px solid var(--code-border);
     }
@@ -447,7 +480,7 @@ html:not(.dark) {
 
 /* ─── Table of Contents ─── */
 .toc {
-  background: var(--bg-secondary);
+  /* background: var(--bg-secondary); */
   border-radius: 5px;
   /* padding: 0.75rem 1rem; */
   margin-bottom: 1.5rem;
@@ -505,21 +538,6 @@ html:not(.dark) {
   padding-top: 1rem;
 }
 
-/* Desktop (≥ 1300px): open by default unless explicitly closed by user */
-@media (min-width: 1300px) {
-  #toc:not([data-open="false"]) .toc-chevron,
-  #tag-panel:not([data-open="false"]) .toc-chevron,
-  #links-panel:not([data-open="false"]) .toc-chevron {
-    transform: rotate(90deg);
-  }
-
-  #toc:not([data-open="false"]) .toc-body,
-  #tag-panel:not([data-open="false"]) .toc-body,
-  #links-panel:not([data-open="false"]) .toc-body {
-    grid-template-rows: 1fr;
-    padding-top: 1rem;
-  }
-}
 
 .tag-filter-panel {
   margin-top: 0.75rem;
@@ -627,22 +645,22 @@ html:not(.dark) {
 }
 
 @media (min-width: 1300px) {
-  /* Shift content left to center content+TOC pair on screen. TOC sits on the right. */
   .page-wrapper {
-    margin-right: 14rem;
+    margin-left: 0rem;   
   }
 
   .toc {
     position: fixed;
     top: 0.6rem;
     font-size: 1rem;
-    right: calc(50% - 35ch - 8.75rem - 7rem);
+    left: 0;               /* Changed from right calculation */
     width: 14rem;
     margin-bottom: 0;
     max-height: calc(100vh - 0.6rem);
     overflow-y: auto;
     z-index: 100;
   }
+
 
   .toc-item a {
     font-size: 1rem;
@@ -1216,73 +1234,38 @@ figure.img-figure .blog-body-pic {
 }
 
 .tag-theme-3dprinting {
-  color: var(--orange-400) !important;
-  background-color: var(--orange-800);
+  color: var(--tag-orange-text) !important;
+  background-color: var(--tag-orange-bg);
 }
 
 .tag-theme-neuroscience {
-  color: var(--pink-400) !important;
-  background-color: var(--pink-800);
+  color: var(--tag-pink-text) !important;
+  background-color: var(--tag-pink-bg);
 }
 
 .tag-theme-books {
-  color: var(--green-400) !important;
-  background-color: var(--green-800);
+  color: var(--tag-green-text) !important;
+  background-color: var(--tag-green-bg);
 }
 
 .tag-theme-blogging {
-  color: var(--purple-400) !important;
-  background-color: var(--purple-800);
+  color: var(--tag-purple-text) !important;
+  background-color: var(--tag-purple-bg);
 }
 
 .tag-theme-code {
-  color: var(--cyan-400) !important;
-  background-color: var(--cyan-800);
+  color: var(--tag-cyan-text) !important;
+  background-color: var(--tag-cyan-bg);
 }
 
 .tag-theme-travel {
-  color: var(--blue-400) !important;
-  background-color: var(--blue-800);
+  color: var(--tag-blue-text) !important;
+  background-color: var(--tag-blue-bg);
 }
 
 .tag-theme-triathlon {
-  color: var(--red-400) !important;
-  background-color: var(--red-800);
-}
-
-html:not(.dark) .tag-theme-3dprinting {
-  color: var(--orange-600) !important;
-  background-color: var(--orange-100);
-}
-
-html:not(.dark) .tag-theme-neuroscience {
-  color: var(--pink-600) !important;
-  background-color: var(--pink-100);
-}
-
-html:not(.dark) .tag-theme-books {
-  color: var(--green-600) !important;
-  background-color: var(--green-100);
-}
-
-html:not(.dark) .tag-theme-blogging {
-  color: var(--purple-600) !important;
-  background-color: var(--purple-100);
-}
-
-html:not(.dark) .tag-theme-code {
-  color: var(--cyan-600) !important;
-  background-color: var(--cyan-100);
-}
-
-html:not(.dark) .tag-theme-travel {
-  color: var(--blue-600) !important;
-  background-color: var(--blue-100);
-}
-
-html:not(.dark) .tag-theme-triathlon {
-  color: var(--red-600) !important;
-  background-color: var(--red-100);
+  color: var(--tag-red-text) !important;
+  background-color: var(--tag-red-bg);
 }
 
 a.tag, a.tag:visited {
@@ -1346,7 +1329,7 @@ input[type="checkbox"] {
   vertical-align: middle;
   border: 1px solid var(--bg-border);
   border-radius: 4px;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-code);
   cursor: pointer;
   transition: background-color 0.1s ease, border-color 0.1s ease;
 }
@@ -1938,8 +1921,8 @@ html:not(.dark) .sort-icon-btn.active {
 #rc-tooltip {
   position: fixed;
   display: none;
-  background: var(--bg-secondary);
-  border: 1px solid var(--bg-border);
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
   border-radius: 4px;
   color: var(--text-normal);
   font-size: 0.875rem;
@@ -1985,7 +1968,7 @@ html:not(.dark) .sort-icon-btn.active {
   flex-direction: column;
   gap: 0.4rem;
   padding: 1.25rem;
-  background-color: var(--bg-secondary);
+  background-color: var(--code-bg);
   border: 1px solid var(--code-border);
   border-radius: 7px;
   position: relative;
@@ -2136,23 +2119,13 @@ html:not(.dark) .stat-card::before {
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  background: var(--pink-800);
+  background: var(--tag-green-bg);
 }
 
 .lightbox-book-link-review,
 .lightbox-book-link-review:link,
 .lightbox-book-link-review:visited {
-  color: var(--pink-200);
-}
-
-html:not(.dark) .lightbox-book-link-review {
-  background: var(--pink-700);
-}
-
-html:not(.dark) .lightbox-book-link-review,
-html:not(.dark) .lightbox-book-link-review:link,
-html:not(.dark) .lightbox-book-link-review:visited {
-  color: var(--pink-050);
+  color: var(--tag-green-text);
 }
 
 .lightbox-book-link-review svg {

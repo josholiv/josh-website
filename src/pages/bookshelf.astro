@@ -164,7 +164,7 @@ if (pageCounts.length >= 4) {
   const rcMax = pageCounts[rcN - 1];
   const range = rcMax - rcMin;
   const xPad = range * 0.05;
-  const xLo = 0;
+  const xLo = rcMin - xPad;
   const xHi = rcMax + xPad;
 
   const xScale = (p: number) => RC_PAD_L + ((p - xLo) / (xHi - xLo)) * RC_PLOT_W;
@@ -676,7 +676,14 @@ const headings = [
           </g>
           <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 44} class="rc-axis-label">pages</text>
         </svg>
-        <p class="raincloud-hint">Scroll to zoom · drag to pan · double-click to reset</p>
+        <div class="raincloud-range-controls">
+          <div class="range-inputs">
+            <input type="number" class="range-input range-min" placeholder="Min" aria-label="Minimum value">
+            <span class="range-separator">–</span>
+            <input type="number" class="range-input range-max" placeholder="Max" aria-label="Maximum value">
+            <button class="range-reset" aria-label="Reset to full range">Reset</button>
+          </div>
+        </div>
       </div>
     </div>
   )}
@@ -715,9 +722,16 @@ const headings = [
               </g>
             ))}
           </g>
-          <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 44} class="rc-axis-label">publication or original composition date</text>
+          <text x={RC_SVG_W / 2} y={RC_AXIS_Y + 44} class="rc-axis-label">original publication or composition date</text>
         </svg>
-        <p class="raincloud-hint">Scroll to zoom · drag to pan · double-click to reset</p>
+        <div class="raincloud-range-controls">
+          <div class="range-inputs">
+            <input type="number" class="range-input range-min" placeholder="Min" aria-label="Minimum value">
+            <span class="range-separator">–</span>
+            <input type="number" class="range-input range-max" placeholder="Max" aria-label="Maximum value">
+            <button class="range-reset" aria-label="Reset to full range">Reset</button>
+          </div>
+        </div>
       </div>
     </div>
   )}
@@ -725,12 +739,14 @@ const headings = [
   <div class="stats-charts">
     <div class="chart-section chart-section-wide">
       <p class="chart-title">Authors by country</p>
+      <div class="map-controls">
+        <button class="map-reset" aria-label="Reset zoom" style="display:none;">Reset</button>
+        <button class="zoom-btn zoom-in" aria-label="Zoom in">+</button>
+        <button class="zoom-btn zoom-out" aria-label="Zoom out">−</button>
+      </div>
       <div class="world-map" set:html={worldMapSvg}></div>
       {totalCountries > 0 ? (
-        <>
-          <p class="world-map-summary">{totalMappedAuthors} {totalMappedAuthors === 1 ? 'author' : 'authors'} across {totalCountries} {totalCountries === 1 ? 'country' : 'countries'}</p>
-          <p class="raincloud-hint world-map-hint">Scroll to zoom · drag to pan · double-click to reset</p>
-        </>
+        <p class="world-map-summary">{totalMappedAuthors} {totalMappedAuthors === 1 ? 'author' : 'authors'} across {totalCountries} {totalCountries === 1 ? 'country' : 'countries'}</p>
       ) : (
         <p class="raincloud-hint">No country data yet — add an authorCountry ISO code to your book notes and re-run the sync</p>
       )}
@@ -744,8 +760,8 @@ const headings = [
     height: 2.25rem;
     padding: 0.5rem 0.75rem;
     border-radius: var(--control-radius);
-    border: 1px solid var(--bg-border);
-    background: var(--bg-secondary);
+    border: 1px solid var(--code-border);
+    background: var(--code-bg);
     color: var(--text-normal);
     font-size: 0.9rem;
     font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
@@ -760,7 +776,7 @@ const headings = [
   }
 
   .book-search:focus {
-    border-color: var(--bg-border);
+    border-color: var(--accent);
   }
 
   .search-hint {
@@ -770,9 +786,9 @@ const headings = [
     transform: translateY(-50%);
     font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
     font-size: 0.875rem;
-    color: var(--text-muted);
+    color: var(--text-muted); 
     background: var(--bg-primary);
-    border: 1px solid var(--bg-border);
+    border: 1px solid var(--code-border);
     border-radius: 4px;
     padding: 0.1rem 0.35rem;
     pointer-events: none;
@@ -829,7 +845,7 @@ const headings = [
   .cover-placeholder {
     width: 100%;
     height: 100%;
-    background-color: var(--bg-secondary);
+    background-color: var(--code-bg);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -903,8 +919,8 @@ const headings = [
     gap: 0.25rem;
     padding: 0.3rem 0.5rem;
     border-top-left-radius: 10px;
-    background-color: var(--pink-800);
-    color: var(--pink-200);
+    background-color: var(--tag-green-bg);
+    color: var(--tag-green-text);
     pointer-events: none; /* clicks fall through to the cover image → lightbox */
   }
 
@@ -915,9 +931,9 @@ const headings = [
     letter-spacing: 0.02em;
   }
 
-  :global(html:not(.dark)) .review-overlay {
-    background-color: var(--pink-700);
-    color: var(--pink-050);
+  .review-overlay :global(svg) {
+    stroke: currentColor;
+    color: inherit;
   }
 
   .reread-overlay {
@@ -929,8 +945,8 @@ const headings = [
     gap: 0.25rem;
     padding: 0.3rem 0.5rem;
     border-bottom-left-radius: 10px;
-    background-color: var(--neutral-800);
-    color: var(--neutral-200);
+    background-color: var(--tag-cyan-bg);
+    color: var(--tag-cyan-text);
     pointer-events: none;
   }
 
@@ -941,9 +957,9 @@ const headings = [
     letter-spacing: 0.02em;
   }
 
-  :global(html:not(.dark)) .reread-overlay {
-    background-color: var(--neutral-700);
-    color: var(--neutral-050);
+  .reread-overlay :global(svg) {
+    stroke: currentColor;
+    color: inherit;
   }
 
   #reviewFilterBtn.active {
@@ -964,10 +980,12 @@ const headings = [
   .chart-section {
     flex: 1;
     min-width: 220px;
-    background-color: var(--bg-secondary);
+    background-color: var(--code-bg);
+    border: 1px solid var(--code-border);
     border-radius: 7px;
     padding: 1.25rem;
     position: relative;
+    overflow: hidden;
   }
 
   .chart-section::before {
@@ -1094,7 +1112,7 @@ const headings = [
   .rating-bar-track {
     flex: 1;
     height: 0.9rem;
-    background: var(--bg-secondary);
+    background: var(--code-bg);
     border-radius: 2px;
     overflow: hidden;
   }
@@ -1121,6 +1139,141 @@ const headings = [
   /* ── Raincloud plot ──────────────────────────────────── */
   .chart-section-wide {
     flex: 0 0 100%;
+  }
+
+  .raincloud-range-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .range-display {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+    line-height: 1.4;
+  }
+
+  .range-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .range-input {
+    flex: 1;
+    height: 2rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--code-border);
+    border-radius: 4px;
+    background-color: var(--code-bg);
+    color: var(--text-normal);
+    font-size: 0.875rem;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+  }
+
+  .range-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .range-input::placeholder {
+    color: var(--text-faint);
+  }
+
+  .range-separator {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .range-reset {
+    height: 2rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--code-border);
+    border-radius: 4px;
+    background-color: var(--code-bg);
+    color: var(--text-normal);
+    font-size: 0.875rem;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .range-reset:hover {
+    background-color: var(--btn-bg-hover);
+    border-color: var(--accent);
+    color: var(--text-heading);
+  }
+
+  .range-reset:active {
+    transform: scale(0.98);
+  }
+
+  .map-controls {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  .zoom-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 1px solid var(--code-border);
+    border-radius: var(--control-radius);
+    background-color: var(--code-bg);
+    color: var(--text-normal);
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+
+  .zoom-btn:hover {
+    background-color: var(--btn-bg-hover);
+    color: var(--text-heading);
+    border-color: var(--accent);
+  }
+
+  .zoom-btn:active {
+    transform: scale(0.95);
+  }
+
+  .zoom-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .map-reset {
+    height: 2.5rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--code-border);
+    border-radius: var(--control-radius);
+    background-color: var(--code-bg);
+    color: var(--text-normal);
+    font-size: 0.875rem;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .map-reset:hover {
+    background-color: var(--btn-bg-hover);
+    border-color: var(--accent);
+    color: var(--text-heading);
+  }
+
+  .map-reset:active {
+    transform: scale(0.98);
   }
 
   .raincloud-svg {
@@ -1154,7 +1307,7 @@ const headings = [
   }
 
   .rc-box {
-    fill: var(--bg-secondary);
+    fill: var(--code-bg);
     stroke: var(--accent);
     stroke-width: 2.5;
     transition: stroke 0.15s;
@@ -1201,7 +1354,7 @@ const headings = [
 
   .rc-axis,
   .rc-tick {
-    stroke: var(--bg-border);
+    stroke: var(--code-border);
     stroke-width: 1;
   }
 
@@ -1239,9 +1392,9 @@ const headings = [
     cursor: grabbing;
   }
   .world-map :global(path) {
-    fill: var(--bg-tertiary);
-    stroke: var(--bg-secondary);
-    stroke-width: 1;
+    fill: var(--code-bg);
+    stroke: var(--code-border);
+    stroke-width: 2;
     cursor: pointer;
     transition: opacity 0.15s, fill 0.15s;
   }
@@ -1530,24 +1683,7 @@ const headings = [
     }
 
     function updateZoomIndicator(svg: Element, info: RcInfo, xLo: number, xHi: number) {
-      const hint = svg.nextElementSibling as HTMLElement | null;
-      if (!hint || !hint.classList.contains('raincloud-hint')) return;
-      const atFull = Math.abs(xLo - info.xLoFull) < 0.01 && Math.abs(xHi - info.xHiFull) < 0.01;
-      if (atFull) {
-        hint.textContent = 'Scroll to zoom · drag to pan · double-click to reset';
-        hint.classList.remove('rc-hint-zoomed');
-        return;
-      }
-      const fmt = (v: number) => {
-        if (info.axisLabel === 'year') {
-          const r = Math.round(v);
-          return r < 0 ? String(Math.abs(r)) + ' BCE' : String(r) + ' CE';
-        }
-        if (Math.abs(v) >= 1000) return (v / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-        return String(Math.round(v));
-      };
-      hint.textContent = 'Zoomed to ' + fmt(xLo) + ' – ' + fmt(xHi) + (info.axisLabel === 'year' ? '' : ' ' + info.axisLabel) + ' · double-click to reset';
-      hint.classList.add('rc-hint-zoomed');
+      // No hint for raincloud plots - range selector displays the current range
     }
 
     function updateRaincloud(svg: Element) {
@@ -1574,38 +1710,30 @@ const headings = [
       const PAD_R = SVG_W - info.PAD_L - info.PLOT_W;
       const plotPxOf = (rect: DOMRect) => Math.max(rect.width - info.PAD_L - PAD_R, 1);
 
-      svg.addEventListener('wheel', (ev: Event) => {
-        const e = ev as WheelEvent;
-        e.preventDefault();
-        const rect = svg.getBoundingClientRect();
-        const plotLeft = info.PAD_L;
-        const plotPx   = plotPxOf(rect);
-        const mouseRatio = Math.max(0, Math.min(1, (e.clientX - rect.left - plotLeft) / plotPx));
-        const pivot = xLo + mouseRatio * (xHi - xLo);
-        const factor = e.deltaY > 0 ? 1.25 : 0.8;
-        const minSpan = (info.xHiFull - info.xLoFull) / 50;
-        const newSpan = Math.max(minSpan, Math.min(info.xHiFull - info.xLoFull, (xHi - xLo) * factor));
-        xLo = Math.max(info.xLoFull, Math.min(info.xHiFull - newSpan, pivot - mouseRatio * newSpan));
-        xHi = xLo + newSpan;
-        el.dataset.xLo = String(xLo);
-        el.dataset.xHi = String(xHi);
-        applyRange(svg, xLo, xHi);
-        updateZoomIndicator(svg, info, xLo, xHi);
-      }, { passive: false } as AddEventListenerOptions);
+      // Allow normal page scrolling; zoom buttons provided instead
+      // (no need to preventDefault wheel events - no zoom-on-scroll logic exists)
 
       let dragging = false;
       let dragStartX = 0, dragStartLo = 0, dragStartHi = 0;
+      let hasMoved = false;
 
-      svg.addEventListener('mousedown', (ev: Event) => {
-        const e = ev as MouseEvent;
-        dragging = true;
-        dragStartX = e.clientX;
-        dragStartLo = xLo; dragStartHi = xHi;
-        el.style.cursor = 'grabbing';
+      svg.addEventListener('pointerdown', (ev: Event) => {
+        const e = ev as PointerEvent;
+        // Only handle primary pointer (mouse/pen, not secondary touches)
+        if (e.isPrimary) {
+          dragging = true;
+          hasMoved = false;
+          dragStartX = e.clientX;
+          dragStartLo = xLo;
+          dragStartHi = xHi;
+          el.style.cursor = 'grabbing';
+          svg.setPointerCapture(e.pointerId);
+        }
       });
-      window.addEventListener('mousemove', (ev: Event) => {
+
+      svg.addEventListener('pointermove', (ev: Event) => {
         if (!dragging) return;
-        const e = ev as MouseEvent;
+        const e = ev as PointerEvent;
         const rect = svg.getBoundingClientRect();
         const plotPx = plotPxOf(rect);
         const dxData = -((e.clientX - dragStartX) / plotPx) * (dragStartHi - dragStartLo);
@@ -1616,94 +1744,41 @@ const headings = [
         el.dataset.xHi = String(xHi);
         applyRange(svg, xLo, xHi);
         updateZoomIndicator(svg, info, xLo, xHi);
-      });
-      window.addEventListener('mouseup', () => {
-        if (!dragging) return;
-        dragging = false;
-        el.style.cursor = 'grab';
+        hasMoved = true;
       });
 
-      svg.addEventListener('dblclick', () => {
+      svg.addEventListener('pointerup', (ev: Event) => {
+        const e = ev as PointerEvent;
+        if (e.isPrimary && dragging) {
+          dragging = false;
+          hasMoved = false;
+          el.style.cursor = 'grab';
+          svg.releasePointerCapture(e.pointerId);
+        }
+      });
+
+      svg.addEventListener('pointercancel', () => {
+        dragging = false;
+        el.style.cursor = 'grab';
+        hasMoved = false;
+      });
+
+      svg.addEventListener('dblclick', (ev: Event) => {
+        // Don't reset zoom if we just finished panning
+        if (hasMoved) {
+          ev.preventDefault();
+          hasMoved = false;
+          return;
+        }
         xLo = info.xLoFull; xHi = info.xHiFull;
         el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
         applyRange(svg, xLo, xHi);
         updateZoomIndicator(svg, info, xLo, xHi);
-      });
+      }, { passive: false });
 
-      // Touch: single-finger pan, two-finger pinch-to-zoom, double-tap to reset
-      let lastTouchDist = 0;
-      let lastTap = 0;
-
-      svg.addEventListener('touchstart', (ev: Event) => {
-        const e = ev as TouchEvent;
-        e.preventDefault();
-        if (e.touches.length === 1) {
-          dragging = true;
-          dragStartX = e.touches[0].clientX;
-          dragStartLo = xLo; dragStartHi = xHi;
-        } else if (e.touches.length === 2) {
-          dragging = false;
-          lastTouchDist = Math.hypot(
-            e.touches[1].clientX - e.touches[0].clientX,
-            e.touches[1].clientY - e.touches[0].clientY,
-          );
-        }
-      }, { passive: false } as AddEventListenerOptions);
-
-      svg.addEventListener('touchmove', (ev: Event) => {
-        const e = ev as TouchEvent;
-        e.preventDefault();
-        if (e.touches.length === 1 && dragging) {
-          const rect = svg.getBoundingClientRect();
-          const plotPx = plotPxOf(rect);
-          const dxData = -((e.touches[0].clientX - dragStartX) / plotPx) * (dragStartHi - dragStartLo);
-          const span = dragStartHi - dragStartLo;
-          xLo = Math.max(info.xLoFull, Math.min(info.xHiFull - span, dragStartLo + dxData));
-          xHi = xLo + span;
-          el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
-          applyRange(svg, xLo, xHi);
-          updateZoomIndicator(svg, info, xLo, xHi);
-        } else if (e.touches.length === 2 && lastTouchDist > 0) {
-          const dist = Math.hypot(
-            e.touches[1].clientX - e.touches[0].clientX,
-            e.touches[1].clientY - e.touches[0].clientY,
-          );
-          const scale = lastTouchDist / dist;
-          lastTouchDist = dist;
-          const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-          const rect = svg.getBoundingClientRect();
-          const plotLeft = info.PAD_L;
-          const plotPx = plotPxOf(rect);
-          const mouseRatio = Math.max(0, Math.min(1, (midX - rect.left - plotLeft) / plotPx));
-          const pivot = xLo + mouseRatio * (xHi - xLo);
-          const minSpan = (info.xHiFull - info.xLoFull) / 50;
-          const newSpan = Math.max(minSpan, Math.min(info.xHiFull - info.xLoFull, (xHi - xLo) * scale));
-          xLo = Math.max(info.xLoFull, Math.min(info.xHiFull - newSpan, pivot - mouseRatio * newSpan));
-          xHi = xLo + newSpan;
-          el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
-          applyRange(svg, xLo, xHi);
-          updateZoomIndicator(svg, info, xLo, xHi);
-        }
-      }, { passive: false } as AddEventListenerOptions);
-
-      svg.addEventListener('touchend', (ev: Event) => {
-        const e = ev as TouchEvent;
-        if (e.touches.length === 0) {
-          dragging = false;
-          lastTouchDist = 0;
-          const now = Date.now();
-          if (now - lastTap < 300) {
-            xLo = info.xLoFull; xHi = info.xHiFull;
-            el.dataset.xLo = String(xLo); el.dataset.xHi = String(xHi);
-            applyRange(svg, xLo, xHi);
-            updateZoomIndicator(svg, info, xLo, xHi);
-          }
-          lastTap = now;
-        }
-      });
+      // Touch and pointer events are handled by pointer event handlers above
 
       el.style.cursor = 'grab';
-      el.style.touchAction = 'none';
     }
 
     // Tooltip for individual data points
@@ -1829,7 +1904,111 @@ const headings = [
     }
 
     const rainSvgs = document.querySelectorAll('.raincloud-svg');
-    rainSvgs.forEach((svg: Element) => { updateRaincloud(svg); setupZoom(svg); attachDotTooltips(svg); attachBoxTooltips(svg); });
+    rainSvgs.forEach((svg: Element) => {
+      updateRaincloud(svg);
+      setupZoom(svg);
+      attachDotTooltips(svg);
+      attachBoxTooltips(svg);
+
+      // Attach range control handlers
+      const chartSection = svg.closest('.chart-section');
+      if (chartSection) {
+        const rangeControls = chartSection.querySelector('.raincloud-range-controls');
+        if (rangeControls) {
+          const rangeDisplay = rangeControls.querySelector('.range-display') as HTMLElement | null;
+          const rangeMinInput = rangeControls.querySelector('.range-min') as HTMLInputElement | null;
+          const rangeMaxInput = rangeControls.querySelector('.range-max') as HTMLInputElement | null;
+
+          const updateRangeDisplay = () => {
+            const info = getInfo(svg);
+            if (!info) return;
+            const el = svg as HTMLElement;
+            const xLo = parseFloat(el.dataset.xLo ?? 'NaN');
+            const xHi = parseFloat(el.dataset.xHi ?? 'NaN');
+            const displayLo = isNaN(xLo) ? info.xLoFull : xLo;
+            const displayHi = isNaN(xHi) ? info.xHiFull : xHi;
+
+            const fmt = (v: number) => {
+              if (info.axisLabel === 'year') {
+                const r = Math.round(v);
+                return r < 0 ? String(Math.abs(r)) + ' BCE' : String(r) + ' CE';
+              }
+              const r = Math.round(v);
+              if (Math.abs(r) >= 1000) return (r / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+              return String(r);
+            };
+
+            if (rangeDisplay) rangeDisplay.textContent = 'Showing ' + fmt(displayLo) + ' – ' + fmt(displayHi) + (info.axisLabel === 'year' ? '' : ' ' + info.axisLabel);
+            if (rangeMinInput) rangeMinInput.value = String(Math.round(displayLo));
+            if (rangeMaxInput) rangeMaxInput.value = String(Math.round(displayHi));
+
+            // Update placeholder text with actual min/max values
+            if (rangeMinInput) rangeMinInput.placeholder = String(Math.round(info.xLoFull));
+            if (rangeMaxInput) rangeMaxInput.placeholder = String(Math.round(info.xHiFull));
+          };
+
+          const applyRangeInputs = () => {
+            const info = getInfo(svg);
+            if (!info) return;
+            const el = svg as HTMLElement;
+
+            let newLo = parseFloat(rangeMinInput?.value ?? 'NaN');
+            let newHi = parseFloat(rangeMaxInput?.value ?? 'NaN');
+
+            if (isNaN(newLo)) newLo = info.xLoFull;
+            if (isNaN(newHi)) newHi = info.xHiFull;
+
+            // Clamp to valid range
+            newLo = Math.max(info.xLoFull, Math.min(info.xHiFull, newLo));
+            newHi = Math.max(info.xLoFull, Math.min(info.xHiFull, newHi));
+
+            if (newLo >= newHi) {
+              updateRangeDisplay();
+              return;
+            }
+
+            el.dataset.xLo = String(newLo);
+            el.dataset.xHi = String(newHi);
+            applyRange(svg, newLo, newHi);
+            updateZoomIndicator(svg, info, newLo, newHi);
+            updateRangeDisplay();
+          };
+
+          // Initial display
+          updateRangeDisplay();
+
+          // Listen for input changes
+          rangeMinInput?.addEventListener('change', applyRangeInputs);
+          rangeMaxInput?.addEventListener('change', applyRangeInputs);
+          rangeMinInput?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') applyRangeInputs();
+          });
+          rangeMaxInput?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') applyRangeInputs();
+          });
+
+          // Reset button
+          const resetBtn = rangeControls.querySelector('.range-reset') as HTMLButtonElement | null;
+          resetBtn?.addEventListener('click', () => {
+            const info = getInfo(svg);
+            if (!info) return;
+            const el = svg as HTMLElement;
+            el.dataset.xLo = String(info.xLoFull);
+            el.dataset.xHi = String(info.xHiFull);
+            applyRange(svg, info.xLoFull, info.xHiFull);
+            updateZoomIndicator(svg, info, info.xLoFull, info.xHiFull);
+            updateRangeDisplay();
+          });
+
+          // Update display when zoom changes (from drag/pan)
+          const originalUpdateZoomIndicator = updateZoomIndicator;
+          updateZoomIndicator = (s: Element, info: RcInfo, xLo: number, xHi: number) => {
+            if (s === svg) updateRangeDisplay();
+            originalUpdateZoomIndicator(s, info, xLo, xHi);
+          };
+        }
+      }
+    });
 
     if (window.ResizeObserver) {
       const ro = new ResizeObserver((entries: ResizeObserverEntry[]) => {
@@ -1879,19 +2058,14 @@ const headings = [
     const ORIG = { x: 0, y: 0, w: 1010, h: 666 };
     let view = { ...ORIG };
     const MIN_W = ORIG.w / 12;
-    const mapHint = wrapper.parentElement?.querySelector('.world-map-hint') as HTMLElement | null;
-    const updateMapHint = () => {
-      if (!mapHint) return;
+    const mapControls = wrapper.parentElement?.querySelector('.map-controls');
+    const resetBtn = mapControls?.querySelector('.map-reset') as HTMLButtonElement | null;
+    const updateResetButton = () => {
+      if (!resetBtn) return;
       const isZoomed = view.w < ORIG.w - 0.01;
-      if (isZoomed) {
-        mapHint.textContent = 'Zoomed · drag to pan · double-click to reset';
-        mapHint.classList.add('rc-hint-zoomed');
-      } else {
-        mapHint.textContent = 'Scroll to zoom · drag to pan · double-click to reset';
-        mapHint.classList.remove('rc-hint-zoomed');
-      }
+      resetBtn.style.display = isZoomed ? '' : 'none';
     };
-    const applyView = () => { svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`); updateMapHint(); };
+    const applyView = () => { svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`); updateResetButton(); };
     const clamp = () => {
       if (view.w > ORIG.w) view.w = ORIG.w;
       if (view.w < MIN_W) view.w = MIN_W;
@@ -1914,13 +2088,35 @@ const headings = [
     };
     const reset = () => { view = { ...ORIG }; applyView(); hideTip(); };
 
-    svg.addEventListener('wheel', (e: WheelEvent) => {
-      e.preventDefault();
-      const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2;
-      zoomAt(e.clientX, e.clientY, factor);
-    }, { passive: false });
+    // Allow normal page scrolling; zoom buttons provided instead
+    // (no need to preventDefault wheel events - no zoom-on-scroll logic exists)
 
     svg.addEventListener('dblclick', (e) => { e.preventDefault(); reset(); });
+
+    // ── Zoom button controls ─────────────────────────────
+    if (mapControls) {
+      const zoomInBtn = mapControls.querySelector('.zoom-in') as HTMLButtonElement | null;
+      const zoomOutBtn = mapControls.querySelector('.zoom-out') as HTMLButtonElement | null;
+      const mapResetBtn = mapControls.querySelector('.map-reset') as HTMLButtonElement | null;
+
+      zoomInBtn?.addEventListener('click', () => {
+        const r = svg.getBoundingClientRect();
+        const centerX = r.left + r.width / 2;
+        const centerY = r.top + r.height / 2;
+        zoomAt(centerX, centerY, 1.2); // zoom in
+      });
+
+      zoomOutBtn?.addEventListener('click', () => {
+        const r = svg.getBoundingClientRect();
+        const centerX = r.left + r.width / 2;
+        const centerY = r.top + r.height / 2;
+        zoomAt(centerX, centerY, 1 / 1.2); // zoom out
+      });
+
+      mapResetBtn?.addEventListener('click', () => {
+        reset();
+      });
+    }
 
     // ── Pointer-based pan + pinch + tap ─────────────────
     type P = { x: number; y: number };

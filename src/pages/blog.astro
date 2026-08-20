@@ -4,7 +4,6 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogSorter from "../components/BlogSorter.jsx";
 import Panels from '../components/Panels.astro';
-import { PAGE_META } from '../data/page-meta';
 
 const pageTitle = "Josh Olivier - Blog";
 const allPosts = await getCollection("blog");

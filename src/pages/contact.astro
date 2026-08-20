@@ -2,19 +2,20 @@
 import { Mail, Code, Radio, GraduationCap, Box, Briefcase } from "lucide-preact";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Panels from '../components/Panels.astro';
-import { PAGE_META } from '../data/page-meta';
-
 
 const pageTitle = "Josh Olivier - Contact";
+const headings = [
+  { depth: 2, slug: 'email', text: 'Email' },
+  { depth: 2, slug: 'other-platforms', text: 'Other platforms' }
+];
 ---
 
 
+<BaseLayout pageTitle={pageTitle} titleHtml="Contact" shouldCenterTitle={false} titlePrefix={true} footerImageLoading="eager" ogImage="/social-cards/contact.png">
 
-<BaseLayout pageTitle={pageTitle} titleHtml="Contact" shouldCenterTitle={false} titlePrefix={true} footerImageLoading="eager" ogImage="/social-cards/contact.png" description={PAGE_META.contact.description}>
+  <Panels headings={headings} />
 
-  <Panels />
-
-  <h2>Email</h2>
+  <h2 id="email">Email</h2>
   
   <ul class="icon-list">
     <li>
@@ -25,7 +26,7 @@ const pageTitle = "Josh Olivier - Contact";
     </li>
 </ul>
 
-<h2>Other platforms</h2>
+<h2 id="other-platforms">Other platforms</h2>
 
 <ul class="icon-list">
     <li>

@@ -55,29 +55,6 @@ if (posts) {
     <span><span class="toc-site-title-main">josholivier</span><span class="toc-site-title-domain">.com</span></span>
   </a>
 
-{grouped.length === 0 && sortedTags.length === 0 && (
-  <nav class="toc" id="links-panel">
-    <button class="toc-title" id="links-toggle">
-      Links
-      <span class="toc-chevron">
-        <ChevronRight size="0.9rem" />
-      </span>
-    </button>
-    <div class="toc-body">
-      <div class="toc-body-inner">
-        <ul class="toc-links-list">
-          <li class="links-item"><a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Code size="1rem" />GitHub</a></li>
-          <li class="links-item"><a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Radio size="1rem" />Bluesky</a></li>
-          <li class="links-item"><a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Briefcase size="1rem" />LinkedIn</a></li>
-          <li class="links-item"><a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />ORCiD</a></li>
-          <li class="links-item"><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />Google Scholar</a></li>
-          <li class="links-item"><a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Box size="1rem" />Thingiverse</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-)}
-
   {grouped.length > 0 && (
   <nav class="toc" id="toc">
     <button class="toc-title" id="toc-toggle">
@@ -146,6 +123,27 @@ if (posts) {
     </nav>
   )}
 
+  <nav class="toc" id="links-panel">
+    <button class="toc-title" id="links-toggle">
+      Links
+      <span class="toc-chevron">
+        <ChevronRight size="0.9rem" />
+      </span>
+    </button>
+    <div class="toc-body">
+      <div class="toc-body-inner">
+        <ul class="toc-links-list">
+          <li class="links-item"><a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Code size="1rem" />GitHub</a></li>
+          <li class="links-item"><a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Radio size="1rem" />Bluesky</a></li>
+          <li class="links-item"><a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Briefcase size="1rem" />LinkedIn</a></li>
+          <li class="links-item"><a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />ORCiD</a></li>
+          <li class="links-item"><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />Google Scholar</a></li>
+          <li class="links-item"><a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Box size="1rem" />Thingiverse</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
 </div>
 
 <style>
@@ -164,7 +162,7 @@ if (posts) {
     text-decoration: none;
     white-space: nowrap;
     color: var(--text-heading);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     margin-left: 0rem;
   }
 
@@ -218,7 +216,7 @@ if (posts) {
     .toc-panel {
       position: fixed;
       top: 1rem;
-      right: calc(50% - 35ch - 6rem);
+      left: 1rem;            /* Changed from right calculation */
       width: 14rem;
       display: flex;
       flex-direction: column;
@@ -246,24 +244,10 @@ if (posts) {
 </style>
 
 <script>
-  // Set open state based on screen width; wide = open, mobile = closed.
   const toc = document.getElementById('toc');
   const tagPanel = document.getElementById('tag-panel');
   const linksPanel = document.getElementById('links-panel');
 
-  function applyDefaultOpen() {
-    const wide = window.innerWidth >= 1300;
-    [toc, tagPanel, linksPanel].forEach(panel => {
-      if (!panel) return;
-      if (wide) {
-        panel.removeAttribute('data-open');
-      } else {
-        panel.setAttribute('data-open', 'false');
-      }
-    });
-  }
-
-  window.addEventListener('resize', applyDefaultOpen, { passive: true });
 
   function togglePanel(panel: HTMLElement) {
     const body = panel.querySelector<HTMLElement>('.toc-body');
