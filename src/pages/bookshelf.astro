@@ -1211,6 +1211,38 @@ const headings = [
     transform: scale(0.98);
   }
 
+  /* Responsive range controls for smaller screens */
+  @media (max-width: 640px) {
+    .raincloud-range-controls {
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .range-inputs {
+      gap: 0.25rem;
+      flex-wrap: nowrap;
+    }
+
+    .range-input {
+      height: 1.75rem;
+      padding: 0.15rem 0.35rem;
+      font-size: 0.75rem;
+      min-width: 0;
+    }
+
+    .range-separator {
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .range-reset {
+      height: 1.75rem;
+      padding: 0.15rem 0.4rem;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+  }
+
   .map-controls {
     position: absolute;
     top: 1.25rem;
