@@ -12,11 +12,61 @@ import '../styles/font-display-override.css';
 import atkinsonNextFont from '@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2?url';
 import atkinsonMonoFont from '@fontsource-variable/atkinson-hyperlegible-mono/files/atkinson-hyperlegible-mono-latin-wght-normal.woff2?url';
 
-const { pageTitle, titleHtml, shouldCenterTitle, pageTitleClass, shouldShowTitle = true, titlePrefix = false, breadcrumbs = undefined, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
+const { pageTitle, titleHtml, shouldCenterTitle, pageTitleClass, shouldShowTitle = true, breadcrumbs: customBreadcrumbs = undefined, footerImageLoading = 'lazy', description, descriptionHtml, ogImage, ogType = 'website' } = Astro.props;
+
+interface Breadcrumb {
+  text: string;
+  href?: string;
+}
 
 const siteUrl = 'https://josholivier.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefined;
+
+// Generate breadcrumbs from URL path
+function generateBreadcrumbs(pathname: string): Breadcrumb[] | undefined {
+  const segments = pathname.split('/').filter(s => s); // Remove empty strings
+
+  const breadcrumbLabels: Record<string, string> = {
+    'blog': 'Blog',
+    'posts': 'Posts',
+    'about': 'About',
+    'cv': 'CV',
+    'contact': 'Contact',
+    'bookshelf': 'Bookshelf',
+    'tags': 'Tags',
+  };
+
+  const breadcrumbs = [
+    { text: 'Josh Olivier', href: '/' }
+  ];
+
+  // Don't add more breadcrumbs if already on home page
+  if (segments.length === 0) {
+    return undefined;
+  }
+
+  let currentPath = '';
+
+  for (let i = 0; i < segments.length; i++) {
+    const segment = segments[i];
+    currentPath += '/' + segment;
+
+    // For the last segment (current page), just add text without a link
+    if (i === segments.length - 1) {
+      const label = breadcrumbLabels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+      breadcrumbs.push({ text: label });
+    } else {
+      // For intermediate segments, add as links
+      const label = breadcrumbLabels[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+      breadcrumbs.push({ text: label, href: currentPath });
+    }
+  }
+
+  return breadcrumbs;
+}
+
+const breadcrumbs = customBreadcrumbs || generateBreadcrumbs(Astro.url.pathname);
 ---
 
 <html lang="en">
@@ -76,28 +126,24 @@ const ogImageAbsolute = ogImage ? new URL(ogImage, siteUrl).toString() : undefin
       <main class="main-content">
         {shouldShowTitle && (
           <div class="page-title-block">
+            {breadcrumbs && (
+              <div class="breadcrumbs">
+                {breadcrumbs.map((crumb: any, index: number) => (
+                  <Fragment key={index}>
+                    {crumb.href ? (
+                      <a href={crumb.href} class="breadcrumb-link">{crumb.text}</a>
+                    ) : crumb.html ? (
+                      <Fragment set:html={crumb.html} />
+                    ) : (
+                      <span>{crumb.text}</span>
+                    )}
+                    {index < breadcrumbs.length - 1 && <span class="breadcrumb-separator"> / </span>}
+                  </Fragment>
+                ))}
+              </div>
+            )}
             <h1 class={`${shouldCenterTitle ? 'center-title' : ''} ${pageTitleClass || ''}`.trim()}>
-              {breadcrumbs ? (
-                <>
-                  {breadcrumbs.map((crumb: any, index: number) => (
-                    <Fragment key={index}>
-                      {crumb.href ? (
-                        <a href={crumb.href} class="title-prefix">{crumb.text}</a>
-                      ) : crumb.html ? (
-                        <Fragment set:html={crumb.html} />
-                      ) : (
-                        <span>{crumb.text}</span>
-                      )}
-                      {index < breadcrumbs.length - 1 && <span class="title-muted"> / </span>}
-                    </Fragment>
-                  ))}
-                </>
-              ) : (
-                <>
-                  {titlePrefix && <><a href="/" class="title-prefix">Josh Olivier</a><span class="title-muted"> / </span></>}
-                  {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
-                </>
-              )}
+              {titleHtml ? <Fragment set:html={titleHtml} /> : pageTitle}
             </h1>
             {descriptionHtml ? (
               <p class="page-description"><Fragment set:html={descriptionHtml} /></p>

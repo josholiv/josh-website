@@ -5,32 +5,32 @@ const pathname = Astro.url.pathname;
 <div class="nav-container">
 <div class="nav-links">
   <div class="nav-links-inner">
-    <a href="/" class={`${pathname === "/" || pathname === "/home" || pathname === "/home/" ? "active" : ""}`}>
-    <span class="icon-container">
+    <a href="/" class={`${pathname === "/" || pathname === "/home" || pathname === "/home/" ? "active" : ""}`} aria-label="Home">
+    <span class="icon-container" aria-hidden="true">
       <Home size={"1rem"} class="nav-icon"/>
       Home
     </span>
   </a>
-  <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`}>
-    <span class="icon-container">
+  <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`} aria-label="About">
+    <span class="icon-container" aria-hidden="true">
       <Info size={"1rem"} class="nav-icon"/>
       About
     </span>
   </a>
-  <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`}>
-    <span class="icon-container">
+  <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`} aria-label="CV">
+    <span class="icon-container" aria-hidden="true">
       <GraduationCap size={"1rem"} class="nav-icon"/>
       CV
     </span>
   </a>
-  <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`}>
-    <span class="icon-container">
+  <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`} aria-label="Blog">
+    <span class="icon-container" aria-hidden="true">
       <Rss size={"1rem"} class="nav-icon"/>
       Blog
     </span>
   </a>
-  <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`}>
-    <span class="icon-container">
+  <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`} aria-label="Contact">
+    <span class="icon-container" aria-hidden="true">
       <Contact size={"1rem"} class="nav-icon"/>
       Contact
     </span>

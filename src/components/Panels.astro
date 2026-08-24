@@ -1,5 +1,5 @@
 ---
-import { ChevronRight, Code, Brain, GraduationCap, Briefcase, Radio, X, Box, Dna, Rss, Map, SportShoe, Book } from 'lucide-preact';
+import { ChevronRight, Code, Brain, X, Box, Rss, Map, SportShoe, Book } from 'lucide-preact';
 
 interface Heading {
   depth: number;
@@ -51,12 +51,8 @@ if (posts) {
 ---
 
 <div class="toc-panel">
-  <a href="/" class="toc-site-title">
-    <span><span class="toc-site-title-main">josholivier</span><span class="toc-site-title-domain">.com</span></span>
-  </a>
-
   {grouped.length > 0 && (
-  <nav class="toc" id="toc">
+  <nav class="toc" id="toc" data-open="true">
     <button class="toc-title" id="toc-toggle">
       On this page
       <span class="toc-chevron">
@@ -89,7 +85,7 @@ if (posts) {
   )}
 
   {sortedTags.length > 0 && (
-    <nav class="toc tag-filter-panel" id="tag-panel">
+    <nav class="toc tag-filter-panel" id="tag-panel" data-open="true">
       <button class="toc-title" id="tag-toggle">
         Tags
         <span class="toc-chevron">
@@ -123,93 +119,11 @@ if (posts) {
     </nav>
   )}
 
-  <nav class="toc" id="links-panel">
-    <button class="toc-title" id="links-toggle">
-      Links
-      <span class="toc-chevron">
-        <ChevronRight size="0.9rem" />
-      </span>
-    </button>
-    <div class="toc-body">
-      <div class="toc-body-inner">
-        <ul class="toc-links-list">
-          <li class="links-item"><a href="https://github.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Code size="1rem" />GitHub</a></li>
-          <li class="links-item"><a href="https://bsky.app/profile/josholivier.bsky.social" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Radio size="1rem" />Bluesky</a></li>
-          <li class="links-item"><a href="https://linkedin.com/in/joshua-olivier/" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Briefcase size="1rem" />LinkedIn</a></li>
-          <li class="links-item"><a href="https://orcid.org/0009-0002-3696-5552" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />ORCiD</a></li>
-          <li class="links-item"><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=pXjS6H0AAAAJ" target="_blank" rel="noopener noreferrer" class="no-external-icon"><GraduationCap size="1rem" />Google Scholar</a></li>
-          <li class="links-item"><a href="https://thingiverse.com/josholiv" target="_blank" rel="noopener noreferrer" class="no-external-icon"><Box size="1rem" />Thingiverse</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
 </div>
 
 <style>
   :global(#tag-panel) {
     margin-top: 0;
-  }
-
-  .toc-site-title {
-    display: none;
-    align-items: center;
-    gap: 0.45rem;
-    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 1;
-    text-decoration: none;
-    white-space: nowrap;
-    color: var(--text-heading);
-    margin-bottom: 3rem;
-    margin-left: 0rem;
-  }
-
-  .toc-site-title-icon {
-    flex-shrink: 0;
-    color: var(--text-heading);
-    position: relative;
-    top: 1px;
-  }
-
-  .toc-site-title-main {
-    color: inherit;
-  }
-
-  .toc-site-title-domain {
-    color: var(--text-muted);
-  }
-
-  .toc-site-title:hover,
-  .toc-site-title:active,
-  .toc-site-title:visited,
-  .toc-site-title:visited:hover,
-  .toc-site-title:focus,
-  .toc-site-title:focus-visible {
-    color: var(--text-heading);
-  }
-
-  .toc-links-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .links-item a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: var(--link-color);
-    /* text-decoration: none; */
-    font-size: 1rem;
-  }
-
-  .links-item a:hover {
-    color: var(--link-color-hover);
   }
 
   @media (min-width: 1300px) {
@@ -227,8 +141,7 @@ if (posts) {
     }
 
     :global(#toc),
-    :global(#tag-panel),
-    :global(#links-panel) {
+    :global(#tag-panel) {
       position: static;
       top: auto;
       left: auto;
@@ -246,7 +159,6 @@ if (posts) {
 <script>
   const toc = document.getElementById('toc');
   const tagPanel = document.getElementById('tag-panel');
-  const linksPanel = document.getElementById('links-panel');
 
 
   function togglePanel(panel: HTMLElement) {
@@ -263,11 +175,6 @@ if (posts) {
   // Collapse toggle — Tags
   document.getElementById('tag-toggle')?.addEventListener('click', () => {
     if (tagPanel) togglePanel(tagPanel);
-  });
-
-  // Collapse toggle — Links
-  document.getElementById('links-toggle')?.addEventListener('click', () => {
-    if (linksPanel) togglePanel(linksPanel);
   });
 
   // Tag filtering
@@ -422,4 +329,29 @@ if (posts) {
 
   // Re-run after auto-populating so newly added headings are immediately highlighted.
   pickActive();
+
+  // Handle panel collapse on small screens
+  const DESKTOP_BREAKPOINT = 1300;
+
+  function updatePanelsForScreenSize() {
+    const isSmallScreen = window.innerWidth < DESKTOP_BREAKPOINT;
+    const toc = document.getElementById('toc');
+    const tagPanel = document.getElementById('tag-panel');
+
+    if (isSmallScreen) {
+      // Collapse panels on small screens
+      toc?.setAttribute('data-open', 'false');
+      tagPanel?.setAttribute('data-open', 'false');
+    } else {
+      // Open panels on large screens
+      toc?.setAttribute('data-open', 'true');
+      tagPanel?.setAttribute('data-open', 'true');
+    }
+  }
+
+  // Initial setup
+  updatePanelsForScreenSize();
+
+  // Update on window resize
+  window.addEventListener('resize', updatePanelsForScreenSize);
 </script>

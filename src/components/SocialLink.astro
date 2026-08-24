@@ -1,0 +1,76 @@
+---
+import { siGithub, siBluesky, siGmail, siGooglescholar, siOrcid, siThingiverse } from 'simple-icons';
+import LinkedInLogo from './LinkedInLogo.astro';
+
+interface Props {
+  platform: string;
+  url: string;
+  label: string;
+}
+
+const { platform, url, label } = Astro.props;
+
+// Map platform names to simple-icons or custom icons
+const iconMap: Record<string, any> = {
+  'github': siGithub,
+  'bluesky': siBluesky,
+  'google-scholar': siGooglescholar,
+  'orcid': siOrcid,
+  'thingiverse': siThingiverse,
+  'gmail': siGmail,
+  'linkedin': null, // Will use custom handling below
+};
+
+const icon = iconMap[platform.toLowerCase()];
+const isLinkedin = platform.toLowerCase() === 'linkedin';
+---
+
+<li>
+  <a href={url} target="_blank" rel="noopener noreferrer" title={label}>
+    {icon && (
+      <svg
+        aria-hidden="true"
+        width="1rem"
+        height="1rem"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        style="fill: currentColor;"
+        set:html={icon.svg}
+      />
+    )}
+    {isLinkedin && (
+      <LinkedInLogo />
+    )}
+    <span>{label}</span>
+  </a>
+</li>
+
+<style>
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: var(--link-color-hover);
+  }
+
+  a:hover svg,
+  a:hover :global(svg) {
+    opacity: 0.8;
+  }
+
+  svg,
+  :global(svg) {
+    flex-shrink: 0;
+    transition: opacity 0.2s ease;
+  }
+</style>

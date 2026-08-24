@@ -130,8 +130,8 @@ const getTagIcon = (tag: string) => tagIcons[tag.toLowerCase() as keyof typeof t
     <Image src={joshHeadshot} alt="Josh Olivier" width={32} height={32} style="width:1.25rem;height:1.25rem;border-radius:50%;flex-shrink:0;pointer-events:none;" data-no-lightbox />
     <span class="post-author">
       {frontmatter.dateModified && new Date(frontmatter.dateModified).toDateString() !== new Date(frontmatter.pubDate).toDateString()
-        ? <><a href="/">{frontmatter.author}</a> updated on {frontmatter.dateModified.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</>
-        : <><a href="/">{frontmatter.author}</a> on {frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</>
+        ? <><a href="/">{frontmatter.author}</a> | Updated on {frontmatter.dateModified.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</>
+        : <><a href="/">{frontmatter.author}</a> | {frontmatter.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}</>
       }
       {' | '}<span class="post-read-time">{frontmatter.readTime} min read</span>
     </span>
