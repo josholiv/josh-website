@@ -6,7 +6,7 @@ import Panels from '../components/Panels.astro';
 import ImageLightbox from '../components/ImageLightbox.jsx';
 import { Image } from 'astro:assets';
 import responsiveImagesScript from '../scripts/responsive-images.js?raw';
-import bannerImage from '../assets/josh-and-oliver-grandcanyon.jpg';
+import bannerImage from '../assets/josh-headshot-cropped.jpg';
 
 const pageTitle = "Josh Olivier - About";
 const headings = [
@@ -22,26 +22,25 @@ const headings = [
 
 <ImageLightbox client:load />
 
-<div class="img-glow-wrap">
+
 <Image
     src={bannerImage}
-    alt="Josh and his dog, Oliver, at the Grand Canyon"
-    class="blog-body-pic"
+    alt="Josh Olivier and his dog, Oliver"
+    class="about-pic"
 />
-</div>
 
 <h2 id="hi-im-josh">Hi, I'm Josh!</h2>
       <p>
         I'm a Psychology PhD student at the University of California, Riverside. Before starting my PhD, I spent a few years working as 
         lab manager of the <a href="https://fnim.utdallas.edu/" target="_blank" rel="noopener noreferrer">Functional Neuroimaging of Memory Lab</a> 
-        at the University of Texas at Dallas. I'm interested in how the brain supports episodic memory and how 
+        at the University of Texas at Dallas. I study how the brain supports episodic memory and how 
         memory-related brain mechanisms are disrupted by aging and neurological conditions like Alzheimer's disease.
     </p>
         
    <h2 id="research-interests">Research interests</h2>
 
      <p>  
-        I'm interested in researching episodic memory, which is the ability to recollect previously experienced events (and which 
+        I'm interested in understanding episodic memory, which is the ability to recollect previously experienced events (and which 
         <a href="https://www.science.org/doi/10.1126/science.adn2158" target="_blank" rel="noopener noreferrer">Endel Tulving</a> 
         famously described as "mental time travel"). Specifically, I'm interested in using neuroimaging tools like 
         <a href="https://fmri.ucsd.edu/Research/whatisfmri.html" target="_blank" rel="noopener noreferrer">fMRI</a> 
@@ -78,7 +77,7 @@ const headings = [
     </p>
 
     <p>
-      Some of my other hobbies include <a href="/blog/?tag=3Dprinting">tinkering with my 3D printer</a> and doing <a href="/blog/?tag=triathlon">triathlons</a>.
+      Some of my other hobbies include <a href="/blog/?tag=3Dprinting">tinkering with my 3D printer</a> and doing triathlons.
       Throughout my triathlon training in <code>{`${new Date().getFullYear()}`}</code>, I've logged the following distances swimming, cycling, 
       and running:
     </p>
@@ -87,7 +86,7 @@ const headings = [
 
 <p>
   I also enjoy reading, and I'm trying to read more consistently. Check out my <a href="/bookshelf">bookshelf</a> to see a list of books I've read recently, along with 
-ratings I've given each book and any reviews I've written. Here's the total number of books I've read in 
+ratings I've given each book, any reviews I've written, and some fun (and slightly obsessive) <a href="/bookshelf#reading-stats">reading stats</a>. Here's the total number of books I've read in 
   <code>{new Date().getFullYear()}</code>, and my reading goal for the year:
 </p>
 

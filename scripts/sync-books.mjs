@@ -94,6 +94,7 @@ const FIELDS = fm => ({
   subtitle: asString(fm.subtitle),
   author: asArray(fm.author),
   authorCountry: asString(fm.authorCountry)?.toUpperCase() ?? null,
+  authorGender: asString(fm.authorGender),
   category: asArray(fm.category),
   publisher: asString(fm.publisher),
   pubYear: asNumber(fm.pubYear),

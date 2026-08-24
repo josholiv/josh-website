@@ -142,6 +142,8 @@
 --icon-accent:       var(--cyan-400);      /* #49afa6 */
 --accent:            var(--cyan-400);      /* #49afa6 */
 --accent-hover:      var(--cyan-600);      /* #256c65 */
+--accent-secondary:  var(--red-400);      /* #f56565 */
+--accent-secondary-hover: var(--red-600); /* #e53e3e */
 --link-color:        var(--text-normal);
 --link-color-hover:  var(--cyan-400);      /* #49afa6 */
 --code-bg:           var(--neutral-950);   /* #10100f */
@@ -184,6 +186,8 @@ html:not(.dark) {
   --icon-accent:        var(--cyan-600);     
   --accent:             var(--cyan-600);       
   --accent-hover:       var(--cyan-400);
+  --accent-secondary:   var(--red-600);
+  --accent-secondary-hover: var(--red-400);
   --link-color:         var(--text-normal);
   --link-color-hover:   var(--cyan-400);       
   --code-bg:            var(--neutral-050);     
@@ -1100,25 +1104,11 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
   }
 }
 
-.home-pic {
-  width: 10.5rem;
-  height: auto; 
-  flex-shrink: 0; 
-  border-radius: 5px;
-  display: block;
-}
-
-.about-pics {
-  display: flex;
-  gap: 1rem;          
-  justify-content: left; 
-}
-
 .about-pic {
-  width: 10.5rem;
+  width: 9rem;
   height: auto; 
   flex-shrink: 0; 
-  border-radius: 2px;
+  border-radius: 5rem;
   display: flex;
 }
 

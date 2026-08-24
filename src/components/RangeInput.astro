@@ -1,0 +1,135 @@
+---
+interface Props {
+  className?: string;
+  placeholder?: string;
+  ariaLabel?: string;
+}
+
+const { className = '', placeholder, ariaLabel } = Astro.props;
+---
+
+<div class="range-input-wrapper">
+  <input
+    type="number"
+    class={`range-input-field ${className}`}
+    placeholder={placeholder}
+    aria-label={ariaLabel}
+  />
+  <div class="range-input-spinners">
+    <button class="range-spinner-btn range-spinner-up" aria-label="Increase value" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+    <button class="range-spinner-btn range-spinner-down" aria-label="Decrease value" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .range-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    flex: 1;
+  }
+
+  .range-input-field {
+    width: 100%;
+    height: 2rem;
+    padding: 0.25rem 0.5rem;
+    padding-right: 32px;
+    border: 1px solid var(--code-border);
+    border-radius: 4px;
+    background-color: var(--code-bg);
+    color: var(--text-normal);
+    font-size: 0.875rem;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+    box-sizing: border-box;
+  }
+
+  .range-input-field:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .range-input-field::placeholder {
+    color: var(--text-faint);
+  }
+
+  /* Hide browser's default number input spinners */
+  .range-input-field::-webkit-outer-spin-button,
+  .range-input-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .range-input-field[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  .range-input-spinners {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: 32px;
+  }
+
+  .range-spinner-btn {
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    color: var(--btn-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    border-left: 1px solid var(--code-border);
+  }
+
+  .range-spinner-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--btn-text-hover);
+  }
+
+  .range-spinner-btn:active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .range-spinner-btn:not(:last-child) {
+    border-bottom: 1px solid var(--code-border);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.range-input-wrapper').forEach((wrapper) => {
+    const input = wrapper.querySelector('.range-input-field') as HTMLInputElement;
+    const upBtn = wrapper.querySelector('.range-spinner-up') as HTMLButtonElement;
+    const downBtn = wrapper.querySelector('.range-spinner-down') as HTMLButtonElement;
+
+    const step = parseFloat(input.step) || 1;
+
+    upBtn.addEventListener('click', () => {
+      const current = parseFloat(input.value) || 0;
+      input.value = String(current + step);
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+
+    downBtn.addEventListener('click', () => {
+      const current = parseFloat(input.value) || 0;
+      input.value = String(current - step);
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+</script>

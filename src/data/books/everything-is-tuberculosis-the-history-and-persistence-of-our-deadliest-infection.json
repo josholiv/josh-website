@@ -5,6 +5,7 @@
     "John Green"
   ],
   "authorCountry": "US",
+  "authorGender": "m",
   "category": [
     "Nonfiction",
     "Audiobook",
@@ -18,7 +19,7 @@
   "pubYear": 2025,
   "pages": 198,
   "isbn": "0525556575 9780525556572",
-  "rating": null,
+  "rating": 3,
   "datesRead": [
     "2026-04-20"
   ],

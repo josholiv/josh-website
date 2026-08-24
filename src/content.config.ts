@@ -30,6 +30,7 @@ const books = defineCollection({
       subtitle: z.string().nullable().default(null),
       author: z.array(z.string()).default([]),
       authorCountry: z.string().length(2).nullable().default(null),
+      authorGender: z.string().nullable().default(null),
       category: z.array(z.string()).default([]),
       publisher: z.string().nullable().default(null),
       pubYear: z.number().nullable().default(null),

@@ -5,6 +5,7 @@
     "Wu Cheng'en"
   ],
   "authorCountry": "CN",
+  "authorGender": "m",
   "category": [
     "classics",
     "fantasy",
@@ -18,7 +19,7 @@
   "pubYear": 1592,
   "pages": 384,
   "isbn": "0143136305 9780143136309",
-  "rating": null,
+  "rating": 3,
   "datesRead": [
     "2026-05-21"
   ],
