@@ -1,6 +1,14 @@
+---
+import SocialLink from '../components/SocialLink.astro';
+---
+
 <style>
   footer {
     margin: 2rem 1rem 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
   }
 
   .copyright {
@@ -12,4 +20,13 @@
 
 <footer>
     <p class="copyright">© {new Date().getFullYear()} Josh Olivier</p>
+
+    <ul class="icon-list-inline">
+    <SocialLink platform="github" url="https://github.com/josholiv" label="" />
+    <SocialLink platform="bluesky" url="https://bsky.app/profile/josholivier.bsky.social" label="" />
+    <SocialLink platform="linkedin" url="https://linkedin.com/in/joshua-olivier/" label="" />
+    <SocialLink platform="orcid" url="https://orcid.org/0009-0002-3696-5552" label="" />
+    <SocialLink platform="google-scholar" url="https://scholar.google.com/citations?view_op=list_works&hl=en&user=pXjS6H0AAAAJ" label="" />
+    <SocialLink platform="thingiverse" url="https://thingiverse.com/josholiv" label="" />
+  </ul>
 </footer>

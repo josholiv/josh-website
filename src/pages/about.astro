@@ -3,14 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TriathlonStats from '../components/TriathlonStats.jsx';
 import ReadingGoal from '../components/ReadingGoal.astro';
 import Panels from '../components/Panels.astro';
-import ImageLightbox from '../components/ImageLightbox.jsx';
 import { Image } from 'astro:assets';
-import responsiveImagesScript from '../scripts/responsive-images.js?raw';
 import bannerImage from '../assets/josh-headshot-cropped.jpg';
 
 const pageTitle = "Josh Olivier - About";
 const headings = [
-  { depth: 2, slug: 'hi-im-josh', text: 'Hi, I\'m Josh!' },
   { depth: 2, slug: 'research-interests', text: 'Research interests' },
   { depth: 2, slug: 'hobbies', text: 'Hobbies' },
 ];
@@ -20,16 +17,13 @@ const headings = [
 
 <Panels headings={headings} />
 
-<ImageLightbox client:load />
-
-
 <Image
     src={bannerImage}
     alt="Josh Olivier and his dog, Oliver"
     class="about-pic"
+    loading="eager"
 />
 
-<h2 id="hi-im-josh">Hi, I'm Josh!</h2>
       <p>
         I'm a Psychology PhD student at the University of California, Riverside. Before starting my PhD, I spent a few years working as 
         lab manager of the <a href="https://fnim.utdallas.edu/" target="_blank" rel="noopener noreferrer">Functional Neuroimaging of Memory Lab</a> 
@@ -93,8 +87,6 @@ ratings I've given each book, any reviews I've written, and some fun (and slight
 <ReadingGoal />
 
 </BaseLayout>
-
-<script set:html={responsiveImagesScript} />
 
 <script>
   // Delegated glow — catches both server-rendered and client-component stat cards

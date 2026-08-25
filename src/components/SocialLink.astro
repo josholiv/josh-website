@@ -26,7 +26,7 @@ const isLinkedin = platform.toLowerCase() === 'linkedin';
 ---
 
 <li>
-  <a href={url} target="_blank" rel="noopener noreferrer" title={label}>
+  <a href={url} target="_blank" rel="noopener noreferrer" title={label || platform} aria-label={label || `Visit ${platform}`}>
     {icon && (
       <svg
         aria-hidden="true"

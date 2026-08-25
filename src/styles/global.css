@@ -461,6 +461,19 @@ html:not(.dark) {
     margin: 1rem 0;
   }
 
+   .icon-list-inline {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    justify-self: end;
+  }
+
+  .icon-list-inline a {
+    color: var(--bg-border); 
+  }
+
   .icon-list li {
     display: flex;
     align-items: center;
@@ -1105,7 +1118,7 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
 }
 
 .about-pic {
-  width: 9rem;
+  width: 8.5rem;
   height: auto; 
   flex-shrink: 0; 
   border-radius: 5rem;
