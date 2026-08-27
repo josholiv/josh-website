@@ -4,7 +4,7 @@ import TriathlonStats from '../components/TriathlonStats.jsx';
 import ReadingGoal from '../components/ReadingGoal.astro';
 import Panels from '../components/Panels.astro';
 import { Image } from 'astro:assets';
-import bannerImage from '../assets/josh-headshot-cropped.jpg';
+import aboutPic from '../assets/josh-headshot-cropped.jpg';
 
 const pageTitle = "Josh Olivier - About";
 const headings = [
@@ -18,9 +18,13 @@ const headings = [
 <Panels headings={headings} />
 
 <Image
-    src={bannerImage}
+    src={aboutPic}
     alt="Josh Olivier and his dog, Oliver"
-    class="about-pic"
+    style={{
+      width: '150px',
+      height: 'auto',
+      borderRadius: '75px',
+    }}
     loading="eager"
 />
 
