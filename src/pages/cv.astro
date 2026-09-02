@@ -51,7 +51,7 @@ function renderResponsiveDateRange(startDate?: string, endDate?: string) {
   const longStart = formatDate(startDate, 'long');
 
   if (!endDate) {
-    return `<span class="date-short">${shortStart}</span><span class="date-long">${longStart}</span>`;
+    return `<span class="date-short">${shortStart}–Present</span><span class="date-long">${longStart}–Present</span>`;
   }
 
   const shortEnd = formatDate(endDate, 'short');
@@ -180,25 +180,30 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
         {researchExperience.map(res => (
           <div class="section-item item-entry print-section">
             <div class="item-header">
-              <div><strong>{res.lab} • {res.institution}</strong></div>
+              <div><strong>{res.lab}</strong></div>
               <span class="date-range">
                 {res.startDate && res.endDate ? (
                   <Fragment set:html={renderResponsiveDateRange(res.startDate, res.endDate)} />
                 ) : res.startDate ? (
                   <Fragment set:html={renderResponsiveDate(res.startDate)} />
-                ) : ''} {/* if startDate contains a date and endDate is blank, show only the start date */}
+                ) : ''}
               </span>
             </div>
-            <div>
-            <div><i>{res.title} • Mentor: {res.mentor}</i></div>
+            <div class="indent-item-simple">
+            <div>{res.institution}</div>
+            <div><i>{res.title}</i></div>
+            <div>Mentor: {res.mentor}</div>
             </div>
-            {res.duties && res.duties.length > 0 && ( /* show duties only if listed in cv.json */
-                <ul>
-                  {res.duties.map((duty) => (
-                    <li>{duty}</li>
-                  ))}
-                </ul>
-            )}
+            
+            { /* show duties only if listed in cv.json */
+              // res.duties && res.duties.length > 0 && ( 
+              //     <ul>
+              //       {res.duties.map((duty) => (
+              //         <li>{duty}</li>
+              //       ))}
+              //     </ul>
+              // )
+            }
           </div>
         ))}
       </section>
@@ -214,7 +219,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
               <div><strong>{g.title}</strong></div>
               <span class="date-range"><Fragment set:html={renderResponsiveDate(g.date)} /></span>
             </div>
-            <div>
+            <div class="indent-item-simple">
             {g.awarder}
             <div>{g.summary}</div>
             <div>Award: {g.award}</div>
@@ -234,7 +239,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
               <div><strong>{a.title}</strong></div>
               <span class="date-range"><Fragment set:html={renderResponsiveDate(a.date)} /></span>
             </div>
-            <div>{a.awarder}
+            <div class="indent-item-simple">{a.awarder}
             <div>{a.summary}</div>
             </div>
           </div>
@@ -291,7 +296,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
                 ) : ''} {/* if startDate contains a date and endDate is blank, show only the start date */}
               </span>
             </div>
-            <div>{s.organization}
+            <div class="indent-item-simple">{s.organization}
             <div>{s.summary}</div>
             </div>
           </div>

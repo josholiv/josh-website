@@ -39,7 +39,7 @@
       "endDate": "",
       "expected": "2031",
       "score": "",
-      "advisor": "Dr. Halle Dimsdale-Zucker",
+      "advisor": "",
       "courses": [
       ]
     },
@@ -200,8 +200,18 @@
 
   "researchExperience": [
     {
+      "lab": "Dimsdale-Zucker Memory and Context Lab",
+      "institution": "University of California, Riverside",
+      "mentor": "Dr. Halle Dimsdale-Zucker",
+      "title": "Graduate Student Researcher",
+      "startDate": "2026-08-03",
+      "endDate": "",
+      "duties": [
+      ]
+    },
+    {
       "lab": "Functional Neuroimaging of Memory Lab",
-      "institution": "UT Dallas",
+      "institution": "University of Texas at Dallas",
       "mentor": "Dr. Michael Rugg",
       "title": "Lab Manager / Research Assistant II",
       "startDate": "2024-04-15",
@@ -214,7 +224,7 @@
     },
      {
       "lab": "Functional Neuroimaging of Memory Lab",
-      "institution": "UT Dallas",
+      "institution": "University of Texas at Dallas",
       "mentor": "Dr. Michael Rugg",
       "title": "Research Assistant I",
       "startDate": "2021-06-21",
@@ -243,8 +253,8 @@
       "institution": "Johns Hopkins University School of Medicine",
       "mentor": "Dr. Brian Ladle",
       "title": "Research Assistant / Oncology Staff",
-      "startDate": "05-15-2018",
-      "endDate": "07-15-2018",
+      "startDate": "2018-05-15",
+      "endDate": "2018-07-15",
       "duties": [
         "Isolated immune tissue from mice tumor samples",
         "Applied DNA and RNA isolation, cDNA synthesis, PCR, and qPCR",
