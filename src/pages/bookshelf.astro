@@ -57,7 +57,6 @@ const books = bookEntries
       pubYear: data.pubYear,
       authors: data.author.join(', '),
       authorCountry: data.authorCountry,
-      authorGender: data.authorGender,
       reviewUrl: reviewMap.get(data.title.toLowerCase()) || null,
       isReread: false,
     }))
@@ -438,26 +437,6 @@ for (const [iso, info] of Object.entries(countryCounts)) {
   );
 }
 
-// Author gender distribution pie chart
-// Counts unique authors by gender (not books)
-const genderCounts: Record<string, number> = { m: 0, f: 0 };
-const countedAuthorsBygender = new Set<string>();
-for (const book of books) {
-  const primaryAuthor = (book.authors || '').split(',')[0]?.trim();
-  const gender = book.authorGender?.toLowerCase();
-  if (!primaryAuthor || !gender || (gender !== 'm' && gender !== 'f')) continue;
-  const norm = normalizeName(primaryAuthor);
-  if (!countedAuthorsBygender.has(norm)) {
-    countedAuthorsBygender.add(norm);
-    genderCounts[gender]++;
-  }
-}
-const totalAuthorsBygender = countedAuthorsBygender.size;
-const maleCount = genderCounts.m;
-const femaleCount = genderCounts.f;
-const malePercent = totalAuthorsBygender > 0 ? (maleCount / totalAuthorsBygender) * 100 : 0;
-const femalePercent = totalAuthorsBygender > 0 ? (femaleCount / totalAuthorsBygender) * 100 : 0;
-
 const headings = [
   { depth: 2, slug: 'books', text: 'Books' },
   { depth: 2, slug: 'reading-stats', text: 'Reading stats' },
@@ -476,11 +455,40 @@ const headings = [
 
   <p>
     As a personal rule, I generally try to follow the rating guidance shown when you hover
-    over the stars on 
-    <a href="https://www.goodreads.com" target="_blank" rel="noopener noreferrer">Goodreads</a>: 
-    1 star = did not like it; 2 stars = it was okay; 3 stars = 
-    liked it; 4 stars = really liked it; 5 stars = it was amazing.
+    over the stars on
+    <a href="https://www.goodreads.com" target="_blank" rel="noopener noreferrer">Goodreads</a>:
   </p>
+
+  <table style="width: 100%; margin-bottom: 1.5rem; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border); font-weight: 500;"></th>
+        <th style="text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border); font-weight: 500;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Did not like it"</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"It was okay"</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Liked it"</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Really liked it"</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★★★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"It was amazing"</td>
+      </tr>
+    </tbody>
+  </table>
 
   <h2 id="books">Books</h2>
 
@@ -771,55 +779,6 @@ const headings = [
         <p class="world-map-summary">{totalMappedAuthors} {totalMappedAuthors === 1 ? 'author' : 'authors'} across {totalCountries} {totalCountries === 1 ? 'country' : 'countries'}</p>
       ) : (
         <p class="raincloud-hint">No country data yet — add an authorCountry ISO code to your book notes and re-run the sync</p>
-      )}
-    </div>
-  </div>
-
-  <div class="stats-charts">
-    <div class="chart-section">
-      <p class="chart-title">Author gender ratio</p>
-      {totalAuthorsBygender > 0 ? (
-        <>
-          <div class="pie-chart-container">
-            <svg viewBox="-80 -80 360 360" preserveAspectRatio="xMidYMid meet" class="pie-chart-svg" role="img" aria-label="Author gender distribution">
-              {malePercent > 0 && (
-                <>
-                  <path d={`M 100 100 L ${100 + 80 * Math.cos((0 - 90) * Math.PI / 180)} ${100 + 80 * Math.sin((0 - 90) * Math.PI / 180)} A 80 80 0 ${(malePercent / 100) * 360 > 180 ? 1 : 0} 1 ${100 + 80 * Math.cos(((malePercent / 100) * 360 - 90) * Math.PI / 180)} ${100 + 80 * Math.sin(((malePercent / 100) * 360 - 90) * Math.PI / 180)} Z`} class="pie-segment pie-male" />
-                  {(() => {
-                    const maleMidAngle = ((malePercent / 100) * 360 / 2 - 90) * Math.PI / 180;
-                    const maleLabelX = 100 + 135 * Math.cos(maleMidAngle);
-                    const maleLabelY = 100 + 135 * Math.sin(maleMidAngle);
-                    return (
-                      <>
-                        <text x={maleLabelX} y={maleLabelY + 6} text-anchor="middle" class="pie-label-text">{malePercent.toFixed(0)}%</text>
-                        <text x={maleLabelX} y={maleLabelY + 30} text-anchor="middle" class="pie-label-subtext">Male ({maleCount})</text>
-                      </>
-                    );
-                  })()}
-                </>
-              )}
-              {femalePercent > 0 && (
-                <>
-                  <path d={`M 100 100 L ${100 + 80 * Math.cos(((malePercent / 100) * 360 - 90) * Math.PI / 180)} ${100 + 80 * Math.sin(((malePercent / 100) * 360 - 90) * Math.PI / 180)} A 80 80 0 ${(femalePercent / 100) * 360 > 180 ? 1 : 0} 1 ${100 + 80 * Math.cos((360 - 90) * Math.PI / 180)} ${100 + 80 * Math.sin((360 - 90) * Math.PI / 180)} Z`} class="pie-segment pie-female" />
-                  {(() => {
-                    const femaleMidAngle = ((malePercent / 100) * 360 + (femalePercent / 100) * 360 / 2 - 90) * Math.PI / 180;
-                    const femaleLabelX = 100 + 135 * Math.cos(femaleMidAngle);
-                    const femaleLabelY = 100 + 135 * Math.sin(femaleMidAngle);
-                    return (
-                      <>
-                        <text x={femaleLabelX} y={femaleLabelY - 12} text-anchor="middle" class="pie-label-text">{femalePercent.toFixed(0)}%</text>
-                        <text x={femaleLabelX} y={femaleLabelY + 12} text-anchor="middle" class="pie-label-subtext">Female ({femaleCount})</text>
-                      </>
-                    );
-                  })()}
-                </>
-              )}
-              <circle cx="100" cy="100" r="45" fill="var(--code-bg)" class="pie-donut-hole" />
-            </svg>
-          </div>
-        </>
-      ) : (
-        <p class="raincloud-hint">No gender data</p>
       )}
     </div>
   </div>
@@ -1500,57 +1459,6 @@ const headings = [
     color: var(--text-muted);
     font-weight: 700;
     text-align: center;
-  }
-
-  /* ── Pie chart (author gender distribution) ──────────── */
-  .pie-chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .pie-chart-svg {
-    width: 320px;
-    height: 320px;
-    max-width: 100%;
-  }
-
-  .pie-segment {
-    transition: opacity 0.15s;
-    cursor: default;
-  }
-
-  .pie-male {
-    fill: var(--accent);
-  }
-
-  .pie-male:hover {
-    fill: var(--accent-hover);
-  }
-
-  .pie-female {
-    fill: var(--accent-secondary);
-  }
-  .pie-female:hover {
-    fill: var(--accent-secondary-hover);
-  }
-
-  .pie-donut-hole {
-    fill: var(--code-bg);
-  }
-
-  .pie-label-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    fill: var(--text-muted);
-    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
-  }
-
-  .pie-label-subtext {
-    font-size: 1rem;
-    fill: var(--text-faint);
-    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
   }
 
 </style>
