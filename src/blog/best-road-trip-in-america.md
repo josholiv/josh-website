@@ -1,7 +1,7 @@
 ---
 title: 'Best road trip in America? Visiting six national parks from Texas to California'
 pubDate: 2026-08-18
-dateModified: 2026-08-18
+dateModified: 2026-09-03
 description: 'I embarked on one of the greatest road trips of all time with my partner and our dog! We stopped at six national parks: Carlsbad Caverns, Guadalupe Mountains, White Sands, Saguaro, Grand Canyon, and Joshua Tree.'
 author: 'Josh Olivier'
 image:
@@ -10,6 +10,8 @@ image:
 tags: ["travel"]
 readTime: '10'
 ---
+
+<img src="/images/blog/post-best-road-trip/2026-national-park-road-trip-map-80.jpg" alt="Map showing the order in which we visited the six National Parks" class="blog-body-pic">
 
 Recently, I [left my position as lab manager](https://josholivier.com/posts/farewell-fnim-lab/) in the University of Texas at Dallas Functional Neuroimaging of Memory lab to prepare to start my PhD at the University of California, Riverside this upcoming fall. I'm stoked to start my PhD and continue to work on memory and brain research in a new lab. I'm also very excited to start a new chapter of my life in California, a state I've never lived in before. Fun fact about me—I'm a chronic mover, and I've lived in every time zone in the contiguous United States (including Arizona, which doesn't observe Daylight Saving Time), except the Pacific Time Zone. So, naturally, I'm excited to check a new time zone off the bucket list. 
 
