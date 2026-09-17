@@ -1,0 +1,25 @@
+{
+  "title": "The Princess Bride",
+  "subtitle": null,
+  "author": [
+    "William Goldman"
+  ],
+  "authorCountry": "US",
+  "authorGender": "m",
+  "category": [
+    "fantasy",
+    "classics",
+    "fiction",
+    "romance",
+    "humor"
+  ],
+  "publisher": null,
+  "pubYear": 1973,
+  "pages": 429,
+  "isbn": null,
+  "rating": 3,
+  "datesRead": [
+    "2026-09-11"
+  ],
+  "cover": "the-princess-bride.jpg"
+}
