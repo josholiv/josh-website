@@ -1,0 +1,24 @@
+{
+  "title": "I, Robot",
+  "subtitle": null,
+  "author": [
+    "Isaac Asimov"
+  ],
+  "authorCountry": "US",
+  "authorGender": "m",
+  "category": [
+    "science fiction",
+    "fiction",
+    "classics",
+    "short stories"
+  ],
+  "publisher": null,
+  "pubYear": 1950,
+  "pages": 224,
+  "isbn": null,
+  "rating": 3,
+  "datesRead": [
+    "2026-10-03"
+  ],
+  "cover": "i-robot.jpg"
+}

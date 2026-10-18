@@ -1,0 +1,24 @@
+{
+  "title": "To Kill a Mockingbird",
+  "subtitle": null,
+  "author": [
+    "Harper Lee"
+  ],
+  "authorCountry": "US",
+  "authorGender": "f",
+  "category": [
+    "classics",
+    "fiction",
+    "historical fiction",
+    "young adult"
+  ],
+  "publisher": null,
+  "pubYear": 1960,
+  "pages": 323,
+  "isbn": null,
+  "rating": 5,
+  "datesRead": [
+    "2026-10-15"
+  ],
+  "cover": "to-kill-a-mockingbird.jpg"
+}

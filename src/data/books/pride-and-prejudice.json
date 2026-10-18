@@ -1,0 +1,24 @@
+{
+  "title": "Pride and Prejudice",
+  "subtitle": null,
+  "author": [
+    "Jane Austen"
+  ],
+  "authorCountry": "GB",
+  "authorGender": "f",
+  "category": [
+    "classics",
+    "romance",
+    "fiction",
+    "historical fiction"
+  ],
+  "publisher": null,
+  "pubYear": 1813,
+  "pages": 400,
+  "isbn": null,
+  "rating": 3,
+  "datesRead": [
+    "2026-09-22"
+  ],
+  "cover": "pride-and-prejudice.jpg"
+}
