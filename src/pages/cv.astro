@@ -182,11 +182,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
             <div class="item-header">
               <div><strong>{res.lab}</strong></div>
               <span class="date-range">
-                {res.startDate && res.endDate ? (
-                  <Fragment set:html={renderResponsiveDateRange(res.startDate, res.endDate)} />
-                ) : res.startDate ? (
-                  <Fragment set:html={renderResponsiveDate(res.startDate)} />
-                ) : ''}
+                <Fragment set:html={renderResponsiveDateRange(res.startDate, res.endDate)} /> {/* blank endDate shows "Present" */}
               </span>
             </div>
             <div class="indent-item-simple">
