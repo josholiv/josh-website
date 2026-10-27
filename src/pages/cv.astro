@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import cv from '../data/cv.json';
 import '../styles/cv.css'
 import Panels from '../components/Panels.astro';
-import { ExternalLink } from "lucide-preact";
 import { PAGE_META } from '../data/page-meta';
 
 
@@ -138,13 +137,11 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
             {publications.map(pub => (
               <div class="reference-entry print-section">
                 <Fragment set:html={`${pub.authors.replace(/Olivier, J. M\./g, '<span class="my-name";>Olivier, J. M.</span>')}`} />
-                ({pub.year}). {pub.name}. <em>{pub.publisher}</em>.
-
-                <span class="print-only"><a href={pub.url} target="_blank" rel="noopener noreferrer">{pub.url}</a></span>
-
-                <a href={pub.url} target="_blank" rel="noopener noreferrer" class="print-hide no-external-icon" aria-label={`View publication: ${pub.name}`}>
-                  <ExternalLink size={14} />
-                </a>
+                ({pub.year}). {pub.name}.
+                {pub.publisher && <><em>{pub.publisher}</em>.</>} {/* skip publisher (and its period) if blank */}
+                {pub.url && (
+                  <> <a href={pub.url} target="_blank" rel="noopener noreferrer">{pub.url}</a></>
+                )}
               </div>
             ))}
           </div>

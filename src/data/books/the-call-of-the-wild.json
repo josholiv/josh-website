@@ -1,0 +1,23 @@
+{
+  "title": "The Call of the Wild",
+  "subtitle": null,
+  "author": [
+    "Jack London"
+  ],
+  "authorCountry": "US",
+  "authorGender": "m",
+  "category": [
+    "classics",
+    "fiction",
+    "adventure"
+  ],
+  "publisher": null,
+  "pubYear": 1903,
+  "pages": 134,
+  "isbn": null,
+  "rating": 2,
+  "datesRead": [
+    "2026-10-23"
+  ],
+  "cover": "the-call-of-the-wild.jpg"
+}
