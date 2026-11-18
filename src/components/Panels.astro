@@ -126,14 +126,43 @@ if (posts) {
     margin-top: 0;
   }
 
+  .toc-panel {
+    /* Same treatment as the bookshelf search bar */
+    border: 1px solid var(--control-border);
+    border-radius: var(--control-radius);
+    background-color: var(--code-bg);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Nothing to show (e.g. the home page renders <Panels /> with no headings) */
+  .toc-panel:not(:has(.toc)) {
+    display: none;
+  }
+
+  .toc-panel :global(.toc:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* The open body adds its own top padding, so a collapsed title needs no gap below it */
+  .toc-panel :global(.toc-title) {
+    margin-bottom: 0;
+  }
+
   @media (min-width: 1300px) {
     .toc-panel {
       position: fixed;
-      top: 1rem;
-      left: 1rem;            /* Changed from right calculation */
+      /* Just left of the centered content column. The script sets --panel-top so the
+         panel lines up with the content below the h1, then sticks near the top on scroll. */
+      top: var(--panel-top, 4rem);
+      left: max(1rem, calc(50% - (60ch + 2rem) / 2 - 14rem - 2rem));
       width: 14rem;
+      max-height: calc(100vh - var(--panel-top, 4rem) - 1rem);
+      overflow-y: auto;
+      margin-bottom: 0;
       display: flex;
       flex-direction: column;
+      gap: 1rem;
     }
 
     .toc-site-title {
@@ -146,12 +175,9 @@ if (posts) {
       top: auto;
       left: auto;
       width: auto;
-      margin-bottom: 1rem;
-    }
-
-    :global(#toc) {
-      max-height: calc(100vh - 0.6rem - 1.45rem - 0.5rem);
-      overflow-y: auto;
+      max-height: none;
+      overflow-y: visible;
+      margin-bottom: 0;
     }
   }
 </style>
@@ -325,6 +351,8 @@ if (posts) {
   // Hide the TOC nav if there are fewer than 2 h2/h3 headings total.
   if (list && list.querySelectorAll('.toc-item, .toc-subitem').length <= 1) {
     document.getElementById('toc')?.style.setProperty('display', 'none');
+    // Hide the bordered panel too if the TOC was its only content
+    if (!tagPanel) document.querySelector<HTMLElement>('.toc-panel')?.style.setProperty('display', 'none');
   }
 
   // Re-run after auto-populating so newly added headings are immediately highlighted.
@@ -354,4 +382,48 @@ if (posts) {
 
   // Update on window resize
   window.addEventListener('resize', updatePanelsForScreenSize);
+
+  // Desktop: align the panel's top edge with the first content below the h1
+  const panel = document.querySelector<HTMLElement>('.toc-panel');
+  const STICKY_TOP = 16; // px from the viewport top once scrolled past
+  let anchorTop = 0; // document-relative top of the content below the h1
+
+  // First visible, in-flow element in the content area (skipping this panel, which is fixed)
+  function firstInFlowTop(el: Element): number | null {
+    for (const child of Array.from(el.children)) {
+      if (child === panel || ['SCRIPT', 'STYLE', 'LINK'].includes(child.tagName)) continue;
+      const cs = getComputedStyle(child);
+      if (cs.display === 'none' || cs.position === 'fixed' || cs.position === 'absolute') continue;
+      const rect = child.getBoundingClientRect();
+      if (rect.height > 0) return rect.top;
+      const nested = firstInFlowTop(child); // e.g. display: contents wrappers like <astro-island>
+      if (nested !== null) return nested;
+    }
+    return null;
+  }
+
+  function measureAnchor() {
+    const description = document.querySelector('.page-title-block .page-description');
+    const contentBody = document.querySelector('.content-body');
+    const top = description
+      ? description.getBoundingClientRect().top
+      : contentBody ? firstInFlowTop(contentBody) : null;
+    if (top !== null) anchorTop = top + window.scrollY;
+    positionPanel();
+  }
+
+  function positionPanel() {
+    if (!panel || window.innerWidth < DESKTOP_BREAKPOINT) {
+      panel?.style.removeProperty('--panel-top');
+      return;
+    }
+    const top = Math.max(STICKY_TOP, anchorTop - window.scrollY);
+    panel.style.setProperty('--panel-top', `${top}px`);
+  }
+
+  measureAnchor();
+  window.addEventListener('scroll', positionPanel, { passive: true });
+  window.addEventListener('resize', measureAnchor);
+  window.addEventListener('load', measureAnchor);
+  document.fonts?.ready.then(measureAnchor);
 </script>

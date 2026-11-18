@@ -1125,24 +1125,28 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-700); }
   display: none;
 }
 
+/* Divider under the open nav menu, inset by the header padding so it matches a body <hr> */
+header {
+  position: relative;
+}
+
+header.mobile-menu-open::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--text-faint);
+  opacity: 0.35;
+}
+
 @media (max-width: 639px) {
   header {
-    position: relative;
     background-color: var(--bg-primary);
     border: none;
     margin: 0;
     border-radius: 0;
-  }
-
-  header.mobile-menu-open::after {
-    content: "";
-    position: absolute;
-    left: calc(50% - 50vw);
-    bottom: 0;
-    width: 100vw;
-    height: 1px;
-    background-color: var(--text-faint);
-    opacity: 0.35;
   }
 
   .about-header {
