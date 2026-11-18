@@ -1,37 +1,43 @@
 ---
 import { Home, Info, GraduationCap, Rss, Contact } from "lucide-preact";
 const pathname = Astro.url.pathname;
+
+const isHome = pathname === "/" || pathname === "/home" || pathname === "/home/";
+const isAbout = pathname === "/about" || pathname === "/about/";
+const isCv = pathname === "/cv" || pathname === "/cv/";
+const isBlog = pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags");
+const isContact = pathname === "/contact" || pathname === "/contact/";
 ---
 <div class="nav-container">
-<div class="nav-links">
+<div class="nav-links" id="nav-links">
   <div class="nav-links-inner">
-    <a href="/" class={`${pathname === "/" || pathname === "/home" || pathname === "/home/" ? "active" : ""}`} aria-label="Home">
-    <span class="icon-container" aria-hidden="true">
-      <Home size={"1rem"} class="nav-icon"/>
+    <a href="/" class={isHome ? "active" : ""} aria-current={isHome ? "page" : undefined}>
+    <span class="icon-container">
+      <Home size={"1rem"} class="nav-icon" aria-hidden="true"/>
       Home
     </span>
   </a>
-  <a href="/about" class={`${pathname === "/about" || pathname === "/about/" ? "active" : ""}`} aria-label="About">
-    <span class="icon-container" aria-hidden="true">
-      <Info size={"1rem"} class="nav-icon"/>
+  <a href="/about" class={isAbout ? "active" : ""} aria-current={isAbout ? "page" : undefined}>
+    <span class="icon-container">
+      <Info size={"1rem"} class="nav-icon" aria-hidden="true"/>
       About
     </span>
   </a>
-  <a href="/cv" class={`${pathname === "/cv" || pathname === "/cv/" ? "active" : ""}`} aria-label="CV">
-    <span class="icon-container" aria-hidden="true">
-      <GraduationCap size={"1rem"} class="nav-icon"/>
+  <a href="/cv" class={isCv ? "active" : ""} aria-current={isCv ? "page" : undefined}>
+    <span class="icon-container">
+      <GraduationCap size={"1rem"} class="nav-icon" aria-hidden="true"/>
       CV
     </span>
   </a>
-  <a href="/blog" class={`${pathname.startsWith("/blog") || pathname.startsWith("/posts") || pathname.startsWith("/tags") ? "active" : ""}`} aria-label="Blog">
-    <span class="icon-container" aria-hidden="true">
-      <Rss size={"1rem"} class="nav-icon"/>
+  <a href="/blog" class={isBlog ? "active" : ""} aria-current={isBlog ? "page" : undefined}>
+    <span class="icon-container">
+      <Rss size={"1rem"} class="nav-icon" aria-hidden="true"/>
       Blog
     </span>
   </a>
-  <a href="/contact" class={`${pathname === "/contact" || pathname === "/contact/" ? "active" : ""}`} aria-label="Contact">
-    <span class="icon-container" aria-hidden="true">
-      <Contact size={"1rem"} class="nav-icon"/>
+  <a href="/contact" class={isContact ? "active" : ""} aria-current={isContact ? "page" : undefined}>
+    <span class="icon-container">
+      <Contact size={"1rem"} class="nav-icon" aria-hidden="true"/>
       Contact
     </span>
   </a>

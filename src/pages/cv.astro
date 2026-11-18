@@ -87,7 +87,7 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
 
 <BaseLayout pageTitle={pageTitle} titleHtml="CV" pageTitleClass="cv-page-title" shouldCenterTitle={false} titlePrefix={true} ogImage="/social-cards/cv.png">
 
-<main>
+<div class="cv-page">
 <Panels headings={cvHeadings} />
 
  <div class="cv-container">
@@ -311,5 +311,5 @@ function formatEducationSummary(ed: { studyType?: string; area?: string; startDa
     </div>
   </body>
 </html>
-</main>
+</div>
 </BaseLayout>

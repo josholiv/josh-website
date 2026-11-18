@@ -4,7 +4,8 @@ const header = document.querySelector('header');
 
 hamburger.addEventListener('click', () => {
   // Toggle nav menu
-  navLinks.classList.toggle('expanded');
+  const expanded = navLinks.classList.toggle('expanded');
+  hamburger.setAttribute('aria-expanded', String(expanded));
 
   // Toggle "open" state on hamburger to animate lines
   hamburger.classList.toggle('open');

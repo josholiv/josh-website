@@ -14,8 +14,18 @@ import SocialLink from '../components/SocialLink.astro';
   .copyright {
       margin-top: 1rem;
       font-size: 0.875rem;
-      color: var(--bg-border);
+      color: var(--text-faint);
     }
+
+  /* Social icons match the copyright text */
+  footer :global(.icon-list-inline a),
+  footer :global(.icon-list-inline a:visited) {
+    color: var(--text-faint);
+  }
+
+  footer :global(.icon-list-inline a:hover) {
+    color: var(--link-color-hover);
+  }
 </style>
 
 <footer>

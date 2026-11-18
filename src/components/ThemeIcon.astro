@@ -2,7 +2,7 @@
 import { Sun, Moon } from "lucide-preact";
 ---
 
-<button id="themeToggle" aria-label="Toggle theme (Alt+Shift+D)" title="Toggle theme (Alt+Shift+D)" role="switch" aria-checked="false">
+<button id="themeToggle" aria-label="Dark mode" title="Dark mode (Alt+Shift+D)" role="switch" aria-checked="false">
   <span id="track">
     <span id="thumb">
       <Sun id="sun-icon" size={14} />
@@ -28,7 +28,7 @@ import { Sun, Moon } from "lucide-preact";
     border-radius: 7px;
     background: var(--code-bg);
     transition: background 0.3s ease;
-    border: 1px solid var(--code-border);
+    border: 1px solid var(--control-border);
   }
 
   #thumb {

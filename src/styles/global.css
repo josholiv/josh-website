@@ -134,10 +134,10 @@
 --bg-tertiary:       var(--neutral-800);   /* #272725 */
 --bg-border:         var(--neutral-800);   /* #464542 */
 --text-normal:       var(--neutral-400);   /* #dbdad7 */
---text-muted:        var(--neutral-500);   /* #a2a099 */
---text-faint:        var(--neutral-600);   /* #807e79 */
+--text-muted:        #92908a;              /* between neutral-400/500, 6.4:1 on black */
+--text-faint:        var(--neutral-500);   /* #807e79, 5.2:1 on black */
 --text-on-accent:    var(--black);         
---text-heading:      var(--paper);
+--text-heading:      var(--neutral-300);
 --icon-color:        var(--neutral-400);   /* #a2a099 */
 --icon-accent:       var(--cyan-400);      /* #49afa6 */
 --accent:            var(--cyan-400);      /* #49afa6 */
@@ -152,6 +152,7 @@
 --btn-text:          var(--neutral-400);    /* #62615d */
 --btn-text-hover:    var(--text-normal);
 --btn-bg-hover:      var(--neutral-800);   /* #272725 */
+--control-border:    var(--neutral-600);   /* #62615d, 3.4:1 on black (WCAG 1.4.11) */
 --control-radius:    6px;
 
   /* Tag theme colors */
@@ -181,9 +182,9 @@
   --h1-weight: 700;
   --h2-weight: 700;
   --h3-weight: 400;
-  --h4-weight: 200;
-  --h5-weight: 200;
-  --h6-weight: 200;
+  --h4-weight: 400;
+  --h5-weight: 400;
+  --h6-weight: 400;
 }
 
 /* Explicit light override (toggle overrides dark OS preference) */
@@ -194,23 +195,24 @@ html:not(.dark) {
   --bg-border:          var(--neutral-200);    /* #dbdad7 */
   --text-normal:        var(--neutral-700);          /* #100f0f */
   --text-muted:         var(--neutral-600);    /* #62615d */
-  --text-faint:         var(--neutral-500);    /* #807e79 */
+  --text-faint:         #6e6c68;               /* 5.2:1 on white */
   --text-on-accent:     var(--paper);          /* #fffcf0 */
   --text-heading:       var(--black);
   --icon-color:         var(--neutral-600);     /* #785e0c */
   --icon-accent:        var(--cyan-600);     
   --accent:             var(--cyan-600);       
-  --accent-hover:       var(--cyan-400);
+  --accent-hover:       var(--cyan-700);
   --accent-secondary:   var(--red-600);
   --accent-secondary-hover: var(--red-400);
   --link-color:         var(--text-normal);
-  --link-color-hover:   var(--cyan-400);       
+  --link-color-hover:   var(--cyan-600);       /* cyan-400 is only 2.6:1 on white */
   --code-bg:            var(--neutral-050);     
   --code-text:          var(--neutral-700);    /* #464542 */
   --code-border:        var(--neutral-200);     
   --btn-text:          var(--neutral-600);    /* #62615d */
   --btn-text-hover:    var(--text-normal);
   --btn-bg-hover:      var(--cyan-100);
+  --control-border:    #949289;              /* 3.1:1 on white (WCAG 1.4.11) */
   --control-radius:    6px;
 
   /* Tag theme colors (light theme) */
@@ -513,6 +515,20 @@ html:not(.dark) {
 
 * {
   box-sizing: border-box;
+}
+
+/* Visible keyboard focus everywhere (several inputs drop the default outline) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
 
     a {
@@ -942,20 +958,20 @@ blockquote {
 .callout-note    .callout-title { color: var(--purple-400); }
 .callout-code    .callout-title { color: var(--neutral-400); }
 
-/* Light mode: use the 600-shades (anchored for use on light backgrounds) */
-html:not(.dark) .callout-info     .callout-title { color: var(--blue-600); }
-html:not(.dark) .callout-success  .callout-title { color: var(--green-600); }
-html:not(.dark) .callout-warning  .callout-title { color: var(--orange-600); }
-html:not(.dark) .callout-danger   .callout-title { color: var(--red-600); }
-html:not(.dark) .callout-tip      .callout-title { color: var(--pink-600); }
-html:not(.dark) .callout-note     .callout-title { color: var(--purple-600); }
-html:not(.dark) .callout-todo     .callout-title { color: var(--blue-600); }
-html:not(.dark) .callout-abstract .callout-title { color: var(--cyan-600); }
-html:not(.dark) .callout-example  .callout-title { color: var(--purple-600); }
-html:not(.dark) .callout-faq      .callout-title { color: var(--orange-600); }
-html:not(.dark) .callout-bug      .callout-title { color: var(--red-600); }
-html:not(.dark) .callout-quote    .callout-title { color: var(--neutral-600); }
-html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
+/* Light mode: use the 700-shades (600s fall below 4.5:1 on the 200-shade callout backgrounds) */
+html:not(.dark) .callout-info     .callout-title { color: var(--blue-700); }
+html:not(.dark) .callout-success  .callout-title { color: var(--green-700); }
+html:not(.dark) .callout-warning  .callout-title { color: var(--orange-700); }
+html:not(.dark) .callout-danger   .callout-title { color: var(--red-700); }
+html:not(.dark) .callout-tip      .callout-title { color: var(--pink-700); }
+html:not(.dark) .callout-note     .callout-title { color: var(--purple-700); }
+html:not(.dark) .callout-todo     .callout-title { color: var(--blue-700); }
+html:not(.dark) .callout-abstract .callout-title { color: var(--cyan-700); }
+html:not(.dark) .callout-example  .callout-title { color: var(--purple-700); }
+html:not(.dark) .callout-faq      .callout-title { color: var(--orange-700); }
+html:not(.dark) .callout-bug      .callout-title { color: var(--red-700); }
+html:not(.dark) .callout-quote    .callout-title { color: var(--neutral-700); }
+html:not(.dark) .callout-code     .callout-title { color: var(--neutral-700); }
 
 .callout-info,
 .callout-success,
@@ -1081,7 +1097,9 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
   opacity: 0;
   padding-top: 0;
   padding-bottom: 0;
-  transition: grid-template-rows 0.3s ease, opacity 0.12s ease-out, padding 0.3s ease;
+  /* visibility keeps the collapsed links out of the tab order; its transition delay lets the fade finish first */
+  visibility: hidden;
+  transition: grid-template-rows 0.3s ease, opacity 0.12s ease-out, padding 0.3s ease, visibility 0s linear 0.3s;
   pointer-events: none;
 }
 
@@ -1089,7 +1107,8 @@ html:not(.dark) .callout-code     .callout-title { color: var(--neutral-600); }
   display: grid;
   grid-template-rows: 1fr;
   opacity: 1;
-  transition: grid-template-rows 0.3s ease, opacity 0.22s ease-in, padding 0.3s ease;
+  visibility: visible;
+  transition: grid-template-rows 0.3s ease, opacity 0.22s ease-in, padding 0.3s ease, visibility 0s;
   pointer-events: auto;
   position: relative;
   padding-top: 1rem;
@@ -1284,7 +1303,7 @@ a.tag, a.tag:visited {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--code-border);
+  border: 1px solid var(--control-border);
 }
 
 .btn:hover {
@@ -1314,9 +1333,9 @@ input[type="checkbox"] {
   display: inline-grid;
   place-content: center;
   vertical-align: middle;
-  border: 1px solid var(--bg-border);
+  border: 1px solid var(--control-border);
   border-radius: 4px;
-  background-color: var(--bg-code);
+  background-color: var(--code-bg);
   cursor: pointer;
   transition: background-color 0.1s ease, border-color 0.1s ease;
 }
@@ -1604,7 +1623,7 @@ html:not(.dark) .post-card-link::before {
   height: 2.25rem;
   padding: 0 0.5rem;
   border-radius: var(--control-radius);
-  border: 1px solid var(--code-border);
+  border: 1px solid var(--control-border);
   background: var(--code-bg);
   color: var(--btn-text);
   font-size: 0.875rem;
@@ -1639,10 +1658,15 @@ html:not(.dark) .sort-icon-btn.active {
   top: 100%;
   margin-top: 0.25rem;
   background-color: var(--code-bg);
-  border: 1px solid var(--code-border);
+  border: 1px solid var(--control-border);
   border-radius: var(--control-radius);
   overflow: hidden;
   z-index: 10;
+}
+
+/* The menu container carries the border; items don't need their own */
+.sort-dropdown .btn {
+  border-color: transparent;
 }
 
 .sort-dropdown .btn:hover {
@@ -1662,7 +1686,7 @@ html:not(.dark) .sort-icon-btn.active {
   height: 2.25rem;
   padding: 0.5rem 0.75rem;
   border-radius: var(--control-radius);
-  border: 1px solid var(--code-border);
+  border: 1px solid var(--control-border);
   background: var(--code-bg);
   color: var(--text-normal);
   font-size: 0.9rem;

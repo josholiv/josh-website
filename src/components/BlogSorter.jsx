@@ -147,7 +147,7 @@ const BlogSorter = ({ posts, showSort = true, showSearch = true }) => {
           {showSort && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
               {/* <label htmlFor="blog-sort-select" style={{ fontSize: '0.85rem', color: 'var(--text-faint)', whiteSpace: 'nowrap' }}>Sort by</label> */}
-              <select
+              <select aria-label="Sort posts"
                 id="blog-sort-select"
                 className="sort-select"
                 value={sortOrder}

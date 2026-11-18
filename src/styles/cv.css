@@ -204,7 +204,7 @@ body {
     color-scheme: light !important;
   }
 
-  html, body, .page-wrapper, .cv-container, header, main {
+  html, body, .page-wrapper, .cv-container, header, main, .cv-page {
     margin: 0 !important;
     padding: 0 !important;
     height: auto !important;
