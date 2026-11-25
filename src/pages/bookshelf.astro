@@ -133,6 +133,104 @@ for (const book of ratedBooks) {
 const ratingDistArr = [5, 4, 3, 2, 1].map(star => ({ star, count: ratingBuckets[star] }));
 const maxRatingCount = Math.max(...ratingDistArr.map(r => r.count), 1);
 
+// Most read authors: distinct books per author (rereads don't count twice), every
+// credited author gets the book. Whitespace is collapsed since names come straight
+// from the notes and occasionally carry a stray double space.
+const authorBooks = new Map<string, Set<string>>();
+for (const { data } of bookEntries) {
+  for (const raw of data.author) {
+    const name = raw.replace(/\s+/g, ' ').trim();
+    if (!name) continue;
+    if (!authorBooks.has(name)) authorBooks.set(name, new Set());
+    authorBooks.get(name)!.add(data.title.toLowerCase());
+  }
+}
+const topAuthors = [...authorBooks.entries()]
+  .map(([name, titles]) => ({ name, count: titles.size }))
+  .filter(a => a.count >= 2)
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+  .slice(0, 5);
+const maxAuthorCount = Math.max(...topAuthors.map(a => a.count), 1);
+
+// Highest rated authors: mean rating across an author's distinct rated books.
+// Two-book minimum so a single 5-star read can't top the list.
+const authorRatings = new Map<string, Map<string, number>>();
+for (const { data } of bookEntries) {
+  if (data.rating == null) continue;
+  for (const raw of data.author) {
+    const name = raw.replace(/\s+/g, ' ').trim();
+    if (!name) continue;
+    if (!authorRatings.has(name)) authorRatings.set(name, new Map());
+    authorRatings.get(name)!.set(data.title.toLowerCase(), data.rating);
+  }
+}
+const topRatedAuthors = [...authorRatings.entries()]
+  .map(([name, ratings]) => {
+    const vals = [...ratings.values()];
+    return { name, avg: vals.reduce((a, b) => a + b, 0) / vals.length, count: vals.length };
+  })
+  .filter(a => a.count >= 2)
+  .sort((a, b) => b.avg - a.avg || b.count - a.count || a.name.localeCompare(b.name))
+  .slice(0, 5);
+
+// Author gender: unique authors, keyed on the primary author since authorGender
+// (like authorCountry) describes author[0].
+const GENDER_LABELS: Record<string, string> = { f: 'Women', m: 'Men', nb: 'Non-binary' };
+const genderAuthors = new Map<string, Set<string>>();
+for (const { data } of bookEntries) {
+  const g = data.authorGender?.toLowerCase();
+  const primary = data.author[0]?.replace(/\s+/g, ' ').trim();
+  if (!g || !primary) continue;
+  if (!genderAuthors.has(g)) genderAuthors.set(g, new Set());
+  genderAuthors.get(g)!.add(primary.toLowerCase());
+}
+const totalGendered = [...genderAuthors.values()].reduce((n, set) => n + set.size, 0);
+const genderBreakdown = [...genderAuthors.entries()]
+  .map(([g, set]) => ({ label: GENDER_LABELS[g] ?? g, count: set.size }))
+  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+
+// Pie slices as SVG paths, starting at 12 o'clock and running clockwise.
+const PIE_R = 50;
+const PIE_COLORS = ['var(--accent)', 'var(--accent-secondary)', 'var(--text-faint)'];
+const pieSlices = (() => {
+  let angle = -Math.PI / 2;
+  return genderBreakdown.map(({ label, count }, i) => {
+    const frac = count / totalGendered;
+    const start = angle;
+    angle += frac * 2 * Math.PI;
+    const [x1, y1] = [PIE_R * Math.cos(start), PIE_R * Math.sin(start)];
+    const [x2, y2] = [PIE_R * Math.cos(angle), PIE_R * Math.sin(angle)];
+    // A lone 100% slice can't be drawn as a single arc, so fall back to a circle.
+    const d = frac >= 1
+      ? null
+      : `M0 0 L${x1.toFixed(2)} ${y1.toFixed(2)} A${PIE_R} ${PIE_R} 0 ${frac > 0.5 ? 1 : 0} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+    return { label, count, pct: Math.round(frac * 100), d, color: PIE_COLORS[i % PIE_COLORS.length] };
+  });
+})();
+
+// Genres: categories come from the notes with inconsistent casing ("fiction",
+// "magicalRealism"), so normalize before counting. Format and catch-all tags
+// aren't genres, and Fiction/Nonfiction would just dominate the top of the list.
+const NON_GENRES = new Set([
+  'audiobook', 'book club', 'fiction', 'nonfiction', 'novels', 'literature',
+  'adult', 'read for school', 'school',
+]);
+const normalizeGenre = (raw: string) =>
+  raw.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim().toLowerCase();
+const genreCounts = new Map<string, number>();
+for (const { data } of bookEntries) {
+  for (const g of new Set(data.category.map(normalizeGenre))) {
+    if (!g || NON_GENRES.has(g)) continue;
+    genreCounts.set(g, (genreCounts.get(g) ?? 0) + 1);
+  }
+}
+const titleCase = (g: string) => g.replace(/\b\w/g, c => c.toUpperCase());
+const topGenres = [...genreCounts.entries()]
+  .map(([g, count]) => ({ name: titleCase(g), count }))
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+  .slice(0, 5);
+const maxGenreCount = Math.max(...topGenres.map(g => g.count), 1);
+
 // Raincloud: page count distribution
 const rcBookPagePairs = books
   .filter((b: any) => typeof b.pages === 'number' && b.pages > 0)
@@ -468,24 +566,24 @@ const headings = [
     </thead>
     <tbody>
       <tr>
-        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★</td>
-        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Did not like it"</td>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★</td>
-        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"It was okay"</td>
-      </tr>
-      <tr>
-        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★</td>
-        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Liked it"</td>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★★★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"It was amazing"</td>
       </tr>
       <tr>
         <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★★</td>
         <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Really liked it"</td>
       </tr>
       <tr>
-        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★★★</td>
-        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"It was amazing"</td>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Liked it"</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"It was okay"</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">★</td>
+        <td style="font-style: italic; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bg-border);">"Did not like it"</td>
       </tr>
     </tbody>
   </table>
@@ -718,6 +816,44 @@ const headings = [
     </div>
   )}
 
+  {(topAuthors.length > 0 || topRatedAuthors.length > 0) && (
+    <div class="stats-charts">
+      {topAuthors.length > 0 && (
+      <div class="chart-section">
+        <p class="chart-title">Most read authors</p>
+        <div class="rating-bars">
+          {topAuthors.map(({ name, count }) => (
+            <div class="rating-row">
+              <span class="author-label">{name}</span>
+              <div class="rating-bar-track">
+                <div class="rating-bar-fill" style={`width: ${(count / maxAuthorCount) * 100}%`}></div>
+              </div>
+              <span class="rating-count">{count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      )}
+
+      {topRatedAuthors.length > 0 && (
+      <div class="chart-section">
+        <p class="chart-title">Highest rated authors</p>
+        <div class="rating-bars">
+          {topRatedAuthors.map(({ name, avg, count }) => (
+            <div class="rating-row" title={`${count} rated books`}>
+              <span class="author-label">{name}</span>
+              <div class="rating-bar-track">
+                <div class="rating-bar-fill" style={`width: ${(avg / 5) * 100}%`}></div>
+              </div>
+              <span class="rating-count">{avg.toFixed(1)}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      )}
+    </div>
+  )}
+
   {pubYears.length >= 4 && (
     <div class="stats-charts">
       <div class="chart-section chart-section-wide">
@@ -763,6 +899,51 @@ const headings = [
           </div>
         </div>
       </div>
+    </div>
+  )}
+
+  {(totalGendered > 0 || topGenres.length > 0) && (
+    <div class="stats-charts">
+      {totalGendered > 0 && (
+      <div class="chart-section">
+        <p class="chart-title">Authors by gender</p>
+        <div class="pie-wrap">
+          <svg class="pie" viewBox="-52 -52 104 104" role="img" aria-label={pieSlices.map(sl => `${sl.label} ${sl.pct}%`).join(', ')}>
+            {pieSlices.map(sl => sl.d
+              ? <path d={sl.d} fill={sl.color} class="pie-slice"><title>{sl.label}: {sl.count} ({sl.pct}%)</title></path>
+              : <circle r={PIE_R} fill={sl.color} class="pie-slice"><title>{sl.label}: {sl.count} ({sl.pct}%)</title></circle>
+            )}
+          </svg>
+          <ul class="pie-legend">
+            {pieSlices.map(sl => (
+              <li>
+                <span class="pie-swatch" style={`background: ${sl.color}`}></span>
+                <span class="pie-legend-label">{sl.label}</span>
+                <span class="rating-count">{sl.pct}%</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p class="chart-note">{totalGendered} {totalGendered === 1 ? 'author' : 'authors'}</p>
+      </div>
+      )}
+
+      {topGenres.length > 0 && (
+      <div class="chart-section">
+        <p class="chart-title">Top genres</p>
+        <div class="rating-bars">
+          {topGenres.map(({ name, count }) => (
+            <div class="rating-row" title={`${count} ${count === 1 ? 'book' : 'books'}`}>
+              <span class="author-label">{name}</span>
+              <div class="rating-bar-track">
+                <div class="rating-bar-fill" style={`width: ${(count / maxGenreCount) * 100}%`}></div>
+              </div>
+              <span class="rating-count">{count}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      )}
     </div>
   )}
 
@@ -1139,6 +1320,17 @@ const headings = [
     letter-spacing: -1px;
   }
 
+  .author-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    flex: 0 1 9rem;
+    min-width: 0;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .rating-bar-track {
     flex: 1;
     height: 0.9rem;
@@ -1452,6 +1644,64 @@ const headings = [
     fill: var(--accent-hover) !important;
     opacity: 1 !important;
   }
+  .pie-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .pie {
+    width: 7.5rem;
+    height: 7.5rem;
+    flex-shrink: 0;
+  }
+
+  /* Stroke in the card background gives the slices a hairline gap */
+  .pie-slice {
+    stroke: var(--code-bg);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    transition: opacity 0.15s;
+  }
+
+  .pie:hover .pie-slice:not(:hover) {
+    opacity: 0.6;
+  }
+
+  .pie-legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pie-legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pie-swatch {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .pie-legend-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .chart-note {
+    margin: 1rem 0 0;
+    font-size: 0.8rem;
+    font-family: "Atkinson Hyperlegible Mono Variable", "Atkinson Hyperlegible Mono Fallback", monospace;
+    color: var(--text-faint);
+  }
+
   .world-map-summary {
     margin: 1rem 0 0;
     font-size: 0.875rem;

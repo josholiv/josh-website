@@ -615,13 +615,6 @@ html:not(.dark) {
   gap: 0.4rem;
 }
 
-@media (min-width: 1300px) {
-  .tag-filter-list {
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-}
-
 .tag-filter-item {
   display: flex;
 }
@@ -701,22 +694,6 @@ html:not(.dark) {
   color: var(--text-heading);
 }
 
-@media (min-width: 1300px) {
-  .page-wrapper {
-    margin-left: 0rem;   
-  }
-
-  .toc {
-    position: fixed;
-    top: 0.6rem;
-    width: 14rem;
-    margin-bottom: 0;
-    max-height: calc(100vh - 0.6rem);
-    overflow-y: auto;
-    z-index: 100;
-  }
-
-}
 
 hr {
   border: none;
